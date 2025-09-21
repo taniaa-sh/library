@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable} bg-black`}>
-        <div className="max-w-[1280px] mx-auto">
+        <div className="max-w-[1440px] mx-auto">
           {children}
         </div>
       </body>

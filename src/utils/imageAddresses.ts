@@ -4,6 +4,8 @@ const imagesAddresses = {
   },
   images: {
     logo: "/images/Frame.png",
+    loginPic: "/images/loginPic.png",
+    loginBg: "/images/loginBg.png",
   }
 };
 
