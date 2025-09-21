@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import Header from "@/components/Header";
 
 const ibmPlexSans = localFont({
   src: [
@@ -33,10 +34,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased overflow-x-hidden`}
-      >
-        {children}
+      <body className={`${ibmPlexSans.className} ${bebasNeue.variable} bg-black`}>
+        <div className="max-w-[1280px] mx-auto">
+          {children}
+        </div>
       </body>
     </html>
   );
