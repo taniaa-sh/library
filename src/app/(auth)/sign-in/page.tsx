@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import imagesAddresses from '@/utils/imageAddresses'
+import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -56,7 +57,7 @@ const SignIn = () => {
             Don’t have an account already?{" "}
             <span
               className="text-light-200 text-sm font-normal cursor-pointer"
-              onClick={() => router.push("/sign-up")}
+              onClick={() => router.push(SiteUrls.signUp)}
             >
               Register here
             </span>

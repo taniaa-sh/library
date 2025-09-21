@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import imagesAddresses from '@/utils/imageAddresses'
+import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -83,10 +84,10 @@ const SignUp = () => {
           <Button className="w-full">Sign Up</Button>
 
           <div className="text-white text-sm font-normal self-center">
-            Have an account already?{" "}
+            Have an account already?{"  "}
             <span
               className="text-light-200 text-sm font-normal cursor-pointer"
-              onClick={() => router.push("/sign-in")}
+              onClick={() => router.push(SiteUrls.signIn)}
             >
               Login
             </span>
@@ -94,16 +95,16 @@ const SignUp = () => {
         </div>
       </div>
 
-<div className="hidden lg:block relative w-full h-[960px]">
-  <Image
-    src={imagesAddresses.images.loginPic}
-    alt="logo"
-    fill
-    className="object-cover rounded-lg"
-    sizes="(max-width: 1024px) 100vw, 50vw"
-    priority
-  />
-</div>
+      <div className="hidden lg:block relative w-full h-[960px]">
+        <Image
+          src={imagesAddresses.images.loginPic}
+          alt="logo"
+          fill
+          className="object-cover rounded-lg"
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          priority
+        />
+      </div>
     </div>
   )
 }
