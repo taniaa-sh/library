@@ -27,7 +27,6 @@ const Home = () => {
                     rating={4.8}
                     description={"The Lord of the Rings is a novel by English author and scholar J. R. R. Tolkien."}
                     bookImg={imagesAddresses.images.book1}
-                    bookBlurImg={imagesAddresses.images.book1blur}
                     totalBooks={10}
                     availableBooks={4}
                 />
