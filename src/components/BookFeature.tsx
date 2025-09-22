@@ -9,7 +9,6 @@ interface PropsType {
     rating: number
     description: string
     bookImg: string
-    bookBlurImg: string
     totalBooks: number
     availableBooks: number
 }
@@ -22,7 +21,6 @@ const BookFeature = (
         rating,
         description,
         bookImg,
-        bookBlurImg,
         totalBooks,
         availableBooks,
 
@@ -71,11 +69,12 @@ const BookFeature = (
                     className="z-10 relative -right-28"
                 />
                 <Image
-                    src={bookBlurImg}
+                    src={bookImg}
                     alt="book"
                     width={300}
                     height={384}
-                    className="relative top-7"
+                    className="relative top-7 rotate-[18deg] z-0 opacity-90"
+                    style={{ filter: "blur(6px)" }}
                 />
             </div>
         </div>
