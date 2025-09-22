@@ -1,7 +1,18 @@
 import Image from "next/image"
 import { Button } from "./ui/button"
 import imagesAddresses from "@/utils/imageAddresses"
-import { BookFeatureProps } from "@/utils/type"
+
+interface PropsType {
+    title: string
+    Genre: string
+    author: string
+    rating: number
+    description: string
+    bookImg: string
+    bookBlurImg: string
+    totalBooks: number
+    availableBooks: number
+}
 
 const BookFeature = (
     {
@@ -15,7 +26,7 @@ const BookFeature = (
         totalBooks,
         availableBooks,
 
-    }: BookFeatureProps) => {
+    }: PropsType) => {
 
     return (
         <div className="w-full flex">

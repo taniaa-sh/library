@@ -3,23 +3,15 @@
 import "swiper/css";
 import "swiper/css/autoplay";
 import Image from "next/image";
-import imagesAddresses from "@/utils/imageAddresses";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from 'swiper/modules';
+import { BookFeatureProps } from "@/utils/type";
+import { useRouter } from "next/navigation";
+import SiteUrls from "@/utils/routs";
 
-export default function PopularBookSlider() {
+export default function PopularBookSlider({ data }: { data: BookFeatureProps[] }) {
 
-    const popularBooks = [
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-        { src: imagesAddresses.images.book1, title: "title", genre: "imagesAddresses", author: "author" },
-    ];
+    const router = useRouter();
 
     return (
         <div className="w-full overflow-hidden">
@@ -30,20 +22,25 @@ export default function PopularBookSlider() {
                     768: { slidesPerView: 5, spaceBetween: 0 },
                 }}
                 modules={[Autoplay]}
-                autoplay={{ delay: 500 }}
+                autoplay={{ delay: 1000 }}
                 loop
                 centeredSlides
             >
-                {popularBooks.map((popularBook, idx) => (
-                    <SwiperSlide key={idx} className="flex flex-col items-start gap-2">
+                {data.map((popularBook, idx) => (
+                    <SwiperSlide
+                        key={idx}
+                        className="flex flex-col items-center gap-2 cursor-pointer"
+                        onClick={() => router.push(SiteUrls.bookDetail + `/${popularBook.id}`)}
+                    >
                         <Image
-                            src={popularBook.src}
+                            src={popularBook.coverUrl}
                             alt={`Logo ${idx + 1}`}
                             width={200}
                             height={174}
                         />
-                        <p className="text-xl font-semibold text-white leading-6">{popularBook.title} - By {popularBook.author}</p>
-                        <p className="text-base font-normal text-light-100 leading-4">{popularBook.genre}</p>
+                        <p className="text-base font-semibold text-white leading-6 text-center px-8">{popularBook.title}</p>
+                        <p className="text-base font-semibold text-white leading-6 text-center px-8 !mt-2">By {popularBook.author}</p>
+                        <p className="text-base font-normal text-light-100 leading-4 text-center px-8 !mt-2">{popularBook.genre}</p>
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -1,9 +1,21 @@
+'use client';
+
 import BookFeature from "@/components/BookFeature";
 import PopularBookSlider from "@/components/PopularBookSlider";
 import imagesAddresses from "@/utils/imageAddresses";
+import { BookFeatureProps } from "@/utils/type";
+import { useEffect, useState } from "react";
 
-const Home = async () => {
+const Home = () => {
 
+    const [data, setData] = useState<BookFeatureProps[]>([]);
+
+    useEffect(() => {
+        fetch('/data/data.json')
+            .then(res => res.json())
+            .then(json => setData(json))
+            .catch(err => console.error('خطا در خواندن JSON:', err));
+    }, []);
 
     return (
         <>
@@ -22,7 +34,7 @@ const Home = async () => {
             </div>
             <div className="flex flex-col gap-12 mt-20">
                 <p className="text-3xl font-semibold text-light-100">Popular Books</p>
-                <PopularBookSlider />
+                <PopularBookSlider data={data} />
             </div>
         </>
     );

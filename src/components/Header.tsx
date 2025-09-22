@@ -23,7 +23,7 @@ const Header = () => {
         <li>
           <Link
             href="/"
-            className={`${pathName === "/" ? "text-blue-500" : "text-white"}`}
+            className={`${pathName.startsWith("/") && pathName == "/" ? "text-light-200" : "text-white"}`}
           >
             Home
           </Link>
@@ -31,7 +31,7 @@ const Header = () => {
         <li>
           <Link
             href="/search"
-            className={`${pathName === "/search" ? "text-blue-500" : "text-white"}`}
+            className={`${pathName == "/search" ? "text-light-200" : "text-white"}`}
           >
             Search
           </Link>

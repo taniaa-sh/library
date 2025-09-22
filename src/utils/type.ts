@@ -1,11 +1,14 @@
 export type BookFeatureProps = {
-  title: string
-  Genre: string
-  author: string
-  rating: number
-  description: string
-  bookImg: string
-  bookBlurImg: string
-  totalBooks: number
-  availableBooks: number
+  id: string
+  title: string,
+  author: string,
+  genre: string,
+  rating: number,
+  coverUrl: string,
+  coverColor: string,
+  description: string,
+  totalCopies: number,
+  availableCopies: number,
+  videoUrl: string,
+  summary: string
 }
