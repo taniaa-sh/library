@@ -77,6 +77,13 @@ const SignUp = () => {
                 id="idCard"
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="file"
+                accept="image/*,application/pdf"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    console.log("Selected file:", file.name);
+                  }
+                }}
               />
             </div>
           </form>
