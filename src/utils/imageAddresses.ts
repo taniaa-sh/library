@@ -10,6 +10,11 @@ const imagesAddresses = {
     play: "/icons/play1.svg",
     volume: "/icons/volume.svg",
     playWhite: "/icons/play2.svg",
+    greenBook: "/icons/greenBook.svg",
+    list: "/icons/list.svg",
+    calender: "/icons/calender.svg",
+    warning: "/icons/warning.svg",
+    success: "/icons/success.svg",
   },
   images: {
     logo: "/images/Frame.png",
