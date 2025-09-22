@@ -17,6 +17,7 @@ const imagesAddresses = {
     loginBg: "/images/loginBg.png",
     book1: "/images/book1.png",
     book1blur: "/images/book1blur.png",
+    emptyResult: "/images/emptyResult.png",
   }
 };
 
