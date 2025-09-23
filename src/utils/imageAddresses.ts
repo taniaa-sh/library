@@ -15,14 +15,23 @@ const imagesAddresses = {
     calender: "/icons/calender.svg",
     warning: "/icons/warning.svg",
     success: "/icons/success.svg",
+    verify: "/icons/verify.svg",
   },
   images: {
     logo: "/images/Frame.png",
     loginPic: "/images/loginPic.png",
     loginBg: "/images/loginBg.png",
     book1: "/images/book1.png",
+    book2: "/images/book2.png",
+    book3: "/images/book3.png",
+    book4: "/images/book4.png",
+    book5: "/images/book5.png",
+    book6: "/images/book6.png",
+    book7: "/images/book7.png",
+    book8: "/images/book8.png",
     book1blur: "/images/book1blur.png",
     emptyResult: "/images/emptyResult.png",
+    profile: "/images/profile.png",
   }
 };
 
