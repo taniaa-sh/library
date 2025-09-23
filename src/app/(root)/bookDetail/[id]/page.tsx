@@ -318,13 +318,44 @@ const BookDetailPage = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                     <p className="font-semibold text-3xl text-light-100">More similar books</p>
-                    <Image
-                        src={data?.coverUrl || ''}
-                        alt="book"
-                        width={200}
-                        height={200}
-                        className="-ml-12"
-                    />
+                    <div className="grid grid-cols-3">
+                        <Image
+                            src={imagesAddresses.images.book3}
+                            alt="book"
+                            width={200}
+                            height={200}
+                        />
+                        <Image
+                            src={imagesAddresses.images.book2}
+                            alt="book"
+                            width={200}
+                            height={200}
+                        />
+                        <Image
+                            src={imagesAddresses.images.book4}
+                            alt="book"
+                            width={200}
+                            height={200}
+                        />
+                        <Image
+                            src={imagesAddresses.images.book5}
+                            alt="book"
+                            width={200}
+                            height={200}
+                        />
+                        <Image
+                            src={imagesAddresses.images.book6}
+                            alt="book"
+                            width={200}
+                            height={200}
+                        />
+                        <Image
+                            src={imagesAddresses.images.book7}
+                            alt="book"
+                            width={200}
+                            height={200}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

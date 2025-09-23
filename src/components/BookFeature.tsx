@@ -28,7 +28,7 @@ const BookFeature = (
 
     return (
         <div className="w-full flex">
-            <div className="flex flex-col gap-8 w-[645px]">
+            <div className="flex flex-col !w-[1200px]">
                 <div className="flex flex-col gap-3">
                     <p className="text-white font-semibold text-7xl">{title}</p>
                     <div className="w-full flex gap-12">
@@ -50,7 +50,7 @@ const BookFeature = (
                     </div>
                     <p className="text-light-100 font-normal text-xl leading-8">{description}</p>
                 </div>
-                <Button className="w-fit px-6">
+                <Button className="w-fit px-6 mt-8">
                     <Image
                         src={imagesAddresses.icons.bookIcon}
                         alt="book"
@@ -60,13 +60,13 @@ const BookFeature = (
                     Borrow Book Request
                 </Button>
             </div>
-            <div className="flex">
+            <div className="flex relative right-60">
                 <Image
                     src={bookImg}
                     alt="book"
                     width={300}
                     height={384}
-                    className="z-10 relative -right-28"
+                    className="z-10 relative -right-52"
                 />
                 <Image
                     src={bookImg}
