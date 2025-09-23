@@ -32,7 +32,7 @@ const Home = () => {
                 />
             </div>
             <div className="flex flex-col gap-12 mt-20">
-                <p className="text-3xl font-semibold text-light-100">Popular Books</p>
+                <p className="text-xl md:text-3xl font-semibold text-light-100">Popular Books</p>
                 <PopularBookSlider data={data} />
             </div>
         </>

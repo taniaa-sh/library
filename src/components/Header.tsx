@@ -19,7 +19,7 @@ const Header = () => {
         />
       </Link>
 
-      <ul className="flex flex-row items-center text-lg gap-8 cursor-pointer text-white">
+      <ul className="flex-row items-center text-lg gap-8 cursor-pointer text-white md:flex hidden">
         <Link
           href="/"
           className={pathName === "/" ? "!text-light-200" : "text-white"}
