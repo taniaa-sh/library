@@ -8,7 +8,6 @@ import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const BookDetailPage = () => {
-
     const params = useParams();
     const id = params?.id as string;
     const [data, setData] = useState<null | BookFeatureProps>();
@@ -19,21 +18,19 @@ const BookDetailPage = () => {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [volumeRange, setVolumeRange] = useState(50);
-
-    const [showForwardTitle, setShowForwardTitle] = useState<boolean>(false);
-    const [showBackwardTitle, setShowBackwardTitle] = useState<boolean>(false);
-    const [showPauseTitle, setShowPauseTitle] = useState<boolean>(false);
-    const [showPlayTitle, setShowPlayTitle] = useState<boolean>(false);
-    const [soundAdjustment, setSoundAdjustment] = useState<boolean>(false);
+    const [soundAdjustment, setSoundAdjustment] = useState(false);
 
     useEffect(() => {
-        fetch("/data/educationalVideoData.json")
+        fetch('/data/data.json')
             .then((res) => res.json())
-            .then((json) => setData(json));
-    }, []);
+            .then((json: BookFeatureProps[]) => {
+                const selected = json.find(item => item.id === id);
+                setData(selected || null);
+            })
+            .catch((err) => console.error('خطا در دریافت JSON:', err));
+    }, [id]);
 
     const togglePlay = () => {
-        setSoundAdjustment(false)
         if (isPlaying) {
             videoRef.current?.pause();
         } else {
@@ -42,42 +39,25 @@ const BookDetailPage = () => {
         setIsPlaying(!isPlaying);
     };
 
-    const toggleMute = () => {
-        setSoundAdjustment(false)
-        videoRef.current!.muted = !isMuted;
-        setIsMuted(!isMuted);
-        setSoundAdjustment(false);
-    };
-
     const handleTimeUpdate = () => {
         const current = videoRef.current?.currentTime ?? 0;
         const total = videoRef.current?.duration ?? 0;
-
         setCurrentTime(current);
         setDuration(total);
-
-        if (total > 0) {
-            setProgress((current / total) * 100);
-        } else {
-            setProgress(0);
-        }
+        setProgress(total > 0 ? (current / total) * 100 : 0);
     };
 
     const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSoundAdjustment(false)
         const value = Number(e.target.value);
-        videoRef.current!.currentTime = (value / 100) * videoRef.current!.duration;
+        if (videoRef.current) videoRef.current.currentTime = (value / 100) * videoRef.current.duration;
         setProgress(value);
     };
 
-    const handleForward = () => {
-        setSoundAdjustment(false)
-        videoRef.current!.currentTime += 5;
-    };
-
-    const handleBackward = () => {
-        setSoundAdjustment(false)
-        videoRef.current!.currentTime -= 5;
+    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(e.target.value);
+        if (videoRef.current) videoRef.current.volume = value / 100;
+        setVolumeRange(value);
+        setIsMuted(value === 0);
     };
 
     const formatTime = (time: number) => {
@@ -87,27 +67,9 @@ const BookDetailPage = () => {
         return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     };
 
-    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(e.target.value);
-        videoRef.current!.volume = value / 100;
-        setVolumeRange(value);
-    }
-
-    useEffect(() => {
-        fetch('/data/data.json')
-            .then((res) => {
-                if (!res.ok) throw new Error('فایل پیدا نشد یا خطای سرور');
-                return res.json();
-            })
-            .then((json: BookFeatureProps[]) => {
-                const selected = json.find(item => item.id === id);
-                setData(selected || null);
-            })
-            .catch((err) => console.error('خطا در دریافت JSON:', err));
-    }, [id]);
-
     return (
-        <div className="my-20 flex flex-col gap-10">
+        <div className="my-10 sm:my-20 flex flex-col gap-10 px-4 md:px-0">
+            {/* Book Feature */}
             <BookFeature
                 title={data?.title || ''}
                 Genre={data?.genre || ''}
@@ -118,243 +80,175 @@ const BookDetailPage = () => {
                 totalBooks={data?.totalCopies || 0}
                 availableBooks={data?.availableCopies || 0}
             />
-            <div className="flex mt-20 gap-40">
-                <div className="w-[645px] flex flex-col gap-3">
-                    <div className="flex flex-col gap-1">
-                        <p className="font-semibold text-3xl text-light-100">Video</p>
-                        <div className="relative w-full max-w-3xl mx-auto rounded-lg shadow-lg group z-10 overflow-x-hidden">
-                            <div className="w-full rounded-lg overflow-hidden h-1/2 max-h-96 relative border rounded-b-none border-b-0 border-gray-500">
-                                <video
-                                    ref={videoRef}
-                                    src={data?.videoUrl}
-                                    // poster={data?.coverUrl}
-                                    onTimeUpdate={handleTimeUpdate}
-                                    onEnded={() => setIsPlaying(false)}
-                                    onClick={togglePlay}
-                                    onLoadedMetadata={() => {
-                                        if (videoRef.current) {
-                                            setDuration(videoRef.current.duration);
-                                            setProgress(0);
-                                            setCurrentTime(0);
-                                            setIsPlaying(false);
-                                        }
-                                    }}
-                                    className="w-full h-auto object-contain rounded-lg rounded-b-none"
-                                />
 
-                                {!isPlaying && (
-                                    <div
-                                        onClick={togglePlay}
-                                        className="absolute inset-0 flex items-center justify-center transition select-none custom-cursor-pointer"
-                                    >
-                                        <Image
-                                            src={imagesAddresses.icons.playWhite}
-                                            alt="play"
-                                            width={64}
-                                            height={64}
-                                            className="rounded-full p-4"
-                                        />
-                                    </div>
-                                )}
+            {/* Main Section */}
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-40">
+
+                {/* Left Column: Video + Summary */}
+                <div className="flex flex-col w-full lg:w-[645px] gap-6">
+
+                    {/* Video */}
+                    <div className="flex flex-col gap-2">
+                        <p className="font-semibold text-2xl md:text-3xl text-light-100">Video</p>
+                        <div className="relative w-full rounded-lg shadow-lg overflow-hidden border border-gray-500">
+                            <video
+                                ref={videoRef}
+                                src={data?.videoUrl}
+                                onTimeUpdate={handleTimeUpdate}
+                                onEnded={() => setIsPlaying(false)}
+                                onClick={togglePlay}
+                                onLoadedMetadata={() => {
+                                    if (videoRef.current) {
+                                        setDuration(videoRef.current.duration);
+                                        setProgress(0);
+                                        setCurrentTime(0);
+                                        setIsPlaying(false);
+                                    }
+                                }}
+                                className="w-full h-auto object-contain"
+                            />
+                            {!isPlaying && (
+                                <div
+                                    onClick={togglePlay}
+                                    className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/20"
+                                >
+                                    <Image
+                                        src={imagesAddresses.icons.playWhite}
+                                        alt="play"
+                                        width={64}
+                                        height={64}
+                                        className="rounded-full p-4"
+                                    />
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Controls */}
+                        <div className="flex flex-col bg-gray-600 p-4 items-center gap-4 rounded-b-lg">
+                            {/* Progress Bar */}
+                            <div className="w-full flex items-center gap-2">
+                                <span className="text-sm">{formatTime(currentTime)}</span>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value={progress}
+                                    onChange={handleSeek}
+                                    className="flex-1 h-1 bg-gray-300 rounded-lg cursor-pointer"
+                                    style={{
+                                        background: `linear-gradient(to right, #175CD3 0%, #175CD3 ${progress}%, #ddd ${progress}%, #ddd 100%)`
+                                    }}
+                                />
+                                <span className="text-sm">{formatTime(duration)}</span>
                             </div>
 
-                            {/* Mobile NavBar */}
-                            <div className="flex flex-col bg-gray-600 p-4 items-center gap-5 transition rounded-b-lg">
-
-                                <div className="w-full flex items-center gap-2 flex-1 z-50 select-none">
-                                    {/* Total Time */}
-                                    <span className="text-sm text-gray900">{formatTime(currentTime)}</span>
-
-                                    {/* Progress bar */}
-                                    <input
-                                        type="range"
-                                        min="0"
-                                        max="100"
-                                        value={progress}
-                                        onChange={handleSeek}
-                                        className="custom-range flex-1 h-1 bg-gray300 rounded-lg cursor-pointer scroll-blue"
-                                        style={{
-                                            background: `linear-gradient(to right, #175CD3 0%, #175CD3 ${progress}%, #ddd ${progress}%, #ddd 100%)`
+                            {/* Play/Volume Controls */}
+                            <div className="flex items-center justify-between w-full">
+                                <div className="flex items-center gap-4">
+                                    <Image
+                                        src={imagesAddresses.icons.backward}
+                                        alt="back"
+                                        width={24}
+                                        height={24}
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                            if (videoRef.current) videoRef.current.currentTime -= 5;
                                         }}
                                     />
-
-                                    {/* Current Time */}
-                                    <span className="text-sm text-gray900">{formatTime(duration)}</span>
-
+                                    {isPlaying ? (
+                                        <Image
+                                            src={imagesAddresses.icons.pause}
+                                            alt="pause"
+                                            width={20}
+                                            height={20}
+                                            className="cursor-pointer"
+                                            onClick={togglePlay}
+                                        />
+                                    ) : (
+                                        <Image
+                                            src={imagesAddresses.icons.play}
+                                            alt="play"
+                                            width={20}
+                                            height={20}
+                                            className="cursor-pointer"
+                                            onClick={togglePlay}
+                                        />
+                                    )}
+                                    <Image
+                                        src={imagesAddresses.icons.forward}
+                                        alt="forward"
+                                        width={24}
+                                        height={24}
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                            if (videoRef.current) videoRef.current.currentTime += 5;
+                                        }}
+                                    />
                                 </div>
-
-                                <div className="flex items-center justify-between w-full select-none">
-
-                                    {/* Play/Pause */}
-                                    <div className="flex items-center gap-2 cursor-pointer z-50">
-                                        <div
-                                            className="relative"
-                                        >
+                                <div className="relative flex items-center gap-3">
+                                    {(isMuted || volumeRange === 0) ? (
+                                        <Image
+                                            src={imagesAddresses.icons.mute}
+                                            alt="mute"
+                                            width={20}
+                                            height={20}
+                                            className="cursor-pointer"
+                                            onClick={() => setIsMuted(false)}
+                                        />
+                                    ) : (
+                                        <div className="relative">
                                             <Image
-                                                src={imagesAddresses.icons.forward}
-                                                alt="play"
+                                                src={imagesAddresses.icons.volume}
+                                                alt="volume"
                                                 width={20}
                                                 height={20}
-                                                onClick={handleBackward}
-                                            />
-                                        </div>
-                                        <div onClick={togglePlay}>
-                                            {isPlaying ? (
-                                                <div
-                                                    className="cursor-pointer"
-                                                >
-                                                    <Image
-                                                        src={imagesAddresses.icons.pause}
-                                                        alt="pause"
-                                                        width={16}
-                                                        height={16}
-                                                    />
-                                                </div>
-                                            ) : (
-                                                <div
-                                                    className="cursor-pointer"
-                                                >
-                                                    <Image
-                                                        src={imagesAddresses.icons.play}
-                                                        alt="play"
-                                                        width={20}
-                                                        height={20}
-                                                    />
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="relative">
-                                            <Image
-                                                src={imagesAddresses.icons.backward}
-                                                alt="play"
-                                                width={24}
-                                                height={24}
-                                                onClick={handleForward}
                                                 className="cursor-pointer"
+                                                onClick={() => setSoundAdjustment(!soundAdjustment)}
                                             />
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-3 z-50">
-                                        {/* Volume Section */}
-                                        <div className="relative">
-                                            {(isMuted || volumeRange === 0) ? (
-                                                <Image
-                                                    src={imagesAddresses.icons.mute}
-                                                    alt="mute"
-                                                    width={20}
-                                                    height={20}
-                                                    className="cursor-pointer"
-                                                    onClick={() => {
-                                                        setIsMuted(false);
-                                                        if (volumeRange === 0) setVolumeRange(50);
-                                                    }}
+                                            {soundAdjustment && (
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="100"
+                                                    value={volumeRange}
+                                                    onChange={handleVolumeChange}
+                                                    onBlur={() => setSoundAdjustment(false)}
+                                                    className="absolute rotate-90 bottom-12 -right-5 w-20 cursor-pointer"
                                                 />
-                                            ) : (
-                                                <div
-                                                    className="cursor-pointer relative"
-                                                    onClick={() => {
-                                                        setSoundAdjustment(!soundAdjustment)
-                                                    }}
-                                                >
-                                                    <Image
-                                                        src={imagesAddresses.icons.volume}
-                                                        alt="volume"
-                                                        width={20}
-                                                        height={20}
-                                                        className="cursor-pointer z-50"
-                                                    />
-
-                                                    {soundAdjustment && (
-                                                        <input
-                                                            type="range"
-                                                            min="0"
-                                                            max="100"
-                                                            value={volumeRange}
-                                                            onChange={(e) => {
-                                                                handleVolumeChange(e);
-                                                                if (e.target.value === "0") {
-                                                                    setIsMuted(true);
-                                                                } else {
-                                                                    setIsMuted(false);
-                                                                }
-                                                            }}
-                                                            onBlur={() => setSoundAdjustment(false)}
-                                                            className="absolute accent-brand600 rotate-[90deg] bottom-[52px] -right-7 w-20 text-gray700 p-2 rounded text-xs shadow-lg z-50 cursor-pointer"
-                                                        />
-                                                    )}
-                                                </div>
                                             )}
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
-
-                                {soundAdjustment && (
-                                    <div
-                                        className="fixed inset-0 z-10"
-                                        onClick={() => setSoundAdjustment(false)}
-                                    />
-                                )}
                             </div>
-
                         </div>
                     </div>
-                    <div className="flex flex-col gap-1">
-                        <p className="font-semibold text-3xl text-light-100">Summary</p>
-                        <div className="flex flex-col gap-2">
-                            <p className="font-normal text-xl leading-8 text-light-100">
-                                People in Glass Houses by Jayne Castle (a pseudonym for Jayne Ann Krentz) is a science fiction romance set in a future world where people with psychic abilities live in harmony with advanced technology. The story follows the main characters, Harriet and Sam, who are drawn together under unusual circumstances.
-                            </p>
-                            <p className="font-normal text-xl leading-8 text-light-100">
-                                Harriet, a talented psychic, works for a company that offers psychic services in a futuristic society. When she finds herself tangled in a dangerous situation involving a mysterious conspiracy, she enlists the help of Sam, a former investigator with a dark past. As they uncover the secrets surrounding a glass house—a mysterious structure tied to their investigation—they must navigate their growing attraction while facing hidden dangers.
-                            </p>
-                            <p className="font-normal text-xl leading-8 text-light-100">
-                                {
-                                    `The novel combines elements of mystery, suspense, and romance, with a focus on psychic abilities, futuristic technology, and the complexities of relationships. The title, "People in Glass Houses," symbolizes the fragile nature of the world the characters inhabit and the vulnerabilities they face in their personal and professional lives.`
-                                }
+
+                    {/* Summary */}
+                    <div className="flex flex-col gap-2">
+                        <p className="font-semibold text-2xl md:text-3xl text-light-100">Summary</p>
+                        <div className="flex flex-col gap-3">
+                            <p className="text-base md:text-xl leading-7 md:leading-8 text-light-100">
+                                {data?.summary}
                             </p>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                    <p className="font-semibold text-3xl text-light-100">More similar books</p>
-                    <div className="grid grid-cols-3">
-                        <Image
-                            src={imagesAddresses.images.book3}
-                            alt="book"
-                            width={200}
-                            height={200}
-                        />
-                        <Image
-                            src={imagesAddresses.images.book2}
-                            alt="book"
-                            width={200}
-                            height={200}
-                        />
-                        <Image
-                            src={imagesAddresses.images.book4}
-                            alt="book"
-                            width={200}
-                            height={200}
-                        />
-                        <Image
-                            src={imagesAddresses.images.book5}
-                            alt="book"
-                            width={200}
-                            height={200}
-                        />
-                        <Image
-                            src={imagesAddresses.images.book6}
-                            alt="book"
-                            width={200}
-                            height={200}
-                        />
-                        <Image
-                            src={imagesAddresses.images.book7}
-                            alt="book"
-                            width={200}
-                            height={200}
-                        />
+
+                {/* Right Column: Similar Books */}
+                <div className="flex flex-col gap-3 w-full lg:w-auto">
+                    <p className="font-semibold text-2xl md:text-3xl text-light-100">More similar books</p>
+                    <div className="flex overflow-x-auto gap-3 lg:grid lg:grid-cols-3">
+                        {[3, 2, 4, 5, 6, 7].map((num) => (
+                            <div key={num} className="flex-shrink-0 w-40 lg:w-auto">
+                                <Image
+                                    src={(imagesAddresses as any).images[`book${num}`]}
+                                    alt="book"
+                                    width={200}
+                                    height={200}
+                                    className="rounded-lg object-cover"
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -362,4 +256,4 @@ const BookDetailPage = () => {
     )
 }
 
-export default BookDetailPage
+export default BookDetailPage;

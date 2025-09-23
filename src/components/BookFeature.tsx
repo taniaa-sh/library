@@ -24,8 +24,8 @@ const BookFeature = ({
     availableBooks,
 }: PropsType) => {
     return (
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20">
-            <div className="flex flex-col max-w-[1200px] gap-5 px-4 md:px-0 text-center md:text-left">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-10 md:gap-20">
+            <div className="flex flex-col max-w-[700px] gap-5 px-4 md:px-0 text-center md:text-left">
                 <p className="text-white font-semibold text-3xl md:text-5xl lg:text-7xl">{title}</p>
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 justify-center md:justify-start">
