@@ -4,7 +4,52 @@ import Image from "next/image"
 const Profile = () => {
     return (
         <div className="w-full mt-2 flex gap-20 px-10">
-            <div className="w-full rounded-lg bg-[#232839] h-[768px] p-10">hhh</div>
+            <div className="w-full flex flex-col gap-9 rounded-lg bg-[#232839] h-[730px] p-10 relative">
+                <div className="absolute z-10 rounded-b-full w-[59px] h-[80px] bg-[#464F6F] -top-3 left-60">
+                    <div className="absolute z-20 top-14 left-2.5 rounded-2xl w-10 h-[10px] bg-[#1E2230]" />
+                </div>
+                <div className="flex flex-col gap-8 mt-18">
+                    <div className="flex gap-7">
+                        <Image
+                            src={imagesAddresses.images.profile}
+                            alt="prfile"
+                            width={100}
+                            height={100}
+                            className="rounded-full border-8 border-[#363e58]"
+                        />
+                        <div className="py-1 flex flex-col gap-2">
+                            <div className="flex items-center gap-1">
+                                <Image
+                                    src={imagesAddresses.icons.verify}
+                                    alt="verify"
+                                    width={18}
+                                    height={18}
+                                    className="rounded-full"
+                                />
+                                <p className="text-light-100 font-normal text-sm leading-[20px]">Verified Student</p>
+                            </div>
+                            <p className="font-semibold text-2xl leading-[30px] text-white">Adrian</p>
+                            <p className="text-light-100 font-normal text-[18px] leading-[20px]">contact@jsmastery.pro</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col fap-2">
+                        <p className="text-light-100 font-normal text-[18px] leading-7">University</p>
+                        <p className="font-semibold text-2xl leading-8 text-white">JS Mastery Pro</p>
+                    </div>
+                    <div className="flex flex-col fap-2">
+                        <p className="text-light-100 font-normal text-[18px] leading-7">Student ID</p>
+                        <p className="font-semibold text-2xl leading-8 text-white">234567856</p>
+                    </div>
+                    <div className="w-full bg-amber-100 rounded-lg relative h-64">
+                        <Image
+                            src={imagesAddresses.images.loginPic}
+                            alt="profile"
+                            fill
+                            className="object-cover rounded-lg"
+                        />
+                    </div>
+                </div>
+            </div>
             <div className="w-full flex flex-col gap-3">
                 <p className="text-light-100 font-semibold text-3xl">Borrowed books</p>
                 <div className="grid grid-cols-2 gap-5">
