@@ -5,10 +5,39 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 
 const SignUp = () => {
   const router = useRouter()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [universityIDNumber, setUniversityIDNumber] = useState("")
+  const [idCard, setIdCard] = useState<File | null>(null)
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append("fullName", firstName)
+    formData.append("email", email)
+    formData.append("password", password)
+    formData.append("universityId", universityIDNumber)
+    if (idCard) formData.append("idCard", idCard)
+
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      body: formData
+    })
+
+    if (res.ok) {
+      alert("Account created successfully!")
+      router.push(SiteUrls.signIn)
+    } else {
+      alert("Failed to create account")
+    }
+  }
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row overflow-y-hidden">
@@ -38,6 +67,7 @@ const SignUp = () => {
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="text"
                 placeholder="Enter your full name"
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
 
@@ -48,6 +78,7 @@ const SignUp = () => {
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="email"
                 placeholder="Enter your email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -58,6 +89,7 @@ const SignUp = () => {
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="text"
                 placeholder="Enter your university ID number"
+                onChange={(e) => setUniversityIDNumber(e.target.value)}
               />
             </div>
 
@@ -68,6 +100,7 @@ const SignUp = () => {
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="password"
                 placeholder="Enter your password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
@@ -82,13 +115,19 @@ const SignUp = () => {
                   const file = e.target.files?.[0];
                   if (file) {
                     console.log("Selected file:", file.name);
+                    setIdCard(file)
                   }
                 }}
               />
             </div>
           </form>
 
-          <Button className="w-full">Sign Up</Button>
+          <Button
+            className="w-full"
+            onClick={handleSignUp}
+          >
+            Sign Up
+          </Button>
 
           <div className="text-white text-sm font-normal self-center">
             Have an account already?{"  "}

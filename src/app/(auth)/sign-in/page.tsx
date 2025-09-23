@@ -5,10 +5,30 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
+import { signIn } from "next-auth/react"
 
 const SignIn = () => {
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const router = useRouter()
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    })
+
+    if (res?.error) {
+      alert("Login failed")
+    } else {
+      router.push("/dashboard")
+    }
+  }
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row">
@@ -38,6 +58,7 @@ const SignIn = () => {
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="email"
                 placeholder="Enter your email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -47,11 +68,17 @@ const SignIn = () => {
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="password"
                 placeholder="Enter your password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </form>
 
-          <Button className="w-full">Login</Button>
+          <Button
+            className="w-full"
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
 
           <div className="text-white text-sm font-normal self-center">
             Don’t have an account already?{" "}
