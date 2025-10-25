@@ -1,7 +1,12 @@
 import imagesAddresses from "@/utils/imageAddresses"
 import Image from "next/image"
 
-const Profile = () => {
+const Profile = async () => {
+    async function fakeFetch() {
+        return new Promise((resolve) => setTimeout(resolve, 3000));
+    }
+    await fakeFetch();
+
     return (
         <div className="w-full mt-4 flex flex-col md:flex-row gap-10 md:gap-20 px-4 md:px-10">
             {/* Left Column: Profile Info */}
