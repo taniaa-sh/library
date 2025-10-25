@@ -149,3 +149,81 @@
     background-image: url('/images/pattern.webp');
   }
 }
+
+.notfound {
+  font-size: 5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 5px white, 0 0 20px white;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 800px) {
+  .notfound {
+    font-size: 2.5rem;
+  }
+}
+
+.notfound span {
+  display: inline-block;
+}
+
+.disable {
+  color: rgba(255, 255, 255, 0.52);
+  text-shadow: 0 0 40px rgba(111, 104, 104, 48);
+  filter: blur(1.5px);
+}
+
+.ghost {
+  color: transparent;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  animation: ghostfade 1s infinite alternate;
+}
+
+.blink {
+  animation: softBlink 1s infinite ease-in-out;
+}
+
+@keyframes softBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px rgba(255, 255, 255, 0.7),
+      0 0 20px rgba(255, 255, 255, 0.5);
+  }
+
+  50% {
+    opacity: 0.9;
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px white;
+  }
+
+  100% {
+    text-shadow: 0 0 20px white;
+  }
+}
+
+@keyframes ghostfade {
+
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.custom-cursor-pointer {
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.35) !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  cursor: url("/flash2.svg") 16 16, auto !important;
+}
