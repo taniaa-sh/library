@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Button } from "./ui/button"
 import imagesAddresses from "@/utils/imageAddresses"
+import { toast } from "sonner"
 
 interface PropsType {
     title: string
@@ -59,7 +60,10 @@ const BookFeature = ({
 
                 <p className="text-light-100 text-sm md:text-lg leading-6 md:leading-8">{description}</p>
 
-                <Button className="w-fit self-center md:self-start px-6 mt-6 md:mt-8">
+                <Button
+                    onClick={() => toast.success("Book request sent successfully")}
+                    className="w-fit self-center md:self-start px-6 mt-6 md:mt-8 cursor-pointer"
+                >
                     <Image
                         src={imagesAddresses.icons.bookIcon}
                         alt="book"
