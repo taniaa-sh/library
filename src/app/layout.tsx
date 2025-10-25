@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
-import Header from "@/components/Header";
 import { Toaster } from "sonner";
+import ProgressBar from "@/components/ProgressBar";
 
 const ibmPlexSans = localFont({
   src: [
@@ -37,6 +37,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable} bg-black`}>
         <div className="max-w-[1440px] mx-auto">
+          <ProgressBar />
           {children}
           <Toaster position="top-right" richColors />
         </div>
