@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { signIn } from "next-auth/react"
+import { toast } from 'sonner'
 
 const SignIn = () => {
 
@@ -17,6 +18,11 @@ const SignIn = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    if (!email || !password) {
+       toast.error("Please enter email and password")
+      return
+    }
+
     const res = await signIn("credentials", {
       redirect: false,
       email,
@@ -24,7 +30,7 @@ const SignIn = () => {
     })
 
     if (res?.error) {
-      alert("Login failed")
+      toast.error("Invalid email or password")
     } else {
       router.push("/dashboard")
     }
@@ -74,7 +80,7 @@ const SignIn = () => {
           </form>
 
           <Button
-            className="w-full"
+            className="w-full cursor-pointer"
             onClick={handleLogin}
           >
             Login

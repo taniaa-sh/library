@@ -6,6 +6,7 @@ import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { toast } from 'sonner'
 
 const SignUp = () => {
   const router = useRouter()
@@ -32,10 +33,11 @@ const SignUp = () => {
     })
 
     if (res.ok) {
-      alert("Account created successfully!")
+      toast.success("Account created successfully")
       router.push(SiteUrls.signIn)
     } else {
-      alert("Failed to create account")
+      const error = await res.json()
+      toast.error(error.error)
     }
   }
 
@@ -86,6 +88,7 @@ const SignUp = () => {
               <label htmlFor="universityId" className="text-sm">University ID Number</label>
               <input
                 id="universityId"
+                maxLength={11}
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="text"
                 placeholder="Enter your university ID number"
@@ -123,7 +126,7 @@ const SignUp = () => {
           </form>
 
           <Button
-            className="w-full"
+            className="w-full cursor-pointer"
             onClick={handleSignUp}
           >
             Sign Up
