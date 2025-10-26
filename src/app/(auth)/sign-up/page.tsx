@@ -18,32 +18,35 @@ const SignUp = () => {
   const [idCard, setIdCard] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    setIsLoading(true)
-    e.preventDefault()
+const handleSignUp = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    const formData = new FormData()
-    formData.append("fullName", firstName)
-    formData.append("email", email)
-    formData.append("password", password)
-    formData.append("universityId", universityIDNumber)
-    if (idCard) formData.append("idCard", idCard)
-
+  try {
     const res = await fetch("/api/auth/signup", {
       method: "POST",
-      body: formData
-    })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullName: firstName,
+        email,
+        universityId: universityIDNumber
+      })
+    });
 
     if (res.ok) {
-      toast.success("Account created successfully")
-      router.push(SiteUrls.signIn)
+      toast.success("Account created successfully");
+      router.push(SiteUrls.signIn);
     } else {
-      const error = await res.json()
-      toast.error(error.error)
+      const error = await res.json();
+      toast.error(error.error);
     }
-
-    setIsLoading(false)
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong");
+  } finally {
+    setIsLoading(false);
   }
+}
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row overflow-y-hidden">
@@ -100,7 +103,7 @@ const SignUp = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
               <label htmlFor="password" className="text-sm">Password</label>
               <input
                 id="password"
@@ -109,9 +112,9 @@ const SignUp = () => {
                 placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </div>
+            </div> */}
 
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
               <label htmlFor="idCard" className="text-sm">Upload University ID Card</label>
               <input
                 id="idCard"
@@ -126,7 +129,7 @@ const SignUp = () => {
                   }
                 }}
               />
-            </div>
+            </div> */}
           </form>
 
           <Button
@@ -135,7 +138,7 @@ const SignUp = () => {
           >
             {
               isLoading ? (
-                <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
+               <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
               ) : (
                 "Sign Up"
               )
