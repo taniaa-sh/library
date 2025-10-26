@@ -13,13 +13,15 @@ const SignIn = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
 
     if (!email || !password) {
-       toast.error("Please enter email and password")
+      toast.error("Please enter email and password")
       return
     }
 
@@ -34,6 +36,8 @@ const SignIn = () => {
     } else {
       router.push("/dashboard")
     }
+
+    setLoading(false)
   }
 
   return (
@@ -83,7 +87,13 @@ const SignIn = () => {
             className="w-full cursor-pointer"
             onClick={handleLogin}
           >
-            Login
+            {
+              loading ? (
+                <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black animate-spin' />
+              ) : (
+                "Login"
+              )
+            }
           </Button>
 
           <div className="text-white text-sm font-normal self-center">

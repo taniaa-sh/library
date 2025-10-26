@@ -16,8 +16,10 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState("")
   const [universityIDNumber, setUniversityIDNumber] = useState("")
   const [idCard, setIdCard] = useState<File | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSignUp = async (e: React.FormEvent) => {
+    setIsLoading(true)
     e.preventDefault()
 
     const formData = new FormData()
@@ -39,6 +41,8 @@ const SignUp = () => {
       const error = await res.json()
       toast.error(error.error)
     }
+
+    setIsLoading(false)
   }
 
   return (
@@ -129,7 +133,13 @@ const SignUp = () => {
             className="w-full cursor-pointer"
             onClick={handleSignUp}
           >
-            Sign Up
+            {
+              isLoading ? (
+                <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
+              ) : (
+                "Sign Up"
+              )
+            }
           </Button>
 
           <div className="text-white text-sm font-normal self-center">
