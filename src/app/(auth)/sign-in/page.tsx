@@ -74,6 +74,7 @@ const SignIn = () => {
             <div className="flex flex-col gap-1">
               <label htmlFor="password" className="text-sm">Password</label>
               <input
+                maxLength={11}
                 id="password"
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
                 type="password"
