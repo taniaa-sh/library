@@ -59,7 +59,7 @@ const Header = () => {
 
       {/* mobile*/}
       {isMenuOpen && (
-        <nav className="absolute top-full left-0 w-full bg-gray-900 flex flex-col items-center py-4 gap-4 md:hidden shadow-lg animate-fade-in">
+        <nav className="absolute top-full left-0 w-full bg-gray-900 flex flex-col items-center py-4 gap-4 md:hidden shadow-lg animate-fade-in z-50">
           {menuItems.map((item) => (
             <Link
               key={item.href}
