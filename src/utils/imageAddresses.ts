@@ -16,6 +16,8 @@ const imagesAddresses = {
     warning: "/icons/warning.svg",
     success: "/icons/success.svg",
     verify: "/icons/verify.svg",
+    closeMenue: "/icons/closeMenue.svg",
+    menue: "/icons/menu.svg",
   },
   images: {
     logo: "/images/Frame.png",
