@@ -35,7 +35,7 @@ const SignIn = () => {
     if (res?.error) {
       toast.error("Invalid email or password")
     } else {
-      router.push("/dashboard")
+      router.push(SiteUrls.dashbord)
     }
 
     setLoading(false)

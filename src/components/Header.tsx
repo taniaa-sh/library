@@ -1,6 +1,7 @@
 "use client";
 
 import imagesAddresses from "@/utils/imageAddresses";
+import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,21 +23,21 @@ const Header = () => {
       <ul className="flex-row items-center text-lg gap-8 cursor-pointer text-white md:flex hidden">
         <Link
           href="/"
-          className={pathName === "/" ? "!text-light-200" : "text-white"}
+          className={pathName === SiteUrls.home? "!text-light-200" : "text-white"}
         >
           Home
         </Link>
 
         <Link
           href="/search"
-          className={pathName === "/search" ? "!text-light-200" : "text-white"}
+          className={pathName === SiteUrls.search? "!text-light-200" : "text-white"}
         >
           Search
         </Link>
 
         <Link
           href="/profile"
-          className={pathName === "/profile" ? "!text-light-200" : "text-white"}
+          className={pathName === SiteUrls.profile ? "!text-light-200" : "text-white"}
         >
           Profile
         </Link>
