@@ -52,8 +52,8 @@ const Header = () => {
         <Image
           src={isMenuOpen ? imagesAddresses.icons.closeMenue : imagesAddresses.icons.menue}
           alt="Menu"
-          width={30}
-          height={30}
+          width={20}
+          height={20}
         />
       </div>
 
