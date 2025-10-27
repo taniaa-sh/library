@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     }
 
     const client = await clientPromise;
-    const usersCollection = client.db("sample_mflix").collection("users");
+    const usersCollection = client.db("library").collection("users")
 
     const existingUser = await usersCollection.findOne({ email });
     if (existingUser) {
