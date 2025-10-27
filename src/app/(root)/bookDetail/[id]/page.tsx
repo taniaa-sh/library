@@ -238,17 +238,20 @@ const BookDetailPage = () => {
                 <div className="flex flex-col gap-3 w-full lg:w-auto">
                     <p className="font-semibold text-2xl md:text-3xl text-light-100">More similar books</p>
                     <div className="flex overflow-x-auto gap-3 lg:grid lg:grid-cols-3">
-                        {[3, 2, 4, 5, 6, 7].map((num) => (
-                            <div key={num} className="flex-shrink-0 w-40 lg:w-auto">
-                                <Image
-                                    src={(imagesAddresses as any).images[`book${num}`]}
-                                    alt="book"
-                                    width={200}
-                                    height={200}
-                                    className="rounded-lg object-cover"
-                                />
-                            </div>
-                        ))}
+                        {[3, 2, 4, 5, 6, 7].map((num) => {
+                            const key = `book${num}` as keyof typeof imagesAddresses.images;
+                            return (
+                                <div key={num} className="flex-shrink-0 w-40 lg:w-auto">
+                                    <Image
+                                        src={imagesAddresses.images[key]}
+                                        alt="book"
+                                        width={200}
+                                        height={200}
+                                        className="rounded-lg object-cover"
+                                    />
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

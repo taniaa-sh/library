@@ -32,8 +32,8 @@ const imagesAddresses = {
     book1blur: "/images/book1blur.png",
     emptyResult: "/images/emptyResult.png",
     profile: "/images/profile.png",
-    notFoundBg: "/images/notFoundBg.png"
-  }
-};
+    notFoundBg: "/images/notFoundBg.png",
+  },
+} as const;
 
 export default imagesAddresses;

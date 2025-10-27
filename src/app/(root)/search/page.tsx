@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button"
 import imagesAddresses from "@/utils/imageAddresses"
 import Image from "next/image"
-import { useState } from "react"
+// import { useState } from "react"
 
 const SearchBook = () => {
 
-    const [seach, setSearch] = useState("")
+    // const [seach, setSearch] = useState("")
 
     const handleSearch = () => { }
 
@@ -24,7 +24,7 @@ const SearchBook = () => {
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleSearch()
                     }}
-                    onChange={(e) => setSearch(e.target.value)}
+                    // onChange={(e) => setSearch(e.target.value)}
                 />
                 <Button
                     className="p-[22px] cursor-pointer"
@@ -46,7 +46,7 @@ const SearchBook = () => {
                 </p>
                 <Button
                     className="cursor-pointer w-full"
-                    onClick={() => setSearch("")}
+                    // onClick={() => setSearch("")}
                 >
                     Clear Search
                 </Button>

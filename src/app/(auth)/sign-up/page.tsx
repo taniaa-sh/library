@@ -12,10 +12,10 @@ const SignUp = () => {
   const router = useRouter()
 
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  // const [password, setPassword] = useState("")
   const [firstName, setFirstName] = useState("")
   const [universityIDNumber, setUniversityIDNumber] = useState("")
-  const [idCard, setIdCard] = useState<File | null>(null)
+  // const [idCard, setIdCard] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
 const handleSignUp = async (e: React.FormEvent) => {
