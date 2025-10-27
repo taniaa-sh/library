@@ -1,7 +1,6 @@
 import NextAuth, { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import clientPromise from "@/lib/mongodb"
-import bcrypt from "bcrypt"
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -9,19 +8,20 @@ export const authOptions: AuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "jsmith@example.com" },
-        password: { label: "Password", type: "password" }
+        universityIDNumber: { label: "University ID", type: "text", placeholder: "Enter your ID" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) return null
+        if (!credentials?.email || !credentials.universityIDNumber) return null
 
         const client = await clientPromise
         const usersCollection = client.db("library").collection("users")
 
-        const user = await usersCollection.findOne({ email: credentials.email })
-        if (!user) return null
+        const user = await usersCollection.findOne({
+          email: credentials.email,
+          universityId: credentials.universityIDNumber
+        })
 
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
-        if (!isPasswordValid) return null
+        if (!user) return null
 
         return { id: user._id.toString(), name: user.fullName, email: user.email }
       }

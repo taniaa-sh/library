@@ -12,15 +12,16 @@ import { toast } from 'sonner'
 const SignIn = () => {
 
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  // const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
+  const [universityIDNumber, setUniversityIDNumber] = useState("")
   const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
-    if (!email || !password) {
+    if (!email || !universityIDNumber) {
       toast.error("Please enter email and password")
       return
     }
@@ -28,7 +29,7 @@ const SignIn = () => {
     const res = await signIn("credentials", {
       redirect: false,
       email,
-      password,
+      universityIDNumber,
     })
 
     if (res?.error) {
@@ -71,7 +72,7 @@ const SignIn = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
               <label htmlFor="password" className="text-sm">Password</label>
               <input
                 maxLength={11}
@@ -80,6 +81,17 @@ const SignIn = () => {
                 type="password"
                 placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </div> */}
+            <div className="flex flex-col gap-1">
+              <label htmlFor="universityId" className="text-sm">University ID Number</label>
+              <input
+                id="universityId"
+                maxLength={11}
+                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
+                type="text"
+                placeholder="Enter your university ID number"
+                onChange={(e) => setUniversityIDNumber(e.target.value)}
               />
             </div>
           </form>
