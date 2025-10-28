@@ -33,6 +33,7 @@ const imagesAddresses = {
     logout: "/icons/logout.svg",
     delete: "/icons/delete.svg",
     edit: "/icons/edit.svg",
+    receipt: "/icons/receipt.svg",
   },
   images: {
     logo: "/images/Frame.png",

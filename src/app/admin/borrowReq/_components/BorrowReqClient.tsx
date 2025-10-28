@@ -3,66 +3,62 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
+import imagesAddresses from '@/utils/imageAddresses';
+import CustomStatusBorrowReq from './CustomStatusBorrowReq';
 
-type User = {
-    name: string;
-    dateJoined: string;
-    role: string;
-    booksBorrowed: string;
-    universityIDNumber: string;
-    universityIDCard: string;
-    action: string;
-    avatar?: string;
-    status?: 'Active' | 'Inactive';
+type Borrow = {
+    book: string;
+    userRequested: string;
+    status: string;
+    borrowedDate: string;
+    returnDate: string;
+    dueDate: string;
+    receipt: string;
 };
 
 interface Props {
-    data: User[];
+    data: Borrow[];
 }
 
 const BorrowReqClient = ({ data }: Props) => {
-    const [users, setUsers] = useState<User[]>(data);
+    const [borrowReq, setBorrowReq] = useState<Borrow[]>(data);
 
-    const columns: Column<User>[] = [
+    const columns: Column<Borrow>[] = [
+        { key: 'book', label: 'Book' },
+        { key: 'userRequested', label: 'User Requested' },
         {
-            key: 'avatar',
-            label: 'Avatar',
-            render: (row: User) => (
-                <Image
-                    src={row.avatar || '/avatar1.png'}
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
+            key: 'status',
+            label: 'Status',
+            render: (row) => (
+
+                <CustomStatusBorrowReq
+                    isColor
+                    state={row.status === 'Borrowed' ? 1 : row.status === 'Late Return' ? 2 : 3}
                 />
             ),
         },
-        { key: 'name', label: 'Name' },
-        { key: 'dateJoined', label: 'Date Joined' },
-        { key: 'role', label: 'Role' },
+        { key: 'borrowedDate', label: 'Borrowed date' },
+        { key: 'returnDate', label: 'Return date' },
+        { key: 'dueDate', label: 'Due Date' },
         {
-            key: 'booksBorrowed',
-            label: 'Books Borrowed',
-            render: (row: User) => <span className="font-semibold">{row.booksBorrowed}</span>,
-        },
-        { key: 'universityIDNumber', label: 'University ID No' },
-        {
-            key: 'action',
-            label: 'Action',
-            render: (row: User) => (
-                <button
-                    className="text-red-500"
-                    onClick={() =>
-                        setUsers(users.filter((u) => u.universityIDNumber !== row.universityIDNumber))
-                    }
-                >
-                    {row.action}
-                </button>
+            key: 'receipt',
+            label: 'Receipt',
+            render: (row: Borrow) => (
+                <div className='flex gap-2 !p-2 rounded-lg bg-[#F8F8FF]'>
+                    <Image
+                        src={imagesAddresses.icons.receipt}
+                        alt="Avatar"
+                        width={20}
+                        height={20}
+                        className="cursor-pointer"
+                    />
+                    <p className='text-sm font-medium text-[#25388C]'>Generate</p>
+                </div>
             ),
         },
     ];
 
-    return <AdminTable columns={columns} data={users} />;
+    return <AdminTable columns={columns} data={borrowReq} />;
 };
 
 export default BorrowReqClient;
