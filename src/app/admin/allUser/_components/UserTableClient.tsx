@@ -3,6 +3,9 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
+import CustomStatusAllUser from './CustomStatusAllUser';
+import SiteUrls from '@/utils/routs';
+import imagesAddresses from '@/utils/imageAddresses';
 
 type User = {
     name: string;
@@ -39,7 +42,17 @@ const UserTableClient = ({ data }: Props) => {
         },
         { key: 'name', label: 'Name' },
         { key: 'dateJoined', label: 'Date Joined' },
-        { key: 'role', label: 'Role' },
+        {
+            key: 'role',
+            label: 'Role',
+            render: (row: User) => (
+
+                <CustomStatusAllUser
+                    isColor
+                    state={row.role === 'User' ? 1 : 2}
+                />
+            ),
+        },
         {
             key: 'booksBorrowed',
             label: 'Books Borrowed',
@@ -50,14 +63,13 @@ const UserTableClient = ({ data }: Props) => {
             key: 'action',
             label: 'Action',
             render: (row: User) => (
-                <button
-                    className="text-red-500"
-                    onClick={() =>
-                        setUsers(users.filter((u) => u.universityIDNumber !== row.universityIDNumber))
-                    }
-                >
-                    {row.action}
-                </button>
+                <Image
+                    src={imagesAddresses.icons.delete}
+                    alt="Avatar"
+                    width={20}
+                    height={20}
+                    className="cursor-pointer"
+                />
             ),
         },
     ];

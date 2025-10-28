@@ -1,3 +1,4 @@
+import imagesAddresses from "@/utils/imageAddresses";
 import UserTableClient from "./_components/UserTableClient";
 
 const fetchUsers = async () => {
@@ -11,7 +12,7 @@ const fetchUsers = async () => {
             universityIDNumber: '123456789',
             universityIDCard: '123456789',
             action: 'Delete',
-            avatar: '/avatar1.png',
+            avatar: imagesAddresses.images.avatar1,
         },
         {
             name: 'Ali',
@@ -21,7 +22,7 @@ const fetchUsers = async () => {
             universityIDNumber: '987654321',
             universityIDCard: '987654321',
             action: 'Delete',
-            avatar: '/avatar2.png',
+            avatar: imagesAddresses.images.avatar2,
         },
         {
             name: 'Sara',
@@ -31,7 +32,7 @@ const fetchUsers = async () => {
             universityIDNumber: '112233445',
             universityIDCard: '112233445',
             action: 'Delete',
-            avatar: '/avatar3.png',
+            avatar: imagesAddresses.images.avatar3,
         },
     ];
 };
@@ -40,7 +41,7 @@ const AllUsersPage = async () => {
     const data = await fetchUsers();
 
     return (
-        <div className="bg-[#F8F8FF] px-6 py-6 min-h-screen">
+        <div className="bg-[#F8F8FF] px-6 py-6">
             <div className="flex flex-col gap-6 bg-white py-6 px-5 rounded-lg">
                 <p className="font-medium text-xl">All Users</p>
                 <UserTableClient data={data} />

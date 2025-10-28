@@ -31,6 +31,7 @@ const imagesAddresses = {
     accountReq: "/icons/accountReq.svg",
     accountReqActive: "/icons/accountReqActive.svg",
     logout: "/icons/logout.svg",
+    delete: "/icons/delete.svg",
   },
   images: {
     logo: "/images/Frame.png",
@@ -51,6 +52,9 @@ const imagesAddresses = {
 
 
     adminLogo: "/images/adminLogo.png",
+    avatar1: "/images/avatar1.png",
+    avatar2: "/images/avatar2.png",
+    avatar3: "/images/avatar3.png",
   },
 } as const;
 
