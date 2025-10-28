@@ -35,12 +35,12 @@ export default function AdminLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="bg-[#ffff]">
+            <body className="!bg-[#ffff]">
                 <div className="max-w-[1440px] mx-auto">
                     <ProgressBar />
                     <div className="flex">
                         <AdminSidebar />
-                        <div className="flex flex-col gap-10 bg-[#F8F8FF] w-full">
+                        <div className="flex flex-col gap-10 !bg-[#F8F8FF] w-full">
                             <AdminHeader />
                             {children}
                         </div>
