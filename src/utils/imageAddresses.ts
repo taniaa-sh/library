@@ -18,6 +18,19 @@ const imagesAddresses = {
     verify: "/icons/verify.svg",
     closeMenue: "/icons/closeMenue.svg",
     menue: "/icons/menu.svg",
+
+
+    home: "/icons/home.svg",
+    homeActive: "/icons/homeActive.svg",
+    allUser: "/icons/allUser.svg",
+    allUserActive: "/icons/allUserActive.svg",
+    allBooks: "/icons/allBooks.svg",
+    allBooksActive: "/icons/allBooksActive.svg",
+    borrowReq: "/icons/borrowReq.svg",
+    borrowReqActive: "/icons/borrowReqActive.svg",
+    accountReq: "/icons/accountReq.svg",
+    accountReqActive: "/icons/accountReqActive.svg",
+    logout: "/icons/logout.svg",
   },
   images: {
     logo: "/images/Frame.png",
@@ -35,6 +48,9 @@ const imagesAddresses = {
     emptyResult: "/images/emptyResult.png",
     profile: "/images/profile.png",
     notFoundBg: "/images/notFoundBg.png",
+
+
+    adminLogo: "/images/adminLogo.png",
   },
 } as const;
 
