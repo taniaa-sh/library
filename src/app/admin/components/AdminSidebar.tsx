@@ -33,7 +33,7 @@ const AdminSidebar = () => {
                                 href={item.link}
                                 className={`flex items-center gap-3 !p-4 rounded-xl transition-all ${isActive
                                     ? "bg-[#25388C] !text-[#FFFFFF] font-semibold"
-                                    : "hover:bg-gray-100 text-gray-700"
+                                    : "hover:bg-[#EDF1F1] text-gray-700"
                                     }`}
                             >
                                 <Image
