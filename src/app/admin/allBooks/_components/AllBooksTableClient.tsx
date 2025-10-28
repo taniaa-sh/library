@@ -3,66 +3,56 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
+import imagesAddresses from '@/utils/imageAddresses';
 
-type User = {
-    name: string;
-    dateJoined: string;
-    role: string;
-    booksBorrowed: string;
-    universityIDNumber: string;
-    universityIDCard: string;
+type Book = {
+    bookTitle: string;
+    author: string;
+    genre: string;
+    dateCreated: string;
     action: string;
-    avatar?: string;
-    status?: 'Active' | 'Inactive';
 };
 
 interface Props {
-    data: User[];
+    data: Book[];
 }
 
 const AllBooksTableClient = ({ data }: Props) => {
-    const [users, setUsers] = useState<User[]>(data);
+    const [books, setBooks] = useState<Book[]>(data);
 
-    const columns: Column<User>[] = [
+    const columns: Column<Book>[] = [
         {
-            key: 'avatar',
-            label: 'Avatar',
-            render: (row: User) => (
-                <Image
-                    src={row.avatar || '/avatar1.png'}
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
-                />
-            ),
+            key: 'bookTitle',
+            label: 'Book Title',
         },
-        { key: 'name', label: 'Name' },
-        { key: 'dateJoined', label: 'Date Joined' },
-        { key: 'role', label: 'Role' },
-        {
-            key: 'booksBorrowed',
-            label: 'Books Borrowed',
-            render: (row: User) => <span className="font-semibold">{row.booksBorrowed}</span>,
-        },
-        { key: 'universityIDNumber', label: 'University ID No' },
+        { key: 'author', label: 'Author' },
+        { key: 'genre', label: 'Genre' },
+        { key: 'dateCreated', label: 'Date Created' },
         {
             key: 'action',
             label: 'Action',
-            render: (row: User) => (
-                <button
-                    className="text-red-500"
-                    onClick={() =>
-                        setUsers(users.filter((u) => u.universityIDNumber !== row.universityIDNumber))
-                    }
-                >
-                    {row.action}
-                </button>
+            render: (row: Book) => (
+                <div className='flex gap-2'>
+                    <Image
+                        src={imagesAddresses.icons.edit}
+                        alt="Avatar"
+                        width={20}
+                        height={20}
+                        className="cursor-pointer"
+                    />
+                    <Image
+                        src={imagesAddresses.icons.delete}
+                        alt="Avatar"
+                        width={20}
+                        height={20}
+                        className="cursor-pointer"
+                    />
+                </div>
             ),
         },
     ];
 
-    return <AdminTable columns={columns} data={users} />;
+    return <AdminTable columns={columns} data={books} />;
 };
 
 export default AllBooksTableClient;

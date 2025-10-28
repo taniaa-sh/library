@@ -32,6 +32,7 @@ const imagesAddresses = {
     accountReqActive: "/icons/accountReqActive.svg",
     logout: "/icons/logout.svg",
     delete: "/icons/delete.svg",
+    edit: "/icons/edit.svg",
   },
   images: {
     logo: "/images/Frame.png",
