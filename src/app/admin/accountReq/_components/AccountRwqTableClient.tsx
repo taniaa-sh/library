@@ -3,66 +3,54 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
+import imagesAddresses from '@/utils/imageAddresses';
 
-type User = {
+type AcountReq = {
     name: string;
     dateJoined: string;
-    role: string;
-    booksBorrowed: string;
     universityIDNumber: string;
-    universityIDCard: string;
     action: string;
-    avatar?: string;
-    status?: 'Active' | 'Inactive';
+    delete: string;
 };
 
 interface Props {
-    data: User[];
+    data: AcountReq[];
 }
 
 const AccountRwqTableClient = ({ data }: Props) => {
-    const [users, setUsers] = useState<User[]>(data);
+    const [acountReq, setAcountReq] = useState<AcountReq[]>(data);
 
-    const columns: Column<User>[] = [
-        {
-            key: 'avatar',
-            label: 'Avatar',
-            render: (row: User) => (
-                <Image
-                    src={row.avatar || '/avatar1.png'}
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
-                />
-            ),
-        },
-        { key: 'name', label: 'Name' },
+    const columns: Column<AcountReq>[] = [
+        { key: 'name', label: 'Name',},
         { key: 'dateJoined', label: 'Date Joined' },
-        { key: 'role', label: 'Role' },
-        {
-            key: 'booksBorrowed',
-            label: 'Books Borrowed',
-            render: (row: User) => <span className="font-semibold">{row.booksBorrowed}</span>,
-        },
         { key: 'universityIDNumber', label: 'University ID No' },
         {
             key: 'action',
             label: 'Action',
-            render: (row: User) => (
+            render: (row: AcountReq) => (
                 <button
-                    className="text-red-500"
-                    onClick={() =>
-                        setUsers(users.filter((u) => u.universityIDNumber !== row.universityIDNumber))
-                    }
+                    className="bg-[#ECFDF3] text-[#027A48] !py-2 !px-3 rounded-lg"
                 >
-                    {row.action}
+                    Approve Account
                 </button>
+            ),
+        },
+        {
+            key: 'delete',
+            label: '',
+            render: (row: AcountReq) => (
+                <Image
+                    src={imagesAddresses.icons.close}
+                    alt="Avatar"
+                    width={20}
+                    height={20}
+                    className="cursor-pointer"
+                />
             ),
         },
     ];
 
-    return <AdminTable columns={columns} data={users} />;
+    return <AdminTable columns={columns} data={acountReq} />;
 };
 
 export default AccountRwqTableClient;

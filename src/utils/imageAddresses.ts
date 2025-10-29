@@ -34,6 +34,7 @@ const imagesAddresses = {
     delete: "/icons/delete.svg",
     edit: "/icons/edit.svg",
     receipt: "/icons/receipt.svg",
+    close: "/icons/close.svg",
   },
   images: {
     logo: "/images/Frame.png",

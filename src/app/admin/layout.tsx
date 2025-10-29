@@ -34,8 +34,8 @@ export default function AdminLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className="!bg-[#ffff]">
+        <html lang="en" className="bg-white">
+            <body className="bg-white min-h-screen">
                 <div className="max-w-[1440px] mx-auto">
                     <ProgressBar />
                     <div className="flex">
