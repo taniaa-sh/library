@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import ProgressBar from "@/components/ProgressBar";
+import BackgroundWrapper from "@/components/BackgroundWrapperProps ";
 
 const ibmPlexSans = localFont({
   src: [
@@ -34,13 +35,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${ibmPlexSans.className} ${bebasNeue.variable} bg-black`}>
-        <div className="max-w-[1440px] mx-auto">
-          <ProgressBar />
-          {children}
-          <Toaster position="top-right" richColors />
-        </div>
+<html lang="en">
+      <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
+        <BackgroundWrapper>
+          <div className="max-w-[1440px] mx-auto">
+            <ProgressBar />
+            {children}
+            <Toaster position="top-right" richColors />
+          </div>
+        </BackgroundWrapper>
       </body>
     </html>
   );
