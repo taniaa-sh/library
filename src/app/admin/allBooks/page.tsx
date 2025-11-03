@@ -1,4 +1,6 @@
+import imagesAddresses from "@/utils/imageAddresses";
 import AllBooksTableClient from "./_components/AllBooksTableClient";
+import AdminButton from "../components/AdminButton";
 
 const fetchUsers = async () => {
     await new Promise((r) => setTimeout(r, 500));
@@ -33,7 +35,16 @@ const AllBooksPage = async () => {
     return (
         <div className="bg-[#F8F8FF] px-6 py-6">
             <div className="flex flex-col gap-6 bg-white py-6 px-5 rounded-lg">
-                <p className="font-medium text-xl">All Books</p>
+                <div className="flex justify-between items-center">
+                    <p className="font-medium text-xl">All Books</p>
+                    <AdminButton
+                        text="Create a New Book"
+                        iconAddress={imagesAddresses.icons.plus}
+                        iconPosition="right"
+                        color="blue"
+                        containerClassName="cursor-pointer"
+                    />
+                </div>
                 <AllBooksTableClient data={data} />
             </div>
         </div>
