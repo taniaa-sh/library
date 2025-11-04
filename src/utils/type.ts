@@ -12,3 +12,14 @@ export type BookFeatureProps = {
   videoUrl: string,
   summary: string
 }
+
+export interface BookFormInputs {
+  title: string;
+  author: string;
+  genre: string;
+  bookVideo: string;
+  bookPrimaryColor: string;
+  bookImage: string;
+  totalNumberOfBooks: string;
+  description: string;
+}

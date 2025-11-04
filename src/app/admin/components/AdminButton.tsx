@@ -1,3 +1,5 @@
+"use client";
+
 import imagesAddresses from '@/utils/imageAddresses';
 import Image from 'next/image';
 
