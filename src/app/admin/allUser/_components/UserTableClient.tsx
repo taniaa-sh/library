@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
 import CustomStatusAllUser from './CustomStatusAllUser';
-import SiteUrls from '@/utils/routs';
 import imagesAddresses from '@/utils/imageAddresses';
 
 type User = {
@@ -17,6 +16,8 @@ type User = {
     action: string;
     avatar?: string;
     status?: 'Active' | 'Inactive';
+    email?: string;
+    id?: string
 };
 
 interface Props {
@@ -26,21 +27,32 @@ interface Props {
 const UserTableClient = ({ data }: Props) => {
     const [users, setUsers] = useState<User[]>(data);
 
+    const handleDelete = (id: string) => {
+        setUsers((prev) =>
+            prev.filter((user) => user.id !== id)
+        );
+    };
+
     const columns: Column<User>[] = [
         {
-            key: 'avatar',
-            label: 'Avatar',
+            key: 'name',
+            label: 'Name',
             render: (row: User) => (
-                <Image
-                    src={row.avatar || '/avatar1.png'}
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
-                />
+                <div className='flex gap-2'>
+                    <Image
+                        src={row.avatar || '/avatar1.png'}
+                        alt="Avatar"
+                        width={40}
+                        height={40}
+                        className="rounded-full object-cover"
+                    />
+                    <div className='flex flex-col gap-1'>
+                        <p className='font-semibold text-sm leading-[20px] text-dark-400'>{row.name}</p>
+                        <p className='font-semibold text-sm leading-[20px] text-[#64748B]'>{row.email}</p>
+                    </div>
+                </div>
             ),
         },
-        { key: 'name', label: 'Name' },
         { key: 'dateJoined', label: 'Date Joined' },
         {
             key: 'role',
@@ -69,6 +81,7 @@ const UserTableClient = ({ data }: Props) => {
                     width={20}
                     height={20}
                     className="cursor-pointer"
+                    onClick={() => setTimeout(() => handleDelete(row.id || ''), 500)}
                 />
             ),
         },
