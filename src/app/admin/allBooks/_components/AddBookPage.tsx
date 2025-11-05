@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
+import DragAndDropUpload from './DragAndDropUpload';
 
 const schema = yup.object({
     title: yup.string().required('title is required'),
@@ -27,6 +28,7 @@ const AddBookPage = () => {
         handleSubmit,
         reset,
         formState: { errors },
+        setValue
     } = useForm<BookFormInputs>({
         resolver: yupResolver(schema),
     });
@@ -118,11 +120,11 @@ const AddBookPage = () => {
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Book Image
                     </label>
-                    <input
-                        {...register('bookImage')}
-                        type="text"
-                        className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
-                        placeholder="Enter the book image URL"
+                    <DragAndDropUpload
+                        onChange={(file) => {
+                            const url = URL.createObjectURL(file);
+                            setValue('bookImage', url, { shouldValidate: true });
+                        }}
                     />
                     {errors.bookImage && (
                         <p className="text-red-500 text-xs !mt-1">{errors.bookImage.message}</p>

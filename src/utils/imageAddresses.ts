@@ -38,6 +38,7 @@ const imagesAddresses = {
     loading: "/icons/loading.svg",
     plus: "/icons/plus.svg",
     plus2: "/icons/plus2.svg",
+    upload: "/icons/upload.svg",
   },
   images: {
     logo: "/images/Frame.png",
