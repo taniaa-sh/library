@@ -8,6 +8,7 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from './DragAndDropUpload';
+import { ChromePicker, ColorResult } from 'react-color';
 
 const schema = yup.object({
     title: yup.string().required('title is required'),
@@ -22,6 +23,8 @@ const schema = yup.object({
 
 const AddBookPage = () => {
     const [loading, setLoading] = useState(false);
+    const [color, setColor] = useState('');
+    const [showPicker, setShowPicker] = useState(false);
 
     const {
         register,
@@ -48,6 +51,11 @@ const AddBookPage = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleColorChange = (newColor: ColorResult) => {
+        setColor(newColor.hex);
+        setShowPicker(false);
     };
 
     return (
@@ -131,18 +139,32 @@ const AddBookPage = () => {
                     )}
                 </div>
 
-                <div>
+                <div className="relative">
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Book Primary Color
                     </label>
                     <input
                         {...register('bookPrimaryColor')}
                         type="text"
-                        className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
+                        value={color}
+                        onClick={() => setShowPicker(!showPicker)}
+                        readOnly
+                        className="w-full border rounded-lg p-4 !pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB] cursor-pointer"
                         placeholder="Enter the primary color"
+                    />
+                    <div
+                        style={{ backgroundColor: color }}
+                        className="absolute top-1/2 left-3 -translate-y-1/2 w-6 h-6 rounded border border-gray-300"
                     />
                     {errors.bookPrimaryColor && (
                         <p className="text-red-500 text-xs !mt-1">{errors.bookPrimaryColor.message}</p>
+                    )}
+                    {showPicker && (
+                        <ChromePicker
+                            color={color}
+                            onChange={handleColorChange}
+                            disableAlpha
+                        />
                     )}
                 </div>
 
