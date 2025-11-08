@@ -9,6 +9,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from './DragAndDropUpload';
 import { ChromePicker, ColorResult } from 'react-color';
+import AdminButton from '../../components/AdminButton';
+import imagesAddresses from '@/utils/imageAddresses';
+import { useRouter } from 'next/navigation';
 
 const schema = yup.object({
     title: yup.string().required('title is required'),
@@ -25,6 +28,7 @@ const AddBookPage = () => {
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
+    const router = useRouter();
 
     const {
         register,
@@ -59,10 +63,17 @@ const AddBookPage = () => {
     };
 
     return (
-        <div className="w-full mx-auto p-6 rounded-xl shadow-lg">
+        <div className="w-full flex flex-col gap-10 mx-auto p-6 rounded-xl shadow-lg">
             <Toaster />
+            <AdminButton
+                text="Go back"
+                iconAddress={imagesAddresses.icons.arrowLeft}
+                iconPosition="right"
+                color="white"
+                containerClassName="cursor-pointer !w-fit !-mt-10"
+                onClick={() => router.back()}
+            />
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6">
-
                 {/*title*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-900">

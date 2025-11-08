@@ -40,6 +40,7 @@ const imagesAddresses = {
     plus2: "/icons/plus2.svg",
     upload: "/icons/upload.svg",
     check: "/icons/check.svg",
+    arrowLeft: "/icons/arrow-left.svg",
   },
   images: {
     logo: "/images/Frame.png",

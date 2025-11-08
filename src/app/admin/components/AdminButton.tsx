@@ -6,7 +6,7 @@ import Image from 'next/image';
 type PropsType = {
     text?: string;
     width?: string;
-    color: "primary" | "secondary" | "tertiary" | "textbutton" | "iconbutton" | "red" | "blue" | "gray";
+    color: "primary" | "secondary" | "tertiary" | "textbutton" | "iconbutton" | "red" | "blue" | "gray" | "white";
     type?: "button" | "submit" | "reset";
     loading?: boolean;
     containerClassName?: string;
@@ -42,6 +42,8 @@ const AdminButton: React.FC<PropsType> = ({
         newClass = "bg-error600 hover:bg-error700 text-white border-[0px] !px-1";
     } else if (color === "blue") {
         newClass = "bg-[#25388C] hover:bg-[#3a4fae] text-[#FFFFFF] border-[0px] !px-4";
+    } else if (color === "white") {
+        newClass = "bg-white hover:bg-gray-50 text-gray-900 border-[0px] !px-4 !shadow-lg";
     }
     if (color === "iconbutton" && iconAddress !== undefined) {
         return (
