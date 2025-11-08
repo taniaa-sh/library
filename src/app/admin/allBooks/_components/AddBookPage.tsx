@@ -208,7 +208,7 @@ const AddBookPage = () => {
                         : 'bg-primary-admin hover:bg-blue-700'
                         }`}
                 >
-                    {loading ? 'Updating...' : 'Update Book'}
+                    {loading ? 'Uploading...' : 'Upload Book'}
                 </button>
             </form>
         </div>
