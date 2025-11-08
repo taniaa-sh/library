@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
+import SiteUrls from '@/utils/routs';
+import { useRouter } from 'next/navigation';
 
 type Book = {
     bookTitle: string;
@@ -19,6 +21,7 @@ interface Props {
 
 const AllBooksTableClient = ({ data }: Props) => {
     const [books, setBooks] = useState<Book[]>(data);
+    const router = useRouter();
 
     const columns: Column<Book>[] = [
         {
@@ -39,6 +42,7 @@ const AllBooksTableClient = ({ data }: Props) => {
                         width={20}
                         height={20}
                         className="cursor-pointer"
+                        onClick={() => router.push(SiteUrls.adminEditBook)}
                     />
                     <Image
                         src={imagesAddresses.icons.delete}
