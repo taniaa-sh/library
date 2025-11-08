@@ -129,10 +129,8 @@ const AddBookPage = () => {
                         Book Image
                     </label>
                     <DragAndDropUpload
-                        onChange={(file) => {
-                            const url = URL.createObjectURL(file);
-                            setValue('bookImage', url, { shouldValidate: true });
-                        }}
+                        type="image"
+                        onChange={(file) => setValue('bookImage', URL.createObjectURL(file))}
                     />
                     {errors.bookImage && (
                         <p className="text-red-500 text-xs !mt-1">{errors.bookImage.message}</p>
@@ -172,11 +170,9 @@ const AddBookPage = () => {
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Book Video
                     </label>
-                    <input
-                        {...register('bookVideo')}
-                        type="text"
-                        className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
-                        placeholder="Enter the video URL"
+                    <DragAndDropUpload
+                        type="video"
+                        onChange={(file) => setValue('bookVideo', URL.createObjectURL(file))}
                     />
                     {errors.bookVideo && (
                         <p className="text-red-500 text-xs !mt-1">{errors.bookVideo.message}</p>
