@@ -62,6 +62,8 @@ const AddBookPage = () => {
         <div className="w-full mx-auto p-6 rounded-xl shadow-lg">
             <Toaster />
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6">
+
+                {/*title*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Book Title
@@ -77,6 +79,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
+                {/*author*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Author
@@ -92,6 +95,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
+                {/*genre*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Genre
@@ -107,6 +111,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
+                {/*book count*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Total number of books
@@ -124,6 +129,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
+                {/*image*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Book Image
@@ -137,6 +143,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
+                {/*color*/}
                 <div className="relative">
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Book Primary Color
@@ -152,7 +159,8 @@ const AddBookPage = () => {
                     />
                     <div
                         style={{ backgroundColor: color }}
-                        className="absolute top-1/2 left-3 -translate-y-1/2 w-6 h-6 rounded border border-gray-300"
+                        className="absolute top-1/2 left-3 -translate-y-1/2 w-6 h-6 rounded border border-gray-300 cursor-pointer"
+                        onClick={() => setShowPicker(!showPicker)}
                     />
                     {errors.bookPrimaryColor && (
                         <p className="text-red-500 text-xs !mt-1">{errors.bookPrimaryColor.message}</p>
@@ -166,6 +174,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
+                {/*video*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-900">
                         Book Video
@@ -179,6 +188,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
+                {/*summary*/}
                 <div>
                     <label className="block text-sm font-medium mb-1 text-gray-700">
                         Book Summary
