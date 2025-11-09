@@ -41,6 +41,9 @@ const imagesAddresses = {
     upload: "/icons/upload.svg",
     check: "/icons/check.svg",
     arrowLeft: "/icons/arrow-left.svg",
+    eye: "/icons/Eye.svg",
+    calendar: "/icons/calendar.svg",
+    whiteEdit: "/icons/whiteEdit.svg",
   },
   images: {
     logo: "/images/Frame.png",

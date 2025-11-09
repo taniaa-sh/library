@@ -51,6 +51,14 @@ const AllBooksTableClient = ({ data }: Props) => {
                         height={20}
                         className="cursor-pointer"
                     />
+                    <Image
+                        src={imagesAddresses.icons.eye}
+                        alt="Avatar"
+                        width={20}
+                        height={20}
+                        className="cursor-pointer"
+                        onClick={() => router.push(SiteUrls.adminDetailBook)}
+                    />
                 </div>
             ),
         },

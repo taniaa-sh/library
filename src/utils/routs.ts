@@ -12,6 +12,7 @@ const SiteUrls = {
   adminAllBooks: "/admin/allBooks",
   adminAddBook: "/admin/allBooks/add",
   adminEditBook: "/admin/allBooks/edite",
+  adminDetailBook: "/admin/allBooks/detail",
   adminBorrowReq: "/admin/borrowReq",
   adminAccountReq: "/admin/accountReq",
 };
