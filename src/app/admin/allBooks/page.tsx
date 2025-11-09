@@ -1,36 +1,20 @@
 import AllBooksTableClient from "./_components/AllBooksTableClient";
 import AddBookBtn from "./_components/AddBookBtn";
 
-const fetchUsers = async () => {
+async function fetchBooks() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/books`, {
+        cache: "no-store",
+    });
 
-    await new Promise((r) => setTimeout(r, 500));
-    return [
-        {
-            bookTitle: 'The Great Reclamation: A Novel by',
-            author: 'Rachel Hxeng',
-            genre: 'Strategic, Fantasy',
-            dateCreated: 'Dec 19 2023',
-            action: '',
-        },
-        {
-            bookTitle: 'Inside Evil: Inside Evil Series, Book 1',
-            author: 'Rachel Hxeng',
-            genre: 'Strategic, Fantasy',
-            dateCreated: '1',
-            action: '',
-        },
-        {
-            bookTitle: 'Jayne Castle - People in Glass Houses',
-            author: 'Rachel Hxeng',
-            genre: 'Strategic, Fantasy',
-            dateCreated: 'Dec 19 2023',
-            action: '',
-        },
-    ];
-};
+    if (!res.ok) {
+        throw new Error("Failed to fetch books");
+    }
+
+    return res.json();
+}
 
 const AllBooksPage = async () => {
-    const data = await fetchUsers();
+    const data = await fetchBooks();
 
     return (
         <div className="bg-[#F8F8FF] px-6 py-6">
