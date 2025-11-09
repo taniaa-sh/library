@@ -2,8 +2,7 @@ import AllBooksTableClient from "./_components/AllBooksTableClient";
 import AddBookBtn from "./_components/AddBookBtn";
 
 async function fetchBooks() {
-  // absolute URL برای server component
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // local: http://localhost:3000, vercel: پروژه شما
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/api/books`, { cache: "no-store" });
 
   if (!res.ok) {
@@ -14,7 +13,7 @@ async function fetchBooks() {
 }
 
 const AllBooksPage = async () => {
-  const data = await fetchBooks(); // دریافت داده واقعی از MongoDB
+  const data = await fetchBooks();
 
   return (
     <div className="bg-[#F8F8FF] px-6 py-6">
