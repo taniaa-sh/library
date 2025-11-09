@@ -6,13 +6,11 @@ import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { signIn } from "next-auth/react"
+import { signIn, getSession } from "next-auth/react"
 import { toast } from 'sonner'
 
 const SignIn = () => {
-
   const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const [universityIDNumber, setUniversityIDNumber] = useState("")
   const router = useRouter()
@@ -22,7 +20,8 @@ const SignIn = () => {
     setLoading(true)
 
     if (!email || !universityIDNumber) {
-      toast.error("Please enter email and password")
+      toast.error("Please enter email and ID")
+      setLoading(false)
       return
     }
 
@@ -34,15 +33,16 @@ const SignIn = () => {
 
     if (res?.error) {
       toast.error("Invalid email or ID")
-    } else {
-      const sessionRes = await fetch("/api/auth/session")
-      const sessionData = await sessionRes.json()
+      setLoading(false)
+      return
+    }
 
-      if (sessionData?.user?.role === "admin") {
-        router.push(SiteUrls.admin)
-      } else {
-        router.push(SiteUrls.dashbord)
-      }
+    const sessionData = await getSession()
+
+    if (sessionData?.user?.role === "admin") {
+      router.push(SiteUrls.admin)
+    } else {
+      router.push(SiteUrls.dashbord)
     }
 
     setLoading(false)
@@ -53,13 +53,7 @@ const SignIn = () => {
       <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
         <div className="bg-gray-900 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 lg:p-10 flex flex-col gap-8 rounded-lg">
           <div className="flex flex-col gap-5">
-            <Image
-              src={imagesAddresses.images.logo}
-              alt="logo"
-              width={120}
-              height={120}
-              className="mx-auto lg:mx-0"
-            />
+            <Image src={imagesAddresses.images.logo} alt="logo" width={120} height={120} className="mx-auto lg:mx-0" />
             <h1 className="text-xl md:text-2xl font-bold text-white text-center lg:text-left">
               Welcome Back to the BookWise
             </h1>
@@ -79,17 +73,6 @@ const SignIn = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            {/* <div className="flex flex-col gap-1">
-              <label htmlFor="password" className="text-sm">Password</label>
-              <input
-                maxLength={11}
-                id="password"
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
-                type="password"
-                placeholder="Enter your password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div> */}
             <div className="flex flex-col gap-1">
               <label htmlFor="universityId" className="text-sm">University ID Number</label>
               <input
@@ -103,25 +86,13 @@ const SignIn = () => {
             </div>
           </form>
 
-          <Button
-            className="w-full cursor-pointer"
-            onClick={handleLogin}
-          >
-            {
-              loading ? (
-                <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black animate-spin' />
-              ) : (
-                "Login"
-              )
-            }
+          <Button className="w-full cursor-pointer" onClick={handleLogin}>
+            {loading ? <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black animate-spin' /> : "Login"}
           </Button>
 
           <div className="text-white text-sm font-normal self-center">
             Don’t have an account already?{" "}
-            <span
-              className="text-light-200 text-sm font-normal cursor-pointer"
-              onClick={() => router.push(SiteUrls.signUp)}
-            >
+            <span className="text-light-200 text-sm font-normal cursor-pointer" onClick={() => router.push(SiteUrls.signUp)}>
               Register here
             </span>
           </div>
@@ -129,14 +100,7 @@ const SignIn = () => {
       </div>
 
       <div className="hidden lg:block relative w-full h-[960px]">
-        <Image
-          src={imagesAddresses.images.loginPic}
-          alt="logo"
-          fill
-          className="object-cover rounded-lg"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          priority
-        />
+        <Image src={imagesAddresses.images.loginPic} alt="logo" fill className="object-cover rounded-lg" sizes="(max-width: 1024px) 100vw, 50vw" priority />
       </div>
     </div>
   )
