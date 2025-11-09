@@ -2,10 +2,8 @@ import AllBooksTableClient from "./_components/AllBooksTableClient";
 import AddBookBtn from "./_components/AddBookBtn";
 
 async function fetchBooks() {
-  const res = await fetch("http://localhost:3001/api/books", {
-    cache: "no-store",
-  });
 
+    const res = await fetch("/api/books", { cache: "no-store" });
 
     if (!res.ok) {
         throw new Error("Failed to fetch books");
