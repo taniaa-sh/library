@@ -17,18 +17,21 @@ export async function GET() {
         author: "Rachel Heng",
         genre: "Thriller, Mystery",
         dateCreated: "Jan 5 2024",
+        action: '',
       },
       {
         bookTitle: "Jayne Castle - People in Glass Houses",
         author: "Jayne Castle",
         genre: "Adventure",
         dateCreated: "Mar 2 2024",
+        action: '',
       },
       {
         bookTitle: "The Silent Patient",
         author: "Alex Michaelides",
         genre: "Psychological Thriller",
         dateCreated: "Feb 15 2024",
+        action: '',
       },
     ];
 
