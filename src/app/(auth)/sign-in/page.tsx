@@ -33,9 +33,16 @@ const SignIn = () => {
     })
 
     if (res?.error) {
-      toast.error("Invalid email or password")
+      toast.error("Invalid email or ID")
     } else {
-      router.push(SiteUrls.dashbord)
+      const sessionRes = await fetch("/api/auth/session")
+      const sessionData = await sessionRes.json()
+
+      if (sessionData?.user?.role === "admin") {
+        router.push(SiteUrls.admin)
+      } else {
+        router.push(SiteUrls.dashbord)
+      }
     }
 
     setLoading(false)

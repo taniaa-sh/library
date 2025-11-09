@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
+import { adminIDs } from "@/utils/adminList";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { fullName, email, universityId } = body;
 
-    if (!fullName || !email) {
+    if (!fullName || !email || !universityId) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
@@ -18,10 +19,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User already exists" }, { status: 400 });
     }
 
+    const role = adminIDs.includes(universityId) ? "admin" : "user";
+
     await usersCollection.insertOne({
       fullName,
       email,
       universityId,
+      role,
       createdAt: new Date(),
     });
 
