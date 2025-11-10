@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { menuItems } from "@/utils/adminMenuItems";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
@@ -12,7 +11,7 @@ const AdminSidebar = () => {
     const pathname = usePathname();
 
     return (
-        <div className="w-[330px] bg-white border border-[#EDF1F1] flex flex-col h-[calc(100vh-124px)] justify-between items-center max-h-screen overflow-y-auto !p-4">
+        <div className="hidden lg:flex lg:fixed w-[280px] bg-white border border-[#EDF1F1] flex-col h-[calc(100vh-124px)] justify-between items-center max-h-screen overflow-y-auto !p-4 ">
             <div className="w-full">
                 <div className="flex flex-col gap-4 !mb-6">
                     <Image

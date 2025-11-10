@@ -38,9 +38,9 @@ export default function AdminLayout({
             <body className="bg-white min-h-screen">
                 <div className="max-w-[1440px] mx-auto">
                     <ProgressBar />
-                    <div className="flex">
+                    <div className="flex gap-10">
                         <AdminSidebar />
-                        <div className="flex flex-col gap-10 !bg-[#F8F8FF] w-full">
+                        <div className="flex flex-col gap-20 w-full lg:!ml-[280px]">
                             <AdminHeader />
                             {children}
                         </div>

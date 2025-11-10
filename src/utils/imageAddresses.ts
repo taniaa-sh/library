@@ -44,6 +44,8 @@ const imagesAddresses = {
     eye: "/icons/Eye.svg",
     calendar: "/icons/calendar.svg",
     whiteEdit: "/icons/whiteEdit.svg",
+    hamburgerMenu: "/icons/hamburgerMenu.svg",
+    arrowRight: "/icons/arrowRight.svg",
   },
   images: {
     logo: "/images/Frame.png",

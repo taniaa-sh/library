@@ -10,7 +10,7 @@ const AdminPage = () => {
     const router = useRouter()
 
     return (
-        <div className="w-full flex flex-col gap-6 !mt-7 !p-6 !bg-[#F8F8FF]">
+        <div className="w-full flex flex-col gap-6 !mt-[112px] !p-6 !bg-[#F8F8FF]">
             <div className="flex gap-4">
                 <div className="!bg-white !w-[356px] !p-5 rounded-lg flex flex-col gap-5">
                     <p className="font-medium text-base text-[#64748B]">Barrowed Books</p>
