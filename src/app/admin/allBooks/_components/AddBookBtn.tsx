@@ -14,7 +14,7 @@ const AddBookBtn = () => {
             iconAddress={imagesAddresses.icons.plus}
             iconPosition="right"
             color="blue"
-            containerClassName="cursor-pointer"
+            containerClassName="cursor-pointer text-nowrap"
             onClick={() => router.push(SiteUrls.adminAddBook)}
         />
     );
