@@ -63,7 +63,7 @@ const AddBookPage = () => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-10 mx-auto p-6 rounded-xl shadow-lg">
+        <div className="w-full flex flex-col gap-10 mx-auto p-6 rounded-xl shadow-lg !mt-[140px]">
             <Toaster />
             <AdminButton
                 text="Go back"
