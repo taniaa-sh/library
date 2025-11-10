@@ -31,7 +31,7 @@ const AccountReqPage = async () => {
     const data = await fetchUsers();
 
     return (
-        <div className="bg-[#F8F8FF] px-6 py-6">
+        <div className="bg-[#F8F8FF] px-6 py-6 !mt-[100px]">
             <div className="flex flex-col gap-6 bg-white py-6 px-5 rounded-lg">
                 <p className="font-medium text-xl">Account Registration Requests</p>
                 <AccountRwqTableClient data={data} />
