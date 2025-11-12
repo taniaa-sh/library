@@ -14,17 +14,17 @@ import imagesAddresses from '@/utils/imageAddresses';
 import { useRouter } from 'next/navigation';
 
 const schema = yup.object({
-    title: yup.string().required('title is required'),
-    author: yup.string().required('author is required'),
-    genre: yup.string().required('genre is required'),
-    bookVideo: yup.string().required('book video is required'),
-    bookPrimaryColor: yup.string().required('book primary color is required'),
-    bookImage: yup.string().required('book image is required'),
-    totalNumberOfBooks: yup.string().required('total number of books is required'),
-    description: yup.string().required('description is required'),
+    title: yup.string().required('Title is required'),
+    author: yup.string().required('Author is required'),
+    genre: yup.string().required('Genre is required'),
+    bookVideo: yup.string().required('Book video is required'),
+    bookPrimaryColor: yup.string().required('Book primary color is required'),
+    bookImage: yup.string().required('Book image is required'),
+    totalNumberOfBooks: yup.string().required('Total number of books is required'),
+    description: yup.string().required('Description is required'),
 }).required();
 
-const AddBookPage = () => {
+const EditBookPage = () => {
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
@@ -35,7 +35,7 @@ const AddBookPage = () => {
         handleSubmit,
         reset,
         formState: { errors },
-        setValue
+        setValue,
     } = useForm<BookFormInputs>({
         resolver: yupResolver(schema),
     });
@@ -63,86 +63,85 @@ const AddBookPage = () => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-10 mx-auto p-6 rounded-xl shadow-lg !mt-[140px]">
+        <div className="w-full flex flex-col gap-8 sm:gap-10 mx-auto p-4 sm:p-6 rounded-xl shadow-lg mt-[140px]">
             <Toaster />
             <AdminButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeft}
                 iconPosition="right"
                 color="white"
-                containerClassName="cursor-pointer !w-fit !-mt-10"
+                containerClassName="cursor-pointer !w-fit !-mt-6 sm:!-mt-10"
                 onClick={() => router.back()}
             />
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6">
-                {/*title*/}
+
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:gap-6">
+                {/* Title */}
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Book Title
                     </label>
                     <input
                         {...register('title')}
                         type="text"
-                        className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
                         placeholder="Enter the book title"
                     />
                     {errors.title && (
-                        <p className="text-red-500 text-xs !mt-1">{errors.title.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.title.message}</p>
                     )}
                 </div>
 
-                {/*author*/}
+                {/* Author */}
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Author
                     </label>
                     <input
                         {...register('author')}
                         type="text"
-                        className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
                         placeholder="Enter the author name"
                     />
                     {errors.author && (
-                        <p className="text-red-500 text-xs !mt-1">{errors.author.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.author.message}</p>
                     )}
                 </div>
 
-                {/*genre*/}
+                {/* Genre */}
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Genre
                     </label>
                     <input
                         {...register('genre')}
                         type="text"
-                        className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
                         placeholder="Enter the genre of the book"
                     />
                     {errors.genre && (
-                        <p className="text-red-500 text-xs !mt-1">{errors.genre.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.genre.message}</p>
                     )}
                 </div>
 
-                {/*book count*/}
+                {/* Total Books */}
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Total number of books
                     </label>
                     <input
                         {...register('totalNumberOfBooks')}
                         type="number"
-                        className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
                         placeholder="Enter the total number of books"
                     />
                     {errors.totalNumberOfBooks && (
-                        <p className="text-red-500 text-xs !mt-1">
-                            {errors.totalNumberOfBooks.message}
-                        </p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.totalNumberOfBooks.message}</p>
                     )}
                 </div>
 
-                {/*image*/}
+                {/* Book Image */}
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Book Image
                     </label>
                     <DragAndDropUpload
@@ -150,13 +149,13 @@ const AddBookPage = () => {
                         onChange={(file) => setValue('bookImage', URL.createObjectURL(file))}
                     />
                     {errors.bookImage && (
-                        <p className="text-red-500 text-xs !mt-1">{errors.bookImage.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookImage.message}</p>
                     )}
                 </div>
 
-                {/*color*/}
+                {/* Book Primary Color */}
                 <div className="relative">
-                    <label className="block text-sm font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Book Primary Color
                     </label>
                     <input
@@ -165,29 +164,23 @@ const AddBookPage = () => {
                         value={color}
                         onClick={() => setShowPicker(!showPicker)}
                         readOnly
-                        className="w-full border rounded-lg p-4 !pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB] cursor-pointer"
+                        className="w-full border rounded-lg p-3  pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base cursor-pointer"
                         placeholder="Enter the primary color"
                     />
                     <div
                         style={{ backgroundColor: color }}
-                        className="absolute top-1/2 left-3 -translate-y-1/2 w-6 h-6 rounded border border-gray-300 cursor-pointer"
+                        className="absolute top-1/2 left-3 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300 cursor-pointer"
                         onClick={() => setShowPicker(!showPicker)}
                     />
                     {errors.bookPrimaryColor && (
-                        <p className="text-red-500 text-xs !mt-1">{errors.bookPrimaryColor.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookPrimaryColor.message}</p>
                     )}
-                    {showPicker && (
-                        <ChromePicker
-                            color={color}
-                            onChange={handleColorChange}
-                            disableAlpha
-                        />
-                    )}
+                    {showPicker && <ChromePicker color={color} onChange={handleColorChange} disableAlpha />}
                 </div>
 
-                {/*video*/}
+                {/* Book Video */}
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Book Video
                     </label>
                     <DragAndDropUpload
@@ -195,41 +188,39 @@ const AddBookPage = () => {
                         onChange={(file) => setValue('bookVideo', URL.createObjectURL(file))}
                     />
                     {errors.bookVideo && (
-                        <p className="text-red-500 text-xs !mt-1">{errors.bookVideo.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookVideo.message}</p>
                     )}
                 </div>
 
-                {/*summary*/}
+                {/* Book Summary */}
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-700">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
                         Book Summary
                     </label>
                     <textarea
                         {...register('description')}
                         rows={4}
-                        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 !bg-[#F9FAFB]"
+                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
                         placeholder="Write a brief summary of the book"
                     ></textarea>
                     {errors.description && (
-                        <p className="text-red-500 text-xs !mt-1">
-                            {errors.description.message}
-                        </p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.description.message}</p>
                     )}
                 </div>
 
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full py-2 rounded-lg text-white font-medium transition ${loading
+                    className={`w-full py-2 sm:py-3 rounded-lg text-white font-medium transition ${loading
                         ? 'bg-gray-400 cursor-not-allowed'
                         : 'bg-primary-admin hover:bg-blue-700'
                         }`}
                 >
-                    {loading ? 'Uploading...' : 'Upload Book'}
+                    {loading ? 'Updating...' : 'Update Book'}
                 </button>
             </form>
         </div>
     );
 };
 
-export default AddBookPage;
+export default EditBookPage;
