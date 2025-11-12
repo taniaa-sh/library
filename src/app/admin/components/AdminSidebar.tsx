@@ -2,13 +2,15 @@
 
 import { menuItems } from "@/utils/adminMenuItems";
 import imagesAddresses from "@/utils/imageAddresses";
+import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const AdminSidebar = () => {
     const pathname = usePathname();
+    const router = useRouter();
 
     return (
         <div className="hidden lg:flex lg:fixed w-[280px] bg-white border border-[#EDF1F1] flex-col h-[calc(100vh-124px)] justify-between items-center max-h-screen overflow-y-auto !p-4 ">
@@ -67,6 +69,8 @@ const AdminSidebar = () => {
                     alt="logout"
                     width={24}
                     height={24}
+                    className="cursor-pointer"
+                    onClick={() => router.push(SiteUrls.logout)}
                 />
             </div>
         </div>

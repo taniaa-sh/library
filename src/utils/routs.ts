@@ -2,6 +2,7 @@ const SiteUrls = {
   home: "/",
   signIn: "/sign-in",
   signUp: "/sign-up",
+  logout: "/logout",
   bookDetail: "/bookDetail",
   dashbord: "/dashbord",
   profile: "/profile",
