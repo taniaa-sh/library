@@ -5,7 +5,7 @@ import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
 import CustomStatusAllUser from './CustomStatusAllUser';
 import imagesAddresses from '@/utils/imageAddresses';
-import { Popover, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import { Popover, Dialog, DialogTitle, DialogContent, DialogActions, Button, useMediaQuery } from '@mui/material';
 import CustomStatus from '../../components/CustomStatus';
 
 type User = {
@@ -32,6 +32,8 @@ const UserTableClient = ({ data }: Props) => {
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [pendingRole, setPendingRole] = useState<string | null>(null);
     const [confirmOpen, setConfirmOpen] = useState(false);
+
+    const isMobile = useMediaQuery('(max-width:768px)');
 
     const handleClick = (event: React.MouseEvent<HTMLElement>, user: User) => {
         setAnchorEl(event.currentTarget);
@@ -78,17 +80,17 @@ const UserTableClient = ({ data }: Props) => {
             key: 'name',
             label: 'Name',
             render: (row: User) => (
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
                     <Image
                         src={row.avatar || '/avatar1.png'}
                         alt="Avatar"
-                        width={40}
-                        height={40}
+                        width={isMobile ? 30 : 40}
+                        height={isMobile ? 30 : 40}
                         className="rounded-full object-cover"
                     />
                     <div className="flex flex-col gap-1">
-                        <p className="font-semibold text-sm text-dark-400">{row.name}</p>
-                        <p className="text-sm text-[#64748B]">{row.email}</p>
+                        <p className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'} text-dark-400`}>{row.name}</p>
+                        <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-[#64748B] break-words`}>{row.email}</p>
                     </div>
                 </div>
             ),
@@ -106,7 +108,7 @@ const UserTableClient = ({ data }: Props) => {
         {
             key: 'booksBorrowed',
             label: 'Books Borrowed',
-            render: (row: User) => <span className="font-semibold">{row.booksBorrowed}</span>,
+            render: (row: User) => <span className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'}`}>{row.booksBorrowed}</span>,
         },
         { key: 'universityIDNumber', label: 'University ID No' },
         {
@@ -116,8 +118,8 @@ const UserTableClient = ({ data }: Props) => {
                 <Image
                     src={imagesAddresses.icons.delete}
                     alt="Delete"
-                    width={20}
-                    height={20}
+                    width={isMobile ? 16 : 20}
+                    height={isMobile ? 16 : 20}
                     className="cursor-pointer"
                     onClick={() => handleDelete(row.id || '')}
                 />
@@ -134,29 +136,29 @@ const UserTableClient = ({ data }: Props) => {
                 onClose={handleClose}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-                PaperProps={{ className: 'p-4 rounded-xl shadow-lg' }}
+                PaperProps={{
+                    className: `p-3 sm:p-4 rounded-xl shadow-lg ${isMobile ? 'w-40' : 'w-52'}`
+                }}
             >
                 {selectedUser && (
-                    <div className="!w-[132px] flex flex-col gap-3">
-                        <div
-                            className="flex justify-between items-center cursor-pointer"
-                            onClick={() => handleRoleChange('User')}
-                        >
-                            <CustomStatus text="User" color="red" size="medium" width="" />
-                            {selectedUser.role === 'User' && (
-                                <Image src={imagesAddresses.icons.check} alt="check" width={20} height={20} />
-                            )}
-                        </div>
-
-                        <div
-                            className="flex justify-between items-center cursor-pointer"
-                            onClick={() => handleRoleChange('Admin')}
-                        >
-                            <CustomStatus text="Admin" color="lightGreen" size="medium" width="" />
-                            {selectedUser.role === 'Admin' && (
-                                <Image src={imagesAddresses.icons.check} alt="check" width={20} height={20} />
-                            )}
-                        </div>
+                    <div className="flex flex-col gap-2">
+                        {['User', 'Admin'].map((roleOption) => (
+                            <div
+                                key={roleOption}
+                                className="flex justify-between items-center cursor-pointer"
+                                onClick={() => handleRoleChange(roleOption)}
+                            >
+                                <CustomStatus
+                                    text={roleOption}
+                                    color={roleOption === 'User' ? 'red' : 'lightGreen'}
+                                    size="medium"
+                                    width=""
+                                />
+                                {selectedUser.role === roleOption && (
+                                    <Image src={imagesAddresses.icons.check} alt="check" width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} />
+                                )}
+                            </div>
+                        ))}
                     </div>
                 )}
             </Popover>
@@ -164,11 +166,12 @@ const UserTableClient = ({ data }: Props) => {
             <Dialog
                 open={confirmOpen}
                 onClose={() => setConfirmOpen(false)}
+                fullWidth={isMobile}
+                maxWidth={isMobile ? 'xs' : 'sm'}
                 PaperProps={{
                     sx: {
                         borderRadius: '16px',
-                        padding: '12px 8px',
-                        width: '480px',
+                        padding: isMobile ? '8px 6px' : '12px 8px',
                         backgroundColor: '#fff',
                         color: '#1e293b',
                         boxShadow: '0 8px 32px rgba(37, 56, 140, 0.2)',
@@ -177,7 +180,7 @@ const UserTableClient = ({ data }: Props) => {
             >
                 <DialogTitle
                     sx={{
-                        fontSize: '18px',
+                        fontSize: isMobile ? '16px' : '18px',
                         fontWeight: 700,
                         color: '#25388C',
                         textAlign: 'start',
@@ -189,10 +192,10 @@ const UserTableClient = ({ data }: Props) => {
 
                 <DialogContent
                     sx={{
-                        fontSize: '15px',
+                        fontSize: isMobile ? '13px' : '15px',
                         color: '#475569',
                         textAlign: 'start',
-                        lineHeight: 1.8,
+                        lineHeight: 1.6,
                         mt: 1,
                     }}
                 >
@@ -205,6 +208,7 @@ const UserTableClient = ({ data }: Props) => {
                         justifyContent: 'start',
                         gap: 2,
                         pb: 2,
+                        flexWrap: 'wrap',
                     }}
                 >
                     <Button
@@ -217,6 +221,7 @@ const UserTableClient = ({ data }: Props) => {
                             fontWeight: 500,
                             borderRadius: '10px',
                             px: 3,
+                            fontSize: isMobile ? '12px' : '14px',
                             '&:hover': {
                                 borderColor: '#25388C',
                                 color: '#25388C',
@@ -236,6 +241,7 @@ const UserTableClient = ({ data }: Props) => {
                             fontWeight: 500,
                             borderRadius: '10px',
                             px: 3,
+                            fontSize: isMobile ? '12px' : '14px',
                             '&:hover': {
                                 backgroundColor: '#1d2e74',
                             },
@@ -245,7 +251,6 @@ const UserTableClient = ({ data }: Props) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-
         </>
     );
 };
