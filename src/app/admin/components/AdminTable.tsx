@@ -58,18 +58,20 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
             {/* Mobile */}
             <div className="md:hidden flex flex-col gap-4">
                 {data.length === 0 ? (
-                    <div className="text-center text-gray-400">No data available</div>
+                    <div className="text-center text-gray-400 text-sm sm:text-base">No data available</div>
                 ) : (
                     data.map((row, idx) => (
                         <div
                             key={idx}
-                            className="bg-white rounded-2xl shadow-lg p-4 flex flex-col gap-3 transform transition hover:scale-[1.01] duration-200"
+                            className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 flex flex-col gap-3 transform transition hover:scale-[1.01] duration-200"
                         >
                             {columns.map((col, cIdx) =>
                                 col.key !== "action" ? (
                                     <div key={cIdx} className="grid grid-cols-[1fr_1.2fr] gap-2">
-                                        <span className="text-gray-400 font-medium">{col.label}</span>
-                                        <span className="text-gray-800 font-semibold break-words">
+                                        <span className="text-gray-400 font-medium text-xs sm:text-sm">
+                                            {col.label}
+                                        </span>
+                                        <span className="text-gray-800 font-semibold text-sm sm:text-base break-words">
                                             {col.render ? col.render(row) : String(row[col.key])}
                                         </span>
                                     </div>
@@ -86,6 +88,7 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
                     ))
                 )}
             </div>
+
 
         </div>
     );
