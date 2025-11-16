@@ -51,10 +51,10 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: input })
             })
-             console.log("RES STATUS:", res.status)
+            console.log("RES STATUS:", res.status)
 
             const data = await res.json()
-                console.log("API RESPONSE:", data)
+            console.log("API RESPONSE:", data)
             const aiMessage: Message = { sender: "ai", text: data.answer }
             setMessages(prev => [...prev, aiMessage])
         } catch {
@@ -70,7 +70,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
     return (
         <div
             className={`z-[1000] flex flex-col rounded-lg border border-gray-300 bg-gray-50 fixed right-0 bottom-0 
-                        md:right-60 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
+                        md:right-20 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
                         shadow-xl 
                         ${isClosing ? "animate-closeModal" : "animate-openModal"}`}
         >
@@ -104,7 +104,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 bg-white">
+            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 bg-gray-900">
                 {messages.map((msg, idx) => (
                     <div
                         key={idx}

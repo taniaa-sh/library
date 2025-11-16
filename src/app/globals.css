@@ -256,3 +256,39 @@
 .animate-supportPop {
   animation: supportPop 0.45s ease-out forwards;
 }
+
+@keyframes openModal {
+  0% {
+    transform: scale(0.8) translateY(50px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.05) translateY(-10px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes closeModal {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.8) translateY(50px);
+    opacity: 0;
+  }
+}
+
+.animate-openModal {
+  animation: openModal 0.5s ease-out forwards;
+}
+
+.animate-closeModal {
+  animation: closeModal 0.4s ease-in forwards;
+}
