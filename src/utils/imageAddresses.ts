@@ -18,7 +18,7 @@ const imagesAddresses = {
     verify: "/icons/verify.svg",
     closeMenue: "/icons/closeMenue.svg",
     menue: "/icons/menu.svg",
-
+    support: "/icons/supportIcon.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",
@@ -35,6 +35,7 @@ const imagesAddresses = {
     edit: "/icons/edit.svg",
     receipt: "/icons/receipt.svg",
     close: "/icons/close.svg",
+    modalClose: "/icons/modalClose.svg",
     loading: "/icons/loading.svg",
     plus: "/icons/plus.svg",
     plus2: "/icons/plus2.svg",

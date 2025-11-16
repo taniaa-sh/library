@@ -240,3 +240,19 @@
 #nprogress .spinner {
   display: none !important;
 }
+
+@keyframes supportPop {
+  0% {
+    transform: translateY(50px) scale(0.6);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-supportPop {
+  animation: supportPop 0.45s ease-out forwards;
+}
