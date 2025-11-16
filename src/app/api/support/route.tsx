@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({
+    apiKey: process.env.OPENROUTER_API_KEY,
+    baseURL: "https://openrouter.ai/api/v1",
+});
+
 const ipRequestCounts = new Map();
 const RATE_LIMIT = 10;
 const WINDOW_TIME = 60 * 1000;
@@ -49,32 +53,41 @@ export async function POST(req: NextRequest) {
 
     const libraryInfo = `
     Welcome to City Central Library! 
-    - Our library has over 50,000 books, including fiction, non-fiction, and reference books.
-    - Members can borrow up to 5 books for 2 weeks. Late returns incur a small fee.
-    - We offer eBooks and audiobooks through our digital library platform.
-    - The library is open from 8 AM to 8 PM, Monday to Saturday.
-    - We host weekly events, reading rooms, and workshops for children and adults.
-    - Library membership is free; you can sign up online or at the desk.
-    - Our staff can assist with catalog searches, research help, and book recommendations.
+    - 50,000+ books across multiple genres.
+    - Borrow up to 5 books for 2 weeks.
+    - Late returns: small fee.
+    - eBooks and audiobooks available.
+    - Open 8 AM – 8 PM (Mon–Sat).
+    - Weekly events & workshops.
+    - Free membership registration.
     `;
 
-    const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-            {
-                role: "system",
-                content: `You are a helpful library assistant who only answers questions based on the following information about City Central Library. 
-                          Do not answer unrelated questions. Never make up information.
-                          --- START OF LIBRARY INFO ---
-                          ${libraryInfo}
-                          --- END OF LIBRARY INFO ---`
-            },
-            { role: "user", content: message }
-        ],
-        max_tokens: 300,
-    });
+    try {
+        const completion = await openai.chat.completions.create({
+            model: "meta-llama/llama-3-8b-instruct",
+            messages: [
+                {
+                    role: "system",
+                    content: `You are a helpful library assistant. 
+                              Only answer questions about this library.
+                              --- INFO ---
+                              ${libraryInfo}
+                              --- END INFO ---`
+                },
+                { role: "user", content: message }
+            ],
+            max_tokens: 300,
+        });
 
-    const answer = response.choices[0].message?.content;
+        const answer = completion.choices[0].message?.content ?? "No response.";
 
-    return NextResponse.json({ answer });
+        return NextResponse.json({ answer });
+
+    } catch (error) {
+        console.error("OpenAI Error:", error);
+        return NextResponse.json(
+            { answer: "❌ OpenAI API Error: Could not generate a response." },
+            { status: 500 }
+        );
+    }
 }

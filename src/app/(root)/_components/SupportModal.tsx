@@ -13,9 +13,14 @@ interface Message {
     text: string
 }
 
-const SupportModal = (props: PropsType) => {
+const SupportModal = ({ setShowSopportModal }: PropsType) => {
     const [isClosing, setIsClosing] = useState(false)
-    const [messages, setMessages] = useState<Message[]>([])
+    const [messages, setMessages] = useState<Message[]>([
+        {
+            sender: "ai",
+            text: "Hi! 👋 How can I help you today?"
+        }
+    ])
     const [input, setInput] = useState("")
     const [isTyping, setIsTyping] = useState(false)
     const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -23,7 +28,7 @@ const SupportModal = (props: PropsType) => {
     const handleClose = () => {
         setIsClosing(true)
         setTimeout(() => {
-            props.setShowSopportModal(false)
+            setShowSopportModal(false)
             setIsClosing(false)
         }, 500)
     }
@@ -46,16 +51,17 @@ const SupportModal = (props: PropsType) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: input })
             })
+             console.log("RES STATUS:", res.status)
 
             const data = await res.json()
+                console.log("API RESPONSE:", data)
             const aiMessage: Message = { sender: "ai", text: data.answer }
             setMessages(prev => [...prev, aiMessage])
-        } catch (error) {
-            const errorMessage: Message = {
-                sender: "ai",
-                text: "Sorry, something went wrong."
-            }
-            setMessages(prev => [...prev, errorMessage])
+        } catch {
+            setMessages(prev => [
+                ...prev,
+                { sender: "ai", text: "❌ Sorry, something went wrong." }
+            ])
         } finally {
             setIsTyping(false)
         }
@@ -63,12 +69,14 @@ const SupportModal = (props: PropsType) => {
 
     return (
         <div
-            className={`z-[1000] flex flex-col rounded-lg border border-gray-300 bg-gray-200 fixed right-0 bottom-0 md:right-60 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
-                       ${isClosing ? "animate-closeModal" : "animate-openModal"}
-                    `}
+            className={`z-[1000] flex flex-col rounded-lg border border-gray-300 bg-gray-50 fixed right-0 bottom-0 
+                        md:right-60 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
+                        shadow-xl 
+                        ${isClosing ? "animate-closeModal" : "animate-openModal"}`}
         >
+
             {/* Header */}
-            <div className="w-full flex px-5 py-1.5 rounded-none md:rounded-t-lg bg-light-200 select-none">
+            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-[#EED1AC] select-none shadow-sm">
                 <div className="flex items-center gap-2 w-full">
                     <Image
                         src={imagesAddresses.icons.support}
@@ -78,53 +86,61 @@ const SupportModal = (props: PropsType) => {
                     />
                     <div className="flex flex-col">
                         <p className="text-base font-semibold leading-8">Library Support</p>
-                        {isTyping && <p className="text-xs font-normal leading-6">Typing...</p>}
+                        {isTyping && (
+                            <p className="text-xs font-normal text-gray-600 leading-6">
+                                Typing...
+                            </p>
+                        )}
                     </div>
                 </div>
                 <Image
                     src={imagesAddresses.icons.modalClose}
-                    width={24}
-                    height={24}
+                    width={22}
+                    height={22}
                     alt="close"
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:scale-105 transition"
                     onClick={handleClose}
                 />
             </div>
 
-            {/* Chat messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2">
-                <p>How can we help you?</p>
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 bg-white">
                 {messages.map((msg, idx) => (
                     <div
                         key={idx}
                         className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                     >
                         <div
-                            className={`max-w-[70%] p-2 rounded-lg ${msg.sender === "user"
-                                ? "bg-blue-500 text-white rounded-br-none"
-                                : "bg-gray-300 text-gray-900 rounded-bl-none"
+                            className={`max-w-[75%] p-2 rounded-xl text-sm leading-6 shadow-sm
+                                        ${msg.sender === "user"
+                                    ? "bg-blue-600 text-white rounded-br-none"
+                                    : "bg-gray-200 text-gray-900 rounded-bl-none"
                                 }`}
                         >
                             {msg.text}
                         </div>
                     </div>
                 ))}
+
                 <div ref={messagesEndRef} />
             </div>
 
-            {/*send area */}
-            <div className="flex items-center px-4 py-2 border-t border-gray-300 bg-gray-100">
+            {/* Input section */}
+            <div className="flex items-center px-4 py-3 border-t border-gray-300 bg-gray-100">
                 <input
                     type="text"
                     value={input}
                     onChange={e => setInput(e.target.value)}
                     onKeyDown={e => e.key === "Enter" && handleSend()}
                     placeholder="Type your question..."
-                    className="flex-1 px-3 py-2 border border-gray-500 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                    className="flex-1 px-3 py-2 border border-gray-400 rounded-lg 
+                              focus:outline-none focus:ring focus:ring-blue-300 bg-white"
                 />
+
                 <button
                     onClick={handleSend}
-                    className="ml-2 px-4 py-2 bg-light-200 rounded-lg cursor-pointer hover:bg-[#E6C499]"
+                    className="ml-2 px-4 py-2 rounded-lg bg-[#EED1AC] hover:bg-[#E6C499] 
+                               transition shadow"
                 >
                     Send
                 </button>
