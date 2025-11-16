@@ -63,7 +63,7 @@ const SearchBook = () => {
                     We couldn’t find any books matching your search. Try using different keywords or check for typos.
                 </p>
                 <Button
-                    className="w-full mt-4"
+                    className="w-full my-4"
                     onClick={handleClear}
                 >
                     Clear Search
