@@ -18,7 +18,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
     const [messages, setMessages] = useState<Message[]>([
         {
             sender: "ai",
-            text: "Hi! 👋 How can I help you today?"
+            text: "Hi! I'm Library Support. How can I help you today?"
         }
     ])
     const [input, setInput] = useState("")
