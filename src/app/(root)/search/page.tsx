@@ -41,7 +41,7 @@ const SearchBook = () => {
                     }}
                 />
                 <Button
-                    className="w-full sm:w-auto !p-3 sm:!px-6"
+                    className="w-full sm:w-auto !p-3 sm:!px-6 sm:!py-4"
                     onClick={handleSearch}
                 >
                     Search
