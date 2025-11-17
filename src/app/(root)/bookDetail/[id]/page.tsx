@@ -227,7 +227,7 @@ const BookDetailPage = () => {
                     <div className="flex flex-col gap-2">
                         <p className="font-semibold text-2xl md:text-3xl text-light-100">Summary</p>
                         <div className="flex flex-col gap-3">
-                            <p className="text-base md:text-xl leading-7 md:leading-8 text-light-100">
+                            <p className="text-base md:text-xl leading-7 md:leading-8 text-light-100 text-justify">
                                 {data?.summary}
                             </p>
                         </div>
@@ -237,7 +237,7 @@ const BookDetailPage = () => {
                 {/* Right Column: Similar Books */}
                 <div className="flex flex-col gap-3 w-full lg:w-auto">
                     <p className="font-semibold text-2xl md:text-3xl text-light-100">More similar books</p>
-                    <div className="flex overflow-x-auto gap-3 lg:grid lg:grid-cols-3">
+                    <div className="flex overflow-x-auto gap-3 lg:grid lg:grid-cols-3 custom-scrollbar">
                         {[3, 2, 4, 5, 6, 7].map((num) => {
                             const key = `book${num}` as keyof typeof imagesAddresses.images;
                             return (
