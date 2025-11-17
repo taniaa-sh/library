@@ -37,7 +37,7 @@ const Header = () => {
           <Link
             key={item.href}
             href={item.href}
-            className={`transition-colors duration-200 hover:text-purple-400 ${pathName === item.href ? "!text-light-200 font-semibold" : "text-white"
+            className={`transition-colors duration-200 hover:!text-[#b26e16] ${pathName === item.href ? "!text-light-200 font-semibold" : "text-white"
               }`}
           >
             {item.label}
@@ -64,7 +64,7 @@ const Header = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors duration-200 hover:text-purple-400 ${pathName === item.href ? "!text-light-200 font-semibold" : "text-white"
+              className={`transition-colors duration-200 w-full text-center hover:!text-[#b26e16] ${pathName === item.href ? "!text-light-200 font-semibold" : "text-white"
                 }`}
               onClick={() => setIsMenuOpen(false)}
             >
