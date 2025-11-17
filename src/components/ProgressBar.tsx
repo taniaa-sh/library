@@ -5,17 +5,30 @@ import { useEffect } from 'react';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
-export default function ProgressBar() {
+interface ProgressBarProps {
+    isAdmin?: boolean;
+}
+
+export default function ProgressBar({ isAdmin = false }: ProgressBarProps) {
     const pathname = usePathname();
 
     useEffect(() => {
-        NProgress.configure({ showSpinner: false });
+        const color = isAdmin ? '#25388C' : '#D4C851';
+        NProgress.configure({
+            showSpinner: false,
+            trickleSpeed: 200,
+            template: `
+                <div class="bar" role="bar" style="background: ${color}; height: 3px;">
+                    <div class="peg" style="box-shadow: 0 0 10px ${color}, 0 0 5px ${color};"></div>
+                </div>
+            `,
+        });
 
         NProgress.start();
         NProgress.done();
 
         return () => { NProgress.done(); };
-    }, [pathname]);
+    }, [pathname, isAdmin]);
 
 
     return null;
