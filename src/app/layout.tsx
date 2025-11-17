@@ -40,11 +40,11 @@ export default function RootLayout({
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
         <ReactQueryProvider>
           <BackgroundWrapper>
-            <div className="max-w-[1440px] mx-auto">
+            {/* <div className="max-w-[1440px] mx-auto"> */}
               <ProgressBar />
               {children}
               <Toaster position="top-right" richColors />
-            </div>
+            {/* </div> */}
           </BackgroundWrapper>
         </ReactQueryProvider>
       </body>

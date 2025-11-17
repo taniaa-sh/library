@@ -74,20 +74,20 @@ const BookFeature = ({
                 </Button>
             </div>
 
-            <div className="flex justify-center relative lg:right-40">
+            <div className="flex justify-center relative lg:right-40 right-10">
                 <Image
                     src={bookImg}
                     alt="book"
                     width={250}
                     height={280}
-                    className="z-10 relative"
+                    className="z-10 relative w-[250px] h-[280px] md:w-[300px] md:h-[340px] object-contain"
                 />
                 <Image
                     src={bookImg}
                     alt="book"
                     width={250}
                     height={280}
-                    className="absolute -right-14 top-3 rotate-[15deg] z-0 opacity-70 blur-sm"
+                    className="absolute -right-10 top-3 rotate-[15deg] z-0 opacity-70 blur-sm w-[250px] h-[280px] md:w-[300px] md:h-[340px] object-contain"
                     style={{ filter: "blur(6px)" }}
                 />
             </div>

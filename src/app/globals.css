@@ -292,3 +292,8 @@
 .animate-closeModal {
   animation: closeModal 0.4s ease-in forwards;
 }
+
+.swiper-slide {
+  display: flex !important;
+  justify-content: center !important;
+}

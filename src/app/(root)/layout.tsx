@@ -5,9 +5,9 @@ import ShowSopportModal from "./_components/ShowSopportModal";
 const Layout = async ({ children }: { children: ReactNode }) => {
 
     return (
-        <div className="max-w-[1440px] mx-auto px-[10px]">
+        <div >
             <Header />
-            <div>{children}</div>
+            <div className="max-w-[1440px] mx-auto px-[10px] mt-10">{children}</div>
             <ShowSopportModal />
         </div>
 

@@ -16,7 +16,7 @@ export default function PopularBookSlider({ data }: { data: BookFeatureProps[] }
         <div className="w-full overflow-hidden px-2 sm:px-4 md:px-0">
             <Swiper
                 breakpoints={{
-                    320: { slidesPerView: 1, spaceBetween: 8 },
+                    320: { slidesPerView: 2, spaceBetween: 8, centeredSlides: true },
                     480: { slidesPerView: 3, spaceBetween: 10 },
                     640: { slidesPerView: 4, spaceBetween: 12 },
                     768: { slidesPerView: 5, spaceBetween: 16 },
@@ -29,7 +29,7 @@ export default function PopularBookSlider({ data }: { data: BookFeatureProps[] }
                 {data.map((popularBook, idx) => (
                     <SwiperSlide
                         key={idx}
-                        className="flex flex-col items-center gap-1 sm:gap-2 cursor-pointer"
+                        className="flex flex-col items-center justify-center mx-auto gap-1 sm:gap-2 cursor-pointer"
                         onClick={() => router.push(SiteUrls.bookDetail + `/${popularBook.id}`)}
                     >
                         <Image

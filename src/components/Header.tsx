@@ -18,7 +18,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full bg-gray-900 text-white flex items-center justify-between p-5 md:px-10 md:py-6 relative">
+    <header className="!w-full bg-gray-900 text-white flex items-center justify-between p-5 md:px-10 md:py-6 relative">
 
       {/*logo*/}
       <Link href="/">
@@ -26,8 +26,8 @@ const Header = () => {
           src={imagesAddresses.images.logo}
           alt="Logo"
           width={120}
-          height={120}
-          className="object-contain"
+          height={40}
+          className="!h-[20px] !w-[120px]"
         />
       </Link>
 
