@@ -18,7 +18,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="!w-full bg-gray-900 text-white flex items-center justify-between p-5 md:px-10 md:py-6 relative">
+    <header className="!w-full bg-gray-900 text-white flex items-center justify-between p-5 md:px-10 md:py-6 fixed top-0 z-50">
 
       {/*logo*/}
       <Link href="/">
@@ -37,7 +37,7 @@ const Header = () => {
           <Link
             key={item.href}
             href={item.href}
-            className={`transition-colors duration-200 hover:text-purple-400 ${pathName === item.href ? "text-purple-400 font-semibold" : "text-white"
+            className={`transition-colors duration-200 hover:text-purple-400 ${pathName === item.href ? "!text-light-200 font-semibold" : "text-white"
               }`}
           >
             {item.label}
@@ -64,7 +64,7 @@ const Header = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors duration-200 hover:text-purple-400 ${pathName === item.href ? "text-purple-400 font-semibold" : "text-white"
+              className={`transition-colors duration-200 hover:text-purple-400 ${pathName === item.href ? "!text-light-200 font-semibold" : "text-white"
                 }`}
               onClick={() => setIsMenuOpen(false)}
             >

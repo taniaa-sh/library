@@ -17,9 +17,9 @@ const SearchBook = () => {
     }
 
     return (
-        <div className="mt-16 md:mt-20 flex flex-col items-center gap-8 px-4 md:px-10">
+        <div className="mt-10 flex flex-col items-center gap-8 px-4 md:px-10">
             <div>
-                <p className="text-[18px] md:text-[20px] font-semibold leading-7 text-light-100 text-center">
+                <p className="text-[18px] md:text-[20px] font-semibold leading-7 text-light-100 text-center pt-20">
                     Discover Your Next Great Read:
                 </p>
                 <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white text-center">
