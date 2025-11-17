@@ -228,15 +228,6 @@
   cursor: url("/flash2.svg") 16 16, auto !important;
 }
 
-#nprogress .bar {
-  background: #D4C851 !important;
-  height: 2px !important;
-}
-
-#nprogress .peg {
-  box-shadow: 0 0 10px #D4C851, 0 0 5px !important;
-}
-
 #nprogress .spinner {
   display: none !important;
 }

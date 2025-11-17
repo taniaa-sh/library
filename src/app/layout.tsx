@@ -40,7 +40,6 @@ export default function RootLayout({
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
         <ReactQueryProvider>
           <BackgroundWrapper>
-              <ProgressBar />
               {children}
               <Toaster position="top-right" richColors />
           </BackgroundWrapper>

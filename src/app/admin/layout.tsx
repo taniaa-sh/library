@@ -3,6 +3,7 @@ import { Toaster } from "sonner";
 import ProgressBar from "@/components/ProgressBar";
 import AdminSidebar from "./components/AdminSidebar";
 import AdminHeader from "./components/AdminHeader";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 // const ibmPlexSans = localFont({
 //     src: [
@@ -37,7 +38,8 @@ export default function AdminLayout({
         <html lang="en" className="bg-white">
             <body className="bg-white min-h-screen">
                 <div className="max-w-[1440px] mx-auto">
-                    <ProgressBar />
+                    <ProgressBar isAdmin />
+                    <ScrollProgressBar isAdmin />
                     <div className="flex gap-10">
                         <AdminSidebar />
                         <div className="flex flex-col gap-20 w-full lg:!ml-[280px]">
