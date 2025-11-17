@@ -19,7 +19,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-10 px-4 md:px-10">
                 <BookFeature
                     title="The Lord"
                     Genre="Fantasy"
@@ -31,7 +31,7 @@ const Home = () => {
                     availableBooks={4}
                 />
             </div>
-            <div className="flex flex-col gap-12 mt-20">
+            <div className="flex flex-col gap-12 mt-20 px-4 md:px-10">
                 <p className="text-xl md:text-3xl font-semibold text-light-100">Popular Books</p>
                 <PopularBookSlider data={data} />
             </div>
