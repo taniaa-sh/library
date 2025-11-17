@@ -2,15 +2,17 @@
 
 import { menuItems } from "@/utils/adminMenuItems";
 import imagesAddresses from "@/utils/imageAddresses";
+import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const AdminHeader = () => {
 
     const [isOpenSidebar, setIsOpenSidebar] = useState(false);
     const pathname = usePathname();
+    const router = useRouter();
 
     return (
         <div className="fixed bg-white flex items-center gap-8 w-full p-6 !shadow-[0_2px_4px_rgba(0,0,0,0.1)] z-50">
@@ -57,6 +59,30 @@ const AdminHeader = () => {
                                     </Link>
                                 );
                             })}
+                            <div
+                                className="flex gap-2 items-center border-2 border-[#EDF1F1] rounded-[62px] !py-[10px] !px-3"
+                                onClick={() => { }}
+                            >
+                                <Image
+                                    src={imagesAddresses.images.profile}
+                                    alt="profile"
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full"
+                                />
+                                <div className="flex flex-col gap-1">
+                                    <p className="font-medium text-base text-[#1E293B]">Adrian Hajdin</p>
+                                    <p className="font-normal text-sm text-[#8D8D8D]">adrian@jsmastery.pro</p>
+                                </div>
+                                <Image
+                                    src={imagesAddresses.icons.logout}
+                                    alt="logout"
+                                    width={24}
+                                    height={24}
+                                    className="cursor-pointer"
+                                    onClick={() => router.push(SiteUrls.logout)}
+                                />
+                            </div>
                         </div>
                     )
                 }
