@@ -33,7 +33,7 @@ const AdminHeader = () => {
 
                 {
                     isOpenSidebar && (
-                        <div className="fixed lg:hidden top-[75px] left-0 !p-5 flex flex-col w-[280px] h-screen z-50 bg-white !shadow-2xl">
+                        <div className="fixed lg:hidden top-[75px] left-0 !p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white !shadow-2xl">
                             {menuItems.map((item: { id: number, title: string, image: string, activeImage: string, link: string }) => {
                                 const isActive = pathname === item.link;
 
