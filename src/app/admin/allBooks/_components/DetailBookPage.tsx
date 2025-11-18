@@ -125,7 +125,7 @@ const DetailBookPage = () => {
                             src={"https://ik.imagekit.io/pwd17k26p/books/videos/file_vcXsdjkqw.png"}
                             onEnded={() => setIsPlaying(false)}
                             onClick={togglePlay}
-                            className="w-full h-[400px] object-cover"
+                            className="w-full h-[200px] md:h-[300px] object-cover"
                         />
                         {!isPlaying && (
                             <div
