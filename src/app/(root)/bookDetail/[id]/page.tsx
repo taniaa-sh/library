@@ -90,9 +90,11 @@ const BookDetailPage = () => {
                     {/* Video */}
                     <div className="flex flex-col gap-2">
                         <p className="font-semibold text-2xl md:text-3xl text-light-100">Video</p>
-                        <div className="relative w-full rounded-lg shadow-lg overflow-hidden border border-gray-500">
+                        <div className="relative w-full rounded-lg shadow-lg overflow-hidden border border-gray-500">  
                             <video
                                 ref={videoRef}
+                                poster={!data?.videoUrl ? imagesAddresses.images.notFoundBg : ''}
+                                height={200}
                                 src={data?.videoUrl}
                                 onTimeUpdate={handleTimeUpdate}
                                 onEnded={() => setIsPlaying(false)}
@@ -105,7 +107,7 @@ const BookDetailPage = () => {
                                         setIsPlaying(false);
                                     }
                                 }}
-                                className="w-full h-auto object-contain"
+                                className="w-full h-[400px] object-cover"
                             />
                             {!isPlaying && (
                                 <div

@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import AdminTable, { Column } from '../../components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
+import DenyAccountModal from './DenyAccountModal';
+import ApproveReq from './ApproveReq';
 
 type AcountReq = {
     name: string;
@@ -19,9 +21,11 @@ interface Props {
 
 const AccountRwqTableClient = ({ data }: Props) => {
     const [acountReq, setAcountReq] = useState<AcountReq[]>(data);
+    const [showApproveModal, setShowApproveModal] = useState(false);
+    const [showDenyModal, setShowDenyModal] = useState(false);
 
     const columns: Column<AcountReq>[] = [
-        { key: 'name', label: 'Name',},
+        { key: 'name', label: 'Name', },
         { key: 'dateJoined', label: 'Date Joined' },
         { key: 'universityIDNumber', label: 'University ID No' },
         {
@@ -29,9 +33,16 @@ const AccountRwqTableClient = ({ data }: Props) => {
             label: 'Action',
             render: (row: AcountReq) => (
                 <button
-                    className="bg-[#ECFDF3] text-[#027A48] !py-2 !px-3 rounded-lg"
+                    onClick={() => {
+                        if (row.action === 'approve') {
+                            setShowApproveModal(true)
+                        } else {
+                            setShowDenyModal(true)
+                        }
+                    }}
+                    className={`!py-2 !px-3 rounded-lg cursor-pointer ${row.action === 'approve' ? 'bg-[#ECFDF3] text-[#027A48]' : 'bg-[#FFF1F3] text-[#C01048]'}`}
                 >
-                    Approve Account
+                    {row.action === 'approve' ? ' Approve Account' : 'Deny Account'}
                 </button>
             ),
         },
@@ -50,7 +61,25 @@ const AccountRwqTableClient = ({ data }: Props) => {
         },
     ];
 
-    return <AdminTable columns={columns} data={acountReq} />;
+    return (
+        <>
+            {
+                showDenyModal && (
+                    <DenyAccountModal
+                        setShowDenyModal={setShowDenyModal}
+                    />
+                )
+            }
+            {
+                showApproveModal && (
+                    <ApproveReq
+                        setShowApproveModal={setShowApproveModal}
+                    />
+                )
+            }
+            <AdminTable columns={columns} data={acountReq} />
+        </>
+    );
 };
 
 export default AccountRwqTableClient;

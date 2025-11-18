@@ -47,6 +47,9 @@ const imagesAddresses = {
     whiteEdit: "/icons/whiteEdit.svg",
     hamburgerMenu: "/icons/hamburgerMenu.svg",
     arrowRight: "/icons/arrowRight.svg",
+    deny: "/icons/deny.svg",
+    approve: "/icons/approve.svg",
+    handle: "/icons/handle.svg",
   },
   images: {
     logo: "/images/Frame.png",
