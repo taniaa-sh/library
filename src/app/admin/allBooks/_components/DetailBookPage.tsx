@@ -137,7 +137,7 @@ const DetailBookPage = () => {
                                     alt="play"
                                     width={64}
                                     height={64}
-                                    className="rounded-full p-4"
+                                    className="rounded-full p-4 border-4 border-white"
                                 />
                             </div>
                         )}
