@@ -5,9 +5,21 @@ import AdminButton from "../../components/AdminButton";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SiteUrls from "@/utils/routs";
+import { useRef, useState } from "react";
 
 const DetailBookPage = () => {
     const router = useRouter();
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const togglePlay = () => {
+        if (isPlaying) {
+            videoRef.current?.pause();
+        } else {
+            videoRef.current?.play();
+        }
+        setIsPlaying(!isPlaying);
+    };
 
     return (
         <div className="w-full flex flex-col gap-10 mx-auto p-4 sm:p-6 mt-[130px]">
@@ -105,7 +117,31 @@ const DetailBookPage = () => {
                     <p className="font-semibold text-base sm:text-lg text-dark-400">
                         Video
                     </p>
-                    <div className="text-sm sm:text-base text-gray-500">hjj</div>
+                    <div className="relative w-full rounded-lg shadow-lg overflow-hidden border border-gray-500">
+                        <video
+                            ref={videoRef}
+                            poster={imagesAddresses.images.notFoundBg}
+                            height={200}
+                            src={"https://ik.imagekit.io/pwd17k26p/books/videos/file_vcXsdjkqw.png"}
+                            onEnded={() => setIsPlaying(false)}
+                            onClick={togglePlay}
+                            className="w-full h-[400px] object-cover"
+                        />
+                        {!isPlaying && (
+                            <div
+                                onClick={togglePlay}
+                                className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/20"
+                            >
+                                <Image
+                                    src={imagesAddresses.icons.playWhite}
+                                    alt="play"
+                                    width={64}
+                                    height={64}
+                                    className="rounded-full p-4"
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
