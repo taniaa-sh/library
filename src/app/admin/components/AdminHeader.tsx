@@ -84,7 +84,7 @@ const AdminHeader = () => {
                 <p className="font-normal text-xs md:text-base text-slate-500">Monitor all of your projects and tasks here</p>
             </div>
             <input
-                className="w-full p-3 rounded-lg placeholder-gray-400"
+                className="hidden md:block p-3 rounded-lg placeholder-gray-400 border sm:w-[400px] w-full"
                 type="text"
                 placeholder="Search users, books by title, author, or genre."
                 onChange={() => { }}
