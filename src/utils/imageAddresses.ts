@@ -19,6 +19,8 @@ const imagesAddresses = {
     closeMenue: "/icons/closeMenue.svg",
     menue: "/icons/menu.svg",
     support: "/icons/supportIcon.svg",
+    blackEdit: "/icons/blackEdit.svg",
+    save: "/icons/save.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",

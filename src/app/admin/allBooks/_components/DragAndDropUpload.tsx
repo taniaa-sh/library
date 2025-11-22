@@ -4,6 +4,7 @@ import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import AdminButton from "../../components/AdminButton";
+import { usePathname } from "next/navigation";
 
 type DragAndDropUploadProps = {
     onChange: (file: File) => void;
@@ -16,6 +17,8 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview }: DragAndDropUpl
     const [fileName, setFileName] = useState<string | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const path = usePathname()
+    const isAdminPath = path?.startsWith('/admin');
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -58,8 +61,8 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview }: DragAndDropUpl
     return (
         <>
             <div
-                className={`w-full h-36 !bg-[#F9FAFB] border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-blue-400'
-                    }`}
+                className={`w-full h-36  border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${isDragging ? 'border-blue-500 bg-blue-50' : `border-gray-300 ${isAdminPath ? 'hover:border-blue-400' : 'hover:border-[#ddbfa3]'}`
+                    } ${isAdminPath ? '!bg-[#F9FAFB]' : '!bg-[#232839]'}`}
                 onClick={() => inputRef.current?.click()}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -73,13 +76,13 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview }: DragAndDropUpl
                             width={18}
                             height={18}
                         />
-                        <p className="font-normal text-base leading-6 text-slate-500">
+                        <p className={`font-normal text-base leading-6 ${isAdminPath ? 'text-slate-500' : 'text-white'}`}>
                             Upload a {type === 'image' ? 'image' : 'video'}
                         </p>
                     </div>
                     <AdminButton
                         text="Browse to Upload"
-                        color="blue"
+                        color={isAdminPath ? 'blue' : 'yellow'}
                         containerClassName="cursor-pointer"
                     />
                 </div>
@@ -94,7 +97,7 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview }: DragAndDropUpl
             </div>
 
             {previewUrl && (
-                <div className="w-full !bg-[#F9FAFB] border-2 border-[#7286dd] rounded-xl flex flex-col md:flex-row justify-between items-center !mt-4 !p-4 gap-4">
+                <div className={`w-full  border-2 rounded-xl flex flex-col md:flex-row justify-between items-center !mt-4 !p-4 gap-4 ${isAdminPath ? '!bg-[#F9FAFB] border-[#7286dd]' : 'bg-[#232839] border-[#ddbfa3]'}`}>
                     {type === 'image' ? (
                         <Image
                             src={previewUrl}
@@ -110,8 +113,8 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview }: DragAndDropUpl
                             className="w-full md:w-1/3 rounded-lg max-h-40"
                         />
                     )}
-                    <div className="flex justify-between items-center w-full md:w-auto">
-                        <p className="text-sm font-medium text-gray-700">{fileName}</p>
+                    <div className="flex gap-2 items-center w-full md:w-auto">
+                        <p className={`text-sm font-medium  ${isAdminPath ? 'text-gray-700' : 'text-white'}`}>{fileName}</p>
                         <Image
                             src={imagesAddresses.icons.delete}
                             alt="close"
