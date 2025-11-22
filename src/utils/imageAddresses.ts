@@ -21,6 +21,7 @@ const imagesAddresses = {
     support: "/icons/supportIcon.svg",
     blackEdit: "/icons/blackEdit.svg",
     save: "/icons/save.svg",
+    serach: "/icons/search.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",

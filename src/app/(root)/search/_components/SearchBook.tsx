@@ -102,26 +102,36 @@ const SearchBook = ({ data }: PropsType) => {
                 {/* Search Box */}
                 <div className="w-full max-w-[600px] flex flex-col sm:flex-row items-center gap-4 mt-8">
                     <div className="w-full max-w-[600px] flex flex-col">
-                        <input
-                            className="w-full sm:flex-1 bg-[#232839] p-3 sm:p-4 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
-                            type="text"
-                            placeholder="Search for a book"
-                            value={search}
-                            onChange={(e) => {
-                                const value = e.target.value
-                                setSearch(value)
-                                setBookList(true)
-                                setShowNoResult(false)
-                                setShowResults(false)
+                        <div className="relative">
+                            <input
+                                className="w-full sm:flex-1 bg-[#232839] py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                                type="text"
+                                placeholder="Search for a book"
+                                value={search}
+                                onChange={(e) => {
+                                    const value = e.target.value
+                                    setSearch(value)
+                                    setBookList(true)
+                                    setShowNoResult(false)
+                                    setShowResults(false)
 
-                                if (value.trim() === "") {
-                                    handleClear()
-                                }
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") handleSearch(search)
-                            }}
-                        />
+                                    if (value.trim() === "") {
+                                        handleClear()
+                                    }
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") handleSearch(search)
+                                }}
+                            />
+                            <Image
+                                src={imagesAddresses.icons.serach}
+                                alt="Search Icon"
+                                width={25}
+                                height={25}
+                                className="absolute top-3 md:top-4 left-2 cursor-pointer z-50"
+                                onClick={() => handleSearch(search)}
+                            />
+                        </div>
 
                         <AnimatePresence>
                             {bookList && search.length > 0 && filterBooks.length > 0 && !showNoResult && (
