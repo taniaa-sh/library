@@ -5,7 +5,8 @@ import imagesAddresses from "@/utils/imageAddresses"
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { toast } from "sonner";
 
 interface PropsType {
     data: string[]
@@ -13,8 +14,11 @@ interface PropsType {
 
 const SearchBook = ({ data }: PropsType) => {
 
+    const query = new URLSearchParams(window.location.search)
+    const searchQuery = query.get("search")
+
     const router = useRouter()
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState(searchQuery || "")
     const [showNoResult, setShowNoResult] = useState(false)
     const [bookList, setBookList] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -22,7 +26,28 @@ const SearchBook = ({ data }: PropsType) => {
 
     const filterBooks = data.filter(book => book.toLowerCase().includes(search.toLowerCase()))
 
+    useEffect(() => {
+        if (searchQuery && searchQuery.trim() !== "") {
+            setSearch(searchQuery)
+            setShowResults(true)
+            setShowNoResult(false)
+            setBookList(false)
+        } else {
+            setShowResults(false)
+            setShowNoResult(false)
+            setBookList(false)
+        }
+    }, [])
+
     const handleSearch = (book: string) => {
+
+        if (book === "") {
+            setShowNoResult(false)
+            setShowResults(false)
+            setBookList(false)
+            toast.error("Please enter a book name")
+            return
+        }
         setLoading(true)
         const exactMatch = data.some(item => item.toLowerCase() === book.toLowerCase());
 
