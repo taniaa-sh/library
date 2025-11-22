@@ -16,7 +16,6 @@ const AdminHeader = () => {
 
     return (
         <div className="fixed bg-white flex items-center gap-8 w-full p-6 !shadow-[0_2px_4px_rgba(0,0,0,0.1)] z-50">
-
             <div className="flex flex-col">
                 <Image
                     src={isOpenSidebar ? imagesAddresses.icons.arrowLeft : imagesAddresses.icons.hamburgerMenu}
@@ -26,13 +25,6 @@ const AdminHeader = () => {
                     className="md:hidden cursor-pointer"
                     onClick={() => setIsOpenSidebar(!isOpenSidebar)}
                 />
-                {/* {isOpenSidebar && (
-                <div
-                    className="fixed top-[80px] lg:hidden left-0 w-full h-[calc(100%-72px)] bg-black/30 z-40"
-                    onClick={() => setIsOpenSidebar(false)}
-                ></div>
-            )} */}
-
                 {
                     isOpenSidebar && (
                         <div className="fixed lg:hidden top-[75px] left-0 !p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white !shadow-2xl">
@@ -91,6 +83,12 @@ const AdminHeader = () => {
                 <p className="font-semibold text-lg md:text-2xl">Welcome, Adrian</p>
                 <p className="font-normal text-xs md:text-base text-slate-500">Monitor all of your projects and tasks here</p>
             </div>
+            <input
+                className="w-full p-3 rounded-lg placeholder-gray-400"
+                type="text"
+                placeholder="Search users, books by title, author, or genre."
+                onChange={() => { }}
+            />
         </div>
     );
 };
