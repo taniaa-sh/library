@@ -55,6 +55,7 @@ const Header = () => {
             height={25}
             className="cursor-pointer"
             onClick={() => { setIsDark(!isDark) }}
+            title="change theme"
           />
           {menuItems.map((item) => (
             <Link
@@ -73,6 +74,7 @@ const Header = () => {
             height={20}
             className="cursor-pointer"
             onClick={() => setShowLogoutModal(true)}
+            title="logout"
           />
         </nav>
 
@@ -117,7 +119,9 @@ const Header = () => {
                 width={25}
                 height={25}
                 className="cursor-pointer"
-                onClick={() => { setIsDark(!isDark) }}
+                onClick={() => { setIsDark(!isDark) }
+                }
+                title="change theme"
               />
               <Image
                 src={imagesAddresses.icons.logout}
@@ -126,6 +130,7 @@ const Header = () => {
                 height={20}
                 className="cursor-pointer"
                 onClick={() => setShowLogoutModal(true)}
+                title="logout"
               />
             </div>
           </nav>
