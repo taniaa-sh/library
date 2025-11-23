@@ -10,7 +10,7 @@ interface BackgroundWrapperProps {
 const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children }) => {
   const pathname = usePathname();
   const isAdmin = pathname.includes("admin");
-  const bgColor = isAdmin ? "" : "bg-black";
+  const bgColor = isAdmin ? "" : "bg-black dark:bg-gray-200";
 
   return <div className={`${bgColor} min-h-screen`}>{children}</div>;
 };

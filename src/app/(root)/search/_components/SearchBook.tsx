@@ -88,14 +88,14 @@ const SearchBook = ({ data }: PropsType) => {
             <div className="mt-10 flex flex-col items-center gap-8 px-4 md:px-10">
                 {/* Header */}
                 <div>
-                    <p className="text-[18px] md:text-[20px] font-semibold leading-7 text-light-100 text-center pt-20">
+                    <p className="text-[18px] md:text-[20px] font-semibold leading-7 text-light-100 dark:text-gray-700 text-center pt-20">
                         Discover Your Next Great Read:
                     </p>
-                    <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white text-center">
+                    <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900 text-center">
                         Explore and Search for
                     </p>
-                    <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white text-center">
-                        <span className="text-light-200">Any Book </span> In Our Library
+                    <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900  text-center">
+                        <span className="text-light-200 dark:text-[#996c32]">Any Book </span> In Our Library
                     </p>
                 </div>
 
@@ -104,7 +104,7 @@ const SearchBook = ({ data }: PropsType) => {
                     <div className="w-full max-w-[600px] flex flex-col">
                         <div className="relative">
                             <input
-                                className="w-full sm:flex-1 bg-[#232839] py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                                className="w-full sm:flex-1 bg-[#232839] dark:bg-white dark:text-gray-900 py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
                                 type="text"
                                 placeholder="Search for a book"
                                 value={search}
@@ -140,12 +140,12 @@ const SearchBook = ({ data }: PropsType) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2, ease: "easeOut" }}
-                                    className="bg-[#232839] rounded-lg shadow-lg p-2 z-20 !mt-2"
+                                    className="bg-[#232839] dark:bg-gray-300 rounded-lg shadow-lg p-2 z-20 !mt-2"
                                 >
                                     {filterBooks.map((book) => (
                                         <p
                                             key={book}
-                                            className="p-3 cursor-pointer hover:bg-[#2b3145] text-light-100 rounded-md text-sm"
+                                            className="p-3 cursor-pointer hover:bg-[#2b3145] dark:hover:bg-gray-200 text-light-100 dark:text-gray-900 rounded-md text-sm"
                                             onClick={() => handleSelectSuggestion(book)}
                                         >
                                             {book}
@@ -175,10 +175,10 @@ const SearchBook = ({ data }: PropsType) => {
                             height={200}
                             className="object-contain"
                         />
-                        <p className="text-2xl md:text-3xl font-semibold leading-7 text-white">
+                        <p className="text-2xl md:text-3xl font-semibold leading-7 text-white dark:text-gray-900">
                             No Results Found
                         </p>
-                        <p className="text-sm md:text-base font-normal leading-6 text-light-100">
+                        <p className="text-sm md:text-base font-normal leading-6 text-light-100 dark:text-gray-600">
                             We couldn’t find any books matching your search. Try using different keywords or check for typos.
                         </p>
                         <Button
@@ -193,7 +193,7 @@ const SearchBook = ({ data }: PropsType) => {
                 {/* Search Results */}
                 {showResults && (
                     <div className="flex flex-col gap-12">
-                        <p className="text-[20px] md:text-[30px] font-semibold leading-7 text-white">Search Results</p>
+                        <p className="text-[20px] md:text-[30px] font-semibold leading-7 text-white dark:text-gray-900">Search Results</p>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
                                 <div key={item} className="p-4 md:p-5 flex flex-col gap-3 md:gap-5 rounded-lg">
@@ -205,10 +205,10 @@ const SearchBook = ({ data }: PropsType) => {
                                         className="-ml-2 md:-ml-4"
                                     />
                                     <div className="flex flex-col gap-1">
-                                        <p className="text-white font-semibold text-lg md:text-xl leading-5 md:leading-6">The Origin</p>
-                                        <p className="text-white font-semibold text-lg md:text-xl leading-5 md:leading-6">By Dan Brown</p>
+                                        <p className="text-white dark:text-gray-900 font-semibold text-lg md:text-xl leading-5 md:leading-6">The Origin</p>
+                                        <p className="text-white dark:text-gray-900 font-semibold text-lg md:text-xl leading-5 md:leading-6">By Dan Brown</p>
                                     </div>
-                                    <p className="text-light-100 font-normal text-base md:text-xl leading-4 md:leading-5">Thriller / Mystery</p>
+                                    <p className="text-light-100 dark:text-gray-700 font-normal text-base md:text-xl leading-4 md:leading-5">Thriller / Mystery</p>
                                 </div>
                             ))}
                         </div>
