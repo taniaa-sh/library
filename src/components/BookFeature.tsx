@@ -27,14 +27,14 @@ const BookFeature = ({
     return (
         <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-10 md:gap-20 pt-30">
             <div className="flex flex-col max-w-[700px] gap-5 px-4 md:px-0 text-center md:text-left">
-                <p className="text-white font-semibold text-3xl md:text-5xl lg:text-7xl">{title}</p>
+                <p className="text-white dark:text-gray-900 font-semibold text-3xl md:text-5xl lg:text-7xl">{title}</p>
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 justify-center md:justify-start">
-                    <p className="text-light-100">
-                        By <span className="text-light-200 font-semibold">{author}</span>
+                    <p className="text-light-100 dark:text-gray-700">
+                        By <span className="text-light-200 dark:text-[#996c32] font-semibold">{author}</span>
                     </p>
-                    <p className="text-light-100">
-                        Category: <span className="text-light-200 font-semibold">{Genre}</span>
+                    <p className="text-light-100 dark:text-gray-700">
+                        Category: <span className="text-light-200 dark:text-[#996c32] font-semibold">{Genre}</span>
                     </p>
                     <div className="flex items-center justify-center gap-1">
                         <Image
@@ -43,22 +43,22 @@ const BookFeature = ({
                             width={18}
                             height={18}
                         />
-                        <p className="text-light-200 font-semibold">
-                            {rating} <span className="text-light-100 font-normal">/5</span>
+                        <p className="text-light-200  dark:text-[#996c32] font-semibold">
+                            {rating} <span className="text-light-100 dark:text-gray-700 font-normal">/5</span>
                         </p>
                     </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center md:justify-start">
-                    <p className="text-light-100">
-                        Total books: <span className="text-light-200 font-semibold">{totalBooks}</span>
+                    <p className="text-light-100 dark:text-gray-700">
+                        Total books: <span className="text-light-200 dark:text-[#996c32] font-semibold">{totalBooks}</span>
                     </p>
-                    <p className="text-light-100">
-                        Available books: <span className="text-light-200 font-semibold">{availableBooks}</span>
+                    <p className="text-light-100 dark:text-gray-700">
+                        Available books: <span className="text-light-200 dark:text-[#996c32] font-semibold">{availableBooks}</span>
                     </p>
                 </div>
 
-                <p className="text-light-100 text-sm md:text-lg leading-6 md:leading-8">{description}</p>
+                <p className="text-light-100 dark:text-gray-700 text-sm md:text-lg leading-6 md:leading-8">{description}</p>
 
                 <Button
                     onClick={() => toast.success("Book request sent successfully")}
@@ -69,6 +69,14 @@ const BookFeature = ({
                         alt="book"
                         width={20}
                         height={20}
+                        className="dark:hidden"
+                    />
+                         <Image
+                        src={imagesAddresses.icons.bookIconWhite}
+                        alt="book"
+                        width={20}
+                        height={20}
+                        className="hidden dark:block"
                     />
                     Borrow Book Request
                 </Button>

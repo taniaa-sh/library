@@ -2,6 +2,7 @@ const imagesAddresses = {
   icons: {
     stare: "/icons/stare.svg",
     bookIcon: "/icons/bookIcon.svg",
+    bookIconWhite: "/icons/bookIconWhite.svg",
     backward: "/icons/backward.svg",
     forward: "/icons/forward.svg",
     indicatorBrand: "/icons/indicatorBrand.svg",

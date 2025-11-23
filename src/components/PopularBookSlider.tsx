@@ -39,13 +39,13 @@ export default function PopularBookSlider({ data }: { data: BookFeatureProps[] }
                             height={220}
                             className="w-[100px] h-[140px] sm:w-[140px] sm:h-[190px] md:w-[180px] md:h-[240px] object-cover rounded-md !-ml-12"
                         />
-                        <p className="text-sm sm:text-base font-semibold text-white leading-5 sm:leading-6 text-center px-2 sm:px-4">
+                        <p className="text-sm sm:text-base font-semibold text-white dark:text-gray-900 leading-5 sm:leading-6 text-center px-2 sm:px-4">
                             {popularBook.title}
                         </p>
-                        <p className="text-xs sm:text-sm md:text-base font-semibold text-white leading-4 sm:leading-6 text-center px-2 sm:px-4 !mt-1 sm:!mt-2">
+                        <p className="text-xs sm:text-sm md:text-base font-semibold text-white dark:text-gray-900  leading-4 sm:leading-6 text-center px-2 sm:px-4 !mt-1 sm:!mt-2">
                             By {popularBook.author}
                         </p>
-                        <p className="text-xs sm:text-sm font-normal text-light-100 leading-4 text-center px-2 sm:px-4 !mt-1 sm:!mt-2">
+                        <p className="text-xs sm:text-sm font-normal text-light-100 dark:text-gray-900  leading-4 text-center px-2 sm:px-4 !mt-1 sm:!mt-2">
                             {popularBook.genre}
                         </p>
                     </SwiperSlide>
