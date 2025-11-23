@@ -90,7 +90,7 @@ export default function ResetPasswordPage() {
                                     id="password"
                                     type={showPass ? "text" : "password"}
                                     maxLength={30}
-                                    className="bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg text-white text-sm md:text-base lg:text-lg"
+                                    className="bg-[#232839] p-2 md:p-3 rounded-lg text-white text-sm md:text-base lg:text-lg"
                                     placeholder="Enter new password"
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -99,7 +99,7 @@ export default function ResetPasswordPage() {
                                     alt="eye"
                                     width={20}
                                     height={20}
-                                    className={`absolute top-10 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
+                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
                                     onClick={() => setShowPass(!showPass)}
                                 />
                             </div>
@@ -111,7 +111,7 @@ export default function ResetPasswordPage() {
                                     id="confirm"
                                     type={showConfirmPass ? "text" : "password"}
                                     maxLength={30}
-                                    className="bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg text-white text-sm md:text-base lg:text-lg"
+                                    className="bg-[#232839] p-2 md:p-3 rounded-lg text-white text-sm md:text-base lg:text-lg"
                                     placeholder="Repeat new password"
                                     onChange={(e) => setConfirmPass(e.target.value)}
                                 />
@@ -120,7 +120,7 @@ export default function ResetPasswordPage() {
                                     alt="eye"
                                     width={20}
                                     height={20}
-                                    className={`absolute top-10 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"}`}
+                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"}`}
                                     onClick={() => setShowConfirmPass(!showConfirmPass)}
                                 />
                             </div>

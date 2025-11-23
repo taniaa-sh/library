@@ -75,7 +75,7 @@ const SignIn = () => {
               <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
               <input
                 id="email"
-                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                className="w-full bg-[#232839] p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type="email"
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -87,7 +87,7 @@ const SignIn = () => {
               <input
                 id="password"
                 maxLength={8}
-                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                className="w-full bg-[#232839] p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type={showPass ? "text" : "password"}
                 placeholder="At least 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}
@@ -97,7 +97,7 @@ const SignIn = () => {
                 alt="eye"
                 width={20}
                 height={20}
-                className={`absolute top-10 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
+                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
                 onClick={() => setShowPass(!showPass)}
               />
               <p
