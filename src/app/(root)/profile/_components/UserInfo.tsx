@@ -2,9 +2,7 @@
 
 import DragAndDropUpload from "@/app/admin/allBooks/_components/DragAndDropUpload";
 import AdminButton from "@/app/admin/components/AdminButton";
-import imagesAddresses from "@/utils/imageAddresses";
-import { Button } from "@mui/material";
-import { Admin } from "mongodb";
+import imagesAddresses from "@/utils/imageAddresses";;
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -12,7 +10,7 @@ const UserInfo = () => {
 
     const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [profileImage, setProfileImage] = useState(imagesAddresses.images.profile);
+    const [profileImage, setProfileImage] = useState<string>(imagesAddresses.images.profile);
 
     const changeProfileImage = () => {
         if (isEditing) inputRef.current?.click();
@@ -23,8 +21,15 @@ const UserInfo = () => {
             <div className="absolute z-10 rounded-b-full md:w-[59px] md:h-[80px] w-[30px] h-[40px] bg-[#464F6F] -top-3 left-1/2 md:left-60 transform -translate-x-1/2 md:translate-x-0">
                 <div className="hidden md:block absolute z-20 top-14 left-2.5 rounded-2xl md:w-10 md:h-[10px] bg-[#1E2230]" />
             </div>
-
-            <div className="flex flex-col gap-6 md:gap-8 mt-14 md:mt-18">
+            <AdminButton
+                text={isEditing ? "Save" : "Edit"}
+                color='yellow'
+                containerClassName="md:hidden w-fit self-end cursor-pointer"
+                onClick={() => setIsEditing(!isEditing)}
+                iconPosition="right"
+                iconAddress={isEditing ? imagesAddresses.icons.save : imagesAddresses.icons.blackEdit}
+            />
+            <div className="flex flex-col gap-6 md:gap-8 mt-1 md:mt-18">
                 <div className="flex justify-between items-center">
                     <div className="flex gap-4 md:gap-7 items-center">
                         <Image
@@ -87,10 +92,10 @@ const UserInfo = () => {
                             }
                         </div>
                     </div>
-                               <AdminButton
-                        text= {isEditing ? "Save" : "Edit"}
+                    <AdminButton
+                        text={isEditing ? "Save" : "Edit"}
                         color='yellow'
-                        containerClassName="cursor-pointer"
+                        containerClassName="hidden md:flex cursor-pointer"
                         onClick={() => setIsEditing(!isEditing)}
                         iconPosition="right"
                         iconAddress={isEditing ? imagesAddresses.icons.save : imagesAddresses.icons.blackEdit}
@@ -145,7 +150,7 @@ const UserInfo = () => {
                             </p>
                             <DragAndDropUpload
                                 type="image"
-                                onChange={(file) => { }}
+                                onChange={() => { }}
                             />
                         </div>
                         :
