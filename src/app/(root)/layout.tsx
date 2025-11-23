@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/app/(root)/_components/Header";
 import { ReactNode } from "react";
 import ShowSopportModal from "./_components/ShowSopportModal";
 import ScrollProgressBar from "../../components/ScrollProgressBar";

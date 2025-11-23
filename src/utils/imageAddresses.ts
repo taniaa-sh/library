@@ -17,6 +17,7 @@ const imagesAddresses = {
     success: "/icons/success.svg",
     verify: "/icons/verify.svg",
     closeMenue: "/icons/closeMenue.svg",
+    closeMenueDark: "/icons/closeMenueDark.svg",
     menue: "/icons/menu.svg",
     support: "/icons/supportIcon.svg",
     blackEdit: "/icons/blackEdit.svg",
@@ -26,6 +27,9 @@ const imagesAddresses = {
     blind: "/icons/blind.svg",
     arrowRightYellow: "/icons/arrowRightYellow.svg",
     arrowRightYellow2: "/icons/arrowRightYellow2.svg",
+    darkLightMode: "/icons/dark-lightMode.svg",
+    darkLightMode2: "/icons/dark-lightModeWhite.svg",
+    FrameWhite: "/icons/FrameWhite.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",
