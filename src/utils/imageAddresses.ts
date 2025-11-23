@@ -25,6 +25,7 @@ const imagesAddresses = {
     eyeWhite: "/icons/eyeWhite.svg",
     blind: "/icons/blind.svg",
     arrowRightYellow: "/icons/arrowRightYellow.svg",
+    arrowRightYellow2: "/icons/arrowRightYellow2.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",

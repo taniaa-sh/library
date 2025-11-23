@@ -42,11 +42,11 @@ const ForgotPasswordPage = () => {
                 <div className=" flex items-center justify-center">
                     <div className="bg-[#1a1f2c] p-8 rounded-xl w-full max-w-md text-white flex flex-col gap-4">
                         <Image
-                            src={imagesAddresses.icons.arrowRightYellow}
+                            src={imagesAddresses.icons.arrowRightYellow2}
                             alt="logo"
-                            width={20}
+                            width={25}
                             height={20}
-                            className="text-end self-end justify-end flex items-end cursor-pointer opacity-60"
+                            className="text-end self-end justify-end flex items-end cursor-pointer"
                             onClick={() => router.back()}
                         />
                         <Image
