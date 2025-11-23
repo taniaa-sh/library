@@ -17,7 +17,7 @@ const UserInfo = () => {
     };
 
     return (
-        <div className="w-full  md:w-[50%] flex flex-col gap-6 md:gap-9 rounded-lg bg-[#232839] h-auto md:h-[800px] p-6 md:p-10 relative">
+        <div className="w-full  md:w-[50%] flex flex-col gap-6 md:gap-9 rounded-lg bg-[#232839] h-auto md:h-[750px] p-6 md:p-10 relative">
             <div className="absolute z-10 rounded-b-full md:w-[59px] md:h-[80px] w-[30px] h-[40px] bg-[#464F6F] -top-3 left-1/2 md:left-60 transform -translate-x-1/2 md:translate-x-0">
                 <div className="hidden md:block absolute z-20 top-14 left-2.5 rounded-2xl md:w-10 md:h-[10px] bg-[#1E2230]" />
             </div>
