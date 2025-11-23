@@ -37,7 +37,7 @@ export default function PopularBookSlider({ data }: { data: BookFeatureProps[] }
                             alt={`Logo ${idx + 1}`}
                             width={160}
                             height={220}
-                            className="w-[100px] h-[140px] sm:w-[140px] sm:h-[190px] md:w-[180px] md:h-[240px] object-cover rounded-md"
+                            className="w-[100px] h-[140px] sm:w-[140px] sm:h-[190px] md:w-[180px] md:h-[240px] object-cover rounded-md !-ml-12"
                         />
                         <p className="text-sm sm:text-base font-semibold text-white leading-5 sm:leading-6 text-center px-2 sm:px-4">
                             {popularBook.title}
