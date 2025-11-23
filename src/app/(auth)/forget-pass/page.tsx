@@ -60,28 +60,30 @@ const ForgotPasswordPage = () => {
                         <p className="text-gray-400 text-start text-sm !-mt-2">
                             Enter your email and we will send you a reset link.
                         </p>
-                        <form className="flex flex-col gap-4 !mt-4" onSubmit={handleSubmit}>
+                        <form className="flex flex-col gap-3 md:gap-4 lg:gap-5 mt-4" onSubmit={handleSubmit}>
                             <div className="flex flex-col gap-1">
-                                <label htmlFor="email" className="text-sm">Email</label>
+                                <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
                                 <input
                                     id="email"
                                     type="email"
-                                    className="bg-[#232839] p-3 rounded-lg text-white"
+                                    className="bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg text-white text-sm md:text-base lg:text-lg"
                                     placeholder="your@email.com"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
 
                             <Button
-                                className="w-full cursor-pointer !text-black"
-                                onClick={() => { }}
+                                className="w-full cursor-pointer text-sm md:text-base lg:text-lg !text-black"
+                                type="submit"
                             >
-                                {loading ?
-                                    <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black animate-spin' /> :
+                                {loading ? (
+                                    <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black animate-spin' />
+                                ) : (
                                     "Send Reset Link"
-                                }
+                                )}
                             </Button>
                         </form>
+
                     </div>
                 </div>
             </div>

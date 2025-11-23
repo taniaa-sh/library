@@ -70,35 +70,38 @@ const SignUp = () => {
             </p>
           </div>
 
-          <form className="w-full flex flex-col gap-4 text-white">
+          <form className="w-full flex flex-col gap-3 md:gap-4 lg:gap-6 text-white">
+            {/* Full Name */}
             <div className="flex flex-col gap-1">
-              <label htmlFor="fullname" className="text-sm">Full Name</label>
+              <label htmlFor="fullname" className="text-sm md:text-base lg:text-lg">Full Name</label>
               <input
                 id="fullname"
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
+                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type="text"
                 placeholder="Enter your full name"
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
 
+            {/* Email */}
             <div className="flex flex-col gap-1">
-              <label htmlFor="email" className="text-sm">Email</label>
+              <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
               <input
                 id="email"
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
+                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type="email"
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
+            {/* University ID */}
             <div className="flex flex-col gap-1 relative">
-              <label htmlFor="universityId" className="text-sm">University ID Number</label>
+              <label htmlFor="universityId" className="text-sm md:text-base lg:text-lg">University ID Number</label>
               <input
                 id="universityId"
                 maxLength={11}
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
+                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type={showUniversityId ? "text" : "password"}
                 placeholder="Enter your university ID number"
                 onChange={(e) => setUniversityIDNumber(e.target.value)}
@@ -113,14 +116,15 @@ const SignUp = () => {
               />
             </div>
 
+            {/* Password */}
             <div className="flex flex-col gap-1 relative">
-              <label htmlFor="password" className="text-sm">Password</label>
+              <label htmlFor="password" className="text-sm md:text-base lg:text-lg">Password</label>
               <input
                 id="password"
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
+                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type={showPass ? "text" : "password"}
                 maxLength={8}
-                placeholder="Atleast 8 characters long"
+                placeholder="At least 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Image
@@ -133,8 +137,9 @@ const SignUp = () => {
               />
             </div>
 
+            {/* Upload University ID */}
             <div className="flex flex-col gap-1">
-              <label htmlFor="password" className="text-sm">Upload University ID Card (file upload)</label>
+              <label htmlFor="upload" className="text-sm md:text-base lg:text-lg">Upload University ID Card</label>
               <DragAndDropUpload
                 type="image"
                 onChange={() => { }}
@@ -142,23 +147,23 @@ const SignUp = () => {
             </div>
           </form>
 
+          {/* Sign Up Button */}
           <Button
-            className="w-full cursor-pointer"
+            className="w-full cursor-pointer text-sm md:text-base lg:text-lg"
             onClick={handleSignUp}
           >
-            {
-              isLoading ? (
-                <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
-              ) : (
-                "Sign Up"
-              )
-            }
+            {isLoading ? (
+              <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
+            ) : (
+              "Sign Up"
+            )}
           </Button>
 
-          <div className="text-white text-sm font-normal self-center">
-            Have an account already?{"  "}
+          {/* Login Redirect */}
+          <div className="text-white text-xs md:text-sm lg:text-base font-normal self-center">
+            Have an account already?{" "}
             <span
-              className="text-light-200 text-sm font-normal cursor-pointer"
+              className="text-light-200 text-sm md:text-base cursor-pointer"
               onClick={() => router.push(SiteUrls.signIn)}
             >
               Login

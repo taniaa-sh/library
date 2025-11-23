@@ -72,34 +72,24 @@ const SignIn = () => {
 
           <form className="w-full flex flex-col gap-3 text-white">
             <div className="flex flex-col gap-1">
-              <label htmlFor="email" className="text-sm">Email</label>
+              <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
               <input
                 id="email"
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
+                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type="email"
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            {/* <div className="flex flex-col gap-1">
-              <label htmlFor="universityId" className="text-sm">University ID Number</label>
-              <input
-                id="universityId"
-                maxLength={11}
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
-                type="text"
-                placeholder="Enter your university ID number"
-                onChange={(e) => setUniversityIDNumber(e.target.value)}
-              />
-            </div> */}
+
             <div className="flex flex-col gap-1 relative">
-              <label htmlFor="password" className="text-sm">Password</label>
+              <label htmlFor="password" className="text-sm md:text-base lg:text-lg">Password</label>
               <input
                 id="password"
                 maxLength={8}
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
+                className="w-full bg-[#232839] p-2 md:p-3 lg:p-4 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type={showPass ? "text" : "password"}
-                placeholder="Atleast 8 characters long"
+                placeholder="At least 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Image
@@ -111,13 +101,14 @@ const SignIn = () => {
                 onClick={() => setShowPass(!showPass)}
               />
               <p
-                className='self-end text-sm text-[#e7c9a5] cursor-pointer'
+                className='self-end text-xs md:text-sm text-[#e7c9a5] cursor-pointer'
                 onClick={() => { router.push(SiteUrls.forgetPass) }}
               >
                 forget your password ?
               </p>
             </div>
           </form>
+
 
           <Button className="w-full cursor-pointer" onClick={handleLogin}>
             {loading ?
