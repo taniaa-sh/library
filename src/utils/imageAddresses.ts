@@ -22,6 +22,8 @@ const imagesAddresses = {
     blackEdit: "/icons/blackEdit.svg",
     save: "/icons/save.svg",
     serach: "/icons/search.svg",
+    eyeWhite: "/icons/eyeWhite.svg",
+    blind: "/icons/blind.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",

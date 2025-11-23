@@ -3,6 +3,8 @@ const SiteUrls = {
   signIn: "/sign-in",
   signUp: "/sign-up",
   logout: "/logout",
+  forgetPass: "/forget-pass",
+  resetPass: "/reset-pass",
   bookDetail: "/bookDetail",
   dashbord: "/dashbord",
   profile: "/profile",
