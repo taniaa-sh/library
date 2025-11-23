@@ -32,7 +32,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
         <>
             {/* Desktop */}
             <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/70 z-50">
-                <div className="w-[450px] z-10 flex flex-col gap-4 bg-gray-900 rounded-xl p-6 border border-gray-700 shadow-lg">
+                <div className="w-[450px] z-10 flex flex-col gap-4 bg-gray-900 dark:bg-white rounded-xl p-6 border border-gray-700 shadow-lg">
                     <Image
                         src={imagesAddresses.icons.modalClose}
                         alt="close"
@@ -48,8 +48,8 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                             width={70}
                             height={70}
                         />
-                        <p className="text-xl font-semibold text-white text-center">Logout</p>
-                        <p className="text-gray-400 text-center text-sm">
+                        <p className="text-xl font-semibold text-white dark:text-gray-900 text-center">Logout</p>
+                        <p className="text-gray-400 dark:text-gray-600 text-center text-sm">
                             Are you sure you want to logout? You will need to login again to access your account.
                         </p>
                         <Button
@@ -57,7 +57,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                             variant="contained"
                             sx={{
                                 backgroundColor: '#EF4444',
-                                color: '#fff',
+                                color: '#fff dark:text-gray-900',
                                 textTransform: 'none',
                                 fontWeight: 600,
                                 borderRadius: '12px',
@@ -92,7 +92,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
             {/* Mobile */}
             <div className="flex md:hidden items-end justify-center fixed inset-0 bg-black/70 z-50 w-full h-full">
                 <div className={`
-                    w-full bg-gray-900 rounded-t-[20px] p-5 flex flex-col gap-4
+                    w-full bg-gray-900 dark:bg-white rounded-t-[20px] p-5 flex flex-col gap-4
                     ${isClosing ? 'animate-slideDown' : 'animate-slideUp'}
                 `}>
                     <div className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4" />
@@ -104,8 +104,8 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                             width={60}
                             height={60}
                         />
-                        <p className="text-lg font-semibold text-white text-center">Logout</p>
-                        <p className="text-gray-400 text-center text-sm">
+                        <p className="text-lg font-semibold text-white dark:text-gray-900 text-center">Logout</p>
+                        <p className="text-gray-400 dark:text-gray-600 text-center text-sm">
                             Are you sure you want to logout? You will need to login again to access your account.
                         </p>
 
