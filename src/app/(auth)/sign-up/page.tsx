@@ -1,5 +1,6 @@
 "use client"
 
+import DragAndDropUpload from '@/app/admin/allBooks/_components/DragAndDropUpload'
 import { Button } from '@/components/ui/button'
 import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
@@ -12,41 +13,42 @@ const SignUp = () => {
   const router = useRouter()
 
   const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
   const [firstName, setFirstName] = useState("")
   const [universityIDNumber, setUniversityIDNumber] = useState("")
-  // const [idCard, setIdCard] = useState<File | null>(null)
+  const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [showUniversityId, setShowUniversityId] = useState(false)
+  const [showPass, setShowPass] = useState(false)
 
-const handleSignUp = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-  try {
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        fullName: firstName,
-        email,
-        universityId: universityIDNumber
-      })
-    });
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: firstName,
+          email,
+          universityId: universityIDNumber
+        })
+      });
 
-    if (res.ok) {
-      toast.success("Account created successfully");
-      router.push(SiteUrls.signIn);
-    } else {
-      const error = await res.json();
-      toast.error(error.error);
+      if (res.ok) {
+        toast.success("Account created successfully");
+        router.push(SiteUrls.signIn);
+      } else {
+        const error = await res.json();
+        toast.error(error.error);
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Something went wrong");
-  } finally {
-    setIsLoading(false);
   }
-}
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row overflow-y-hidden">
@@ -68,7 +70,7 @@ const handleSignUp = async (e: React.FormEvent) => {
             </p>
           </div>
 
-          <form className="w-full flex flex-col gap-3 text-white">
+          <form className="w-full flex flex-col gap-4 text-white">
             <div className="flex flex-col gap-1">
               <label htmlFor="fullname" className="text-sm">Full Name</label>
               <input
@@ -91,45 +93,53 @@ const handleSignUp = async (e: React.FormEvent) => {
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 relative">
               <label htmlFor="universityId" className="text-sm">University ID Number</label>
               <input
                 id="universityId"
                 maxLength={11}
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
-                type="text"
+                type={showUniversityId ? "text" : "password"}
                 placeholder="Enter your university ID number"
                 onChange={(e) => setUniversityIDNumber(e.target.value)}
               />
+              <Image
+                src={showUniversityId ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                alt="eye"
+                width={20}
+                height={20}
+                className={`absolute top-10 right-3 cursor-pointer ${universityIDNumber.length > 0 ? "block" : "hidden"}`}
+                onClick={() => setShowUniversityId(!showUniversityId)}
+              />
             </div>
 
-            {/* <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 relative">
               <label htmlFor="password" className="text-sm">Password</label>
               <input
                 id="password"
                 className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
-                type="password"
-                placeholder="Enter your password"
+                type={showPass ? "text" : "password"}
+                maxLength={8}
+                placeholder="Atleast 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </div> */}
-
-            {/* <div className="flex flex-col gap-1">
-              <label htmlFor="idCard" className="text-sm">Upload University ID Card</label>
-              <input
-                id="idCard"
-                className="w-full bg-[#232839] p-3 rounded-lg placeholder-gray-400"
-                type="file"
-                accept="image/*,application/pdf"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    console.log("Selected file:", file.name);
-                    setIdCard(file)
-                  }
-                }}
+              <Image
+                src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                alt="eye"
+                width={20}
+                height={20}
+                className={`absolute top-10 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
+                onClick={() => setShowPass(!showPass)}
               />
-            </div> */}
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="password" className="text-sm">Upload University ID Card (file upload)</label>
+              <DragAndDropUpload
+                type="image"
+                onChange={() => { }}
+              />
+            </div>
           </form>
 
           <Button
@@ -138,7 +148,7 @@ const handleSignUp = async (e: React.FormEvent) => {
           >
             {
               isLoading ? (
-               <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
+                <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
               ) : (
                 "Sign Up"
               )
