@@ -67,14 +67,14 @@ export default function ResetPasswordPage() {
                             alt="logo"
                             width={120}
                             height={120}
-                            className="mx-auto lg:mx-0"
+                            className="lg:mx-0"
                         />
-                        <h1 className="text-2xl font-bold text-center">Reset Password</h1>
-                        <p className="text-gray-400 text-center text-sm">
+                        <h1 className="text-2xl font-bold text-start !mt-2">Reset Password</h1>
+                        <p className="text-gray-400 text-start text-sm !-mt-3">
                             Enter your new password below
                         </p>
 
-                        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                        <form className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit}>
                             <div className="flex flex-col gap-1 relative">
                                 <label className="text-sm" htmlFor="password">New Password</label>
                                 <input

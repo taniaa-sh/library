@@ -54,18 +54,18 @@ const SignUp = () => {
     <div className="w-full flex items-center flex-col lg:flex-row overflow-y-hidden">
       <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
         <div className="bg-gray-900 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 lg:p-10 flex flex-col gap-8 rounded-lg">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col justify-start items-start gap-1">
             <Image
               src={imagesAddresses.images.logo}
               alt="logo"
               width={120}
               height={120}
-              className="mx-auto lg:mx-0"
+              className="lg:mx-0"
             />
-            <h1 className="text-xl md:text-2xl font-bold text-white text-center lg:text-left">
+            <h1 className="text-xl md:text-2xl font-bold text-white lg:text-left !mt-4">
               Create Your Library Account
             </h1>
-            <p className="text-gray-400 text-sm md:text-base font-normal text-center lg:text-left -mt-2">
+            <p className="text-gray-400 text-sm md:text-base font-normal lg:text-left -mt-2">
               Please complete all fields and upload a valid university ID to gain access to the library
             </p>
           </div>
