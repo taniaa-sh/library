@@ -41,6 +41,21 @@ const ForgotPasswordPage = () => {
             <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
                 <div className=" flex items-center justify-center">
                     <div className="bg-[#1a1f2c] p-8 rounded-xl w-full max-w-md text-white flex flex-col gap-4">
+                        <Image
+                            src={imagesAddresses.icons.arrowRightYellow}
+                            alt="logo"
+                            width={20}
+                            height={20}
+                            className="text-end self-end justify-end flex items-end cursor-pointer opacity-60"
+                            onClick={() => router.back()}
+                        />
+                        <Image
+                            src={imagesAddresses.images.logo}
+                            alt="logo"
+                            width={120}
+                            height={120}
+                            className="mx-auto lg:mx-0"
+                        />
                         <h1 className="text-2xl font-bold text-center">Forgot Password</h1>
                         <p className="text-gray-400 text-center text-sm">
                             Enter your email and we will send you a reset link.
