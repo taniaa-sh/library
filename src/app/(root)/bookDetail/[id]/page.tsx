@@ -89,7 +89,7 @@ const BookDetailPage = () => {
 
                     {/* Video */}
                     <div className="flex flex-col gap-2">
-                        <p className="font-semibold text-2xl md:text-3xl text-light-100">Video</p>
+                        <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900">Video</p>
                         <div className="relative w-full rounded-lg shadow-lg overflow-hidden border border-gray-500">  
                             <video
                                 ref={videoRef}
@@ -126,7 +126,7 @@ const BookDetailPage = () => {
                         </div>
 
                         {/* Controls */}
-                        <div className="flex flex-col bg-gray-600 p-4 items-center gap-4 rounded-b-lg">
+                        <div className="flex flex-col bg-gray-600 dark:bg-gray-400 p-4 items-center gap-4 rounded-b-lg">
                             {/* Progress Bar */}
                             <div className="w-full flex items-center gap-2">
                                 <span className="text-sm">{formatTime(currentTime)}</span>
@@ -227,9 +227,9 @@ const BookDetailPage = () => {
 
                     {/* Summary */}
                     <div className="flex flex-col gap-2">
-                        <p className="font-semibold text-2xl md:text-3xl text-light-100">Summary</p>
+                        <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900">Summary</p>
                         <div className="flex flex-col gap-3">
-                            <p className="text-base md:text-xl leading-7 md:leading-8 text-light-100 text-justify">
+                            <p className="text-base md:text-xl leading-7 md:leading-8 text-light-100  dark:text-gray-900 text-justify">
                                 {data?.summary}
                             </p>
                         </div>
@@ -238,7 +238,7 @@ const BookDetailPage = () => {
 
                 {/* Right Column: Similar Books */}
                 <div className="flex flex-col gap-3 w-full lg:w-auto">
-                    <p className="font-semibold text-2xl md:text-3xl text-light-100">More similar books</p>
+                    <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900">More similar books</p>
                     <div className="flex overflow-x-auto gap-3 lg:grid lg:grid-cols-3 custom-scrollbar">
                         {[3, 2, 4, 5, 6, 7].map((num) => {
                             const key = `book${num}` as keyof typeof imagesAddresses.images;

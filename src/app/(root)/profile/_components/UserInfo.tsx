@@ -17,9 +17,9 @@ const UserInfo = () => {
     };
 
     return (
-        <div className="w-full  md:w-[50%] flex flex-col gap-6 md:gap-9 rounded-lg bg-[#232839] h-auto md:h-[750px] p-6 md:p-10 relative">
-            <div className="absolute z-10 rounded-b-full md:w-[59px] md:h-[80px] w-[30px] h-[40px] bg-[#464F6F] -top-3 left-1/2 md:left-60 transform -translate-x-1/2 md:translate-x-0">
-                <div className="hidden md:block absolute z-20 top-14 left-2.5 rounded-2xl md:w-10 md:h-[10px] bg-[#1E2230]" />
+        <div className="w-full  md:w-[50%] flex flex-col gap-6 md:gap-9 rounded-lg bg-[#232839] dark:bg-gray-400 h-auto md:h-[750px] p-6 md:p-10 relative">
+            <div className="absolute z-10 rounded-b-full md:w-[59px] md:h-[80px] w-[30px] h-[40px] bg-[#464F6F] dark:bg-gray-300 -top-3 left-1/2 md:left-60 transform -translate-x-1/2 md:translate-x-0">
+                <div className="hidden md:block absolute z-20 top-14 left-2.5 rounded-2xl md:w-10 md:h-[10px] bg-[#1E2230] dark:bg-gray-500" />
             </div>
             <AdminButton
                 text={isEditing ? "Save" : "Edit"}
@@ -37,7 +37,7 @@ const UserInfo = () => {
                             alt="profile"
                             width={80}
                             height={80}
-                            className={`rounded-full border-6 md:border-8 border-[#363e58] ${isEditing && "cursor-pointer"}`}
+                            className={`rounded-full border-6 md:border-8 border-[#363e58] dark:border-gray-500 ${isEditing && "cursor-pointer"}`}
                             onClick={changeProfileImage}
                         />
                         <input
@@ -62,31 +62,31 @@ const UserInfo = () => {
                                     height={16}
                                     className="rounded-full"
                                 />
-                                <p className="text-light-100 font-normal text-xs md:text-sm leading-[18px] md:leading-[20px]">
+                                <p className="text-light-100 dark:text-gray-900 font-normal text-xs md:text-sm leading-[18px] md:leading-[20px]">
                                     Verified Student
                                 </p>
                             </div>
                             {
                                 isEditing ?
                                     <input
-                                        className="w-full bg-[#12141D] rounded-lg py-2 px-4 text-light-100 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
+                                        className="w-full bg-[#12141D] dark:bg-white rounded-lg py-2 px-4 text-light-100 dark:text-gray-900 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
                                         type="text"
                                         placeholder="enter your name"
                                     />
                                     :
-                                    <p className="font-semibold text-xl md:text-2xl leading-6 md:leading-[30px] text-white">
+                                    <p className="font-semibold text-xl md:text-2xl leading-6 md:leading-[30px] text-white dark:text-gray-900">
                                         Adrian
                                     </p>
                             }
                             {
                                 isEditing ?
                                     <input
-                                        className="w-full bg-[#12141D] rounded-lg py-2 px-4 text-light-100 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
+                                        className="w-full bg-[#12141D] dark:bg-white rounded-lg py-2 px-4 text-light-100 dark:text-gray-900 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
                                         type="text"
                                         placeholder="enter your email"
                                     />
                                     :
-                                    <p className="text-light-100 font-normal text-sm md:text-[18px] leading-4 md:leading-[20px]">
+                                    <p className="text-light-100 dark:text-gray-900 font-normal text-sm md:text-[18px] leading-4 md:leading-[20px]">
                                         contact@jsmastery.pro
                                     </p>
                             }
@@ -104,18 +104,18 @@ const UserInfo = () => {
 
                 {/* University */}
                 <div className="flex flex-col gap-1">
-                    <p className="text-light-100 font-normal text-sm md:text-[18px] leading-5 md:leading-7">
+                    <p className="text-light-100 dark:text-gray-900 font-normal text-sm md:text-[18px] leading-5 md:leading-7">
                         University
                     </p>
                     {
                         isEditing ?
                             <input
-                                className="w-full bg-[#12141D] rounded-lg py-2 px-4 text-light-100 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
+                                className="w-full bg-[#12141D] dark:bg-white rounded-lg py-2 px-4 text-light-100 dark:text-gray-900 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
                                 type="text"
                                 placeholder="enter your university"
                             />
                             :
-                            <p className="font-semibold text-xl md:text-2xl leading-6 md:leading-8 text-white">
+                            <p className="font-semibold text-xl md:text-2xl leading-6 md:leading-8 text-white dark:text-gray-900">
                                 JS Mastery Pro
                             </p>
                     }
@@ -123,19 +123,19 @@ const UserInfo = () => {
 
                 {/* Student ID */}
                 <div className="flex flex-col gap-1">
-                    <p className="text-light-100 font-normal text-sm md:text-[18px] leading-5 md:leading-7">
+                    <p className="text-light-100 dark:text-gray-900 font-normal text-sm md:text-[18px] leading-5 md:leading-7">
                         Student ID
                     </p>
                     {
                         isEditing ?
                             <input
-                                className="w-full bg-[#12141D] rounded-lg py-2 px-4 text-light-100 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
+                                className="w-full bg-[#12141D] dark:bg-white rounded-lg py-2 px-4 text-light-100 dark:text-gray-900 font-semibold text-sm md:text-[18px] leading-5 md:leading-7"
                                 type="text"
                                 placeholder="enter your student ID"
                                 maxLength={11}
                             />
                             :
-                            <p className="font-semibold text-xl md:text-2xl leading-6 md:leading-8 text-white">
+                            <p className="font-semibold text-xl md:text-2xl leading-6 md:leading-8 text-white dark:text-gray-900">
                                 234567856
                             </p>
                     }
@@ -145,7 +145,7 @@ const UserInfo = () => {
                 {
                     isEditing ?
                         <div className="flex flex-col gap-1">
-                            <p className="text-light-100 font-normal text-sm md:text-[18px] leading-5 md:leading-7">
+                            <p className="text-light-100 dark:text-gray-900 font-normal text-sm md:text-[18px] leading-5 md:leading-7">
                                 upload your University card
                             </p>
                             <DragAndDropUpload
