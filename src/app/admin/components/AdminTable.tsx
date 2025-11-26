@@ -15,15 +15,16 @@ export type TableProps<T> = {
 function AdminTable<T>({ columns, data }: TableProps<T>) {
     return (
         <div className="w-full flex flex-col gap-4">
+
             {/* Desktop */}
-            <div className="hidden md:block w-full bg-white overflow-x-auto rounded-lg">
-                <table className="w-full border border-gray-200">
-                    <thead className="bg-[#F8F8FF]">
+            <div className="hidden md:block w-full bg-white dark:bg-gray-800 overflow-x-auto rounded-lg">
+                <table className="w-full border border-gray-200 dark:border-gray-700">
+                    <thead className="bg-gray-100 dark:bg-gray-900">
                         <tr>
                             {columns.map((col, idx) => (
                                 <th
                                     key={idx}
-                                    className="border-b border-gray-200 text-left px-4 py-3 text-sm font-medium text-gray-700"
+                                    className="border-b border-gray-200 dark:border-gray-700 text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200"
                                 >
                                     {col.label}
                                 </th>
@@ -38,17 +39,20 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
                                 </td>
                             </tr>
                         ) : (
-                            data.map((row, rowIndex) => (
-                                <tr key={rowIndex} className="hover:bg-gray-50">
-                                    {columns.map((col, colIndex) => (
-                                        <td
-                                            key={colIndex}
-                                            className="border-b border-gray-200 px-4 py-3 text-sm text-gray-600"
-                                        >
-                                            {col.render ? col.render(row) : String(row[col.key])}
-                                        </td>
-                                    ))}
-                                </tr>
+                            data.map((row, rowIndex) => (<
+                                tr
+                                key={rowIndex}
+                                className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                            >
+                                {columns.map((col, colIndex) => (
+                                    <td
+                                        key={colIndex}
+                                        className="border-b border-gray-200 dark:border-gray-700 px-4 py-3 text-sm text-gray-600 dark:text-gray-300"
+                                    >
+                                        {col.render ? col.render(row) : String(row[col.key])}
+                                    </td>
+                                ))}
+                            </tr>
                             ))
                         )}
                     </tbody>
@@ -63,7 +67,7 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
                     data.map((row, idx) => (
                         <div
                             key={idx}
-                            className="bg-white rounded-2xl shadow-lg p-4 sm:p-5 flex flex-col gap-3 transform transition hover:scale-[1.01] duration-200"
+                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-4 sm:p-5 flex flex-col gap-3 transform transition hover:scale-[1.01] duration-200"
                         >
                             {columns.map((col, cIdx) =>
                                 col.key !== "action" ? (
@@ -71,7 +75,7 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
                                         <span className="text-gray-400 font-medium text-xs sm:text-sm">
                                             {col.label}
                                         </span>
-                                        <span className="text-gray-800 font-semibold text-sm sm:text-base break-words">
+                                        <span className="text-gray-800 dark:text-gray-200 font-semibold text-sm sm:text-base break-words">
                                             {col.render ? col.render(row) : String(row[col.key])}
                                         </span>
                                     </div>
@@ -80,7 +84,7 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
 
                             {/* Action buttons */}
                             {columns.find(c => c.key === "action") && (
-                                <div className="flex justify-end gap-3 pt-3 border-t border-gray-100">
+                                <div className="flex justify-end gap-3 pt-3 border-t border-gray-100 dark:border-gray-700">
                                     {columns.find(c => c.key === "action")!.render!(row)}
                                 </div>
                             )}
@@ -88,10 +92,9 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
                     ))
                 )}
             </div>
-
-
         </div>
     );
+
 }
 
 export default AdminTable;
