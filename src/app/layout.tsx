@@ -29,6 +29,21 @@ export const metadata: Metadata = {
   }
 };
 
+  const setInitialTheme = `
+    (function() {
+      try {
+        var theme = localStorage.getItem('theme');
+        var root = document.documentElement;
+
+        if (theme === '"dark"') {
+          root.classList.add('dark');
+        } else if (theme === '"light"') {
+          root.classList.remove('dark');
+        } 
+      } catch (_) {}
+    })();
+  `;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
+          <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
         <ReactQueryProvider>
           <BackgroundWrapper>
               {children}

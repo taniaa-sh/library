@@ -16,9 +16,25 @@ const AdminHeader = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (isDark) document.documentElement.classList.add('dark')
-        else document.documentElement.classList.remove('dark')
-    }, [isDark])
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            setIsDark(true);
+            document.documentElement.classList.add("dark");
+        } else {
+            setIsDark(false);
+            document.documentElement.classList.remove("dark");
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isDark) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+    }, [isDark]);
 
     return (
         <div className="fixed bg-white dark:bg-[#0d1b3b] flex items-center gap-8 w-full p-6 !shadow-md z-50 transition-all">
@@ -115,14 +131,14 @@ const AdminHeader = () => {
             />
 
             {/* DARK-MODE TOGGLE */}
-            <Image
+             <Image
                 src={isDark ? imagesAddresses.icons.darkLightMode2 : imagesAddresses.icons.darkLightMode}
-                alt="Search"
+                alt="Toggle Theme"
                 width={25}
                 height={25}
                 className="cursor-pointer brightness-90 hover:brightness-110"
-                onClick={() => { setIsDark(!isDark) }}
-                title="change theme"
+                onClick={() => setIsDark(prev => !prev)}
+                title="Change Theme"
             />
         </div>
     );
