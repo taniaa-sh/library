@@ -104,7 +104,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 bg-gray-900">
+            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 bg-gray-900 dark:bg-white">
                 {messages.map((msg, idx) => (
                     <div
                         key={idx}
