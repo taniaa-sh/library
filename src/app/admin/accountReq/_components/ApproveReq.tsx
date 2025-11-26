@@ -31,7 +31,7 @@ const ApproveReq = (props: ApproveReqProps) => {
         <>
             {/* desktop */}
             <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/40 z-50">
-                <div className="w-[500px] z-10 flex flex-col gap-1 bg-white rounded-xl !p-6">
+                <div className="w-[500px] z-10 flex flex-col gap-1 bg-white dark:bg-gray-900 rounded-xl !p-6">
                     <Image
                         src={imagesAddresses.icons.modalClose}
                         alt="close"
@@ -48,8 +48,8 @@ const ApproveReq = (props: ApproveReqProps) => {
                             height={80}
                         />
                         <div className="flex flex-col items-center gap-[10px] px-4">
-                            <p className="font-semibold text-[20px] text-[#1E293B]">Approve Book Request</p>
-                            <p className="font-normal text-base text-[#64748B] text-center">
+                            <p className="font-semibold text-[20px] text-[#1E293B] dark:text-white">Approve Book Request</p>
+                            <p className="font-normal text-base text-[#64748B] dark:text-gray-400 text-center">
                                 Approve the student’s account request and grant access. A confirmation email will be sent upon approval.
                             </p>
                         </div>
@@ -84,7 +84,7 @@ const ApproveReq = (props: ApproveReqProps) => {
             {/* mobile */}
             <div className="flex md:hidden items-center justify-center fixed inset-0 bg-black/40 z-50 w-full h-full">
                 <div className={`
-            z-10 p-5 rounded-t-[20px] bg-white w-full flex flex-col gap-5 items-start bottom-0 fixed
+            z-10 p-5 rounded-t-[20px] bg-white dark:bg-gray-900 w-full flex flex-col gap-5 items-start bottom-0 fixed
             ${isClosing ? 'animate-slideDown' : 'animate-slideUp'}
                 `}>
                     <Image
@@ -105,12 +105,12 @@ const ApproveReq = (props: ApproveReqProps) => {
                             width={50}
                             height={50}
                         />
-                        <p className="text-[20px] font-semibold leading-8 text-[#1E293B] text-center">
+                        <p className="text-[20px] font-semibold leading-8 text-[#1E293B] dark:text-white text-center">
                             Approve Book Request
                         </p>
                     </div>
 
-                    <p className='text-base leading-6 font-normal text-[#64748B] text-start'>
+                    <p className='text-base leading-6 font-normal text-[#64748B] dark:text-gray-400 text-start'>
                         Approve the student’s account request and grant access. A confirmation email will be sent upon approval.
                     </p>
                     <Button
