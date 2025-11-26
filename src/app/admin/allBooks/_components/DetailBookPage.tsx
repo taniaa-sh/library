@@ -22,18 +22,26 @@ const DetailBookPage = () => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-10 mx-auto p-4 sm:p-6 mt-[130px]">
+        <div className="w-full flex flex-col gap-10 mx-auto p-4 sm:p-6 mt-[110px] dark:bg-gray-900">
             <AdminButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeft}
                 iconPosition="right"
                 color="white"
-                containerClassName="cursor-pointer !w-fit !-mt-6 sm:!-mt-10"
+                containerClassName="cursor-pointer !w-fit dark:hidden"
+                onClick={() => router.back()}
+            />
+            <AdminButton
+                text="Go back"
+                iconAddress={imagesAddresses.icons.arrowLeftWhite}
+                iconPosition="right"
+                color="white"
+                containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
                 onClick={() => router.back()}
             />
 
             <div className="w-full md:w-[723px] flex flex-col md:flex-row gap-6 sm:gap-[35px]">
-                <div className="flex justify-center items-center rounded-xl bg-[#C4214C1A] py-4 sm:py-6 px-6 sm:pr-18 sm:pl-8">
+                <div className="flex justify-center items-center rounded-xl bg-[#C4214C1A] py-4 sm:py-6 px-6 sm:pr-18 sm:pl-8 dark:bg-[#C4214C33]">
                     <Image
                         src={imagesAddresses.images.book2}
                         alt="book"
@@ -44,7 +52,7 @@ const DetailBookPage = () => {
 
                 <div className="flex flex-col gap-4 sm:gap-[18px]">
                     <div className="flex flex-wrap gap-2 sm:gap-3 items-center">
-                        <p className="font-normal text-sm sm:text-base text-[#64748B]">
+                        <p className="font-normal text-sm sm:text-base text-[#64748B] dark:text-gray-400">
                             Created at:
                         </p>
                         <div className="flex gap-1 items-center">
@@ -54,19 +62,19 @@ const DetailBookPage = () => {
                                 width={16}
                                 height={16}
                             />
-                            <p className="font-normal text-sm sm:text-base text-dark-200">
+                            <p className="font-normal text-sm sm:text-base text-dark-200 dark:text-gray-300">
                                 12/12/2023
                             </p>
                         </div>
                     </div>
 
-                    <p className="font-semibold text-lg sm:text-2xl text-dark-400 leading-snug">
+                    <p className="font-semibold text-lg sm:text-2xl text-dark-400 leading-snug dark:text-gray-100">
                         Jayne Castle - People in Glass Houses
                     </p>
-                    <p className="font-semibold text-base sm:text-lg text-dark-200">
+                    <p className="font-semibold text-base sm:text-lg text-dark-200 dark:text-gray-300">
                         By Jayne Ann Krentz
                     </p>
-                    <p className="font-normal text-sm sm:text-base text-[#64748B]">
+                    <p className="font-normal text-sm sm:text-base text-[#64748B] dark:text-gray-400">
                         Strategic, Fantasy
                     </p>
 
@@ -83,18 +91,18 @@ const DetailBookPage = () => {
 
             <div className="w-full flex flex-col md:flex-row gap-8 sm:gap-10">
                 <div className="w-full md:w-[620px] flex flex-col gap-3 sm:gap-4">
-                    <p className="font-semibold text-base sm:text-lg text-dark-400">
+                    <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-gray-100">
                         Summary
                     </p>
                     <div className="flex flex-col gap-5 sm:gap-8 text-justify">
-                        <p className="font-normal text-sm sm:text-base text-slate-500 leading-relaxed">
+                        <p className="font-normal text-sm sm:text-base text-slate-500 dark:text-gray-300 leading-relaxed">
                             People in Glass Houses by Jayne Castle (a pseudonym for Jayne Ann
                             Krentz) is a science fiction romance set in a future world where
                             people with psychic abilities live in harmony with advanced
                             technology. The story follows the main characters, Harriet and
                             Sam, who are drawn together under unusual circumstances.
                         </p>
-                        <p className="font-normal text-sm sm:text-base text-slate-500 leading-relaxed">
+                        <p className="font-normal text-sm sm:text-base text-slate-500 dark:text-gray-300 leading-relaxed">
                             Harriet, a talented psychic, works for a company that offers
                             psychic services in a futuristic society. When she finds herself
                             tangled in a dangerous situation involving a mysterious conspiracy,
@@ -103,7 +111,7 @@ const DetailBookPage = () => {
                             mysterious structure tied to their investigation—they must
                             navigate their growing attraction while facing hidden dangers.
                         </p>
-                        <p className="font-normal text-sm sm:text-base text-slate-500 leading-relaxed">
+                        <p className="font-normal text-sm sm:text-base text-slate-500 dark:text-gray-300 leading-relaxed">
                             The novel combines elements of mystery, suspense, and romance,
                             with a focus on psychic abilities, futuristic technology, and the
                             complexities of relationships. The title People in Glass Houses
@@ -114,10 +122,10 @@ const DetailBookPage = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-4">
-                    <p className="font-semibold text-base sm:text-lg text-dark-400">
+                    <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-gray-100">
                         Video
                     </p>
-                    <div className="relative w-full rounded-lg shadow-lg overflow-hidden border border-gray-500">
+                    <div className="relative w-full rounded-lg shadow-lg overflow-hidden border border-gray-500 dark:border-gray-700">
                         <video
                             ref={videoRef}
                             poster={imagesAddresses.images.notFoundBg}
@@ -146,6 +154,7 @@ const DetailBookPage = () => {
             </div>
         </div>
     );
+
 };
 
 export default DetailBookPage;
