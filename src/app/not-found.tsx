@@ -1,14 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import RootNotFound from "./(root)/_components/NotFound";
 import AdminNotFound from "./admin/components/AdminNotFound";
 
 export default function NotFound() {
-    const pathName = window.location.pathname;
+    const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
-    if (pathName.startsWith("/admin")) {
-        return <AdminNotFound />;
-    } else {
-        return <RootNotFound />;
-    }
+    useEffect(() => {
+        const pathName = window.location.pathname;
+        setIsAdmin(pathName.startsWith("/admin"));
+    }, []);
+
+    if (isAdmin === null) return null;
+
+    return isAdmin ? <AdminNotFound /> : <RootNotFound />;
 }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
-import ProgressBar from "@/components/ProgressBar";
 import BackgroundWrapper from "@/components/BackgroundWrapperProps ";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
 

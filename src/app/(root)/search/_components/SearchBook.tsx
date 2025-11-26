@@ -1,5 +1,6 @@
 "use client"
 
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import imagesAddresses from "@/utils/imageAddresses"
 import { AnimatePresence, motion } from "framer-motion";
@@ -14,11 +15,11 @@ interface PropsType {
 
 const SearchBook = ({ data }: PropsType) => {
 
-    const query = new URLSearchParams(window.location.search)
-    const searchQuery = query.get("search")
+    const searchParams = useSearchParams();
+    const searchQuery = searchParams.get("search") || ""
 
     const router = useRouter()
-    const [search, setSearch] = useState(searchQuery || "")
+    const [search, setSearch] = useState(searchQuery)
     const [showNoResult, setShowNoResult] = useState(false)
     const [bookList, setBookList] = useState(false)
     const [loading, setLoading] = useState(false)

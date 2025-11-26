@@ -34,7 +34,7 @@ const AllBooksTableClient = ({ data }: Props) => {
         {
             key: 'action',
             label: 'Action',
-            render: (row: Book) => (
+            render: () => (
                 <div className='flex gap-2'>
                     <Image
                         src={imagesAddresses.icons.edit}

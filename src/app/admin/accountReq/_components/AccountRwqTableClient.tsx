@@ -49,7 +49,7 @@ const AccountRwqTableClient = ({ data }: Props) => {
         {
             key: 'delete',
             label: '',
-            render: (row: AcountReq) => (
+            render: () => (
                 <Image
                     src={imagesAddresses.icons.close}
                     alt="Avatar"
