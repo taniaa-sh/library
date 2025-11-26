@@ -40,7 +40,7 @@ const AccountRwqTableClient = ({ data }: Props) => {
                             setShowDenyModal(true)
                         }
                     }}
-                    className={`!py-2 !px-3 rounded-lg cursor-pointer ${row.action === 'approve' ? 'bg-[#ECFDF3] text-[#027A48]' : 'bg-[#FFF1F3] text-[#C01048]'}`}
+                    className={`!py-2 !px-3 rounded-lg cursor-pointer ${row.action === 'approve' ? 'bg-[#ECFDF3] dark:bg-[#064e3b] text-[#027A48] dark:text-[#86efac]' : 'bg-[#FFF1F3] dark:bg-[#5c0d2b] text-[#C01048] dark:text-[#fca5a5]'}`}
                 >
                     {row.action === 'approve' ? ' Approve Account' : 'Deny Account'}
                 </button>
