@@ -9,7 +9,7 @@ const AdminPage = () => {
     const router = useRouter()
 
     return (
-        <div className="w-full flex flex-col gap-6 mt-[100px] md:mt-[112px] p-4 md:p-6 bg-[#F8F8FF]">
+        <div className="w-full flex flex-col gap-6 mt-[100px] md:mt-[110px] p-4 md:p-6 bg-[#F8F8FF] dark:bg-[#0F172A]">
             {/* Summary Boxes */}
             <div className="flex flex-col md:flex-row gap-4">
                 {[
@@ -19,12 +19,12 @@ const AdminPage = () => {
                 ].map((item, i) => (
                     <div
                         key={i}
-                        className="bg-white w-full md:w-[356px] p-4 md:p-5 rounded-lg flex flex-col gap-3 md:gap-5"
+                        className="bg-white dark:bg-[#020817] w-full md:w-[356px] p-4 md:p-5 rounded-lg flex flex-col gap-3 md:gap-5"
                     >
-                        <p className="font-medium text-sm sm:text-base text-[#64748B]">
+                        <p className="font-medium text-sm sm:text-base text-[#64748B] dark:text-gray-400">
                             {item.title}
                         </p>
-                        <p className="font-semibold text-2xl sm:text-[28px] text-[#1E293B]">
+                        <p className="font-semibold text-2xl sm:text-[28px] text-[#1E293B] dark:text-white">
                             {item.value}
                         </p>
                     </div>
@@ -35,13 +35,13 @@ const AdminPage = () => {
                 {/* Left Column */}
                 <div className="w-full flex flex-col gap-[22px]">
                     {/* Borrow Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white p-4">
+                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4">
                         <div className="flex justify-between items-center">
-                            <p className="font-semibold text-base sm:text-lg text-dark-400">Borrow Requests</p>
-                            <p className="font-semibold text-sm sm:text-lg text-dark-400">View All</p>
+                            <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Borrow Requests</p>
+                            <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
                         </div>
                         <div className="flex flex-col gap-8">
-                            <div className="!p-2 rounded-lg flex gap-3 !bg-[#f8f8ff]">
+                            <div className="p-2 rounded-lg flex gap-3 bg-[#f8f8ff] dark:bg-[#1e1e2d]">
                                 <Image
                                     src={imagesAddresses.images.book1}
                                     alt="user"
@@ -49,12 +49,19 @@ const AdminPage = () => {
                                     height={76}
                                 />
                                 <div className="flex flex-col gap-2">
-                                    <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                    <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                    <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                    <p className="font-semibold text-base text-dark-400 dark:text-gray-200">
+                                        The Great Reclamation: A Novel by Rachel Heng
+                                    </p>
+                                    <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">
+                                        By Rachel Heng
+                                    </p>
+                                    <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">
+                                        By Rachel Heng
+                                    </p>
                                 </div>
                             </div>
-                            <div className="!p-2 rounded-lg flex gap-3 !bg-[#f8f8ff]">
+
+                            <div className="p-2 rounded-lg flex gap-3 bg-[#f8f8ff] dark:bg-[#1e1e2d]">
                                 <Image
                                     src={imagesAddresses.images.book2}
                                     alt="user"
@@ -62,12 +69,19 @@ const AdminPage = () => {
                                     height={76}
                                 />
                                 <div className="flex flex-col gap-2">
-                                    <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                    <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                    <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                    <p className="font-semibold text-base text-dark-400 dark:text-gray-200">
+                                        The Great Reclamation: A Novel by Rachel Heng
+                                    </p>
+                                    <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">
+                                        By Rachel Heng
+                                    </p>
+                                    <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">
+                                        By Rachel Heng
+                                    </p>
                                 </div>
                             </div>
-                            <div className="!p-2 rounded-lg flex gap-3 !bg-[#f8f8ff]">
+
+                            <div className="p-2 rounded-lg flex gap-3 bg-[#f8f8ff] dark:bg-[#1e1e2d]">
                                 <Image
                                     src={imagesAddresses.images.book3}
                                     alt="user"
@@ -75,94 +89,100 @@ const AdminPage = () => {
                                     height={76}
                                 />
                                 <div className="flex flex-col gap-2">
-                                    <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                    <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                    <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                    <p className="font-semibold text-base text-dark-400 dark:text-gray-200">
+                                        The Great Reclamation: A Novel by Rachel Heng
+                                    </p>
+                                    <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">
+                                        By Rachel Heng
+                                    </p>
+                                    <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">
+                                        By Rachel Heng
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Account Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white p-4">
+                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4">
                         <div className="flex justify-between items-center">
-                            <p className="font-semibold text-base sm:text-lg text-dark-400">Account Requests</p>
-                            <p className="font-semibold text-sm sm:text-lg text-dark-400">View All</p>
+                            <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Account Requests</p>
+                            <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] !p-[14px]">
+                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] dark:bg-[#1e1e2d] !p-[14px]">
                                 <Image
                                     src={imagesAddresses.images.avatar1}
                                     alt="user"
                                     width={48}
                                     height={48}
                                 />
-                                <p className="font-semibold text-base text-dark-400">Marc Atenson</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">marcnine@gmai.com</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">Marc Atenson</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">marcnine@gmai.com</p>
                             </div>
-                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] !p-[14px]">
+                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] dark:bg-[#1e1e2d] !p-[14px]">
                                 <Image
                                     src={imagesAddresses.images.avatar2}
                                     alt="user"
                                     width={48}
                                     height={48}
                                 />
-                                <p className="font-semibold text-base text-dark-400">Marc Atenson</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">marcnine@gmai.com</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">Marc Atenson</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">marcnine@gmai.com</p>
                             </div>
-                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] !p-[14px]">
+                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] dark:bg-[#1e1e2d] !p-[14px]">
                                 <Image
                                     src={imagesAddresses.images.avatar3}
                                     alt="user"
                                     width={48}
                                     height={48}
                                 />
-                                <p className="font-semibold text-base text-dark-400">Marc Atenson</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">marcnine@gmai.com</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">Marc Atenson</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">marcnine@gmai.com</p>
                             </div>
-                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] !p-[14px]">
+                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] dark:bg-[#1e1e2d] !p-[14px]">
                                 <Image
                                     src={imagesAddresses.images.avatar1}
                                     alt="user"
                                     width={48}
                                     height={48}
                                 />
-                                <p className="font-semibold text-base text-dark-400">Marc Atenson</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">marcnine@gmai.com</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">Marc Atenson</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">marcnine@gmai.com</p>
                             </div>
-                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] !p-[14px]">
+                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] dark:bg-[#1e1e2d] !p-[14px]">
                                 <Image
                                     src={imagesAddresses.images.avatar2}
                                     alt="user"
                                     width={48}
                                     height={48}
                                 />
-                                <p className="font-semibold text-base text-dark-400">Marc Atenson</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">marcnine@gmai.com</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">Marc Atenson</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">marcnine@gmai.com</p>
                             </div>
-                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] !p-[14px]">
+                            <div className="flex flex-col items-center gap-2 bg-[#f8f8ff] dark:bg-[#1e1e2d] !p-[14px]">
                                 <Image
                                     src={imagesAddresses.images.avatar3}
                                     alt="user"
                                     width={48}
                                     height={48}
                                 />
-                                <p className="font-semibold text-base text-dark-400">Marc Atenson</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">marcnine@gmai.com</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">Marc Atenson</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">marcnine@gmai.com</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Column */}
-                <div className="w-full flex flex-col gap-[14px] rounded-2xl bg-white p-4">
+                <div className="w-full flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817]  p-4">
                     <div className="flex justify-between items-center">
-                        <p className="font-semibold text-base sm:text-lg text-dark-400">Recently Added Books</p>
-                        <p className="font-semibold text-sm sm:text-lg text-dark-400">View All</p>
+                        <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Recently Added Books</p>
+                        <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
                     </div>
 
                     <div
-                        className="px-3 py-2 sm:px-4 sm:py-[14px] flex gap-2 sm:gap-[14px] rounded-lg border border-light-300 bg-[#f8f8ff] cursor-pointer"
+                        className="px-3 py-2 sm:px-4 sm:py-[14px] flex gap-2 sm:gap-[14px] rounded-lg border border-light-300 dark:border-[#1E293B] bg-[#f8f8ff] dark:bg-[#1e1e2d] cursor-pointer"
                         onClick={() => router.push(SiteUrls.adminAddBook)}
                     >
                         <Image
@@ -170,8 +190,16 @@ const AdminPage = () => {
                             alt="add"
                             width={20}
                             height={20}
+                            className="dark:hidden"
                         />
-                        <p className="font-medium text-sm sm:text-[18px] text-dark-400">
+                        <Image
+                            src={imagesAddresses.icons.plus}
+                            alt="add"
+                            width={20}
+                            height={20}
+                            className="hidden dark:block"
+                        />
+                        <p className="font-medium text-sm sm:text-[18px] text-dark-400 dark:text-white">
                             Add New Book
                         </p>
                     </div>
@@ -184,9 +212,9 @@ const AdminPage = () => {
                                 height={76}
                             />
                             <div className="flex flex-col gap-2">
-                                <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">The Great Reclamation: A Novel by Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
                             </div>
                         </div>
                         <div className="flex gap-3">
@@ -197,9 +225,9 @@ const AdminPage = () => {
                                 height={76}
                             />
                             <div className="flex flex-col gap-2">
-                                <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">The Great Reclamation: A Novel by Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
                             </div>
                         </div>
                         <div className="flex gap-3">
@@ -210,9 +238,9 @@ const AdminPage = () => {
                                 height={76}
                             />
                             <div className="flex flex-col gap-2">
-                                <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">The Great Reclamation: A Novel by Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
                             </div>
                         </div>
                         <div className="flex gap-3">
@@ -223,9 +251,9 @@ const AdminPage = () => {
                                 height={76}
                             />
                             <div className="flex flex-col gap-2">
-                                <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">The Great Reclamation: A Novel by Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
                             </div>
                         </div>
                         <div className="flex gap-3">
@@ -236,9 +264,9 @@ const AdminPage = () => {
                                 height={76}
                             />
                             <div className="flex flex-col gap-2">
-                                <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">The Great Reclamation: A Novel by Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
                             </div>
                         </div>
                         <div className="flex gap-3">
@@ -249,9 +277,9 @@ const AdminPage = () => {
                                 height={76}
                             />
                             <div className="flex flex-col gap-2">
-                                <p className="font-semibold text-base text-dark-400">The Great Reclamation: A Novel by Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
-                                <p className="font-normal text-[14px] text-[#64748B]">By Rachel Heng</p>
+                                <p className="font-semibold text-base text-dark-400 dark:text-white">The Great Reclamation: A Novel by Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
+                                <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">By Rachel Heng</p>
                             </div>
                         </div>
                     </div>
