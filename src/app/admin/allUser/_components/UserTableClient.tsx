@@ -89,8 +89,8 @@ const UserTableClient = ({ data }: Props) => {
                         className="rounded-full object-cover"
                     />
                     <div className="flex flex-col gap-1">
-                        <p className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'} text-dark-400`}>{row.name}</p>
-                        <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-[#64748B] break-words`}>{row.email}</p>
+                        <p className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'} text-dark-400 dark:text-white`}>{row.name}</p>
+                        <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-[#64748B] dark:text-gray-400 break-words`}>{row.email}</p>
                     </div>
                 </div>
             ),
@@ -137,11 +137,11 @@ const UserTableClient = ({ data }: Props) => {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                 PaperProps={{
-                    className: `p-3 sm:p-4 rounded-xl shadow-lg ${isMobile ? 'w-40' : 'w-52'}`
+                    className: `p-3 sm:p-4 rounded-xl shadow-lg dark:!bg-black ${isMobile ? 'w-40' : 'w-52'}`
                 }}
             >
                 {selectedUser && (
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 ">
                         {['User', 'Admin'].map((roleOption) => (
                             <div
                                 key={roleOption}
@@ -155,7 +155,22 @@ const UserTableClient = ({ data }: Props) => {
                                     width=""
                                 />
                                 {selectedUser.role === roleOption && (
-                                    <Image src={imagesAddresses.icons.check} alt="check" width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} />
+                                    <>
+                                        <Image
+                                            src={imagesAddresses.icons.check}
+                                            alt="check"
+                                            width={isMobile ? 16 : 20}
+                                            height={isMobile ? 16 : 20}
+                                            className='dark:hidden'
+                                        />
+                                        <Image
+                                            src={imagesAddresses.icons.checkWhite}
+                                            alt="check"
+                                            width={isMobile ? 16 : 20}
+                                            height={isMobile ? 16 : 20}
+                                            className='hidden dark:block'
+                                        />
+                                    </>
                                 )}
                             </div>
                         ))}
