@@ -70,20 +70,28 @@ const EditBookPage = () => {
                 iconAddress={imagesAddresses.icons.arrowLeft}
                 iconPosition="right"
                 color="white"
-                containerClassName="cursor-pointer !w-fit !-mt-6 sm:!-mt-10"
+                containerClassName="cursor-pointer !w-fit dark:hidden"
+                onClick={() => router.back()}
+            />
+            <AdminButton
+                text="Go back"
+                iconAddress={imagesAddresses.icons.arrowLeftWhite}
+                iconPosition="right"
+                color="white"
+                containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
                 onClick={() => router.back()}
             />
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:gap-6">
                 {/* Title */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Title
                     </label>
                     <input
                         {...register('title')}
                         type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the book title"
                     />
                     {errors.title && (
@@ -93,13 +101,13 @@ const EditBookPage = () => {
 
                 {/* Author */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Author
                     </label>
                     <input
                         {...register('author')}
                         type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the author name"
                     />
                     {errors.author && (
@@ -109,13 +117,13 @@ const EditBookPage = () => {
 
                 {/* Genre */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Genre
                     </label>
                     <input
                         {...register('genre')}
                         type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the genre of the book"
                     />
                     {errors.genre && (
@@ -125,13 +133,13 @@ const EditBookPage = () => {
 
                 {/* Total Books */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Total number of books
                     </label>
                     <input
                         {...register('totalNumberOfBooks')}
                         type="number"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the total number of books"
                     />
                     {errors.totalNumberOfBooks && (
@@ -141,7 +149,7 @@ const EditBookPage = () => {
 
                 {/* Book Image */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Image
                     </label>
                     <DragAndDropUpload
@@ -155,7 +163,7 @@ const EditBookPage = () => {
 
                 {/* Book Primary Color */}
                 <div className="relative">
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Primary Color
                     </label>
                     <input
@@ -164,7 +172,7 @@ const EditBookPage = () => {
                         value={color}
                         onClick={() => setShowPicker(!showPicker)}
                         readOnly
-                        className="w-full border rounded-lg p-3  pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base cursor-pointer"
+                        className="w-full border rounded-lg p-3  pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base cursor-pointer"
                         placeholder="Enter the primary color"
                     />
                     <div
@@ -180,7 +188,7 @@ const EditBookPage = () => {
 
                 {/* Book Video */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Video
                     </label>
                     <DragAndDropUpload
@@ -194,13 +202,13 @@ const EditBookPage = () => {
 
                 {/* Book Summary */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Summary
                     </label>
                     <textarea
                         {...register('description')}
                         rows={4}
-                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] text-sm sm:text-base"
+                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Write a brief summary of the book"
                     ></textarea>
                     {errors.description && (
