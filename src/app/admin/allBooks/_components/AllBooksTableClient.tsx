@@ -56,7 +56,15 @@ const AllBooksTableClient = ({ data }: Props) => {
                         alt="Avatar"
                         width={20}
                         height={20}
-                        className="cursor-pointer"
+                        className="cursor-pointer dark:hidden"
+                        onClick={() => router.push(SiteUrls.adminDetailBook)}
+                    />
+                    <Image
+                        src={imagesAddresses.icons.eyeWhite}
+                        alt="Avatar"
+                        width={20}
+                        height={20}
+                        className="cursor-pointer hidden dark:block"
                         onClick={() => router.push(SiteUrls.adminDetailBook)}
                     />
                 </div>
