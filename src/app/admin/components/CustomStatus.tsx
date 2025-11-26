@@ -24,11 +24,11 @@ const CustomStatus: React.FC<PropsType> = ({
     let newClass1 = "";
     let newClass2 = "";
     if (color === "blue") {
-        newClass1 = "text-[#026AA2] bg-[#F0F9FF]";
-        newClass2 = "bg-[#026AA2]";
+        newClass1 = "text-[#026AA2] bg-[#F0F9FF] dark:bg-[#023f5d] dark:text-[#7fd6ff]";
+        newClass2 = "bg-[#026AA2] dark:bg-[#7fd6ff]";
     } else if (color === "red") {
-        newClass1 = "text-[#C01048] bg-[#FFF1F3]";
-        newClass2 = "bg-[#C01048]";
+        newClass1 = "text-[#C01048] bg-[#FFF1F3] dark:bg-[#5c0d2b] dark:text-[#ff9ec1]";
+        newClass2 = "bg-[#C01048] dark:bg-[#ff9ec1]";
     } else if (color === "yellow") {
         newClass1 = "text-warning600 bg-warning50 dark:bg-[#43320f] dark:text-[#dc6803]";
         newClass2 = "bg-warning600 dark:bg-[#dc6803]";
@@ -39,8 +39,8 @@ const CustomStatus: React.FC<PropsType> = ({
         newClass1 = "text-gray600 bg-gray50 dark:bg-[#1d2939] dark:text-[#eaecf0]";
         newClass2 = "bg-gray600 dark:bg-[#eaecf0]";
     } else if (color === "purple") {
-        newClass1 = "text-[#6941C6] bg-[#F9F5FF]";
-        newClass2 = "bg-[#6941C6]";
+        newClass1 = "text-[#6941C6] bg-[#F9F5FF] dark:bg-[#2b1e4f] dark:text-[#bda3ff]";
+        newClass2 = "bg-[#6941C6] dark:bg-[#bda3ff]";
     } else if (color === "orange") {
         newClass1 = "text-orange600 bg-orange50 dark:bg-[#fff4eb] dark:text-[#dc5d03]";
         newClass2 = "bg-orange600 dark:bg-[#dc5d03]";
@@ -48,14 +48,14 @@ const CustomStatus: React.FC<PropsType> = ({
         newClass1 = "text-lightYellow600 bg-lightYellow50 dark:bg-[#43320f] dark:text-[#fec84b]";
         newClass2 = "bg-lightYellow600 dark:bg-[#fec84b]";
     } else if (color === "darkBlue") {
-        newClass1 = "text-blue600 bg-blue50";
-        newClass2 = "bg-blue600";
+        newClass1 = "text-blue600 bg-blue50 dark:bg-[#0b1f3e] dark:text-[#7fbfff]";
+        newClass2 = "bg-blue600 dark:bg-[#7fbfff]";
     } else if (color === "pink") {
-        newClass1 = "!text-[#C11574] !bg-[#FDF2FA]";
-        newClass2 = "bg-[#C11574]";
+        newClass1 = "!text-[#C11574] !bg-[#FDF2FA] dark:!bg-[#3f0c37] dark:!text-[#ff99d6]";
+        newClass2 = "bg-[#C11574] dark:bg-[#ff99d6]";
     } else if (color === "lightGreen") {
-        newClass1 = "!text-[#027A48] !bg-[#ECFDF3]";
-        newClass2 = "bg-[#027A48]";
+        newClass1 = "!text-[#027A48] !bg-[#ECFDF3] dark:!bg-[#01492b] dark:!text-[#7fffc0]";
+        newClass2 = "bg-[#027A48] dark:bg-[#7fffc0]";
     }
     return (
         <div
