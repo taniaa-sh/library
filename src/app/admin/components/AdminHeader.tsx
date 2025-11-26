@@ -36,7 +36,7 @@ const AdminHeader = () => {
                     alt="logo"
                     width={24}
                     height={24}
-                    className="md:hidden cursor-pointer hidden dark:block"
+                    className="md:hidden cursor-pointer hidden dark:block md:dark:hidden"
                     onClick={() => setIsOpenSidebar(!isOpenSidebar)}
                 />
                 {
