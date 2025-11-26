@@ -205,66 +205,127 @@ const UserTableClient = ({ data }: Props) => {
                     Change User Role
                 </DialogTitle>
 
-                <DialogContent
-                    sx={{
-                        fontSize: isMobile ? '13px' : '15px',
-                        color: '#475569',
-                        textAlign: 'start',
-                        lineHeight: 1.6,
-                        mt: 1,
+                <Dialog
+                    open={confirmOpen}
+                    onClose={() => setConfirmOpen(false)}
+                    fullWidth={isMobile}
+                    maxWidth={isMobile ? 'xs' : 'sm'}
+                    PaperProps={{
+                        sx: {
+                            borderRadius: '16px',
+                            padding: isMobile ? '8px 6px' : '12px 8px',
+                            backgroundColor: 'white',
+                            color: '#1e293b',
+                            boxShadow: '0 8px 32px rgba(37, 56, 140, 0.2)',
+                            '.MuiDialogTitle-root, .MuiDialogContent-root, .MuiDialogActions-root': {
+                                color: '#1e293b',
+                            },
+                            '.MuiButton-root.MuiOutlinedButton-root': {
+                                borderColor: '#cbd5e1',
+                                color: '#475569',
+                                '&:hover': {
+                                    borderColor: '#25388C',
+                                    color: '#25388C',
+                                    backgroundColor: 'rgba(37, 56, 140, 0.05)',
+                                },
+                            },
+                            '.MuiButton-root.MuiContainedButton-root': {
+                                backgroundColor: '#25388C',
+                                color: '#fff',
+                                '&:hover': {
+                                    backgroundColor: '#1d2e74',
+                                },
+                            },
+                            // Dark mode
+                            '.dark &': {
+                                backgroundColor: '#1f2937',
+                                color: '#f1f5f9',
+                                '.MuiDialogTitle-root, .MuiDialogContent-root, .MuiDialogActions-root': {
+                                    color: '#f1f5f9',
+                                },
+                                '.MuiButton-root.MuiOutlinedButton-root': {
+                                    borderColor: '#475569',
+                                    color: '#f1f5f9',
+                                    '&:hover': {
+                                        borderColor: '#e0e7ff',
+                                        color: '#e0e7ff',
+                                        backgroundColor: 'rgba(255,255,255,0.05)',
+                                    },
+                                },
+                                '.MuiButton-root.MuiContainedButton-root': {
+                                    backgroundColor: '#3b82f6',
+                                    color: '#fff',
+                                    '&:hover': {
+                                        backgroundColor: '#2563eb',
+                                    },
+                                },
+                            },
+                        },
                     }}
                 >
-                    Are you sure you want to change this user role to{' '}
-                    <strong style={{ color: '#25388C' }}>{pendingRole}</strong> ?
-                </DialogContent>
+                    <DialogTitle
+                        sx={{
+                            fontSize: isMobile ? '16px' : '18px',
+                            fontWeight: 700,
+                            color: 'inherit',
+                            textAlign: 'start',
+                            pb: 1,
+                        }}
+                    >
+                        Change User Role
+                    </DialogTitle>
 
-                <DialogActions
-                    sx={{
-                        justifyContent: 'start',
-                        gap: 2,
-                        pb: 2,
-                        flexWrap: 'wrap',
-                    }}
-                >
-                    <Button
-                        onClick={() => setConfirmOpen(false)}
-                        variant="outlined"
+                    <DialogContent
                         sx={{
-                            borderColor: '#cbd5e1',
-                            color: '#475569',
-                            textTransform: 'none',
-                            fontWeight: 500,
-                            borderRadius: '10px',
-                            px: 3,
-                            fontSize: isMobile ? '12px' : '14px',
-                            '&:hover': {
-                                borderColor: '#25388C',
-                                color: '#25388C',
-                                backgroundColor: 'rgba(37, 56, 140, 0.05)',
-                            },
+                            fontSize: isMobile ? '13px' : '15px',
+                            color: 'inherit',
+                            textAlign: 'start',
+                            lineHeight: 1.6,
+                            mt: 1,
                         }}
                     >
-                        No
-                    </Button>
-                    <Button
-                        onClick={confirmRoleChange}
-                        variant="contained"
+                        Are you sure you want to change this user role to{' '}
+                        <strong className="text-blue-600 dark:text-blue-400">{pendingRole}</strong> ?
+                    </DialogContent>
+
+                    <DialogActions
                         sx={{
-                            backgroundColor: '#25388C',
-                            color: '#fff',
-                            textTransform: 'none',
-                            fontWeight: 500,
-                            borderRadius: '10px',
-                            px: 3,
-                            fontSize: isMobile ? '12px' : '14px',
-                            '&:hover': {
-                                backgroundColor: '#1d2e74',
-                            },
+                            justifyContent: 'start',
+                            gap: 2,
+                            pb: 2,
+                            flexWrap: 'wrap',
                         }}
                     >
-                        {`Yes, I'm sure`}
-                    </Button>
-                </DialogActions>
+                        <Button
+                            onClick={() => setConfirmOpen(false)}
+                            variant="outlined"
+                            sx={{
+                                textTransform: 'none',
+                                fontWeight: 500,
+                                borderRadius: '10px',
+                                px: 3,
+                                fontSize: isMobile ? '12px' : '14px',
+                            }}
+                        >
+                            No
+                        </Button>
+                        <Button
+                            onClick={confirmRoleChange}
+                            variant="contained"
+                            sx={{
+                                textTransform: 'none',
+                                fontWeight: 500,
+                                borderRadius: '10px',
+                                px: 3,
+                                fontSize: isMobile ? '12px' : '14px',
+                            }}
+                        >
+                            {`Yes, I'm sure`}
+                        </Button>
+                    </DialogActions>
+
+                </Dialog>
+
             </Dialog>
         </>
     );
