@@ -37,15 +37,19 @@ const AdminButton: React.FC<PropsType> = ({
     let newClass = "";
     if (color === "secondary") {
         newClass =
-            "text-brand600 border-[1.25px] bg-white hover:bg-brand50 !px-4 !py-2";
+            "text-brand600 border-[1.25px] bg-white hover:bg-brand50 !px-4 !py-2 dark:bg-gray-800 dark:text-brand400 dark:hover:bg-brand700";
     } else if (color === "red") {
-        newClass = "bg-error600 hover:bg-error700 text-white border-[0px] !px-1";
+        newClass =
+            "bg-error600 hover:bg-error700 text-white border-[0px] !px-1 dark:bg-error700 dark:hover:bg-error800 dark:text-white";
     } else if (color === "blue") {
-        newClass = "bg-[#25388C] hover:bg-[#3a4fae] text-[#FFFFFF] border-[0px] !px-4";
+        newClass =
+            "bg-[#25388C] hover:bg-[#3a4fae] text-[#FFFFFF] border-[0px] !px-4 dark:bg-[#1a2b66] dark:hover:bg-[#3a4fae] dark:text-white";
     } else if (color === "yellow") {
-        newClass = "bg-[#e7c9a5] hover:bg-[#ddbfa3] text-black border-[0px] !px-4";
+        newClass =
+            "bg-[#e7c9a5] hover:bg-[#ddbfa3] text-black border-[0px] !px-4 dark:bg-[#5a4c2e] dark:hover:bg-[#6a5738] dark:text-white";
     } else if (color === "white") {
-        newClass = "bg-white hover:bg-gray-50 text-gray-900 border-[0px] !px-4 !shadow-lg";
+        newClass =
+            "bg-white hover:bg-gray-50 text-gray-900 border-[0px] dark:border dark:border-gray-600 !px-4 !shadow-lg dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-gray-100";
     }
     if (color === "iconbutton" && iconAddress !== undefined) {
         return (
