@@ -69,14 +69,14 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
 
     return (
         <div
-            className={`z-[1000] flex flex-col rounded-lg border border-gray-300 bg-gray-50 fixed right-0 bottom-0 
+            className={`z-[1000] flex flex-col rounded-lg border border-gray-300 dark:border-gray-500 bg-gray-50 fixed right-0 bottom-0 
                         md:right-20 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
-                        shadow-xl 
+                        shadow-xl
                         ${isClosing ? "animate-closeModal" : "animate-openModal"}`}
         >
 
             {/* Header */}
-            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-[#EED1AC] select-none shadow-sm">
+            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-[#EED1AC] dark:bg-[#edae5b] select-none shadow-sm">
                 <div className="flex items-center gap-2 w-full">
                     <Image
                         src={imagesAddresses.icons.support}
@@ -85,7 +85,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                         alt="Support"
                     />
                     <div className="flex flex-col">
-                        <p className="text-base font-semibold leading-8">Library Support</p>
+                        <p className="text-base font-semibold leading-8 dark:text-gray-900">Library Support</p>
                         {isTyping && (
                             <p className="text-xs font-normal text-gray-600 leading-6">
                                 Typing...
@@ -134,13 +134,13 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                     onKeyDown={e => e.key === "Enter" && handleSend()}
                     placeholder="Type your question..."
                     className="flex-1 px-3 py-2 border border-gray-400 rounded-lg 
-                              focus:outline-none focus:ring focus:ring-blue-300 bg-white"
+                              focus:outline-none focus:ring focus:ring-blue-300 bg-white dark:text-gray-700"
                 />
 
                 <button
                     onClick={handleSend}
-                    className="ml-2 px-4 py-2 rounded-lg bg-[#EED1AC] hover:bg-[#E6C499] 
-                               transition shadow"
+                    className="ml-2 px-4 py-2 rounded-lg bg-[#EED1AC] hover:bg-[#E6C499] dark:bg-[#edae5b] dark:hover:bg-[#eda84d] dark:text-gray-900
+                               transition shadow cursor-pointer"
                 >
                     Send
                 </button>
