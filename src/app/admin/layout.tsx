@@ -35,16 +35,16 @@ export default function AdminLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="bg-white">
-            <body className="bg-white min-h-screen">
-                <div className="max-w-[1440px] mx-auto">
+        <html lang="en">
+            <body className="min-h-dvh">
+                <div className="mx-auto">
                     <ProgressBar isAdmin />
                     <ScrollProgressBar isAdmin />
                     <div className="flex gap-10">
                         <AdminSidebar />
                         <div className="flex flex-col gap-20 w-full lg:!ml-[280px]">
                             <AdminHeader />
-                            {children}
+                                {children}
                         </div>
                     </div>
                     <Toaster position="top-right" richColors />

@@ -19,7 +19,7 @@ const AdminSidebar = () => {
             border border-[#EDF1F1] dark:border-[#1E293B]
             flex-col h-[calc(100vh-124px)] 
             justify-between items-center 
-            max-h-screen overflow-y-auto p-4
+            !min-h-screen overflow-y-auto p-4
             transition-all
         ">
             <div className="w-full">

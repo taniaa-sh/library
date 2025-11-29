@@ -17,8 +17,8 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
         <div className="w-full flex flex-col gap-4">
 
             {/* Desktop */}
-            <div className="hidden md:block w-full bg-white dark:bg-gray-800 overflow-x-auto rounded-lg">
-                <table className="w-full border border-gray-200 dark:border-gray-700">
+            <div className="hidden md:block !max-w-[1440px] bg-white dark:bg-gray-800 overflow-x-auto rounded-lg">
+                <table className="border w-full border-gray-200 dark:border-gray-700">
                     <thead className="bg-gray-100 dark:bg-gray-900">
                         <tr>
                             {columns.map((col, idx) => (

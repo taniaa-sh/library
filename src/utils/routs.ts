@@ -9,6 +9,7 @@ const SiteUrls = {
   dashbord: "/dashbord",
   profile: "/profile",
   search: "/search",
+  rootNotFound: "/notFoundRoot",
 
   admin: "/admin",
   adminAllUser: "/admin/allUser",
@@ -18,6 +19,7 @@ const SiteUrls = {
   adminDetailBook: "/admin/allBooks/detail",
   adminBorrowReq: "/admin/borrowReq",
   adminAccountReq: "/admin/accountReq",
+  adminNotFound: "/admin/notFoundAdmin",
 };
 
 export default SiteUrls;

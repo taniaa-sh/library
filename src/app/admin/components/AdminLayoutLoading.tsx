@@ -11,7 +11,7 @@ const Lottie = dynamic(() => import('lottie-react'), {
 
 const AdminLayoutLoading = () => {
     return (
-        <div className="fixed inset-0 size-full flex flex-col items-center justify-center md:left-44">
+        <div className="fixed inset-0 size-full flex flex-col items-center justify-center md:left-36">
             <Lottie
                 animationData={animationData}
                 loop={true}

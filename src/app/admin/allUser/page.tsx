@@ -112,6 +112,54 @@ const fetchUsers = async () => {
             avatar: imagesAddresses.images.avatar3,
             email: 'sara@university',
         },
+                {
+            id: '9',
+            name: 'Sara',
+            dateJoined: 'Jan 05 2024',
+            role: 'User',
+            booksBorrowed: '9',
+            universityIDNumber: '112233445',
+            universityIDCard: '112233445',
+            action: 'Delete',
+            avatar: imagesAddresses.images.avatar3,
+            email: 'sara@university',
+        },
+                {
+            id: '9',
+            name: 'Sara',
+            dateJoined: 'Jan 05 2024',
+            role: 'User',
+            booksBorrowed: '9',
+            universityIDNumber: '112233445',
+            universityIDCard: '112233445',
+            action: 'Delete',
+            avatar: imagesAddresses.images.avatar3,
+            email: 'sara@university',
+        },
+                {
+            id: '9',
+            name: 'Sara',
+            dateJoined: 'Jan 05 2024',
+            role: 'User',
+            booksBorrowed: '9',
+            universityIDNumber: '112233445',
+            universityIDCard: '112233445',
+            action: 'Delete',
+            avatar: imagesAddresses.images.avatar3,
+            email: 'sara@university',
+        },
+                {
+            id: '9',
+            name: 'Sara',
+            dateJoined: 'Jan 05 2024',
+            role: 'User',
+            booksBorrowed: '9',
+            universityIDNumber: '112233445',
+            universityIDCard: '112233445',
+            action: 'Delete',
+            avatar: imagesAddresses.images.avatar3,
+            email: 'sara@university',
+        }
     ];
 };
 
@@ -119,8 +167,8 @@ const AllUsersPage = async () => {
     const data = await fetchUsers();
 
     return (
-        <div className="bg-[#F8F8FF] dark:bg-[#0F172A] px-6 py-6 !mt-[100px]">
-            <div className="flex flex-col gap-6 bg-white dark:bg-[#020817] py-6 px-5 rounded-lg">
+      <div className="bg-[#F8F8FF] dark:bg-[#020817] px-8 py-10 !mt-[100px] w-full min-h-dvh">
+            <div className="flex flex-col gap-6 bg-white dark:bg-[#020817] py-6 px-5 rounded-lg min-h-dvh">
                 <p className="font-medium text-xl">All Users</p>
                 <UserTableClient data={data} />
             </div>
