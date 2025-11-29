@@ -307,14 +307,60 @@
   background: #be7e2b;
 }
 
+.custom-scrollbar1::-webkit-scrollbar {
+  height: 7px;
+}
+
+.custom-scrollbar1::-webkit-scrollbar-track {
+  background: #e5e7eb;
+  border-radius: 10px;
+}
+
+.custom-scrollbar1::-webkit-scrollbar-thumb {
+  background: #eed1ac;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  transition: background .18s ease, box-shadow .18s ease, transform .12s ease;
+  transform-origin: center;
+}
+
+.custom-scrollbar1:hover::-webkit-scrollbar-thumb,
+.custom-scrollbar1::-webkit-scrollbar-thumb:hover {
+  background: #e6a551;
+}
+
+.custom-scrollbar1::-webkit-scrollbar-thumb:active {
+  background: #9a5f12;
+  transform: scaleY(1.05);
+}
+
+.custom-scrollbar1 {
+  scrollbar-width: thin;
+  scrollbar-color: #be7e2b #e5e7eb;
+}
+
+.custom-scrollbar1:hover {
+  scrollbar-color: #be7e2b #f3f4f6;
+}
+
 @keyframes slideUp {
-  0%   { transform: translateY(100%); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideDown {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(100%); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
 }
 
 .animate-slideUp {

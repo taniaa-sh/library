@@ -126,7 +126,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
             </div>
 
             {/* Input section */}
-            <div className="flex items-center px-4 py-3 border-t border-gray-300 bg-gray-100">
+            <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-300 bg-gray-100">
                 <input
                     type="text"
                     value={input}
@@ -139,10 +139,15 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
 
                 <button
                     onClick={handleSend}
-                    className="ml-2 px-4 py-2 rounded-lg bg-[#EED1AC] hover:bg-[#E6C499] dark:bg-[#edae5b] dark:hover:bg-[#eda84d] dark:text-gray-900
+                    className="px-2 py-2 rounded-full bg-[#EED1AC] hover:bg-[#E6C499] dark:bg-[#edae5b] dark:hover:bg-[#eda84d] dark:text-gray-900
                                transition shadow cursor-pointer"
                 >
-                    Send
+                    <Image
+                        src={imagesAddresses.icons.plain}
+                        width={22}
+                        height={22}
+                        alt="send"
+                    />
                 </button>
             </div>
         </div>

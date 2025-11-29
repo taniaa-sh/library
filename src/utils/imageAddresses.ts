@@ -31,6 +31,7 @@ const imagesAddresses = {
     darkLightMode: "/icons/dark-lightMode.svg",
     darkLightMode2: "/icons/dark-lightModeWhite.svg",
     FrameWhite: "/icons/FrameWhite.svg",
+    plain: "/icons/plain.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",
