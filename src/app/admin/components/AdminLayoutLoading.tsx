@@ -11,14 +11,14 @@ const Lottie = dynamic(() => import('lottie-react'), {
 
 const AdminLayoutLoading = () => {
     return (
-        <div className="fixed inset-0 size-full flex flex-col items-center justify-center gap-4">
+        <div className="fixed inset-0 size-full flex flex-col items-center justify-center md:left-44">
             <Lottie
                 animationData={animationData}
                 loop={true}
                 reversed
                 className={"size-[100px] sm:size-[200px]"}
             />
-            <p>Loading...</p>
+            <p className='sm:!ml-12 -mt-6 text-sm md:text-lg'>Loading...</p>
         </div>
     )
 }
