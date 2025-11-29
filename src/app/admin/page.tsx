@@ -31,11 +31,11 @@ const AdminPage = () => {
                 ))}
             </div>
 
-            <div className="w-full flex flex-col lg:flex-row gap-4">
+            <div className="flex flex-col lg:flex-row gap-4 !max-w-[1440px]">
                 {/* Left Column */}
-                <div className="w-full flex flex-col gap-[22px]">
+                <div className=" flex flex-col gap-[22px]">
                     {/* Borrow Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4">
+                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4 w-[540px]">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Borrow Requests</p>
                             <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>

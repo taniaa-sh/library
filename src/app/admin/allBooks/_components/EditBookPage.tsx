@@ -63,7 +63,7 @@ const EditBookPage = () => {
     };
 
     return (
-        <div className="w-full flex flex-col gap-8 sm:gap-10 mx-auto p-4 sm:p-6 rounded-xl shadow-lg mt-[140px]">
+        <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg mt-[140px]">
             <Toaster />
             <AdminButton
                 text="Go back"
