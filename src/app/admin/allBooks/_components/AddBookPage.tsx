@@ -215,17 +215,14 @@ const EditBookPage = () => {
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.description.message}</p>
                     )}
                 </div>
-
-                <button
+                <AdminButton
+                    text={loading ? 'Updating...' : 'Update Book'}
+                    width="w-fit py-2 sm:py-3 cursor-pointer"
+                    color="blue"
                     type="submit"
-                    disabled={loading}
-                    className={`w-full py-2 sm:py-3 rounded-lg text-white font-medium transition ${loading
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-primary-admin hover:bg-blue-700'
-                        }`}
-                >
-                    {loading ? 'Updating...' : 'Update Book'}
-                </button>
+                    onClick={() => { }}
+                    loading={loading}
+                />
             </form>
         </div>
     );
