@@ -20,7 +20,7 @@ const Profile = async () => {
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
                         <div
                             key={item}
-                            className="flex-shrink-0 w-full sm:w-64 p-4 md:p-5 flex flex-col gap-3 md:gap-5 bg-[#12141D] dark:bg-gray-400 rounded-lg"
+                            className="flex-shrink-0 w-full sm:w-64 p-4 md:p-5 flex flex-col gap-3 md:gap-5 bg-[url('/images/loginBg.png')] bg-gray-900 bg-cover dark:bg-gray-50 rounded-lg"
                         >
                             <div className="bg-[#936F4A]/60 rounded-lg px-8 py-4 md:px-12 md:py-6 flex justify-center">
                                 <Image
