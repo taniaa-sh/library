@@ -61,7 +61,7 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview }: DragAndDropUpl
     return (
         <>
             <div
-                className={`w-full h-36 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${isDragging ? 'border-blue-500 bg-blue-50' : `border-gray-300 ${isAdminPath ? 'hover:border-blue-400' : 'hover:border-[#ddbfa3] dark:hover:border-[#7a6233]'}`
+                className={`w-full h-36 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${isDragging ? 'border-blue-500 bg-blue-50' : ` ${isAdminPath ? 'hover:border-blue-400 border-gray-300' : 'hover:border-[#ddbfa3] border-gray-300 dark:border-gray-500 dark:hover:border-[#7a6233]'}`
                     } ${isAdminPath ? 'bg-[#F9FAFB] dark:bg-[#1e293b]' : '!bg-[#232839] dark:!bg-gray-200'}`}
                 onClick={() => inputRef.current?.click()}
                 onDragOver={handleDragOver}
