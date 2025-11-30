@@ -370,3 +370,48 @@
 .animate-slideDown {
   animation: slideDown 0.25s ease-in forwards;
 }
+
+.book-container {
+  perspective: 2000px;
+}
+
+.page-left {
+  width: 260px;
+  height: 360px;
+  background: #fffdf4;
+  border: 2px solid #ffffff;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 20px;
+  box-shadow:
+    inset 15px 0 30px rgba(0, 0, 0, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: rotateY(30deg);
+  transform-origin: right;
+}
+
+.page-right {
+  width: 260px;
+  height: 360px;
+  background: #fffdf4;
+  border: 2px solid #ffffff;
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  padding: 20px;
+  box-shadow:
+    inset -15px 0 30px rgba(0, 0, 0, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: rotateY(-30deg);
+  transform-origin: left;
+}
+
+.spine {
+  width: 14px;
+  height: 360px;
+  background: linear-gradient(to right,
+      #eaeaea,
+      #ffffff,
+      #eaeaea);
+  box-shadow:
+    inset 0 0 12px rgba(0, 0, 0, 0.15);
+}

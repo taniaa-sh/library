@@ -35,6 +35,7 @@ const imagesAddresses = {
     FrameWhite: "/icons/FrameWhite.svg",
     plain: "/icons/plain.svg",
     camera: "/icons/camera.svg",
+    bookPdf: "/icons/bookPdf.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",
