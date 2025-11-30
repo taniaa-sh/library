@@ -46,7 +46,7 @@ const AdminButton: React.FC<PropsType> = ({
             "bg-[#25388C] hover:bg-[#3a4fae] text-[#FFFFFF] border-[0px] !px-4 dark:bg-[#1a2b66] dark:hover:bg-[#3a4fae] dark:text-white";
     } else if (color === "yellow") {
         newClass =
-            "bg-[#e7c9a5] hover:bg-[#ddbfa3] text-black border-[0px] !px-4 dark:bg-[#5a4c2e] dark:hover:bg-[#6a5738] dark:text-white";
+            "bg-[#e7c9a5] hover:bg-[#ddbfa3] text-black border-[0px] !px-4 dark:bg-[#7a6233] dark:hover:bg-[#8a723e] dark:text-white";
     } else if (color === "white") {
         newClass =
             "bg-white hover:bg-gray-50 text-gray-900 border-[0px] dark:border dark:border-gray-600 !px-4 !shadow-lg dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-gray-100";

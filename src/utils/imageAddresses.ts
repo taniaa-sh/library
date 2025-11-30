@@ -22,7 +22,9 @@ const imagesAddresses = {
     menue: "/icons/menu.svg",
     support: "/icons/supportIcon.svg",
     blackEdit: "/icons/blackEdit.svg",
+    whiteEdit: "/icons/whiteEdit.svg",
     save: "/icons/save.svg",
+    saveWhite: "/icons/saveWhite.svg",
     serach: "/icons/search.svg",
     eyeWhite: "/icons/eyeWhite.svg",
     blind: "/icons/blind.svg",
@@ -32,6 +34,7 @@ const imagesAddresses = {
     darkLightMode2: "/icons/dark-lightModeWhite.svg",
     FrameWhite: "/icons/FrameWhite.svg",
     plain: "/icons/plain.svg",
+    camera: "/icons/camera.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",
@@ -59,7 +62,6 @@ const imagesAddresses = {
     arrowLeftWhite: "/icons/arrow-leftWhite.svg",
     eye: "/icons/Eye.svg",
     calendar: "/icons/calendar.svg",
-    whiteEdit: "/icons/whiteEdit.svg",
     hamburgerMenu: "/icons/hamburgerMenu.svg",
     hamburgerMenuWhite: "/icons/hamburgerMenuWhite.svg",
     arrowRight: "/icons/arrowRight.svg",
@@ -84,7 +86,6 @@ const imagesAddresses = {
     emptyResult: "/images/emptyResult.png",
     profile: "/images/profile.png",
     notFoundBg: "/images/notFoundBg.png",
-
 
     adminLogo: "/images/adminLogo.png",
     avatar1: "/images/avatar1.png",
