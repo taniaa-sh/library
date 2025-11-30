@@ -18,27 +18,33 @@ const UserInfo = () => {
 
     return (
         <div className="w-full  flex flex-col gap-6 md:gap-9 rounded-lg bg-[url('/images/loginBg.png')] bg-cover dark:bg-gray-50 h-auto p-6 md:p-10 relative">
-            <div className="absolute md:hidden z-10 rounded-b-full md:w-[60px] md:h-[80px] w-[30px] h-[40px] bg-gray-200 dark:bg-gray-500 -top-3 left-1/2 md:left-80 lg:left-140 transform -translate-x-1/2 md:translate-x-0">
+            <div className="absolute md:hidden z-10 rounded-b-full md:w-[60px] md:h-[80px] w-[30px] h-[40px] bg-gray-200 dark:bg-gray-400 -top-3 left-1/2 md:left-80 lg:left-140 transform -translate-x-1/2 md:translate-x-0">
                 {/* <div className="hidden md:block absolute z-20 top-14 left-2.5 rounded-2xl md:w-10 md:h-[10px] bg-[#1E2230] dark:bg-gray-500" /> */}
             </div>
 
             {/* Edit Button Mobile */}
-            <AdminButton
-                text={isEditing ? "Save" : "Edit"}
-                color='yellow'
-                containerClassName="md:hidden w-fit self-end cursor-pointer dark:hidden"
-                onClick={() => setIsEditing(!isEditing)}
-                iconPosition="right"
-                iconAddress={isEditing ? imagesAddresses.icons.save : imagesAddresses.icons.blackEdit}
-            />
-            <AdminButton
-                text={isEditing ? "Save" : "Edit"}
-                color='yellow'
-                containerClassName="dark:hidden w-fit self-end cursor-pointer hidden dark:flex"
-                onClick={() => setIsEditing(!isEditing)}
-                iconPosition="right"
-                iconAddress={isEditing ? imagesAddresses.icons.saveWhite : imagesAddresses.icons.whiteEdit}
-            />
+            {
+                !isEditing && (
+                    <>
+                        <AdminButton
+                            text="Edit"
+                            color='yellow'
+                            containerClassName="md:hidden w-fit self-end cursor-pointer dark:hidden"
+                            onClick={() => setIsEditing(!isEditing)}
+                            iconPosition="right"
+                            iconAddress={imagesAddresses.icons.blackEdit}
+                        />
+                        <AdminButton
+                            text="Edit"
+                            color='yellow'
+                            containerClassName="dark:hidden w-fit self-end cursor-pointer hidden dark:flex"
+                            onClick={() => setIsEditing(!isEditing)}
+                            iconPosition="right"
+                            iconAddress={imagesAddresses.icons.whiteEdit}
+                        />
+                    </>
+                )
+            }
 
             <div className="flex flex-col gap-6 md:gap-8 mt-1">
                 <div className="flex justify-between items-center">
@@ -109,22 +115,27 @@ const UserInfo = () => {
                     </div>
 
                     {/* Edit Button Desktop */}
-                    <AdminButton
-                        text={isEditing ? "Save" : "Edit"}
-                        color='yellow'
-                        containerClassName="hidden md:flex cursor-pointer !w-30 dark:hidden"
-                        onClick={() => setIsEditing(!isEditing)}
-                        iconPosition="right"
-                        iconAddress={isEditing ? imagesAddresses.icons.save : imagesAddresses.icons.blackEdit}
-                    />
-                    <AdminButton
-                        text={isEditing ? "Save" : "Edit"}
-                        color='yellow'
-                        containerClassName="!w-30 hidden cursor-pointer dark:flex"
-                        onClick={() => setIsEditing(!isEditing)}
-                        iconPosition="right"
-                        iconAddress={isEditing ? imagesAddresses.icons.saveWhite : imagesAddresses.icons.whiteEdit}
-                    />
+                    {
+                        !isEditing &&
+                        <>
+                            <AdminButton
+                                text="Edit"
+                                color='yellow'
+                                containerClassName="hidden md:flex cursor-pointer !w-30 dark:hidden"
+                                onClick={() => setIsEditing(!isEditing)}
+                                iconPosition="right"
+                                iconAddress={imagesAddresses.icons.blackEdit}
+                            />
+                            <AdminButton
+                                text="Edit"
+                                color='yellow'
+                                containerClassName="!w-30 hidden cursor-pointer dark:flex"
+                                onClick={() => setIsEditing(!isEditing)}
+                                iconPosition="right"
+                                iconAddress={imagesAddresses.icons.whiteEdit}
+                            />
+                        </>
+                    }
                 </div>
 
                 <div className={`flex flex-col md:flex-row gap-10 justify-between ${isEditing && "!flex-col"}`}>
@@ -202,6 +213,7 @@ const UserInfo = () => {
                                     </p>
                             }
                         </div>
+
                     </div>
 
                     {/* UniversityCard Image */}
@@ -227,6 +239,27 @@ const UserInfo = () => {
                             </div>
                     }
                 </div>
+                {
+                    isEditing &&
+                    <div className="self-end">
+                        <AdminButton
+                            text="Save"
+                            color='yellow'
+                            containerClassName="flex cursor-pointer md:!w-30 dark:hidden"
+                            onClick={() => setIsEditing(!isEditing)}
+                            iconPosition="right"
+                            iconAddress={imagesAddresses.icons.save}
+                        />
+                        <AdminButton
+                            text="Save"
+                            color='yellow'
+                            containerClassName="md:!w-30 hidden cursor-pointer dark:flex"
+                            onClick={() => setIsEditing(!isEditing)}
+                            iconPosition="right"
+                            iconAddress={imagesAddresses.icons.saveWhite}
+                        />
+                    </div>
+                }
             </div>
         </div>
     );
