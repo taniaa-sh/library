@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -12,6 +12,7 @@ import { ChromePicker, ColorResult } from 'react-color';
 import AdminButton from '../../components/AdminButton';
 import imagesAddresses from '@/utils/imageAddresses';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -24,11 +25,13 @@ const schema = yup.object({
     description: yup.string().required('Description is required'),
 }).required();
 
-const EditBookPage = () => {
+const AddBookPage = () => {
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
     const router = useRouter();
+
+    const [shakeTrigger, setShakeTrigger] = useState(0);
 
     const {
         register,
@@ -56,6 +59,12 @@ const EditBookPage = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (Object.keys(errors).length > 0) {
+            setShakeTrigger((prev) => prev + 1);
+        }
+    }, [errors]);
 
     const handleColorChange = (newColor: ColorResult) => {
         setColor(newColor.hex);
@@ -88,11 +97,14 @@ const EditBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Title
                     </label>
-                    <input
+                    <motion.input
                         {...register('title')}
                         type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the book title"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
+                        animate={errors.title ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                        key={shakeTrigger}
+                        transition={{ duration: 0.4 }}
                     />
                     {errors.title && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.title.message}</p>
@@ -104,11 +116,14 @@ const EditBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Author
                     </label>
-                    <input
+                    <motion.input
                         {...register('author')}
                         type="text"
                         className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the author name"
+                        animate={errors.author ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                        key={shakeTrigger}
+                        transition={{ duration: 0.4 }}
                     />
                     {errors.author && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.author.message}</p>
@@ -120,11 +135,14 @@ const EditBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Genre
                     </label>
-                    <input
+                    <motion.input
                         {...register('genre')}
                         type="text"
                         className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the genre of the book"
+                        animate={errors.genre ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                        key={shakeTrigger}
+                        transition={{ duration: 0.4 }}
                     />
                     {errors.genre && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.genre.message}</p>
@@ -136,11 +154,14 @@ const EditBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Total number of books
                     </label>
-                    <input
+                    <motion.input
                         {...register('totalNumberOfBooks')}
                         type="number"
                         className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Enter the total number of books"
+                        animate={errors.totalNumberOfBooks ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                        key={shakeTrigger}
+                        transition={{ duration: 0.4 }}
                     />
                     {errors.totalNumberOfBooks && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.totalNumberOfBooks.message}</p>
@@ -149,16 +170,15 @@ const EditBookPage = () => {
 
                 {/* Book Image */}
                 <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
+                    <label className="block text-xs sm:text-sm md:text-base font-medium !mb-3 text-gray-900 dark:text-white">
                         Book Image
+                        <DragAndDropUpload
+                            type="image"
+                            onChange={(file) => setValue('bookImage', URL.createObjectURL(file as File))}
+                            error={errors.bookImage?.message}
+                            shakeTrigger={shakeTrigger}
+                        />
                     </label>
-                    <DragAndDropUpload
-                        type="image"
-                        onChange={(file) => setValue('bookImage', URL.createObjectURL(file))}
-                    />
-                    {errors.bookImage && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookImage.message}</p>
-                    )}
                 </div>
 
                 {/* Book Primary Color */}
@@ -166,7 +186,7 @@ const EditBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Primary Color
                     </label>
-                    <input
+                    <motion.input
                         {...register('bookPrimaryColor')}
                         type="text"
                         value={color}
@@ -174,6 +194,9 @@ const EditBookPage = () => {
                         readOnly
                         className="w-full border rounded-lg p-3  pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base cursor-pointer"
                         placeholder="Enter the primary color"
+                        animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                        key={shakeTrigger}
+                        transition={{ duration: 0.4 }}
                     />
                     <div
                         style={{ backgroundColor: color }}
@@ -193,11 +216,10 @@ const EditBookPage = () => {
                     </label>
                     <DragAndDropUpload
                         type="video"
-                        onChange={(file) => setValue('bookVideo', URL.createObjectURL(file))}
+                        onChange={(file) => setValue('bookVideo', URL.createObjectURL(file as File))}
+                        error={errors.bookVideo?.message}
+                        shakeTrigger={shakeTrigger}
                     />
-                    {errors.bookVideo && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookVideo.message}</p>
-                    )}
                 </div>
 
                 {/* Book Summary */}
@@ -205,12 +227,15 @@ const EditBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Summary
                     </label>
-                    <textarea
+                    <motion.textarea
                         {...register('description')}
                         rows={4}
                         className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base"
                         placeholder="Write a brief summary of the book"
-                    ></textarea>
+                        animate={errors.description ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                        key={shakeTrigger}
+                        transition={{ duration: 0.4 }}
+                    ></motion.textarea>
                     {errors.description && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.description.message}</p>
                     )}
@@ -228,4 +253,4 @@ const EditBookPage = () => {
     );
 };
 
-export default EditBookPage;
+export default AddBookPage;
