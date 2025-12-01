@@ -67,12 +67,12 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
                     data.map((row, idx) => (
                         <div
                             key={idx}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-4 sm:p-5 flex flex-col gap-3 transform transition hover:scale-[1.01] duration-200"
+                            className="bg-[#f3f6f9] dark:bg-gray-800 rounded-2xl shadow-md p-4 sm:p-5 flex flex-col gap-3 transform transition hover:scale-[1.01] duration-200"
                         >
                             {columns.map((col, cIdx) =>
                                 col.key !== "action" ? (
-                                    <div key={cIdx} className="grid grid-cols-[1fr_1.2fr] gap-2">
-                                        <span className="text-gray-400 font-medium text-xs sm:text-sm">
+                                    <div key={cIdx} className="flex justify-between">
+                                        <span className="text-gray-600 dark:text-gray-400 font-medium text-xs sm:text-sm">
                                             {col.label}
                                         </span>
                                         <span className="text-gray-800 dark:text-gray-200 font-semibold text-sm sm:text-base break-words">
