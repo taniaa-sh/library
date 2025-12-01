@@ -93,6 +93,7 @@ const imagesAddresses = {
     avatar2: "/images/avatar2.png",
     avatar3: "/images/avatar3.png",
     emptyBorrowRequests: "/images/emptyBorrowRequests.png",
+    emptyBorrowRequestsDark: "/images/emptyBorrowRequestsDark.png",
     emptyAccountRequests: "/images/emptyAccountRequests.png",
     emptyAccountRequestsDark: "/images/emptyAccountRequestsDark.png",
   },

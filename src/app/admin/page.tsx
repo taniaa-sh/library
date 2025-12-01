@@ -102,7 +102,7 @@ const AdminPage = () => {
                             </div>
                         </div>
                         {/* Empty Brrow Requests */}
-                        {/* <div className="flex flex-col items-center justify-center gap-4">
+                        <div className="flex flex-col items-center justify-center gap-4">
                            <Image
                                 src={imagesAddresses.images.emptyBorrowRequests}
                                 alt="emptyBorrowRequests"
@@ -111,7 +111,7 @@ const AdminPage = () => {
                                 className="dark:hidden" 
                             />
                              <Image
-                                src={imagesAddresses.images.emptyAccountRequestsDark}
+                                src={imagesAddresses.images.emptyBorrowRequestsDark}
                                 alt="emptyBorrowRequests"
                                 width={193}
                                 height={144}
@@ -119,7 +119,7 @@ const AdminPage = () => {
                             />
                         <p className="text-base font-semibold text-[#1E293B] dark:text-white">No Pending Book Requests</p>
                         <p className="text-sm font-normal text-[#64748B] dark:text-gray-400">There are no borrow book requests awaiting your review at this time.</p>
-                       </div> */}
+                       </div>
                     </div>
 
                     {/* Account Requests */}
