@@ -35,7 +35,7 @@ const AdminPage = () => {
                 {/* Left Column */}
                 <div className=" flex flex-col gap-[22px]">
                     {/* Borrow Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4 w-[540px]">
+                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4 md:w-[540px]">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Borrow Requests</p>
                             <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
@@ -101,6 +101,17 @@ const AdminPage = () => {
                                 </div>
                             </div>
                         </div>
+                        {/* Empty Brrow Requests */}
+                        {/* <div className="flex flex-col items-center justify-center gap-4">
+                        <Image
+                            src={imagesAddresses.images.emptyBorrowRequests}
+                            alt="emptyBorrowRequests"
+                            width={193}
+                            height={144}
+                        />
+                        <p className="text-base font-semibold text-[#1E293B] dark:text-white">No Pending Book Requests</p>
+                        <p className="text-sm font-normal text-[#64748B] dark:text-gray-400">There are no borrow book requests awaiting your review at this time.</p>
+                       </div> */}
                     </div>
 
                     {/* Account Requests */}
@@ -171,6 +182,17 @@ const AdminPage = () => {
                                 <p className="font-normal text-[14px] text-[#64748B] dark:text-gray-400">marcnine@gmai.com</p>
                             </div>
                         </div>
+                        {/* Empty Account  Requests */}
+                        {/* <div className="flex flex-col items-center justify-center gap-4">
+                            <Image
+                                src={imagesAddresses.images.emptyAccountRequests}
+                                alt="emptyBorrowRequests"
+                                width={193}
+                                height={144}
+                            />
+                            <p className="text-base font-semibold text-[#1E293B] dark:text-white">No Pending Account Requests</p>
+                            <p className="text-sm font-normal text-[#64748B] dark:text-gray-400">There are currently no account requests awaiting approval.</p>
+                        </div> */}
                     </div>
                 </div>
 
