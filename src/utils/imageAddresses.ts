@@ -94,6 +94,7 @@ const imagesAddresses = {
     avatar3: "/images/avatar3.png",
     emptyBorrowRequests: "/images/emptyBorrowRequests.png",
     emptyAccountRequests: "/images/emptyAccountRequests.png",
+    emptyAccountRequestsDark: "/images/emptyAccountRequestsDark.png",
   },
 } as const;
 

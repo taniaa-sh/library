@@ -103,12 +103,20 @@ const AdminPage = () => {
                         </div>
                         {/* Empty Brrow Requests */}
                         {/* <div className="flex flex-col items-center justify-center gap-4">
-                        <Image
-                            src={imagesAddresses.images.emptyBorrowRequests}
-                            alt="emptyBorrowRequests"
-                            width={193}
-                            height={144}
-                        />
+                           <Image
+                                src={imagesAddresses.images.emptyBorrowRequests}
+                                alt="emptyBorrowRequests"
+                                width={193}
+                                height={144}
+                                className="dark:hidden" 
+                            />
+                             <Image
+                                src={imagesAddresses.images.emptyAccountRequestsDark}
+                                alt="emptyBorrowRequests"
+                                width={193}
+                                height={144}
+                                className="hidden dark:block" 
+                            />
                         <p className="text-base font-semibold text-[#1E293B] dark:text-white">No Pending Book Requests</p>
                         <p className="text-sm font-normal text-[#64748B] dark:text-gray-400">There are no borrow book requests awaiting your review at this time.</p>
                        </div> */}
@@ -183,16 +191,24 @@ const AdminPage = () => {
                             </div>
                         </div>
                         {/* Empty Account  Requests */}
-                        {/* <div className="flex flex-col items-center justify-center gap-4">
+                        <div className="flex flex-col items-center justify-center gap-4">
                             <Image
                                 src={imagesAddresses.images.emptyAccountRequests}
                                 alt="emptyBorrowRequests"
                                 width={193}
                                 height={144}
+                                className="dark:hidden"
+                            />
+                            <Image
+                                src={imagesAddresses.images.emptyAccountRequestsDark}
+                                alt="emptyBorrowRequests"
+                                width={193}
+                                height={144}
+                                className="hidden dark:block"
                             />
                             <p className="text-base font-semibold text-[#1E293B] dark:text-white">No Pending Account Requests</p>
                             <p className="text-sm font-normal text-[#64748B] dark:text-gray-400">There are currently no account requests awaiting approval.</p>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
 
