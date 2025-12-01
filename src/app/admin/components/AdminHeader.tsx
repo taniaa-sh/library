@@ -84,7 +84,7 @@ const AdminHeader = () => {
                                     );
                                 })}
                             <div
-                                className="flex gap-2 items-center border-2 border-[#EDF1F1] dark:border-[#1E293B] rounded-[62px] py-[10px] px-3 cursor-pointer"
+                                className="flex gap-2 mt-8 items-center border-2 border-[#EDF1F1] dark:border-[#1E293B] rounded-[62px] py-[10px] px-3 cursor-pointer"
                                 onClick={() => { }}
                             >
                                 <Image
@@ -131,7 +131,7 @@ const AdminHeader = () => {
             />
 
             {/* DARK-MODE TOGGLE */}
-             <Image
+            <Image
                 src={isDark ? imagesAddresses.icons.darkLightMode2 : imagesAddresses.icons.darkLightMode}
                 alt="Toggle Theme"
                 width={25}
