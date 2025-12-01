@@ -69,7 +69,7 @@ const AdminHeader = () => {
                                             onClick={() => setIsOpenSidebar(false)}
                                             className={`flex items-center gap-3 p-4 rounded-xl transition-all 
                                             ${isActive
-                                                    ? "bg-[#25388C] text-white font-semibold"
+                                                    ? "bg-[#25388C] !text-white font-semibold"
                                                     : "hover:bg-[#EDF1F1] dark:hover:bg-[#1E293B] text-gray-700 dark:text-gray-200"
                                                 }`}
                                         >
