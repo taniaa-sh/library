@@ -36,7 +36,7 @@ const AllBooksPage = async () => {
       <div className="bg-[#F8F8FF] dark:bg-[#020817] px-8 py-10 !mt-[100px] w-full min-h-dvh">
             <div className="flex flex-col gap-6 bg-white dark:bg-[#020817] py-6 px-5 rounded-lg min-h-dvh">
                 <div className="flex justify-between items-center !max-w-[1440px]">
-                    <p className="font-medium text-xs md:text-xl">All Books</p>
+                    <p className="font-medium text-xl">All Books</p>
                     <AddBookBtn />
                 </div>
                 <AllBooksTableClient data={data} />
