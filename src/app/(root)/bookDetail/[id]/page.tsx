@@ -7,8 +7,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReadPdfComponent from "../_components/ReadPdfComponent";
-import AdminButton from "@/app/admin/components/AdminButton";
-import PdfModal from "../_components/PdfModal";
+import { motion } from "framer-motion";
 
 const BookDetailPage = () => {
     const params = useParams();
@@ -22,7 +21,6 @@ const BookDetailPage = () => {
     const [duration, setDuration] = useState(0);
     const [volumeRange, setVolumeRange] = useState(50);
     const [soundAdjustment, setSoundAdjustment] = useState(false);
-    const [showPdfModal, setShowPdfModal] = useState<boolean>(false)
 
     useEffect(() => {
         fetch('/data/data.json')
@@ -73,13 +71,7 @@ const BookDetailPage = () => {
 
     return (
         <>
-            {
-                showPdfModal && (
-                    <PdfModal
-                        setShowPdfModal={setShowPdfModal}
-                    />
-                )
-            }
+
             <div className="flex flex-col gap-10 px-4 py-10 md:px-0">
                 {/* Book Feature */}
                 <BookFeature
@@ -119,7 +111,7 @@ const BookDetailPage = () => {
                                             setIsPlaying(false);
                                         }
                                     }}
-                                    className="w-full h-[400px] object-cover"
+                                    className="w-full h-[200px] md:h-[400px] object-cover"
                                 />
                                 {!isPlaying && (
                                     <div
@@ -267,22 +259,23 @@ const BookDetailPage = () => {
                                 );
                             })}
                         </div>
-                        <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900">Book Pdf</p>
+                        <p className="font-semibold text-lg md:text-3xl text-light-100 dark:text-gray-900 !mt-8">Book Pdf</p>
+                        <motion.h2
+                            initial={{ opacity: 0, y: -15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            className="text-3xl font-bold text-gray-300 dark:text-gray-600 mb-6 flex items-center gap-2"
+                        >
+                            <motion.span
+                                initial={{ width: 0 }}
+                                animate={{ width: "100%" }}
+                                transition={{ duration: 2, ease: "easeInOut" }}
+                                className="overflow-hidden whitespace-nowrap border-r-4 border-gray-500 pr-2 text-base md:text-3xl"
+                            >
+                                You can read and download the book here
+                            </motion.span>
+                        </motion.h2>
                         <ReadPdfComponent />
-                        <div className="flex gap-3 mt-6">
-                            <AdminButton
-                                containerClassName="cursor-pointer"
-                                color="yellow"
-                                text="See pdf"
-                                onClick={() => { setShowPdfModal(true) }}
-                            />
-                            <AdminButton
-                                containerClassName="cursor-pointer"
-                                color="yellow"
-                                text="Download pdf"
-                                onClick={() => { }}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>
