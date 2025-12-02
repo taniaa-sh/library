@@ -103,25 +103,55 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                         </div>
 
                         <div className="flex mt-5 gap-4">
-                            <button onClick={prevPage} className="px-4 py-2 bg-gray-300 rounded">Back</button>
-                            <button onClick={nextPage} className="px-4 py-2 bg-gray-300 rounded">Next</button>
+                            <AdminButton
+                                iconAddress={imagesAddresses.icons.backWhite}
+                                iconPosition="right"
+                                containerClassName="cursor-pointer hidden dark:block"
+                                color="yellow"
+                                text=""
+                                onClick={prevPage}
+                            />
+                            <AdminButton
+                                iconAddress={imagesAddresses.icons.back}
+                                iconPosition="right"
+                                containerClassName="cursor-pointer dark:hidden "
+                                color="yellow"
+                                text=""
+                                onClick={prevPage}
+                            />
+                            <AdminButton
+                                iconAddress={imagesAddresses.icons.nextWhite}
+                                iconPosition="right"
+                                containerClassName="cursor-pointer hidden dark:block"
+                                color="yellow"
+                                text=""
+                                onClick={nextPage}
+                            />
+                            <AdminButton
+                                iconAddress={imagesAddresses.icons.next}
+                                iconPosition="right"
+                                containerClassName="cursor-pointer dark:hidden"
+                                color="yellow"
+                                text=""
+                                onClick={nextPage}
+                            />
                         </div>
                     </div>
                 )}
-                     <div className="flex gap-3 mt-14 self-start">
-                            <AdminButton
-                                containerClassName="cursor-pointer"
-                                color="yellow"
-                                text="See pdf"
-                                onClick={() => { setShowPdfModal(true) }}
-                            />
-                            <AdminButton
-                                containerClassName="cursor-pointer"
-                                color="yellow"
-                                text="Download pdf"
-                                onClick={() => { }}
-                            />
-                        </div>
+                <div className="flex gap-3 mt-14 self-start">
+                    <AdminButton
+                        containerClassName="cursor-pointer"
+                        color="yellow"
+                        text="See pdf"
+                        onClick={() => { setShowPdfModal(true) }}
+                    />
+                    <AdminButton
+                        containerClassName="cursor-pointer"
+                        color="yellow"
+                        text="Download pdf"
+                        onClick={() => { }}
+                    />
+                </div>
             </div>
         </>
     )

@@ -36,6 +36,10 @@ const imagesAddresses = {
     plain: "/icons/plain.svg",
     camera: "/icons/camera.svg",
     bookPdf: "/icons/bookPdf.svg",
+    next: "/icons/next.svg",
+    nextWhite: "/icons/nextWhite.svg",
+    back: "/icons/back.svg",
+    backWhite: "/icons/backWhite.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",
