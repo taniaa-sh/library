@@ -68,7 +68,7 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview, error, shakeTrig
             </div>
 
             {previewUrl && (
-                <div className={`w-full border-2 rounded-xl flex flex-col md:flex-row justify-between items-center !mt-4 !p-4 gap-4 ${isAdminPath ? '!bg-[#F9FAFB] border-[#7286dd] dark:!bg-[#1e293b] dark:!border-gray-500' : 'bg-[#232839] border-[#ddbfa3]'}`}>
+                <div className={`w-full border-2 rounded-xl flex flex-col md:flex-row justify-between items-center !mt-4 !p-4 gap-4 ${isAdminPath ? '!bg-[#F9FAFB] border-[#7286dd] dark:!bg-[#1e293b] dark:!border-gray-500' : 'bg-[#232839] dark:bg-gray-50 border-[#ddbfa3] dark:border-[#7a6233]'}`}>
                     {type === 'image' ? (
                         <Image
                             src={previewUrl}
@@ -81,7 +81,7 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview, error, shakeTrig
                         <video src={previewUrl} controls className="w-full md:w-1/3 rounded-lg max-h-40" />
                     )}
                     <div className="flex gap-2 items-center w-full md:w-auto">
-                        <p className={`text-sm font-medium  ${isAdminPath ? 'text-gray-700 dark:text-white' : 'text-white'}`}>{fileName}</p>
+                        <p className={`text-sm font-medium  ${isAdminPath ? 'text-gray-700 dark:text-white' : 'text-white dark:text-gray-600'}`}>{fileName}</p>
                         {/* <Image
                             src={imagesAddresses.icons.delete}
                             alt="close"
