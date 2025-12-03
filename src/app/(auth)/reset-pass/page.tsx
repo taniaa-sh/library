@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import Image from "next/image"
@@ -17,6 +17,15 @@ export default function ResetPasswordPage() {
     const [showConfirmPass, setShowConfirmPass] = useState(false)
 
     const router = useRouter()
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -53,7 +62,7 @@ export default function ResetPasswordPage() {
         <div className="w-full flex items-center flex-col lg:flex-row">
             <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
                 <div className="flex items-center justify-center w-full">
-                    <div className="bg-[#1a1f2c] p-6 md:p-8 lg:p-10 rounded-xl w-full max-w-md text-white flex flex-col gap-4 md:gap-5 lg:gap-6">
+                    <div className="bg-[#1a1f2c] dark:bg-gray-50 p-6 md:p-8 lg:p-10 rounded-xl w-full max-w-md text-white dark:text-black flex flex-col gap-4 md:gap-5 lg:gap-6">
                         {/* Back arrow */}
                         <Image
                             src={imagesAddresses.icons.arrowRightYellow2}
@@ -70,7 +79,14 @@ export default function ResetPasswordPage() {
                             alt="logo"
                             width={120}
                             height={120}
-                            className="lg:mx-0"
+                            className="lg:mx-0 dark:hidden"
+                        />
+                        <Image
+                            src={imagesAddresses.icons.FrameWhite}
+                            alt="logo"
+                            width={120}
+                            height={120}
+                            className="lg:mx-0 hidden dark:block"
                         />
 
                         {/* Heading */}
@@ -90,7 +106,7 @@ export default function ResetPasswordPage() {
                                     id="password"
                                     type={showPass ? "text" : "password"}
                                     maxLength={30}
-                                    className="bg-[#232839] p-2 md:p-3 rounded-lg text-white text-sm md:text-base lg:text-lg"
+                                    className="bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
                                     placeholder="Enter new password"
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -111,7 +127,7 @@ export default function ResetPasswordPage() {
                                     id="confirm"
                                     type={showConfirmPass ? "text" : "password"}
                                     maxLength={30}
-                                    className="bg-[#232839] p-2 md:p-3 rounded-lg text-white text-sm md:text-base lg:text-lg"
+                                    className="bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
                                     placeholder="Repeat new password"
                                     onChange={(e) => setConfirmPass(e.target.value)}
                                 />
@@ -127,11 +143,11 @@ export default function ResetPasswordPage() {
 
                             {/* Submit Button */}
                             <Button
-                                className="w-full cursor-pointer text-sm md:text-base lg:text-lg !text-black"
+                                className="w-full cursor-pointer text-sm md:text-base lg:text-lg !text-black dark:!text-white"
                                 type="submit"
                             >
                                 {loading ? (
-                                    <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black animate-spin' />
+                                    <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black dark:border-white animate-spin' />
                                 ) : (
                                     "Reset Password"
                                 )}
@@ -142,7 +158,7 @@ export default function ResetPasswordPage() {
 
             </div>
 
-            <div className="hidden lg:block relative w-full h-[960px]">
+            <div className="hidden lg:block relative w-full h-screen">
                 <Image
                     src={imagesAddresses.images.loginPic}
                     alt="logo"
