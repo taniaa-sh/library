@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import ProgressBar from "@/components/ProgressBar";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import AdminSidebar from "./components/AdminSidebar";
 import AdminHeader from "./components/AdminHeader";
-import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 export const metadata: Metadata = {
     title: "Library App Admin",

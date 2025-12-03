@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
-import LogoutModal from "@/app/(root)/_components/LogoutModal";
+import LogoutModal from "@/app/(user)/(root)/_components/LogoutModal";
 import useDarkMode from "@/app/hooks/useDarkModeAdmin";
 
 const Header = () => {

@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import animationData from "../../../../public/lottie/supportLoading.json";
+import animationData from "../../../../../public/lottie/supportLoading.json";
 import dynamic from "next/dynamic";
-import fallbackGif from "../../../../public/gif/LoadingAnimationBlue.gif";
+import fallbackGif from "../../../../../public/gif/LoadingAnimationBlue.gif";
 
 const Lottie = dynamic(() => import("lottie-react"), {
     ssr: false,

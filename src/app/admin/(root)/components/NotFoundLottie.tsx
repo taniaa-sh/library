@@ -2,7 +2,7 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import animationData from "../../../../public/lottie/404Error(4).json";
+import animationData from "../../../../../public/lottie/404Error(4).json";
 import Link from "next/link";
 import SiteUrls from "@/utils/routs";
 import AdminButton from "./AdminButton";
