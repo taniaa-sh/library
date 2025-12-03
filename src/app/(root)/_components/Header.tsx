@@ -7,13 +7,14 @@ import { useEffect, useState } from "react";
 import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import LogoutModal from "@/app/(root)/_components/LogoutModal";
+import useDarkMode from "@/app/hooks/useDarkModeAdmin";
 
 const Header = () => {
 
   const pathName = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [isDark, setIsDark] = useState(false)
+  const { isDark, toggleTheme } = useDarkMode();
 
   const menuItems = [
     { label: "Home", href: SiteUrls.dashbord },
@@ -54,7 +55,7 @@ const Header = () => {
             width={25}
             height={25}
             className="cursor-pointer"
-            onClick={() => { setIsDark(!isDark) }}
+            onClick={toggleTheme}
             title="change theme"
           />
           {menuItems.map((item) => (
@@ -119,8 +120,7 @@ const Header = () => {
                 width={25}
                 height={25}
                 className="cursor-pointer"
-                onClick={() => { setIsDark(!isDark) }
-                }
+                onClick={toggleTheme}
                 title="change theme"
               />
               <Image

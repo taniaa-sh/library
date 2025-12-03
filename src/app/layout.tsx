@@ -29,20 +29,6 @@ export const metadata: Metadata = {
   }
 };
 
-  const setInitialTheme = `
-    (function() {
-      try {
-        var theme = localStorage.getItem('theme');
-        var root = document.documentElement;
-
-        if (theme === '"dark"') {
-          root.classList.add('dark');
-        } else if (theme === '"light"') {
-          root.classList.remove('dark');
-        } 
-      } catch (_) {}
-    })();
-  `;
 
 export default function RootLayout({
   children,
@@ -51,12 +37,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                            (function() {
+                                try {
+                                    const saved2 = localStorage.getItem('themeAdmin');
+                                    const saved = localStorage.getItem('theme');
+                                    if (saved2 === 'dark') {
+                                        document.documentElement.classList.add('dark');
+                                    }
+                                        if (saved === 'dark') {
+                                        document.documentElement.classList.add('dark');
+                                    }
+                                } catch (_) {}
+                            })();
+                        `,
+          }}
+        />
+      </head>
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
-          <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
         <ReactQueryProvider>
           <BackgroundWrapper>
-              {children}
-              <Toaster position="top-right" richColors />
+            {children}
+            <Toaster position="top-right" richColors />
           </BackgroundWrapper>
         </ReactQueryProvider>
       </body>

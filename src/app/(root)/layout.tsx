@@ -1,21 +1,23 @@
-import Header from "@/app/(root)/_components/Header";
-import { ReactNode } from "react";
-import ShowSopportModal from "./_components/ShowSopportModal";
-import ScrollProgressBar from "../../components/ScrollProgressBar";
+
 import ProgressBar from "@/components/ProgressBar";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import Header from "./_components/Header";
+import ShowSopportModal from "./_components/ShowSopportModal";
 
-const Layout = async ({ children }: { children: ReactNode }) => {
-
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
-        <>
-            <ProgressBar />
-            <ScrollProgressBar />
-            <Header />
-            <div className="max-w-[1440px] mx-auto px-[10px]">{children}</div>
-            <ShowSopportModal />
-        </>
-
+        <html lang="en">
+            <body>
+                <ProgressBar />
+                <ScrollProgressBar />
+                <Header />
+                <div className="max-w-[1440px] mx-auto px-[10px]">{children}</div>
+                <ShowSopportModal />
+            </body>
+        </html>
     );
-};
-
-export default Layout;
+}

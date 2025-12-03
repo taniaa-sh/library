@@ -1,40 +1,20 @@
 "use client";
 
+import useDarkMode from "@/app/hooks/useDarkModeAdmin";
 import { menuItems } from "@/utils/adminMenuItems";
 import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const AdminHeader = () => {
 
     const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-    const [isDark, setIsDark] = useState(false)
-    const pathname = usePathname();
+    const { isDarkAdmin, toggleTheme2 } = useDarkMode();
     const router = useRouter();
-
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-            setIsDark(true);
-            document.documentElement.classList.add("dark");
-        } else {
-            setIsDark(false);
-            document.documentElement.classList.remove("dark");
-        }
-    }, []);
-
-    useEffect(() => {
-        if (isDark) {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        }
-    }, [isDark]);
+    const pathname = usePathname();
 
     return (
         <div className="fixed bg-white dark:bg-[#0d1b3b] flex items-center gap-8 w-full p-6 !shadow-md z-50 transition-all">
@@ -132,12 +112,12 @@ const AdminHeader = () => {
 
             {/* DARK-MODE TOGGLE */}
             <Image
-                src={isDark ? imagesAddresses.icons.darkLightMode2 : imagesAddresses.icons.darkLightMode}
+                src={isDarkAdmin ? imagesAddresses.icons.darkLightMode2 : imagesAddresses.icons.darkLightMode}
                 alt="Toggle Theme"
                 width={25}
                 height={25}
                 className="cursor-pointer brightness-90 hover:brightness-110"
-                onClick={() => setIsDark(prev => !prev)}
+                onClick={toggleTheme2}
                 title="Change Theme"
             />
         </div>
