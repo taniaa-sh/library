@@ -104,7 +104,7 @@ const AdminHeader = () => {
 
             {/* SEARCH INPUT */}
             <input
-                className="hidden md:block p-3 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 border border-gray-300 dark:border-gray-600 bg-white dark:dark-400 text-black dark:text-white sm:w-[400px] w-full transition-all"
+                className="hidden md:block p-3 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-400 text-black dark:text-white sm:w-[400px] w-full transition-all"
                 type="text"
                 placeholder="Search users, books by title, author, or genre."
                 onChange={() => { }}

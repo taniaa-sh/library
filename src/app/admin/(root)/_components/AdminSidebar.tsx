@@ -74,7 +74,7 @@ const AdminSidebar = () => {
                     flex gap-2 items-center 
                     border-2 border-[#EDF1F1] dark:border-dark-400
                     rounded-[62px] py-[10px] px-3
-                    bg-white dark:dark-400
+                    bg-white dark:bg-dark-400
                     cursor-pointer transition-all
                 "
             >
