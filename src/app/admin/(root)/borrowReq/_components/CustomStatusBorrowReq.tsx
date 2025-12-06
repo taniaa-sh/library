@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CustomStatus from '../../components/CustomStatus'
+import CustomStatus from '../../_components/CustomStatus'
 
 interface PropsType {
     state: number,

@@ -1,6 +1,6 @@
 "use client"
 
-import DragAndDropUpload from '@/app/admin/(root)/allBooks/_components/DragAndDropUpload'
+import DragAndDropUpload from '@/components/DragAndDropUpload'
 import { Button } from '@/components/ui/button'
 import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'

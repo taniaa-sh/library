@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { signIn, getSession } from "next-auth/react"
 import { toast } from 'sonner'
-import AdminButton from '@/app/admin/(root)/components/AdminButton'
+import AdminButton from '@/app/admin/(root)/_components/AdminButton'
 
 const AdminSignIn = () => {
   const [email, setEmail] = useState("")

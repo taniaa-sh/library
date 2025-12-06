@@ -3,7 +3,7 @@
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import AdminButton from "../../components/AdminButton";
+import AdminButton from "../app/admin/(root)/_components/AdminButton";
 import { usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";

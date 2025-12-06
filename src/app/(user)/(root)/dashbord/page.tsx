@@ -1,7 +1,7 @@
 'use client';
 
-import BookFeature from "@/components/BookFeature";
-import PopularBookSlider from "@/components/PopularBookSlider";
+import BookFeature from "@/app/(user)/(root)/_components/BookFeature";
+import PopularBookSlider from "@/app/(user)/(root)/_components/PopularBookSlider";
 import imagesAddresses from "@/utils/imageAddresses";
 import { BookFeatureProps } from "@/utils/type";
 import { useEffect, useState } from "react";

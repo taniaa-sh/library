@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import PdfModal from "./PdfModal"
 import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
-import AdminButton from "@/app/admin/(root)/components/AdminButton"
+import AdminButton from "@/app/admin/(root)/_components/AdminButton"
 
 const Document = dynamic(
     () => import('react-pdf').then(mod => mod.Document),

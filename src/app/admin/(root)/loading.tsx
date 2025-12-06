@@ -1,6 +1,4 @@
-import AdminLayoutLoading from "./components/AdminLayoutLoading";
-
-
+import AdminLayoutLoading from "./_components/AdminLayoutLoading";
 
 export default function Loading() {
   return <AdminLayoutLoading />;

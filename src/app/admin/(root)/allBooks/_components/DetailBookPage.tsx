@@ -1,7 +1,7 @@
 "use client";
 
 import imagesAddresses from "@/utils/imageAddresses";
-import AdminButton from "../../components/AdminButton";
+import AdminButton from "../../_components/AdminButton";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SiteUrls from "@/utils/routs";

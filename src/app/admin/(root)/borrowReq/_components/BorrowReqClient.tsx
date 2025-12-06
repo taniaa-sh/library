@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import AdminTable, { Column } from '../../components/AdminTable';
+import AdminTable, { Column } from '../../_components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
 import CustomStatusBorrowReq from './CustomStatusBorrowReq';
 

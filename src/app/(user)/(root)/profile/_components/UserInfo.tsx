@@ -1,11 +1,11 @@
 "use client";
 
-import AdminButton from "@/app/admin/(root)/components/AdminButton";
+import AdminButton from "@/app/admin/(root)/_components/AdminButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import DragAndDropUpload from "@/app/admin/(root)/allBooks/_components/DragAndDropUpload";
+import DragAndDropUpload from "@/components/DragAndDropUpload";
 
 const UserInfo = () => {
     const [isEditing, setIsEditing] = useState(false);

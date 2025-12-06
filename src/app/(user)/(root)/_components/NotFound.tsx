@@ -7,7 +7,7 @@ import Lottie from "lottie-react";
 import animationData from "../../../../../public/lottie/Book.json";
 import animationData1 from "../../../../../public/lottie/Lonely 404.json";
 import { Admin } from "mongodb";
-import AdminButton from "@/app/admin/(root)/components/AdminButton";
+import AdminButton from "@/app/admin/(root)/_components/AdminButton";
 import { Button } from "@mui/material";
 
 export default function RootNotFound() {

@@ -1,6 +1,6 @@
 "use client"
 
-import BookFeature from "@/components/BookFeature";
+import BookFeature from "@/app/(user)/(root)/_components/BookFeature";
 import imagesAddresses from "@/utils/imageAddresses";
 import { BookFeatureProps } from "@/utils/type";
 import Image from "next/image";
