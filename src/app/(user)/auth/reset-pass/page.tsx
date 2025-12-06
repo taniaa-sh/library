@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import Image from "next/image"
@@ -8,24 +8,14 @@ import imagesAddresses from "@/utils/imageAddresses"
 import { useRouter } from "next/navigation"
 import SiteUrls from "@/utils/routs"
 
-export default function ResetPasswordPage() {
+const ResetPasswordPage = () => {
 
     const [password, setPassword] = useState("")
     const [confirmPass, setConfirmPass] = useState("")
     const [loading, setLoading] = useState(false)
     const [showPass, setShowPass] = useState(false)
     const [showConfirmPass, setShowConfirmPass] = useState(false)
-
     const router = useRouter()
-
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -62,32 +52,44 @@ export default function ResetPasswordPage() {
         <div className="w-full flex items-center flex-col lg:flex-row">
             <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
                 <div className="flex items-center justify-center w-full">
-                    <div className="bg-[#1a1f2c] dark:bg-gray-50 p-6 md:p-8 lg:p-10 rounded-xl w-full max-w-md text-white dark:text-black flex flex-col gap-4 md:gap-5 lg:gap-6">
+                    <div className="bg-gray-900 dark:bg-gray-50 p-6 md:p-8 rounded-xl w-full max-w-md text-white dark:text-black flex flex-col gap-4 md:gap-5 lg:gap-6">
                         {/* Back arrow */}
-                        <Image
-                            src={imagesAddresses.icons.arrowRightYellow2}
-                            alt="back"
-                            width={25}
-                            height={20}
-                            className="self-end cursor-pointer"
-                            onClick={() => router.back()}
-                        />
-
-                        {/* Logo */}
-                        <Image
-                            src={imagesAddresses.images.logo}
-                            alt="logo"
-                            width={120}
-                            height={120}
-                            className="lg:mx-0 dark:hidden"
-                        />
-                        <Image
-                            src={imagesAddresses.icons.FrameWhite}
-                            alt="logo"
-                            width={120}
-                            height={120}
-                            className="lg:mx-0 hidden dark:block"
-                        />
+                        <div className="flex justify-between">
+                            <div>
+                                <Image
+                                    src={imagesAddresses.images.logo}
+                                    alt="logo"
+                                    width={120}
+                                    height={120}
+                                    className="lg:mx-0 dark:hidden"
+                                />
+                                <Image
+                                    src={imagesAddresses.icons.FrameWhite}
+                                    alt="logo"
+                                    width={120}
+                                    height={120}
+                                    className="lg:mx-0 hidden dark:block"
+                                />
+                            </div>
+                            <div>
+                                <Image
+                                    src={imagesAddresses.icons.arrowRightYellow2}
+                                    alt="logo"
+                                    width={25}
+                                    height={20}
+                                    className="text-end self-end justify-end flex items-end cursor-pointer dark:hidden"
+                                    onClick={() => router.back()}
+                                />
+                                <Image
+                                    src={imagesAddresses.icons.arrowRightYellow}
+                                    alt="logo"
+                                    width={25}
+                                    height={20}
+                                    className="text-end self-end justify-end items-end cursor-pointer hidden dark:flex"
+                                    onClick={() => router.back()}
+                                />
+                            </div>
+                        </div>
 
                         {/* Heading */}
                         <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mt-2 text-start">
@@ -98,15 +100,23 @@ export default function ResetPasswordPage() {
                         </p>
 
                         {/* Form */}
-                        <form className="flex flex-col gap-3 md:gap-4 lg:gap-5 mt-4" onSubmit={handleSubmit}>
+                        <form
+                            className="flex flex-col gap-3 md:gap-4 lg:gap-5 mt-4"
+                            onSubmit={handleSubmit}
+                        >
                             {/* New Password */}
                             <div className="flex flex-col gap-1 relative">
-                                <label htmlFor="password" className="text-sm md:text-base lg:text-lg">New Password</label>
+                                <label
+                                    htmlFor="password"
+                                    className="text-sm md:text-base lg:text-lg"
+                                >
+                                    New Password
+                                </label>
                                 <input
                                     id="password"
                                     type={showPass ? "text" : "password"}
                                     maxLength={30}
-                                    className="bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
+                                    className="bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
                                     placeholder="Enter new password"
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -127,7 +137,7 @@ export default function ResetPasswordPage() {
                                     id="confirm"
                                     type={showConfirmPass ? "text" : "password"}
                                     maxLength={30}
-                                    className="bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
+                                    className="bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
                                     placeholder="Repeat new password"
                                     onChange={(e) => setConfirmPass(e.target.value)}
                                 />
@@ -163,10 +173,10 @@ export default function ResetPasswordPage() {
                     src={imagesAddresses.images.loginPic}
                     alt="logo"
                     fill
-                    className="object-cover rounded-lg" sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
                 />
             </div>
         </div>
     )
 }
+
+export default ResetPasswordPage

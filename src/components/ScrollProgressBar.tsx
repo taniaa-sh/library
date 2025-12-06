@@ -23,7 +23,7 @@ export default function ScrollProgressBar(props: PropsType) {
     return (
         <motion.div
             style={{ scaleX: scrollYProgress }}
-            className={`fixed top-0 left-0 right-0 h-[4px] origin-left z-[9999] ${props.isAdmin ? "bg-[#25388C] dark:bg-[#4b5bcf]" : "bg-light-200 dark:bg-[#996c32]"}`}
+            className={`fixed top-0 left-0 right-0 h-[4px] origin-left z-[9999] ${props.isAdmin ? "bg-[#25388C] dark:bg-[#4b5bcf]" : "bg-gold-100 dark:bg-[#996c32]"}`}
         />
     );
 }

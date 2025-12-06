@@ -46,7 +46,7 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview, error, shakeTrig
             transition={{ duration: 0.4 }}
         >
             <div
-                className={`w-full mt-1 h-36 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${isDragging ? 'border-blue-500 bg-blue-50' : ` ${isAdminPath ? 'hover:border-blue-400 border-gray-300' : 'hover:border-[#ddbfa3] border-gray-300 dark:border-gray-500 dark:hover:border-[#7a6233]'}`} ${isAdminPath ? 'bg-[#F9FAFB] dark:bg-[#1e293b]' : '!bg-[#232839] dark:!bg-gray-200'}`}
+                className={`w-full mt-1 h-36 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${isDragging ? 'border-blue-500 bg-blue-50' : ` ${isAdminPath ? 'hover:border-blue-400 border-gray-300' : 'hover:border-[#ddbfa3] border-gray-300 dark:border-gray-500 dark:hover:border-[#7a6233]'}`} ${isAdminPath ? 'bg-[#F9FAFB] dark:bg-[#1e293b]' : '!bg-dark-300 dark:!bg-gray-200'}`}
                 onClick={() => inputRef.current?.click()}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -68,7 +68,7 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview, error, shakeTrig
             </div>
 
             {previewUrl && (
-                <div className={`w-full border-2 rounded-xl flex flex-col md:flex-row justify-between items-center !mt-4 !p-4 gap-4 ${isAdminPath ? '!bg-[#F9FAFB] border-[#7286dd] dark:!bg-[#1e293b] dark:!border-gray-500' : 'bg-[#232839] dark:bg-gray-50 border-[#ddbfa3] dark:border-[#7a6233]'}`}>
+                <div className={`w-full border-2 rounded-xl flex flex-col md:flex-row justify-between items-center !mt-4 !p-4 gap-4 ${isAdminPath ? '!bg-[#F9FAFB] border-[#7286dd] dark:!bg-[#1e293b] dark:!border-gray-500' : 'bg-dark-300 dark:bg-gray-50 border-[#ddbfa3] dark:border-[#7a6233]'}`}>
                     {type === 'image' ? (
                         <Image
                             src={previewUrl}

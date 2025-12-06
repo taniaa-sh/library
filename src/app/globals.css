@@ -49,7 +49,6 @@
   --color-blue-100: #0089F1;
 
   --color-light-100: #D6E0FF;
-  --color-light-200: #EED1AC;
   --color-light-300: #F8F8FF;
   --color-light-400: #EDF1F1;
   --color-light-500: #8D8D8D;
@@ -67,6 +66,9 @@
   --color-dark-800: #1E2230;
 
   --color-gray-100: #CBD5E1;
+
+  --color-gold-100: #EED1AC;
+  --color-gold-200: #8c6c2f;
 
   /* چارت */
   --color-chart-1: var(--chart-1);

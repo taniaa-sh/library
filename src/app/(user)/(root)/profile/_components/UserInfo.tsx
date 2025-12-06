@@ -163,7 +163,7 @@ const UserInfo = () => {
                                 <div className="flex flex-col">
                                     <p className="text-light-100 dark:text-gray-900 text-sm md:text-[18px]">name :</p>
                                     <input
-                                        className="w-full bg-[#232839] dark:bg-gray-200 rounded-lg py-2 px-4 text-light-100 dark:text-gray-900 font-semibold"
+                                        className="w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 text-light-100 dark:text-gray-900 font-semibold"
                                         type="text"
                                         placeholder="enter your name"
                                     />
@@ -180,7 +180,7 @@ const UserInfo = () => {
                             <p className="text-light-100 dark:text-gray-900 font-medium">University :</p>
                             {isEditing ? (
                                 <input
-                                    className="w-full bg-[#232839] dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900"
+                                    className="w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900"
                                     type="text"
                                     placeholder="enter your university"
                                 />
@@ -200,7 +200,7 @@ const UserInfo = () => {
                             <p className="text-light-100 dark:text-gray-900">Student ID :</p>
                             {isEditing ? (
                                 <input
-                                    className="w-full bg-[#232839] dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900"
+                                    className="w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900"
                                     type="text"
                                     placeholder="enter your student ID"
                                 />
@@ -220,7 +220,7 @@ const UserInfo = () => {
                             <p className="text-light-100 dark:text-gray-900">email :</p>
                             {isEditing ? (
                                 <input
-                                    className="w-full bg-[#232839] dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900"
+                                    className="w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900"
                                     type="text"
                                     placeholder="enter your email"
                                 />

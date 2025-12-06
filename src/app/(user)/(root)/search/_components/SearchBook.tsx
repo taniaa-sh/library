@@ -97,7 +97,7 @@ const SearchBook = ({ data }: PropsType) => {
                         Explore and Search for
                     </p>
                     <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900  text-center">
-                        <span className="text-light-200 dark:text-[#996c32]">Any Book </span> In Our Library
+                        <span className="text-gold-100 dark:text-[#996c32]">Any Book </span> In Our Library
                     </p>
                 </div>
 
@@ -106,7 +106,7 @@ const SearchBook = ({ data }: PropsType) => {
                     <div className="w-full max-w-[600px] flex flex-col">
                         <div className="relative">
                             <input
-                                className="w-full sm:flex-1 bg-[#232839] dark:bg-white dark:text-gray-900 py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                                className="w-full sm:flex-1 bg-dark-300 dark:bg-white dark:text-gray-900 py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
                                 type="text"
                                 placeholder="Search for a book"
                                 value={search}
@@ -142,7 +142,7 @@ const SearchBook = ({ data }: PropsType) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2, ease: "easeOut" }}
-                                    className="bg-[#232839] dark:bg-gray-300 rounded-lg shadow-lg p-2 z-20 !mt-2"
+                                    className="bg-dark-300 dark:bg-gray-300 rounded-lg shadow-lg p-2 z-20 !mt-2"
                                 >
                                     {filterBooks.map((book) => (
                                         <p

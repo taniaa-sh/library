@@ -6,12 +6,12 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { toast } from 'sonner'
 
 const SignUp = () => {
-  const router = useRouter()
 
+  const router = useRouter()
   const [email, setEmail] = useState("")
   const [firstName, setFirstName] = useState("")
   const [universityIDNumber, setUniversityIDNumber] = useState("")
@@ -19,15 +19,6 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [showUniversityId, setShowUniversityId] = useState(false)
   const [showPass, setShowPass] = useState(false)
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +53,7 @@ const SignUp = () => {
   return (
     <div className="w-full flex items-center flex-col lg:flex-row overflow-y-hidden">
       <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
-        <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-6 lg:p-10 flex flex-col gap-8 rounded-lg">
+        <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 flex flex-col gap-8 rounded-lg">
           <div className="flex flex-col justify-start items-start gap-1">
             <Image
               src={imagesAddresses.images.logo}
@@ -92,7 +83,7 @@ const SignUp = () => {
               <label htmlFor="fullname" className="text-sm md:text-base lg:text-lg">Full Name</label>
               <input
                 id="fullname"
-                className="w-full bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type="text"
                 placeholder="Enter your full name"
                 onChange={(e) => setFirstName(e.target.value)}
@@ -104,7 +95,7 @@ const SignUp = () => {
               <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
               <input
                 id="email"
-                className="w-full bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type="email"
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -117,7 +108,7 @@ const SignUp = () => {
               <input
                 id="universityId"
                 maxLength={11}
-                className="w-full bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type={showUniversityId ? "text" : "password"}
                 placeholder="Enter your university ID number"
                 onChange={(e) => setUniversityIDNumber(e.target.value)}
@@ -137,7 +128,7 @@ const SignUp = () => {
               <label htmlFor="password" className="text-sm md:text-base lg:text-lg">Password</label>
               <input
                 id="password"
-                className="w-full bg-[#232839] dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
                 type={showPass ? "text" : "password"}
                 maxLength={8}
                 placeholder="At least 8 characters long"
@@ -179,7 +170,7 @@ const SignUp = () => {
           <div className="text-white dark:text-gray-900 text-xs md:text-sm lg:text-base font-normal self-center">
             Have an account already?{" "}
             <span
-              className="text-light-200 dark:text-[#8c6c2f] text-sm md:text-base cursor-pointer"
+              className="text-gold-100 dark:text-gold-200 text-sm md:text-base cursor-pointer"
               onClick={() => router.push(SiteUrls.signIn)}
             >
               Login
@@ -193,9 +184,6 @@ const SignUp = () => {
           src={imagesAddresses.images.loginPic}
           alt="logo"
           fill
-          className="object-cover rounded-lg"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          priority
         />
       </div>
     </div>
