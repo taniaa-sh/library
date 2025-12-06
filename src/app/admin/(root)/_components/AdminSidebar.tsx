@@ -16,7 +16,7 @@ const AdminSidebar = () => {
         <div className="
             hidden lg:flex lg:fixed w-[280px] 
             bg-white dark:bg-[#0d1b3b]
-            border border-[#EDF1F1] dark:border-dark-400
+            border border-light-400 dark:border-dark-400
             flex-col h-[calc(100vh-124px)] 
             justify-between items-center 
             !min-h-screen overflow-y-auto p-4
@@ -51,8 +51,8 @@ const AdminSidebar = () => {
                                 key={item.id}
                                 href={item.link}
                                 className={`flex items-center gap-3 !p-4 rounded-xl transition-all ${isActive
-                                    ? "bg-primary-admin !text-[#FFFFFF] font-semibold"
-                                    : "hover:bg-[#EDF1F1] dark:hover:bg-dark-400 text-gray-700"
+                                    ? "bg-primary-admin !text-white font-semibold"
+                                    : "hover:bg-light-400 dark:hover:bg-dark-400 text-gray-700"
                                     }`}
                             >
                                 <Image
@@ -72,7 +72,7 @@ const AdminSidebar = () => {
             <div
                 className="
                     flex gap-2 items-center 
-                    border-2 border-[#EDF1F1] dark:border-dark-400
+                    border-2 border-light-400 dark:border-dark-400
                     rounded-[62px] py-[10px] px-3
                     bg-white dark:bg-dark-400
                     cursor-pointer transition-all

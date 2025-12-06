@@ -41,13 +41,13 @@ const CustomButton: React.FC<PropsType> = ({
             "w-full border border-gray-500 text-gray-300 font-semibold rounded-xl py-1.5 hover:bg-gray-500/10 dark:text-gray-800 dark:border-gray-400 dark:hover:bg-gray-300/20";
     } else if (color === "red") {
         newClass =
-            "dark:bg-[#ef4444] hover:dark:bg-[#dc2626] text-[#FFFFFF] border-[0px] !px-4 bg-[#7c1f1f] hover:bg-[#991b1b] dark:text-white";
+            "dark:bg-[#ef4444] hover:dark:bg-[#dc2626] text-white border-[0px] !px-4 bg-[#7c1f1f] hover:bg-[#991b1b] dark:text-white";
     } else if (color === "green") {
         newClass =
             "text-white bg-[#2e6b57] hover:bg-[#357c63] dark:bg-[#4C7B62] dark:hover:bg-[#3f6d59] border-0 px-4 rounded-md"
     } else if (color === "blue") {
         newClass =
-            "bg-[#25388C] hover:bg-[#3a4fae] text-[#FFFFFF] border-[0px] !px-4 dark:bg-[#1a2b66] dark:hover:bg-[#3a4fae] dark:text-white";
+            "bg-[#25388C] hover:bg-[#3a4fae] text-white border-[0px] !px-4 dark:bg-[#1a2b66] dark:hover:bg-[#3a4fae] dark:text-white";
     } else if (color === "yellow") {
         newClass =
             "bg-[#e7c9a5] hover:bg-[#ddbfa3] text-black border-[0px] !px-4 dark:bg-[#7a6233] dark:hover:bg-[#8a723e] dark:text-white";

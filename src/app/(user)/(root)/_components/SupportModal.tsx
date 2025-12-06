@@ -76,7 +76,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
         >
 
             {/* Header */}
-            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-[#EED1AC] dark:bg-[#edae5b] select-none shadow-sm">
+            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-gold-100 dark:bg-[#edae5b] select-none shadow-sm">
                 <div className="flex items-center gap-2 w-full">
                     <Image
                         src={imagesAddresses.icons.support}
@@ -139,7 +139,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
 
                 <button
                     onClick={handleSend}
-                    className="px-2 py-2 rounded-full bg-[#EED1AC] hover:bg-[#E6C499] dark:bg-[#edae5b] dark:hover:bg-[#eda84d] dark:text-gray-900
+                    className="px-2 py-2 rounded-full bg-gold-100 hover:bg-[#E6C499] dark:bg-[#edae5b] dark:hover:bg-[#eda84d] dark:text-gray-900
                                transition shadow cursor-pointer"
                 >
                     <Image

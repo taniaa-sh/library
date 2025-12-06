@@ -37,7 +37,7 @@ const AdminHeader = () => {
                 />
                 {
                     isOpenSidebar && (
-                        <div className="fixed lg:hidden top-[75px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white dark:bg-[#0F172A] shadow-2xl transition-all">
+                        <div className="fixed lg:hidden top-[75px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white dark:bg-dark-500 shadow-2xl transition-all">
                             {menuItems.map(
                                 (item: { id: number, title: string, image: string, activeImage: string, link: string }) => {
                                     const isActive = pathname === item.link;
@@ -50,7 +50,7 @@ const AdminHeader = () => {
                                             className={`flex items-center gap-3 p-4 rounded-xl transition-all 
                                             ${isActive
                                                     ? "bg-primary-admin !text-white font-semibold"
-                                                    : "hover:bg-[#EDF1F1] dark:hover:dark-400 text-gray-700 dark:text-gray-200"
+                                                    : "hover:bg-light-400 dark:hover:dark-400 text-gray-700 dark:text-gray-200"
                                                 }`}
                                         >
                                             <Image
@@ -64,7 +64,7 @@ const AdminHeader = () => {
                                     );
                                 })}
                             <div
-                                className="flex gap-2 mt-8 items-center border-2 border-[#EDF1F1] dark:border-dark-400 rounded-[62px] py-[10px] px-3 cursor-pointer"
+                                className="flex gap-2 mt-8 items-center border-2 border-light-400 dark:border-dark-400 rounded-[62px] py-[10px] px-3 cursor-pointer"
                                 onClick={() => { }}
                             >
                                 <Image
@@ -94,7 +94,7 @@ const AdminHeader = () => {
 
             {/* TEXT SECTION */}
             <div className="flex flex-col gap-[6px]">
-                <p className="font-semibold text-lg md:text-2xl text-[#0F172A] dark:text-white">
+                <p className="font-semibold text-lg md:text-2xl text-dark-500 dark:text-white">
                     Welcome, Adrian
                 </p>
                 <p className="font-normal text-xs md:text-base text-slate-500 dark:text-slate-300">

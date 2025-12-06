@@ -9,7 +9,7 @@ const AdminPage = () => {
     const router = useRouter()
 
     return (
-        <div className="w-full flex flex-col gap-6 mt-[100px] md:mt-[110px] p-4 md:p-6 bg-light-300 dark:bg-[#0F172A]">
+        <div className="w-full flex flex-col gap-6 mt-[100px] md:mt-[110px] p-4 md:p-6 bg-light-300 dark:bg-dark-500">
             {/* Summary Boxes */}
             <div className="flex flex-col md:flex-row gap-4">
                 {[
