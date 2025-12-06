@@ -32,10 +32,18 @@ const UserInfo = () => {
                     <CustomButton
                         text="Edit"
                         color="yellow"
-                        containerClassName="md:hidden w-fit self-end cursor-pointer dark:hidden"
+                        containerClassName="md:hidden !w-fit self-end cursor-pointer dark:hidden"
                         onClick={() => setIsEditing(!isEditing)}
                         iconPosition="right"
                         iconAddress={imagesAddresses.icons.blackEdit}
+                    />
+                    <CustomButton
+                        text="Edit"
+                        color="yellow"
+                        containerClassName="dark:md:hidden !w-fit self-end cursor-pointer hidden dark:flex"
+                        onClick={() => setIsEditing(!isEditing)}
+                        iconPosition="right"
+                        iconAddress={imagesAddresses.icons.whiteEdit}
                     />
                 </motion.div>
             )}
@@ -143,6 +151,14 @@ const UserInfo = () => {
                                 onClick={() => setIsEditing(!isEditing)}
                                 iconPosition="right"
                                 iconAddress={imagesAddresses.icons.blackEdit}
+                            />
+                            <CustomButton
+                                text="Edit"
+                                color="yellow"
+                                containerClassName="hidden dark:md:flex cursor-pointer !w-30"
+                                onClick={() => setIsEditing(!isEditing)}
+                                iconPosition="right"
+                                iconAddress={imagesAddresses.icons.whiteEdit}
                             />
                         </motion.div>
                     )}
@@ -279,6 +295,14 @@ const UserInfo = () => {
                                 onClick={() => setIsEditing(!isEditing)}
                                 iconPosition="right"
                                 iconAddress={imagesAddresses.icons.save}
+                            />
+                            <CustomButton
+                                text="Save"
+                                color="yellow"
+                                containerClassName="cursor-pointer md:!w-30 hidden dark:flex"
+                                onClick={() => setIsEditing(!isEditing)}
+                                iconPosition="right"
+                                iconAddress={imagesAddresses.icons.saveWhite}
                             />
                         </motion.div>
                     )}
