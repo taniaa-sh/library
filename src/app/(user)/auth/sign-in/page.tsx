@@ -98,22 +98,26 @@ const SignIn = () => {
                 placeholder="At least 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Image
-                src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
-                alt="eye"
-                width={20}
-                height={20}
-                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "block dark:hidden " : "hidden"}`}
-                onClick={() => setShowPass(!showPass)}
-              />
-              <Image
-                src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
-                alt="eye"
-                width={20}
-                height={20}
-                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "dark:block" : "hidden"}`}
-                onClick={() => setShowPass(!showPass)}
-              />
+              {password.length > 0 &&
+                <>
+                  <Image
+                    src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                    alt="eye"
+                    width={20}
+                    height={20}
+                    className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden`}
+                    onClick={() => setShowPass(!showPass)}
+                  />
+                  <Image
+                    src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                    alt="eye"
+                    width={20}
+                    height={20}
+                    className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:hidden`}
+                    onClick={() => setShowPass(!showPass)}
+                  />
+                </>
+              }
 
               <p
                 className='self-end text-xs md:text-sm text-[#e7c9a5] dark:text-gold-200 cursor-pointer'

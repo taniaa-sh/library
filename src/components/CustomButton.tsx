@@ -71,51 +71,30 @@ const CustomButton: React.FC<PropsType> = ({
     return (
         <button
             type={loading ? 'button' : type}
-            className={`select-none custom-btn-container rounded-[8px] duration-200 gap-1 ${isSmall ? 'h-7 desktop:h-10' : 'h-10'
-                } text-xs font-semibold flex justify-center !items-center ${newClass} ${loading ? 'opacity-40 cursor-default' : ''
-                } ${containerClassName !== undefined ? containerClassName : ''
-                } disabled:opacity-40`}
+            className={`relative select-none custom-btn-container rounded-[8px] duration-200 gap-1 ${isSmall ? 'h-7 desktop:h-10' : 'h-10'
+                } text-xs font-semibold flex justify-center items-center ${newClass} ${containerClassName ?? ''} disabled:opacity-40`}
             style={{ width: width }}
             onClick={onClick}
-            disabled={isDisable}
+            disabled={isDisable || loading}
         >
             {loading ? (
-                color === 'secondary' ? (
-                    <Image
-                        src={imagesAddresses.icons.loading}
-                        width={16}
-                        height={16}
-                        alt="loading"
-                        className="loading-svg animate-spin"
-                        style={{
-                            filter:
-                                'brightness(0) saturate(100%) invert(46%) sepia(42%) saturate(2564%) hue-rotate(192deg) brightness(99%) contrast(99%)',
-                        }}
-                    />
-                ) : (
-                    <Image
-                        src={imagesAddresses.icons.loading}
-                        width={16}
-                        height={16}
-                        alt="loading"
-                        className="loading-svg"
-                    />
-                )
+                <div className="flex justify-center items-center gap-2">
+                    <span
+                        className={`w-4 h-4 border-2 border-t-transparent rounded-full animate-spin ${color === 'white' ? 'border-black' : 'border-white'
+                            }`}
+                    ></span>
+                    {text && <span className="opacity-70">{text}</span>}
+                </div>
             ) : (
                 <>
-                    {iconPosition === 'right' && iconAddress !== undefined ? (
-                        <Image src={iconAddress} width={14} height={14} alt="" />
-                    ) : null}
-                    {iconPosition === 'center' && iconAddress !== undefined ? (
-                        <Image src={iconAddress} width={14} height={14} alt="" />
-                    ) : null}
+                    {iconPosition === 'right' && iconAddress && <Image src={iconAddress} width={14} height={14} alt="" />}
+                    {iconPosition === 'center' && iconAddress && <Image src={iconAddress} width={14} height={14} alt="" />}
                     {text}
-                    {iconPosition === 'left' && iconAddress !== undefined ? (
-                        <Image src={iconAddress} width={14} height={14} alt="" />
-                    ) : null}
+                    {iconPosition === 'left' && iconAddress && <Image src={iconAddress} width={14} height={14} alt="" />}
                 </>
             )}
         </button>
+
     );
 };
 
