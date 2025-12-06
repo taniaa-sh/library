@@ -4,24 +4,26 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
-                            (function() {
-                                try {
-                                    const saved = localStorage.getItem('theme');
-                                        if (saved === 'dark') {
-                                        document.documentElement.classList.add('dark');
-                                    }
-                                } catch (_) {}
-                            })();
-                        `,
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
           }}
         />
       </head>
-      <body> {children} </body>
+      <body>{children}</body>
     </html>
   );
 }
