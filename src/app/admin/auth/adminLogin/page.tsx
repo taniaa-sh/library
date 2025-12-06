@@ -4,7 +4,7 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { signIn, getSession } from "next-auth/react"
 import { toast } from 'sonner'
 import AdminButton from '@/app/admin/(root)/components/AdminButton'
@@ -15,15 +15,6 @@ const AdminSignIn = () => {
   const [showPass, setShowPass] = useState<boolean>(false)
   const [password, setPassword] = useState("")
   const router = useRouter()
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("themeAdmin");
-    if (savedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -61,7 +52,7 @@ const AdminSignIn = () => {
   return (
     <div className="w-full flex items-center flex-col lg:flex-row">
       <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center bg-gray-100 dark:bg-black p-6 md:p-10 lg:p-20 flex items-center justify-center">
-        <div className="bg-white dark:bg-[#020817] w-full max-w-md  p-6 md:p-8 lg:p-10 flex flex-col gap-8 rounded-lg">
+        <div className="bg-white dark:bg-dark-900 w-full max-w-md  p-6 md:p-8 flex flex-col gap-8 rounded-lg">
           <div className="flex flex-col justify-start items-start gap-1">
             <Image
               src={imagesAddresses.images.adminLogo}
@@ -90,7 +81,7 @@ const AdminSignIn = () => {
               <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
               <input
                 id="email"
-                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base cursor-pointer"
+                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:dark-400 text-sm sm:text-base cursor-pointer"
                 type="email"
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -102,7 +93,7 @@ const AdminSignIn = () => {
               <input
                 id="password"
                 maxLength={8}
-                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F9FAFB] dark:bg-[#1e293b] text-sm sm:text-base cursor-pointer"
+                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:dark-400 text-sm sm:text-base cursor-pointer"
                 type={showPass ? "text" : "password"}
                 placeholder="At least 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}
@@ -116,7 +107,7 @@ const AdminSignIn = () => {
                 onClick={() => setShowPass(!showPass)}
               />
               <p
-                className='self-end text-xs md:text-sm text-[#25388c] dark:text-[#3a4fae] cursor-pointer'
+                className='self-end text-xs md:text-sm text-primary-admin dark:text-blue-200 cursor-pointer'
                 onClick={() => { router.push(SiteUrls.forgetPass) }}
               >
                 forget your password ?
@@ -136,7 +127,7 @@ const AdminSignIn = () => {
           <div className="text-gray-600 dark:text-gray-400 text-[12px] md:text-sm font-normal self-center">
             Don’t have an account already?{" "}
             <span
-              className="text-[#25388c] dark:text-[#3a4fae] text-sm font-normal cursor-pointer"
+              className="text-primary-admin dark:text-blue-200 text-sm font-normal cursor-pointer"
               onClick={() => router.push(SiteUrls.signUp)}
             >
               Register here

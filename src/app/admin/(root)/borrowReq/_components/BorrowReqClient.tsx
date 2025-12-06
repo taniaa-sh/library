@@ -52,7 +52,7 @@ const BorrowReqClient = ({ data }: Props) => {
                         height={20}
                         className="cursor-pointer"
                     />
-                    <p className='text-sm font-medium text-[#25388C]'>Generate</p>
+                    <p className='text-sm font-medium text-primary-admin'>Generate</p>
                 </div>
             ),
         },

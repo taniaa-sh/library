@@ -48,7 +48,7 @@ const DenyAccountModal = (props: DenyAccountModalProps) => {
                             height={80}
                         />
                         <div className="flex flex-col items-center gap-[10px] px-4">
-                            <p className="font-semibold text-[20px] text-[#1E293B] dark:text-white">Deny Account Request</p>
+                            <p className="font-semibold text-[20px] text-dark-400 dark:text-white">Deny Account Request</p>
                             <p className="font-normal text-base text-[#64748B] dark:text-gray-400 text-center">
                                 Denying this request will notify the student they’re not eligible due to unsuccessful ID card verification.
                             </p>
@@ -105,7 +105,7 @@ const DenyAccountModal = (props: DenyAccountModalProps) => {
                             width={50}
                             height={50}
                         />
-                        <p className="text-[20px] font-semibold leading-8 text-[#1E293B] dark:text-white text-center">
+                        <p className="text-[20px] font-semibold leading-8 text-dark-400 dark:text-white text-center">
                             Deny Account Request
                         </p>
                     </div>

@@ -49,8 +49,8 @@ const AdminHeader = () => {
                                             onClick={() => setIsOpenSidebar(false)}
                                             className={`flex items-center gap-3 p-4 rounded-xl transition-all 
                                             ${isActive
-                                                    ? "bg-[#25388C] !text-white font-semibold"
-                                                    : "hover:bg-[#EDF1F1] dark:hover:bg-[#1E293B] text-gray-700 dark:text-gray-200"
+                                                    ? "bg-primary-admin !text-white font-semibold"
+                                                    : "hover:bg-[#EDF1F1] dark:hover:dark-400 text-gray-700 dark:text-gray-200"
                                                 }`}
                                         >
                                             <Image
@@ -64,7 +64,7 @@ const AdminHeader = () => {
                                     );
                                 })}
                             <div
-                                className="flex gap-2 mt-8 items-center border-2 border-[#EDF1F1] dark:border-[#1E293B] rounded-[62px] py-[10px] px-3 cursor-pointer"
+                                className="flex gap-2 mt-8 items-center border-2 border-[#EDF1F1] dark:border-dark-400 rounded-[62px] py-[10px] px-3 cursor-pointer"
                                 onClick={() => { }}
                             >
                                 <Image
@@ -75,7 +75,7 @@ const AdminHeader = () => {
                                     className="rounded-full"
                                 />
                                 <div className="flex flex-col gap-1">
-                                    <p className="font-medium text-base text-[#1E293B] dark:text-gray-100">Adrian Hajdin</p>
+                                    <p className="font-medium text-base text-dark-400 dark:text-gray-100">Adrian Hajdin</p>
                                     <p className="font-normal text-sm text-[#8D8D8D] dark:text-gray-400">adrian@jsmastery.pro</p>
                                 </div>
                                 <Image
@@ -104,7 +104,7 @@ const AdminHeader = () => {
 
             {/* SEARCH INPUT */}
             <input
-                className="hidden md:block p-3 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#1E293B] text-black dark:text-white sm:w-[400px] w-full transition-all"
+                className="hidden md:block p-3 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 border border-gray-300 dark:border-gray-600 bg-white dark:dark-400 text-black dark:text-white sm:w-[400px] w-full transition-all"
                 type="text"
                 placeholder="Search users, books by title, author, or genre."
                 onChange={() => { }}

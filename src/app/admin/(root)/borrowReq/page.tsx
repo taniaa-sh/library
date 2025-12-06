@@ -37,8 +37,8 @@ const AllUsersPage = async () => {
     const data = await fetchUsers();
 
     return (
-        <div className="bg-[#F8F8FF] dark:bg-[#020817] px-8 py-10 !mt-[100px] w-full min-h-dvh">
-            <div className="flex flex-col gap-6 bg-white dark:bg-[#020817] py-6 px-5 rounded-lg min-h-dvh">
+        <div className="bg-[#F8F8FF] dark:bg-dark-900 px-8 py-10 !mt-[100px] w-full min-h-dvh">
+            <div className="flex flex-col gap-6 bg-white dark:bg-dark-900 py-6 px-5 rounded-lg min-h-dvh">
                 <p className="font-medium text-xl">Borrow Book Requests</p>
                 <BorrowReqClient data={data} />
             </div>

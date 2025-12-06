@@ -19,12 +19,12 @@ const AdminPage = () => {
                 ].map((item, i) => (
                     <div
                         key={i}
-                        className="bg-white dark:bg-[#020817] w-full md:w-[356px] p-4 md:p-5 rounded-lg flex flex-col gap-3 md:gap-5"
+                        className="bg-white dark:bg-dark-900 w-full md:w-[356px] p-4 md:p-5 rounded-lg flex flex-col gap-3 md:gap-5"
                     >
                         <p className="font-medium text-sm sm:text-base text-[#64748B] dark:text-gray-400">
                             {item.title}
                         </p>
-                        <p className="font-semibold text-2xl sm:text-[28px] text-[#1E293B] dark:text-white">
+                        <p className="font-semibold text-2xl sm:text-[28px] text-dark-400 dark:text-white">
                             {item.value}
                         </p>
                     </div>
@@ -35,7 +35,7 @@ const AdminPage = () => {
                 {/* Left Column */}
                 <div className=" flex flex-col gap-[22px]">
                     {/* Borrow Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4 md:w-[540px]">
+                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4 md:w-[540px]">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Borrow Requests</p>
                             <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
@@ -117,13 +117,13 @@ const AdminPage = () => {
                                 height={144}
                                 className="hidden dark:block" 
                             />
-                        <p className="text-base font-semibold text-[#1E293B] dark:text-white">No Pending Book Requests</p>
+                        <p className="text-base font-semibold text-dark-400 dark:text-white">No Pending Book Requests</p>
                         <p className="text-sm font-normal text-[#64748B] dark:text-gray-400">There are no borrow book requests awaiting your review at this time.</p>
                        </div>
                     </div>
 
                     {/* Account Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817] p-4">
+                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Account Requests</p>
                             <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
@@ -206,21 +206,21 @@ const AdminPage = () => {
                                 height={144}
                                 className="hidden dark:block"
                             />
-                            <p className="text-base font-semibold text-[#1E293B] dark:text-white">No Pending Account Requests</p>
+                            <p className="text-base font-semibold text-dark-400 dark:text-white">No Pending Account Requests</p>
                             <p className="text-sm font-normal text-[#64748B] dark:text-gray-400">There are currently no account requests awaiting approval.</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Column */}
-                <div className="w-full flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-[#020817]  p-4">
+                <div className="w-full flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4">
                     <div className="flex justify-between items-center">
                         <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Recently Added Books</p>
                         <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
                     </div>
 
                     <div
-                        className="px-3 py-2 sm:px-4 sm:py-[14px] flex gap-2 sm:gap-[14px] rounded-lg border border-light-300 dark:border-[#1E293B] bg-[#f8f8ff] dark:bg-[#1e1e2d] cursor-pointer"
+                        className="px-3 py-2 sm:px-4 sm:py-[14px] flex gap-2 sm:gap-[14px] rounded-lg border border-light-300 dark:border-dark-400 bg-[#f8f8ff] dark:bg-[#1e1e2d] cursor-pointer"
                         onClick={() => router.push(SiteUrls.adminAddBook)}
                     >
                         <Image

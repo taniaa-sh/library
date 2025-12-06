@@ -48,7 +48,7 @@ const ApproveReq = (props: ApproveReqProps) => {
                             height={80}
                         />
                         <div className="flex flex-col items-center gap-[10px] px-4">
-                            <p className="font-semibold text-[20px] text-[#1E293B] dark:text-white">Approve Book Request</p>
+                            <p className="font-semibold text-[20px] text-dark-400 dark:text-white">Approve Book Request</p>
                             <p className="font-normal text-base text-[#64748B] dark:text-gray-400 text-center">
                                 Approve the student’s account request and grant access. A confirmation email will be sent upon approval.
                             </p>
@@ -105,7 +105,7 @@ const ApproveReq = (props: ApproveReqProps) => {
                             width={50}
                             height={50}
                         />
-                        <p className="text-[20px] font-semibold leading-8 text-[#1E293B] dark:text-white text-center">
+                        <p className="text-[20px] font-semibold leading-8 text-dark-400 dark:text-white text-center">
                             Approve Book Request
                         </p>
                     </div>
