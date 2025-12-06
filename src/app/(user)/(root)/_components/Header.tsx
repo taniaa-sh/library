@@ -62,7 +62,7 @@ const Header = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors duration-200 hover:!text-[#b26e16] dark:hover:!text-[#6F460F] ${pathName === item.href ? "!text-gold-100 dark:!text-[#b26e16] font-semibold" : "text-white"
+              className={`transition-colors duration-200 hover:!text-gold-300 dark:hover:!text-gold-400 ${pathName === item.href ? "!text-gold-100 dark:!text-gold-300 font-semibold" : "text-white"
                 }`}
             >
               {item.label}
@@ -106,7 +106,7 @@ const Header = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`transition-colors duration-200 w-full text-center hover:!text-[#b26e16] dark:hover:!text-[#6F460F] ${pathName === item.href ? "!text-gold-100 dark:!text-[#b26e16] font-semibold" : "text-white"
+                className={`transition-colors duration-200 w-full text-center hover:!text-gold-300 dark:hover:!text-gold-400 ${pathName === item.href ? "!text-gold-100 dark:!text-gold-300 font-semibold" : "text-white"
                   }`}
                 onClick={() => setIsMenuOpen(false)}
               >

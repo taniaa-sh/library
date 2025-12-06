@@ -52,7 +52,7 @@ const DetailBookPage = () => {
 
                 <div className="flex flex-col gap-4 sm:gap-[18px]">
                     <div className="flex flex-wrap gap-2 sm:gap-3 items-center">
-                        <p className="font-normal text-sm sm:text-base text-[#64748B] dark:text-gray-400">
+                        <p className="font-normal text-sm sm:text-base text-dark-50 dark:text-gray-400">
                             Created at:
                         </p>
                         <div className="flex gap-1 items-center">
@@ -74,7 +74,7 @@ const DetailBookPage = () => {
                     <p className="font-semibold text-base sm:text-lg text-dark-200 dark:text-gray-300">
                         By Jayne Ann Krentz
                     </p>
-                    <p className="font-normal text-sm sm:text-base text-[#64748B] dark:text-gray-400">
+                    <p className="font-normal text-sm sm:text-base text-dark-50 dark:text-gray-400">
                         Strategic, Fantasy
                     </p>
 

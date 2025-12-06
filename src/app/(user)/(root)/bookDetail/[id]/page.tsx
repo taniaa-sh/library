@@ -8,19 +8,6 @@ import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReadPdfComponent from "../_components/ReadPdfComponent";
 import { motion } from "framer-motion";
-import { base64ToBlob } from "@/utils/utils";
-
-const pdfBase64 =
-    "JVBERi0xLjQKJcfsj6IKMSAwIG9iago8PC9UeXBlIC9DYXRhbG9nCi9QYWdlcyAyIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlIC9QYWdlcwovS2lkcyBbMyAwIFJdCi9Db3VudCAxCj4+CmVuZG9iagozIDAgb2JqCjw8L1R5cGUgL1BhZ2UKL1BhcmVudCAyIDAgUgovTWVkaWFCb3ggWzAgMCA2MTIgNzkyXQovQ29udGVudHMgNCAwIFIKPj4KZW5kb2JqCjQgMCBvYmoKPDwvTGVuZ3RoIDQ1Pj5zdHJlYW0KQlQKL0YxIDI0IFRmCjEwMCA3MDAgVGQKKChIZWxsbyBQRkYpKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA1CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA5MCAwMDAwMCBuIAowMDAwMDAwMTY3IDAwMDAwIG4gCjAwMDAwMDAyNjUgMDAwMDAgbiAKMDAwMDAwMDM3MCAwMDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgNQovUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNDg1CiUlRU9G";
-
-
-const byteCharacters = atob(pdfBase64);
-const byteNumbers = Array.from(byteCharacters, c => c.charCodeAt(0));
-const byteArray = new Uint8Array(byteNumbers);
-const blob = new Blob([byteArray], { type: "application/pdf" });
-
-const pdfUrl = URL.createObjectURL(blob);
-
 
 const BookDetailPage = () => {
     const params = useParams();
@@ -34,9 +21,6 @@ const BookDetailPage = () => {
     const [duration, setDuration] = useState(0);
     const [volumeRange, setVolumeRange] = useState(50);
     const [soundAdjustment, setSoundAdjustment] = useState(false);
-
-    // const blob = base64ToBlob(samplePdfBase64);
-    // const url = URL.createObjectURL(blob);
 
     useEffect(() => {
         fetch('/data/data.json')

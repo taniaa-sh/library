@@ -56,7 +56,8 @@
   --color-light-600: #F9FAFB;
   --color-light-700: #E2E8F0;
   --color-light-800: #F8FAFC;
-
+  
+  --color-dark-50: #64748B;
   --color-dark-100: #16191E;
   --color-dark-200: #3A354E;
   --color-dark-300: #232839;
@@ -66,11 +67,15 @@
   --color-dark-700: #464F6F;
   --color-dark-800: #1E2230;
   --color-dark-900: #020817;
+  --color-dark-950: #1e1e2d;
 
   --color-gray-100: #CBD5E1;
 
   --color-gold-100: #EED1AC;
   --color-gold-200: #8c6c2f;
+  --color-gold-300: #b26e16;
+  --color-gold-400: #6F460F;
+  --color-gold-500: #996c32;
 
   /* چارت */
   --color-chart-1: var(--chart-1);

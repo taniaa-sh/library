@@ -90,7 +90,7 @@ const UserTableClient = ({ data }: Props) => {
                     />
                     <div className="flex flex-col gap-1">
                         <p className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'} text-dark-400 dark:text-white`}>{row.name}</p>
-                        <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-[#64748B] dark:text-gray-400 break-words`}>{row.email}</p>
+                        <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-dark-50 dark:text-gray-400 break-words`}>{row.email}</p>
                     </div>
                 </div>
             ),
