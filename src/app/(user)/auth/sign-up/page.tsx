@@ -113,14 +113,28 @@ const SignUp = () => {
                 placeholder="Enter your university ID number"
                 onChange={(e) => setUniversityIDNumber(e.target.value)}
               />
-              <Image
-                src={showUniversityId ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
-                alt="eye"
-                width={20}
-                height={20}
-                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${universityIDNumber.length > 0 ? "block" : "hidden"}`}
-                onClick={() => setShowUniversityId(!showUniversityId)}
-              />
+              {
+                universityIDNumber.length > 0 && (
+                  <>
+                    <Image
+                      src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                      alt="eye"
+                      width={20}
+                      height={20}
+                      className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden`}
+                      onClick={() => setShowUniversityId(!showUniversityId)}
+                    />
+                    <Image
+                      src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                      alt="eye"
+                      width={20}
+                      height={20}
+                      className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:hidden`}
+                      onClick={() => setShowUniversityId(!showUniversityId)}
+                    />
+                  </>
+                )
+              }
             </div>
 
             {/* Password */}
@@ -134,14 +148,29 @@ const SignUp = () => {
                 placeholder="At least 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Image
-                src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
-                alt="eye"
-                width={20}
-                height={20}
-                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
-                onClick={() => setShowPass(!showPass)}
-              />
+              {
+                password.length > 0 && (
+                  <>
+                    <Image
+                      src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                      alt="eye"
+                      width={20}
+                      height={20}
+                      className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden`}
+                      onClick={() => setShowPass(!showPass)}
+                    />
+                    <Image
+                      src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                      alt="eye"
+                      width={20}
+                      height={20}
+                      className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:hidden`}
+                      onClick={() => setShowPass(!showPass)}
+                    />
+                  </>
+                )
+              }
+
             </div>
 
             {/* Upload University ID */}

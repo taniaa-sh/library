@@ -72,14 +72,14 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview, error, shakeTrig
             </div>
 
             {previewUrl && (
-                <div className={`w-full border-2 rounded-xl flex flex-col md:flex-row justify-between items-center !mt-4 !p-4 gap-4 ${isAdminPath ? '!bg-light-600 border-[#7286dd] dark:!bg-dark-400 dark:!border-gray-500' : 'bg-dark-300 dark:bg-gray-50 border-[#ddbfa3] dark:border-[#7a6233]'}`}>
+                <div className={`w-full border-2 rounded-xl flex justify-between items-center !mt-4 !p-4 gap-4 ${isAdminPath ? '!bg-light-600 border-[#7286dd] dark:!bg-dark-400 dark:!border-gray-500' : 'bg-dark-300 dark:bg-gray-50 border-[#ddbfa3] dark:border-[#7a6233]'}`}>
                     {type === 'image' ? (
                         <Image
                             src={previewUrl}
                             alt="preview"
-                            width={40}
-                            height={40}
-                            className="object-cover rounded-lg shadow-md max-h-40 dark:!border-gray-500 dark:bg-gray-500"
+                            width={30}
+                            height={30}
+                            className="object-cover rounded-lg shadow-md max-h-40 dark:!border-gray-500 dark:bg-gray-500 self-"
                         />
                     ) : (
                         <video src={previewUrl} controls className="w-full md:w-1/3 rounded-lg max-h-40" />
