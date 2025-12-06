@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
 import { useRouter } from "next/navigation"
 import SiteUrls from "@/utils/routs"
+import CustomButton from "@/components/CustomButton"
 
 const ResetPasswordPage = () => {
 
@@ -121,11 +121,19 @@ const ResetPasswordPage = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <Image
-                                    src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                                    src={showConfirmPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
                                     alt="eye"
                                     width={20}
                                     height={20}
-                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
+                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} dark:hidden`}
+                                    onClick={() => setShowPass(!showPass)}
+                                />
+                                <Image
+                                    src={showConfirmPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                                    alt="eye"
+                                    width={20}
+                                    height={20}
+                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} hidden dark:block`}
                                     onClick={() => setShowPass(!showPass)}
                                 />
                             </div>
@@ -146,22 +154,27 @@ const ResetPasswordPage = () => {
                                     alt="eye"
                                     width={20}
                                     height={20}
-                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"}`}
+                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} dark:hidden`}
+                                    onClick={() => setShowConfirmPass(!showConfirmPass)}
+                                />
+                                <Image
+                                    src={showConfirmPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                                    alt="eye"
+                                    width={20}
+                                    height={20}
+                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} hidden dark:block`}
                                     onClick={() => setShowConfirmPass(!showConfirmPass)}
                                 />
                             </div>
 
                             {/* Submit Button */}
-                            <Button
-                                className="w-full cursor-pointer text-sm md:text-base lg:text-lg !text-black dark:!text-white"
+                            <CustomButton
                                 type="submit"
-                            >
-                                {loading ? (
-                                    <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black dark:border-white animate-spin' />
-                                ) : (
-                                    "Reset Password"
-                                )}
-                            </Button>
+                                text="Reset Password"
+                                color="yellow"
+                                containerClassName="w-full cursor-pointer flex text-nowrap"
+                                loading={loading}
+                            />
                         </form>
                     </div>
                 </div>

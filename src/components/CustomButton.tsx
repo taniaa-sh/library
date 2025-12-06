@@ -68,7 +68,7 @@ const CustomButton: React.FC<PropsType> = ({
         <button
             type={loading ? 'button' : type}
             className={`select-none custom-btn-container rounded-[8px] duration-200 gap-1 ${isSmall ? 'h-7 desktop:h-10' : 'h-10'
-                } text-xs font-semibold flex justify-center items-center ${newClass} ${loading ? 'opacity-40 cursor-default' : ''
+                } text-xs font-semibold flex justify-center !items-center ${newClass} ${loading ? 'opacity-40 cursor-default' : ''
                 } ${containerClassName !== undefined ? containerClassName : ''
                 } disabled:opacity-40`}
             style={{ width: width }}
@@ -82,7 +82,7 @@ const CustomButton: React.FC<PropsType> = ({
                         width={16}
                         height={16}
                         alt="loading"
-                        className="loading-svg"
+                        className="loading-svg animate-spin"
                         style={{
                             filter:
                                 'brightness(0) saturate(100%) invert(46%) sepia(42%) saturate(2564%) hue-rotate(192deg) brightness(99%) contrast(99%)',

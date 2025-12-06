@@ -1,7 +1,7 @@
 "use client"
 
+import CustomButton from '@/components/CustomButton'
 import DragAndDropUpload from '@/components/DragAndDropUpload'
-import { Button } from '@/components/ui/button'
 import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
@@ -155,16 +155,14 @@ const SignUp = () => {
           </form>
 
           {/* Sign Up Button */}
-          <Button
-            className="w-full cursor-pointer text-sm md:text-base lg:text-lg"
+
+          <CustomButton
+            text="Sign Up"
+            color="yellow"
+            containerClassName="w-full cursor-pointer flex text-nowrap"
+            loading={isLoading}
             onClick={handleSignUp}
-          >
-            {isLoading ? (
-              <span className='w-4 h-4 border-1 border-black rounded-full border-t-0 animate-spin'></span>
-            ) : (
-              "Sign Up"
-            )}
-          </Button>
+          />
 
           {/* Login Redirect */}
           <div className="text-white dark:text-gray-900 text-xs md:text-sm lg:text-base font-normal self-center">

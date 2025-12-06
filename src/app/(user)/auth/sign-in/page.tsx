@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from '@/components/ui/button'
 import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
@@ -8,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { signIn, getSession } from "next-auth/react"
 import { toast } from 'sonner'
+import CustomButton from '@/components/CustomButton'
 
 const SignIn = () => {
   const [email, setEmail] = useState("")
@@ -99,13 +99,22 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Image
+                src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                alt="eye"
+                width={20}
+                height={20}
+                className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden ${password.length > 0 ? "block" : "hidden"}`}
+                onClick={() => setShowPass(!showPass)}
+              />
+              <Image
                 src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
                 alt="eye"
                 width={20}
                 height={20}
-                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "block" : "hidden"}`}
+                className={`absolute top-8 md:top-12 right-3 cursor-pointer block dark:hidden ${password.length > 0 ? "block" : "hidden"}`}
                 onClick={() => setShowPass(!showPass)}
               />
+
               <p
                 className='self-end text-xs md:text-sm text-[#e7c9a5] dark:text-gold-200 cursor-pointer'
                 onClick={() => { router.push(SiteUrls.forgetPass) }}
@@ -115,13 +124,13 @@ const SignIn = () => {
             </div>
           </form>
 
-
-          <Button className="w-full cursor-pointer" onClick={handleLogin}>
-            {loading ?
-              <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black animate-spin' /> :
-              "Login"
-            }
-          </Button>
+          <CustomButton
+            text="Login"
+            color="yellow"
+            containerClassName="w-full cursor-pointer flex text-nowrap"
+            loading={loading}
+            onClick={handleLogin}
+          />
 
           <div className="text-white dark:text-gray-900 text-[12px] md:text-sm font-normal self-center">
             Don’t have an account already?{" "}

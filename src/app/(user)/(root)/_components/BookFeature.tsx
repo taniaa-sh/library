@@ -2,6 +2,7 @@ import Image from "next/image"
 import { Button } from "../../../../components/ui/button"
 import imagesAddresses from "@/utils/imageAddresses"
 import { toast } from "sonner"
+import CustomButton from "@/components/CustomButton"
 
 interface PropsType {
     title: string
@@ -60,26 +61,20 @@ const BookFeature = ({
 
                 <p className="text-light-100 dark:text-gray-700 text-sm md:text-lg leading-6 md:leading-8">{description}</p>
 
-                <Button
-                    onClick={() => toast.success("Book request sent successfully")}
-                    className="w-fit self-center md:self-start px-6 mt-6 md:mt-8 cursor-pointer"
-                >
-                    <Image
-                        src={imagesAddresses.icons.bookIcon}
-                        alt="book"
-                        width={20}
-                        height={20}
-                        className="dark:hidden"
-                    />
-                         <Image
-                        src={imagesAddresses.icons.bookIconWhite}
-                        alt="book"
-                        width={20}
-                        height={20}
-                        className="hidden dark:block"
-                    />
-                    Borrow Book Request
-                </Button>
+                <CustomButton
+                    text="Borrow Book Request"
+                    iconAddress={imagesAddresses.icons.bookIcon}
+                    iconPosition="right"
+                    color="yellow"
+                    containerClassName="w-full md:!w-fit cursor-pointer dark:hidden"
+                />
+                <CustomButton
+                    text="Borrow Book Request"
+                    iconAddress={imagesAddresses.icons.bookIconWhite}
+                    iconPosition="right"
+                    color="yellow"
+                    containerClassName="w-full md:!w-fit cursor-pointer hidden dark:flex text-nowrap"
+                />
             </div>
 
             <div className="flex justify-center relative lg:right-40 right-10">

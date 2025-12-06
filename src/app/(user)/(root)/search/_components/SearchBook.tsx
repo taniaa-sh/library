@@ -1,14 +1,13 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { Button } from "@/components/ui/button"
 import imagesAddresses from "@/utils/imageAddresses"
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner";
-import AdminButton from "@/components/CustomButton";
+import CustomButton from "@/components/CustomButton";
 
 interface PropsType {
     data: string[]
@@ -105,26 +104,35 @@ const SearchBook = ({ data }: PropsType) => {
                 <div className="w-full max-w-[600px] flex flex-col sm:flex-row items-center gap-4 mt-8">
                     <div className="w-full max-w-[600px] flex flex-col">
                         <div className="relative">
-                            <input
-                                className="w-full sm:flex-1 bg-dark-300 dark:bg-white dark:text-gray-900 py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
-                                type="text"
-                                placeholder="Search for a book"
-                                value={search}
-                                onChange={(e) => {
-                                    const value = e.target.value
-                                    setSearch(value)
-                                    setBookList(true)
-                                    setShowNoResult(false)
-                                    setShowResults(false)
+                            <div className="flex flex-col md:flex-row gap-2 items-center">
+                                <input
+                                    className="w-full sm:flex-1 bg-dark-300 dark:bg-white dark:text-gray-900 py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                                    type="text"
+                                    placeholder="Search for a book"
+                                    value={search}
+                                    onChange={(e) => {
+                                        const value = e.target.value
+                                        setSearch(value)
+                                        setBookList(true)
+                                        setShowNoResult(false)
+                                        setShowResults(false)
 
-                                    if (value.trim() === "") {
-                                        handleClear()
-                                    }
-                                }}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") handleSearch(search)
-                                }}
-                            />
+                                        if (value.trim() === "") {
+                                            handleClear()
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") handleSearch(search)
+                                    }}
+                                />
+                                <CustomButton
+                                    text="Search"
+                                    color="yellow"
+                                    containerClassName="w-full md:!w-fit h-12 cursor-pointer"
+                                    loading={loading}
+                                    onClick={() => handleSearch(search)}
+                                />
+                            </div>
                             <Image
                                 src={imagesAddresses.icons.serach}
                                 alt="Search Icon"
@@ -158,13 +166,6 @@ const SearchBook = ({ data }: PropsType) => {
                         </AnimatePresence>
                     </div>
 
-                    <Button
-                        className="w-full sm:w-auto !p-3 sm:!px-6 sm:!py-7 cursor-pointer self-start flex items-center justify-center gap-2"
-                        onClick={() => handleSearch(search)}
-                        disabled={loading}
-                    >
-                        {loading ? <span className='w-4 h-4 rounded-full border-2 border-t-2 border-white animate-spin' /> : "Search"}
-                    </Button>
                 </div>
 
                 {/* No Result */}
@@ -183,12 +184,15 @@ const SearchBook = ({ data }: PropsType) => {
                         <p className="text-sm md:text-base font-normal leading-6 text-light-100 dark:text-gray-600">
                             We couldn’t find any books matching your search. Try using different keywords or check for typos.
                         </p>
-                        <Button
-                            className="w-full my-4 cursor-pointer"
+
+                        <CustomButton
+                            text="  Clear Search"
+                            color="yellow"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
+                            loading={loading}
                             onClick={handleClear}
-                        >
-                            Clear Search
-                        </Button>
+                        />
+
                     </div>
                 )}
 

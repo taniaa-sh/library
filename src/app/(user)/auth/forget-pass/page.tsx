@@ -7,6 +7,7 @@ import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
 import { useRouter } from "next/navigation"
 import SiteUrls from "@/utils/routs"
+import CustomButton from "@/components/CustomButton"
 
 const ForgotPasswordPage = () => {
 
@@ -101,16 +102,13 @@ const ForgotPasswordPage = () => {
                                 />
                             </div>
 
-                            <Button
-                                className="w-full cursor-pointer text-sm md:text-base lg:text-lg !text-black dark:!text-white"
+                            <CustomButton
                                 type="submit"
-                            >
-                                {loading ? (
-                                    <span className='w-4 h-4 rounded-full border-1 border-t-0 border-black dark:border-white animate-spin' />
-                                ) : (
-                                    "Send Reset Link"
-                                )}
-                            </Button>
+                                text="Send Reset Link"
+                                color="yellow"
+                                containerClassName="w-full cursor-pointer flex text-nowrap"
+                                loading={loading}
+                            />
                         </form>
 
                     </div>
