@@ -103,7 +103,7 @@ const SignIn = () => {
                 alt="eye"
                 width={20}
                 height={20}
-                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "dark:block" : "hidden"}`}
+                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "block dark:hidden " : "hidden"}`}
                 onClick={() => setShowPass(!showPass)}
               />
               <Image
@@ -111,7 +111,7 @@ const SignIn = () => {
                 alt="eye"
                 width={20}
                 height={20}
-                className={`absolute top-8 md:top-12 right-3 cursor-pointer block dark:hidden ${password.length > 0 ? "block dark:hidden" : "hidden"}`}
+                className={`absolute top-8 md:top-12 right-3 cursor-pointer ${password.length > 0 ? "dark:block" : "hidden"}`}
                 onClick={() => setShowPass(!showPass)}
               />
 
