@@ -104,7 +104,7 @@ const SearchBook = ({ data }: PropsType) => {
                 <div className="w-full max-w-[600px] flex flex-col sm:flex-row items-center gap-4 mt-8">
                     <div className="w-full max-w-[600px] flex flex-col">
                         <div className="relative">
-                            <div className="flex flex-col md:flex-row gap-2 items-center">
+                            <div className="flex  gap-2 items-center">
                                 <input
                                     className="w-full sm:flex-1 bg-dark-300 dark:bg-white dark:text-gray-900 py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
                                     type="text"
@@ -128,7 +128,7 @@ const SearchBook = ({ data }: PropsType) => {
                                 <CustomButton
                                     text="Search"
                                     color="yellow"
-                                    containerClassName="w-full md:!w-fit h-12 cursor-pointer"
+                                    containerClassName="!w-fit h-12 cursor-pointer"
                                     loading={loading}
                                     onClick={() => handleSearch(search)}
                                 />
