@@ -1,7 +1,7 @@
 "use client";
 
+import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
-import { Button } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -53,26 +53,12 @@ const DenyAccountModal = (props: DenyAccountModalProps) => {
                                 Denying this request will notify the student they’re not eligible due to unsuccessful ID card verification.
                             </p>
                         </div>
-                        <Button
+                        <CustomButton
+                            text="Deny & Notify Student"
+                            color="red"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={() => { }}
-                            variant="contained"
-                            sx={{
-                                backgroundColor: '#F46F70',
-                                color: '#fff',
-                                textTransform: 'none',
-                                fontWeight: 700,
-                                borderRadius: '12px',
-                                px: 3,
-                                py: 1.5,
-                                width: '100%',
-                                fontSize: '14px',
-                                '&:hover': {
-                                    backgroundColor: '#C24E55',
-                                },
-                            }}
-                        >
-                            Deny & Notify Student
-                        </Button>
+                        />
                     </div>
 
                 </div>
@@ -113,26 +99,12 @@ const DenyAccountModal = (props: DenyAccountModalProps) => {
                     <p className='text-base leading-6 font-normal text-dark-50 dark:text-gray-400 text-start'>
                         Denying this request will notify the student they’re not eligible due to unsuccessful ID card verification.
                     </p>
-                    <Button
+                    <CustomButton
+                        text="Deny & Notify Student"
+                        color="red"
+                        containerClassName="w-full cursor-pointer flex text-nowrap"
                         onClick={() => { }}
-                        variant="contained"
-                        sx={{
-                            backgroundColor: '#F46F70',
-                            color: '#fff',
-                            textTransform: 'none',
-                            fontWeight: 700,
-                            borderRadius: '12px',
-                            px: 3,
-                            py: 1,
-                            width: '100%',
-                            fontSize: '14px',
-                            '&:hover': {
-                                backgroundColor: '#C24E55',
-                            },
-                        }}
-                    >
-                        Deny & Notify Student
-                    </Button>
+                    />
                 </div>
                 <div
                     className='absolute inset-0'

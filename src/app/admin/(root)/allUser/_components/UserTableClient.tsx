@@ -4,9 +4,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 import CustomStatusAllUser from './CustomStatusAllUser';
 import imagesAddresses from '@/utils/imageAddresses';
-import { Popover, Dialog, DialogTitle, DialogContent, DialogActions, Button, useMediaQuery } from '@mui/material';
+import { Popover, Dialog, DialogTitle, DialogContent, DialogActions, useMediaQuery } from '@mui/material';
 import AdminTable, { Column } from '../../_components/AdminTable';
 import CustomStatus from '../../_components/CustomStatus';
+import CustomButton from '@/components/CustomButton';
 
 type User = {
     name: string;
@@ -296,32 +297,18 @@ const UserTableClient = ({ data }: Props) => {
                             flexWrap: 'wrap',
                         }}
                     >
-                        <Button
+                        <CustomButton
+                            text="No"
+                            color="white"
+                            containerClassName="cursor-pointer w-20 flex text-nowrap !border !!border-gray-200 dark:border-gray-600"
                             onClick={() => setConfirmOpen(false)}
-                            variant="outlined"
-                            sx={{
-                                textTransform: 'none',
-                                fontWeight: 500,
-                                borderRadius: '10px',
-                                px: 3,
-                                fontSize: isMobile ? '12px' : '14px',
-                            }}
-                        >
-                            No
-                        </Button>
-                        <Button
+                        />
+                        <CustomButton
+                            text="Yes, I'm sure"
+                            color="blue"
+                            containerClassName="cursor-pointer flex text-nowrap"
                             onClick={confirmRoleChange}
-                            variant="contained"
-                            sx={{
-                                textTransform: 'none',
-                                fontWeight: 500,
-                                borderRadius: '10px',
-                                px: 3,
-                                fontSize: isMobile ? '12px' : '14px',
-                            }}
-                        >
-                            {`Yes, I'm sure`}
-                        </Button>
+                        />
                     </DialogActions>
 
                 </Dialog>

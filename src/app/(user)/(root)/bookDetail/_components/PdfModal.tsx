@@ -1,10 +1,8 @@
 "use client";
 
+import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
-import SiteUrls from "@/utils/routs";
-import { Button } from "@mui/material";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface LogoutModalProps {
@@ -13,7 +11,6 @@ interface LogoutModalProps {
 
 const PdfModal = ({ setShowPdfModal }: LogoutModalProps) => {
 
-    const router = useRouter();
     const [isClosing, setIsClosing] = useState(false);
 
     const handleClose = () => {
@@ -41,40 +38,20 @@ const PdfModal = ({ setShowPdfModal }: LogoutModalProps) => {
                         className="cursor-pointer self-end"
                         onClick={handleClose}
                     />
-                    
+
                     <div className="flex justify-end items-end gap-4 relative bottom-0">
-                        <Button
-                            onClick={() => router.push(SiteUrls.signIn)}
-                            variant="contained"
-                            sx={{
-                                backgroundColor: '#e7c9a5',
-                                color: 'black',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                borderRadius: '12px',
-                                width: '100%',
-                                py: 1.5,
-                                '&:hover': { backgroundColor: '#e7c9a5' }
-                            }}
-                        >
-                            download
-                        </Button>
-                        <Button
+                        <CustomButton
+                            text="download"
+                            color="yellow"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
+                            onClick={() => { }}
+                        />
+                        <CustomButton
+                            text="Cancel"
+                            color="white"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={handleClose}
-                            variant="outlined"
-                            sx={{
-                                borderColor: '#6B7280',
-                                color: '#D1D5DB',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                borderRadius: '12px',
-                                width: '100%',
-                                py: 1.5,
-                                '&:hover': { backgroundColor: 'rgba(107, 114, 128, 0.1)' }
-                            }}
-                        >
-                            Cancel
-                        </Button>
+                        />
                     </div>
                 </div>
                 <div className="absolute inset-0" onClick={handleClose} />

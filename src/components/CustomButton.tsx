@@ -6,7 +6,7 @@ import Image from 'next/image';
 type PropsType = {
     text?: string;
     width?: string;
-    color: "primary" | "secondary" | "tertiary" | "textbutton" | "iconbutton" | "red" | "blue" | "gray" | "white" | "yellow";
+    color: "primary" | "secondary" | "tertiary" | "textbutton" | "iconbutton" | "red" | "blue" | "gray" | "white" | "yellow" | "green";
     type?: "button" | "submit" | "reset";
     loading?: boolean;
     containerClassName?: string;
@@ -34,6 +34,7 @@ const CustomButton: React.FC<PropsType> = ({
     heightIcon = 24,
     onClick,
 }) => {
+
     let newClass = "";
     if (color === "secondary") {
         newClass =
@@ -41,6 +42,9 @@ const CustomButton: React.FC<PropsType> = ({
     } else if (color === "red") {
         newClass =
             "dark:bg-[#ef4444] hover:dark:bg-[#dc2626] text-[#FFFFFF] border-[0px] !px-4 bg-[#7c1f1f] hover:bg-[#991b1b] dark:text-white";
+    } else if (color === "green") {
+        newClass =
+            "text-white bg-[#2e6b57] hover:bg-[#357c63] dark:bg-[#4C7B62] dark:hover:bg-[#3f6d59] border-0 px-4 rounded-md"
     } else if (color === "blue") {
         newClass =
             "bg-[#25388C] hover:bg-[#3a4fae] text-[#FFFFFF] border-[0px] !px-4 dark:bg-[#1a2b66] dark:hover:bg-[#3a4fae] dark:text-white";

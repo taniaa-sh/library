@@ -6,9 +6,7 @@ import imagesAddresses from "@/utils/imageAddresses";
 import Lottie from "lottie-react";
 import animationData from "../../../../../public/lottie/Book.json";
 import animationData1 from "../../../../../public/lottie/Lonely 404.json";
-import { Admin } from "mongodb";
-import AdminButton from "@/components/CustomButton";
-import { Button } from "@mui/material";
+import CustomButton from "@/components/CustomButton";
 
 export default function RootNotFound() {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -54,12 +52,12 @@ export default function RootNotFound() {
                                 Hmmm, the page you were looking for doesnt seem to exist anymore.
                             </p>
                         </div>
-                        <Button
-                            className="!bg-[#d8b79c] !text-black !mt-6 hover:!bg-[#d8b79c]/80"
+                        <CustomButton
                             onClick={() => window.location.href = "/"}
-                        >
-                            Back to Home
-                        </Button>
+                            text="Back to Home"
+                            color="yellow"
+                            containerClassName="w-full md:!w-fit cursor-pointer !mt-6"
+                        />
                     </div>
                 </div>
             </div>
@@ -111,12 +109,12 @@ export default function RootNotFound() {
                             Hmmm, the page you were looking for doesnt seem to exist anymore.
                         </p>
                     </div>
-                    <button
+                    <CustomButton
                         onClick={() => window.location.href = "/"}
-                        className="bg-white text-black px-4 py-2 flex justify-center items-center  rounded-lg mt-4 cursor-pointerr"
-                    >
-                        Back to home
-                    </button>
+                        text="Back to Home"
+                        color="white"
+                        containerClassName="w-full md:!w-fit cursor-pointer"
+                    />
                 </div>
             </div>
         </>

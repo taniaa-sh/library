@@ -1,7 +1,7 @@
 "use client";
 
+import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
-import { Button } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -53,26 +53,12 @@ const ApproveReq = (props: ApproveReqProps) => {
                                 Approve the student’s account request and grant access. A confirmation email will be sent upon approval.
                             </p>
                         </div>
-                        <Button
+                        <CustomButton
+                            text="Approve & Send Confirmation"
+                            color="green"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={() => { }}
-                            variant="contained"
-                            sx={{
-                                backgroundColor: '#4C7B62',
-                                color: '#fff',
-                                textTransform: 'none',
-                                fontWeight: 700,
-                                borderRadius: '12px',
-                                px: 3,
-                                py: 1.5,
-                                width: '100%',
-                                fontSize: '14px',
-                                '&:hover': {
-                                    backgroundColor: '#3C634E',
-                                },
-                            }}
-                        >
-                            Approve & Send Confirmation
-                        </Button>
+                        />
                     </div>
 
                 </div>
@@ -113,26 +99,12 @@ const ApproveReq = (props: ApproveReqProps) => {
                     <p className='text-base leading-6 font-normal text-dark-50 dark:text-gray-400 text-start'>
                         Approve the student’s account request and grant access. A confirmation email will be sent upon approval.
                     </p>
-                    <Button
+                    <CustomButton
+                        text="Approve & Send Confirmation"
+                        color="green"
+                        containerClassName="w-full cursor-pointer flex text-nowrap"
                         onClick={() => { }}
-                        variant="contained"
-                        sx={{
-                            backgroundColor: '#4C7B62',
-                            color: '#fff',
-                            textTransform: 'none',
-                            fontWeight: 700,
-                            borderRadius: '12px',
-                            px: 3,
-                            py: 1,
-                            width: '100%',
-                            fontSize: '14px',
-                            '&:hover': {
-                                backgroundColor: '#3C634E',
-                            },
-                        }}
-                    >
-                        Approve & Send Confirmation
-                    </Button>
+                    />
                 </div>
                 <div
                     className='absolute inset-0'
