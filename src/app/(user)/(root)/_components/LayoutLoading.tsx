@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from 'react'
-import animationData from "../../public/lottie/loading.json";
+import animationData from "../../../../../public/lottie/loading.json";
 import dynamic from 'next/dynamic';
-import fallbackGif from "../../public/gif/loading.gif";
+import fallbackGif from "../../../../../public/gif/loading.gif";
 
 const Lottie = dynamic(() => import("lottie-react"), {
     ssr: false,
     loading: () => null,
 });
 
-const AdminLayoutLoading = () => {
+const LayoutLoading = () => {
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
@@ -40,4 +40,4 @@ const AdminLayoutLoading = () => {
     );
 };
 
-export default AdminLayoutLoading;
+export default LayoutLoading;

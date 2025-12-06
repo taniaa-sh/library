@@ -1,4 +1,4 @@
-import LayoutLoading from "@/components/LayoutLoading";
+import LayoutLoading from "@/app/(user)/(root)/_components/LayoutLoading";
 
 export default function Loading() {
   return <LayoutLoading />;
