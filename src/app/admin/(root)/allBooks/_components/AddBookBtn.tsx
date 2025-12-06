@@ -1,15 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import AdminButton from '../../_components/AdminButton';
 import imagesAddresses from '@/utils/imageAddresses';
 import SiteUrls from '@/utils/routs';
+import CustomButton from '../../../../../components/CustomButton';
 
 const AddBookBtn = () => {
     const router = useRouter();
 
     return (
-        <AdminButton
+        <CustomButton
             text="Create a New Book"
             iconAddress={imagesAddresses.icons.plus}
             iconPosition="right"

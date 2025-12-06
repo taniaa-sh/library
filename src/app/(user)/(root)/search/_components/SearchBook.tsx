@@ -8,7 +8,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner";
-import AdminButton from "@/app/admin/(root)/_components/AdminButton";
+import AdminButton from "@/components/CustomButton";
 
 interface PropsType {
     data: string[]

@@ -1,11 +1,11 @@
 "use client";
 
-import AdminButton from "@/app/admin/(root)/_components/AdminButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DragAndDropUpload from "@/components/DragAndDropUpload";
+import CustomButton from "@/components/CustomButton";
 
 const UserInfo = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -29,7 +29,7 @@ const UserInfo = () => {
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
                 >
-                    <AdminButton
+                    <CustomButton
                         text="Edit"
                         color="yellow"
                         containerClassName="md:hidden w-fit self-end cursor-pointer dark:hidden"
@@ -136,7 +136,7 @@ const UserInfo = () => {
                             initial={{ opacity: 0, x: 10 }}
                             animate={{ opacity: 1, x: 0 }}
                         >
-                            <AdminButton
+                            <CustomButton
                                 text="Edit"
                                 color="yellow"
                                 containerClassName="hidden md:flex cursor-pointer !w-30 dark:hidden"
@@ -272,7 +272,7 @@ const UserInfo = () => {
                             exit={{ opacity: 0 }}
                             className="self-end"
                         >
-                            <AdminButton
+                            <CustomButton
                                 text="Save"
                                 color="yellow"
                                 containerClassName="flex cursor-pointer md:!w-30 dark:hidden"

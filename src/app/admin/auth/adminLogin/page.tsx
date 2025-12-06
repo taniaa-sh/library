@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { signIn, getSession } from "next-auth/react"
 import { toast } from 'sonner'
-import AdminButton from '@/app/admin/(root)/_components/AdminButton'
+import CustomButton from '@/components/CustomButton'
 
 const AdminSignIn = () => {
   const [email, setEmail] = useState("")
@@ -115,7 +115,7 @@ const AdminSignIn = () => {
             </div>
           </form>
 
-          <AdminButton
+          <CustomButton
             color='blue'
             onClick={handleLogin}
             text="Login"

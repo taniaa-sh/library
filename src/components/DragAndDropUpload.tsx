@@ -3,10 +3,10 @@
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import AdminButton from "../app/admin/(root)/_components/AdminButton";
 import { usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";
+import CustomButton from "./CustomButton";
 
 type DragAndDropUploadProps = {
     onChange: (file: File | null) => void;
@@ -61,7 +61,11 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview, error, shakeTrig
                             Upload a {type === 'image' ? 'image' : 'video'}
                         </p>
                     </div>
-                    <AdminButton text="Browse to Upload" color={isAdminPath ? 'blue' : 'yellow'} containerClassName="cursor-pointer" />
+                    <CustomButton
+                        text="Browse to Upload"
+                        color={isAdminPath ? 'blue' : 'yellow'}
+                        containerClassName="cursor-pointer"
+                    />
                 </div>
 
                 <input type="file" accept={type === 'image' ? 'image/*' : 'video/*'} ref={inputRef} onChange={handleFileChange} className="hidden" />

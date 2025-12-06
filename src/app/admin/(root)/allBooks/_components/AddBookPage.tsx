@@ -9,10 +9,10 @@ import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
 import { ChromePicker, ColorResult } from 'react-color';
-import AdminButton from '../../_components/AdminButton';
 import imagesAddresses from '@/utils/imageAddresses';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import CustomButton from '../../../../../components/CustomButton';
 
 const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -74,7 +74,7 @@ const AddBookPage = () => {
     return (
         <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg mt-[140px]">
             <Toaster />
-            <AdminButton
+            <CustomButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeft}
                 iconPosition="right"
@@ -82,7 +82,7 @@ const AddBookPage = () => {
                 containerClassName="cursor-pointer !w-fit dark:hidden"
                 onClick={() => router.back()}
             />
-            <AdminButton
+            <CustomButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeftWhite}
                 iconPosition="right"
@@ -240,7 +240,7 @@ const AddBookPage = () => {
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.description.message}</p>
                     )}
                 </div>
-                <AdminButton
+                <CustomButton
                     text={loading ? 'Updating...' : 'Update Book'}
                     width="w-fit py-2 sm:py-3 cursor-pointer"
                     color="blue"

@@ -1,11 +1,11 @@
 "use client";
 
 import imagesAddresses from "@/utils/imageAddresses";
-import AdminButton from "../../_components/AdminButton";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SiteUrls from "@/utils/routs";
 import { useRef, useState } from "react";
+import CustomButton from "@/components/CustomButton";
 
 const DetailBookPage = () => {
     const router = useRouter();
@@ -23,7 +23,7 @@ const DetailBookPage = () => {
 
     return (
         <div className="mx-auto flex flex-col gap-10  p-4 sm:p-6 mt-[110px] dark:bg-gray-900 w-full">
-            <AdminButton
+            <CustomButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeft}
                 iconPosition="right"
@@ -31,7 +31,7 @@ const DetailBookPage = () => {
                 containerClassName="cursor-pointer !w-fit dark:hidden"
                 onClick={() => router.back()}
             />
-            <AdminButton
+            <CustomButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeftWhite}
                 iconPosition="right"
@@ -78,7 +78,7 @@ const DetailBookPage = () => {
                         Strategic, Fantasy
                     </p>
 
-                    <AdminButton
+                    <CustomButton
                         text="Edit Book"
                         iconAddress={imagesAddresses.icons.whiteEdit}
                         iconPosition="right"

@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import PdfModal from "./PdfModal"
 import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
-import AdminButton from "@/app/admin/(root)/_components/AdminButton"
+import CustomButton from "@/components/CustomButton"
 
 const Document = dynamic(
     () => import('react-pdf').then(mod => mod.Document),
@@ -103,7 +103,7 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                         </div>
 
                         <div className="flex mt-5 gap-4">
-                            <AdminButton
+                            <CustomButton 
                                 iconAddress={imagesAddresses.icons.backWhite}
                                 iconPosition="right"
                                 containerClassName="cursor-pointer hidden dark:block"
@@ -111,7 +111,7 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                                 text=""
                                 onClick={prevPage}
                             />
-                            <AdminButton
+                            <CustomButton
                                 iconAddress={imagesAddresses.icons.back}
                                 iconPosition="right"
                                 containerClassName="cursor-pointer dark:hidden "
@@ -119,7 +119,7 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                                 text=""
                                 onClick={prevPage}
                             />
-                            <AdminButton
+                            <CustomButton
                                 iconAddress={imagesAddresses.icons.nextWhite}
                                 iconPosition="right"
                                 containerClassName="cursor-pointer hidden dark:block"
@@ -127,7 +127,7 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                                 text=""
                                 onClick={nextPage}
                             />
-                            <AdminButton
+                            <CustomButton
                                 iconAddress={imagesAddresses.icons.next}
                                 iconPosition="right"
                                 containerClassName="cursor-pointer dark:hidden"
@@ -139,13 +139,13 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                     </div>
                 )}
                 <div className="flex gap-3 mt-14 self-start">
-                    <AdminButton
+                    <CustomButton
                         containerClassName="cursor-pointer"
                         color="yellow"
                         text="See pdf"
                         onClick={() => { setShowPdfModal(true) }}
                     />
-                    <AdminButton
+                    <CustomButton
                         containerClassName="cursor-pointer"
                         color="yellow"
                         text="Download pdf"

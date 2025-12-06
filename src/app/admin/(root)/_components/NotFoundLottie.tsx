@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import animationData from "../../../../../public/lottie/404Error(4).json";
 import Link from "next/link";
 import SiteUrls from "@/utils/routs";
-import AdminButton from "./AdminButton";
+import CustomButton from "../../../../components/CustomButton";
 
 const Lottie = dynamic(() => import("lottie-react"), {
     ssr: false,
@@ -32,7 +32,7 @@ const NotFoundPage = () => {
                         Sorry, the page you are looking for does not exist.
                     </p>
                     <Link href={SiteUrls.admin}>
-                        <AdminButton
+                        <CustomButton
                             text="Back to Home"
                             color="white"
                             containerClassName="!text-blue-600 px-6 py-3 mt-6 font-bold hover:bg-blue-50 transition-all cursor-pointer"

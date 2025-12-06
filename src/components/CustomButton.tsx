@@ -19,7 +19,7 @@ type PropsType = {
     heightIcon?: number;
 };
 
-const AdminButton: React.FC<PropsType> = ({
+const CustomButton: React.FC<PropsType> = ({
     text,
     width,
     color,
@@ -115,4 +115,4 @@ const AdminButton: React.FC<PropsType> = ({
     );
 };
 
-export default AdminButton;
+export default CustomButton;
