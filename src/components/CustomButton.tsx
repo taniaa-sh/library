@@ -37,10 +37,10 @@ const CustomButton: React.FC<PropsType> = ({
     let newClass = "";
     if (color === "secondary") {
         newClass =
-            "text-brand600 border-[1.25px] bg-white hover:bg-brand50 !px-4 !py-2 dark:bg-gray-800 dark:text-brand400 dark:hover:bg-brand700";
+            "w-full border border-gray-500 text-gray-300 font-semibold rounded-xl py-1.5 hover:bg-gray-500/10 dark:text-gray-800 dark:border-gray-400 dark:hover:bg-gray-300/20";
     } else if (color === "red") {
         newClass =
-            "bg-error600 hover:bg-error700 text-white border-[0px] !px-1 dark:bg-error700 dark:hover:bg-error800 dark:text-white";
+            "dark:bg-[#ef4444] hover:dark:bg-[#dc2626] text-[#FFFFFF] border-[0px] !px-4 bg-[#7c1f1f] hover:bg-[#991b1b] dark:text-white";
     } else if (color === "blue") {
         newClass =
             "bg-[#25388C] hover:bg-[#3a4fae] text-[#FFFFFF] border-[0px] !px-4 dark:bg-[#1a2b66] dark:hover:bg-[#3a4fae] dark:text-white";

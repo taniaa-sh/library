@@ -1,8 +1,8 @@
 "use client";
 
+import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
-import { Button } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -52,38 +52,18 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                         <p className="text-gray-400 dark:text-gray-600 text-center text-sm">
                             Are you sure you want to logout? You will need to login again to access your account.
                         </p>
-                        <Button
+                        <CustomButton
+                            text="Logout"
+                            color="red"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={() => router.push(SiteUrls.signIn)}
-                            variant="contained"
-                            sx={{
-                                backgroundColor: '#EF4444',
-                                color: '#fff dark:text-gray-900',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                borderRadius: '12px',
-                                width: '100%',
-                                py: 1.5,
-                                '&:hover': { backgroundColor: '#B91C1C' }
-                            }}
-                        >
-                            Logout
-                        </Button>
-                        <Button
+                        />
+                        <CustomButton
+                            text="Cancel"
+                            color="secondary"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={handleClose}
-                            variant="outlined"
-                            sx={{
-                                borderColor: '#6B7280',
-                                color: '#D1D5DB',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                borderRadius: '12px',
-                                width: '100%',
-                                py: 1.5,
-                                '&:hover': { backgroundColor: 'rgba(107, 114, 128, 0.1)' }
-                            }}
-                        >
-                            Cancel
-                        </Button>
+                        />
                     </div>
                 </div>
                 <div className="absolute inset-0" onClick={handleClose} />
@@ -109,38 +89,18 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                             Are you sure you want to logout? You will need to login again to access your account.
                         </p>
 
-                        <Button
+                        <CustomButton
+                            text="Logout"
+                            color="red"
+                            containerClassName="w-full !cursor-pointer flex text-nowrap"
                             onClick={() => router.push(SiteUrls.signIn)}
-                            variant="contained"
-                            sx={{
-                                backgroundColor: '#EF4444',
-                                color: '#fff',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                borderRadius: '12px',
-                                width: '100%',
-                                py: 1.5,
-                                '&:hover': { backgroundColor: '#B91C1C' }
-                            }}
-                        >
-                            Logout
-                        </Button>
-                        <Button
+                        />
+                        <CustomButton
+                            text="Cancel"
+                            color="secondary"
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={handleClose}
-                            variant="outlined"
-                            sx={{
-                                borderColor: '#6B7280',
-                                color: '#D1D5DB',
-                                textTransform: 'none',
-                                fontWeight: 600,
-                                borderRadius: '12px',
-                                width: '100%',
-                                py: 1.5,
-                                '&:hover': { backgroundColor: 'rgba(107, 114, 128, 0.1)' }
-                            }}
-                        >
-                            Cancel
-                        </Button>
+                        />
                     </div>
                 </div>
                 <div className="absolute inset-0" onClick={handleClose} />
