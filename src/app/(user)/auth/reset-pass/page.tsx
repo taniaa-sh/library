@@ -120,22 +120,28 @@ const ResetPasswordPage = () => {
                                     placeholder="Enter new password"
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <Image
-                                    src={showConfirmPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
-                                    alt="eye"
-                                    width={20}
-                                    height={20}
-                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} dark:hidden`}
-                                    onClick={() => setShowPass(!showPass)}
-                                />
-                                <Image
-                                    src={showConfirmPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
-                                    alt="eye"
-                                    width={20}
-                                    height={20}
-                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} hidden dark:block`}
-                                    onClick={() => setShowPass(!showPass)}
-                                />
+                                {
+                                    password.length > 0 && (
+                                        <>
+                                            <Image
+                                                src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                                                alt="eye"
+                                                width={20}
+                                                height={20}
+                                                className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden`}
+                                                onClick={() => setShowPass(!showPass)}
+                                            />
+                                            <Image
+                                                src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                                                alt="eye"
+                                                width={20}
+                                                height={20}
+                                                className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:hidden`}
+                                                onClick={() => setShowPass(!showPass)}
+                                            />
+                                        </>
+                                    )
+                                }
                             </div>
 
                             {/* Confirm Password */}
@@ -149,22 +155,28 @@ const ResetPasswordPage = () => {
                                     placeholder="Repeat new password"
                                     onChange={(e) => setConfirmPass(e.target.value)}
                                 />
-                                <Image
-                                    src={showConfirmPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
-                                    alt="eye"
-                                    width={20}
-                                    height={20}
-                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} dark:hidden`}
-                                    onClick={() => setShowConfirmPass(!showConfirmPass)}
-                                />
-                                <Image
-                                    src={showConfirmPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
-                                    alt="eye"
-                                    width={20}
-                                    height={20}
-                                    className={`absolute top-8 md:top-12 right-3 cursor-pointer ${confirmPass.length > 0 ? "block" : "hidden"} hidden dark:block`}
-                                    onClick={() => setShowConfirmPass(!showConfirmPass)}
-                                />
+                                {
+                                    confirmPass.length > 0 && (
+                                        <>
+                                            <Image
+                                                src={showConfirmPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                                                alt="eye"
+                                                width={20}
+                                                height={20}
+                                                className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden`}
+                                                onClick={() => setShowConfirmPass(!showConfirmPass)}
+                                            />
+                                            <Image
+                                                src={showConfirmPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                                                alt="eye"
+                                                width={20}
+                                                height={20}
+                                                className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:hidden`}
+                                                onClick={() => setShowConfirmPass(!showConfirmPass)}
+                                            />
+                                        </>
+                                    )
+                                }
                             </div>
 
                             {/* Submit Button */}
