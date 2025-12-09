@@ -56,7 +56,7 @@
   --color-light-600: #F9FAFB;
   --color-light-700: #E2E8F0;
   --color-light-800: #F8FAFC;
-  
+
   --color-dark-50: #64748B;
   --color-dark-100: #16191E;
   --color-dark-200: #3A354E;
@@ -326,6 +326,14 @@
 
 .custom-scrollbar1:hover {
   scrollbar-color: #be7e2b #f3f4f6;
+}
+
+.dark .custom-scrollbar1::-webkit-scrollbar-thumb {
+  background: #eed1ac !important;
+}
+
+.dark .custom-scrollbar1 {
+  scrollbar-color: #eed1ac auto;
 }
 
 @keyframes slideUp {

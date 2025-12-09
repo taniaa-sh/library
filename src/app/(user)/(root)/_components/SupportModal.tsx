@@ -71,23 +71,31 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
         <div
             className={`z-[1001] flex flex-col rounded-lg border border-gray-300 dark:border-gray-500 bg-gray-50 fixed right-0 bottom-0 
                         md:right-20 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
-                        shadow-xl
+                        shadow-xl custom-scrollbar1
                         ${isClosing ? "animate-closeModal" : "animate-openModal"}`}
         >
 
             {/* Header */}
-            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-gold100 dark:bg-gold200 select-none shadow-sm">
+            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-gold100 dark:bg-gold600 select-none shadow-sm">
                 <div className="flex items-center gap-2 w-full">
                     <Image
                         src={imagesAddresses.icons.support}
                         width={40}
                         height={40}
                         alt="Support"
+                        className="dark:hidden"
+                    />
+                    <Image
+                        src={imagesAddresses.icons.supportIconWhite}
+                        width={40}
+                        height={40}
+                        alt="Support"
+                        className="hidden dark:block"
                     />
                     <div className="flex flex-col">
-                        <p className="text-base font-semibold leading-8 dark:text-gray-900">Library Support</p>
+                        <p className="text-base font-semibold leading-8 dark:text-white">Library Support</p>
                         {isTyping && (
-                            <p className="text-xs font-normal text-gray-600 leading-6">
+                            <p className="text-xs font-normal text-gray-600 dark:text-white leading-6">
                                 Typing...
                             </p>
                         )}
@@ -98,13 +106,21 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                     width={22}
                     height={22}
                     alt="close"
-                    className="cursor-pointer hover:scale-105 transition"
+                    className="cursor-pointer hover:scale-105 transition dark:hidden"
+                    onClick={handleClose}
+                />
+                <Image
+                    src={imagesAddresses.icons.modalCloseWhite}
+                    width={22}
+                    height={22}
+                    alt="close"
+                    className="cursor-pointer hover:scale-105 transition hidden dark:block"
                     onClick={handleClose}
                 />
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 bg-gray-900 dark:bg-white">
+            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 dark:bg-[url('/images/supportBackGround.png')] bg-[url('/images/supportBackGroundDark.png')] bg-center bg-cover blur-3xl">
                 {messages.map((msg, idx) => (
                     <div
                         key={idx}
@@ -113,7 +129,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                         <div
                             className={`max-w-[75%] p-2 rounded-xl text-sm leading-6 shadow-sm
                                         ${msg.sender === "user"
-                                    ? "bg-blue-600 text-white rounded-br-none"
+                                    ? "bg-gold400 text-white rounded-br-none"
                                     : "bg-gray-200 text-gray-900 rounded-bl-none"
                                 }`}
                         >
@@ -126,7 +142,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
             </div>
 
             {/* Input section */}
-            <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-300 bg-gray-100">
+            <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-300 bg-gold100 dark:bg-gold600">
                 <input
                     type="text"
                     value={input}
@@ -139,7 +155,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
 
                 <button
                     onClick={handleSend}
-                    className="px-2 py-2 rounded-full bg-gold100 hover:bg-gold100 dark:bg-gold200 dark:hover:bg-gold200 dark:text-gray-900
+                    className="px-2 py-2 rounded-full bg-gold200 hover:bg-gold100 dark:bg-gold200 dark:hover:bg-gold200 dark:text-gray-900
                                transition shadow cursor-pointer"
                 >
                     <Image
@@ -147,6 +163,14 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                         width={22}
                         height={22}
                         alt="send"
+                        className="dark:hidden"
+                    />
+                    <Image
+                        src={imagesAddresses.icons.plainWhite}
+                        width={22}
+                        height={22}
+                        alt="send"
+                        className="hidden dark:block"
                     />
                 </button>
             </div>
