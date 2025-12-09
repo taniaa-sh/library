@@ -31,7 +31,7 @@ const ApproveReq = (props: ApproveReqProps) => {
         <>
             {/* desktop */}
             <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/40 z-50">
-                <div className="w-[500px] z-10 flex flex-col gap-1 bg-white dark:bg-gray-900 rounded-xl !p-6">
+                <div className="w-[500px] z-10 flex flex-col gap-1 bg-white dark:bg-gray-900 rounded-xl !p-6 !ml-60">
                     <Image
                         src={imagesAddresses.icons.modalClose}
                         alt="close"
