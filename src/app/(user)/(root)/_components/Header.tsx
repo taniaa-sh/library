@@ -28,6 +28,23 @@ const Header = () => {
     else document.documentElement.classList.remove('dark')
   }, [isDark])
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      window.history.pushState({ sidebar: true }, "");
+    }
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [isMenuOpen]);
+
   return (
     <>
       {

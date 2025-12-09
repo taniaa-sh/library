@@ -29,6 +29,23 @@ const AdminHeader = () => {
         };
     }, [isOpenSidebar]);
 
+    useEffect(() => {
+        if (isOpenSidebar) {
+            window.history.pushState({ sidebar: true }, "");
+        }
+    }, [isOpenSidebar]);
+
+    useEffect(() => {
+        const handlePopState = () => {
+            if (isOpenSidebar) {
+                setIsOpenSidebar(false);
+            }
+        };
+
+        window.addEventListener("popstate", handlePopState);
+        return () => window.removeEventListener("popstate", handlePopState);
+    }, [isOpenSidebar]);
+
     return (
         <div className="fixed bg-white dark:bg-[#0d1b3b] flex items-center gap-8 w-full p-6 !shadow-md z-50 transition-all">
             <div className="flex flex-col">
