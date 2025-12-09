@@ -8,6 +8,7 @@ import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import LogoutModal from "@/app/(user)/(root)/_components/LogoutModal";
 import useDarkMode from "@/app/hooks/useDarkModeAdmin";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
 
@@ -51,7 +52,7 @@ const Header = () => {
         <nav className="hidden md:flex items-center gap-8 text-lg">
           <Image
             src={isDark ? imagesAddresses.icons.darkLightMode : imagesAddresses.icons.darkLightMode2}
-            alt="Search"
+            alt="theme"
             width={25}
             height={25}
             className="cursor-pointer"
@@ -70,7 +71,7 @@ const Header = () => {
           ))}
           <Image
             src={imagesAddresses.icons.logout}
-            alt="Search"
+            alt="logout"
             width={20}
             height={20}
             className="cursor-pointer"
@@ -79,62 +80,84 @@ const Header = () => {
           />
         </nav>
 
+        {/* mobile hamburger */}
         <div
-          className="md:hidden cursor-pointer p-2 rounded transition-transform duration-200 ease-in-out active:scale-95"
+          className="md:hidden cursor-pointer p-2 rounded transition-transform duration-200 active:scale-95"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <Image
             src={isMenuOpen ? imagesAddresses.icons.closeMenue : imagesAddresses.icons.menue}
-            alt="Menu"
+            alt="menu"
             width={20}
             height={20}
             className="cursor-pointer dark:hidden"
           />
           <Image
             src={isMenuOpen ? imagesAddresses.icons.closeMenueDark : imagesAddresses.icons.menue}
-            alt="Menu"
+            alt="menu"
             width={20}
             height={20}
             className="cursor-pointer dark:block hidden"
           />
         </div>
 
-        {/* mobile*/}
-        {isMenuOpen && (
-          <nav className="absolute top-full border-t border-gray-300 left-0 w-full bg-gray-900 dark:bg-gray-50 flex flex-col items-center py-4 gap-4 md:hidden shadow-lg animate-fade-in z-50">
-            {menuItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`transition-colors duration-200 w-full text-center hover:!text-gold-300 dark:hover:!text-gold-400 ${pathName === item.href ? "!text-gold-100 dark:!text-gold-300 font-semibold" : "text-white"
-                  }`}
+        {/* mobile menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <>
+              <motion.div
+                className="fixed md:hidden inset-0 bg-gray-600/60 z-40 cursor-pointer top-20"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 onClick={() => setIsMenuOpen(false)}
+              />
+              <motion.nav
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="absolute top-full border-t border-gray-300 left-0 w-full bg-gray-900 dark:bg-gray-50 flex flex-col items-center py-4 gap-4 md:hidden shadow-lg z-50"
               >
-                {item.label}
-              </Link>
-            ))}
-            <div className="flex gap-2">
-              <Image
-                src={isDark ? imagesAddresses.icons.darkLightMode : imagesAddresses.icons.darkLightMode2}
-                alt="Search"
-                width={25}
-                height={25}
-                className="cursor-pointer"
-                onClick={toggleTheme}
-                title="change theme"
-              />
-              <Image
-                src={imagesAddresses.icons.logout}
-                alt="Search"
-                width={20}
-                height={20}
-                className="cursor-pointer"
-                onClick={() => setShowLogoutModal(true)}
-                title="logout"
-              />
-            </div>
-          </nav>
-        )}
+                {menuItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`transition-colors duration-200 w-full text-center hover:!text-gold-300 dark:hover:!text-gold-400 ${pathName === item.href
+                      ? "!text-gold-100 dark:!text-gold-300 font-semibold"
+                      : "text-white"
+                      }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                <div className="flex gap-4 mt-3">
+                  <Image
+                    src={isDark ? imagesAddresses.icons.darkLightMode : imagesAddresses.icons.darkLightMode2}
+                    alt="theme"
+                    width={25}
+                    height={25}
+                    className="cursor-pointer"
+                    onClick={toggleTheme}
+                    title="change theme"
+                  />
+                  <Image
+                    src={imagesAddresses.icons.logout}
+                    alt="logout"
+                    width={20}
+                    height={20}
+                    className="cursor-pointer"
+                    onClick={() => setShowLogoutModal(true)}
+                    title="logout"
+                  />
+                </div>
+              </motion.nav>
+            </>
+          )}
+        </AnimatePresence>
+
       </header>
     </>
   );
