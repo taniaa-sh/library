@@ -120,7 +120,7 @@ const SignIn = () => {
               }
 
               <p
-                className='self-end text-xs md:text-sm text-[#e7c9a5] dark:text-gold-200 cursor-pointer'
+                className='self-end text-xs md:text-sm text-gold100 dark:text-gold700 cursor-pointer'
                 onClick={() => { router.push(SiteUrls.forgetPass) }}
               >
                 forget your password ?
@@ -139,7 +139,7 @@ const SignIn = () => {
           <div className="text-white dark:text-gray-900 text-[12px] md:text-sm font-normal self-center">
             Don’t have an account already?{" "}
             <span
-              className="text-gold-100 dark:text-gold-200 text-sm font-normal cursor-pointer"
+              className="text-gold100 dark:text-gold700 text-sm font-normal cursor-pointer"
               onClick={() => router.push(SiteUrls.signUp)}
             >
               Register here

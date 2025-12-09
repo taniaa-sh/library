@@ -1,7 +1,5 @@
 import Image from "next/image"
-import { Button } from "../../../../components/ui/button"
 import imagesAddresses from "@/utils/imageAddresses"
-import { toast } from "sonner"
 import CustomButton from "@/components/CustomButton"
 
 interface PropsType {
@@ -32,10 +30,10 @@ const BookFeature = ({
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 justify-center md:justify-start">
                     <p className="text-light-100 dark:text-gray-700">
-                        By <span className="text-gold-100 dark:text-gold-500 font-semibold">{author}</span>
+                        By <span className="text-gold100 dark:text-gold600 font-semibold">{author}</span>
                     </p>
                     <p className="text-light-100 dark:text-gray-700">
-                        Category: <span className="text-gold-100 dark:text-gold-500 font-semibold">{Genre}</span>
+                        Category: <span className="text-gold100 dark:text-gold600 font-semibold">{Genre}</span>
                     </p>
                     <div className="flex items-center justify-center gap-1">
                         <Image
@@ -44,7 +42,7 @@ const BookFeature = ({
                             width={18}
                             height={18}
                         />
-                        <p className="text-gold-100  dark:text-gold-500 font-semibold">
+                        <p className="text-gold100 dark:text-gold600 font-semibold">
                             {rating} <span className="text-light-100 dark:text-gray-700 font-normal">/5</span>
                         </p>
                     </div>
@@ -52,10 +50,10 @@ const BookFeature = ({
 
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center md:justify-start">
                     <p className="text-light-100 dark:text-gray-700">
-                        Total books: <span className="text-gold-100 dark:text-gold-500 font-semibold">{totalBooks}</span>
+                        Total books: <span className="text-gold100 dark:text-gold600 font-semibold">{totalBooks}</span>
                     </p>
                     <p className="text-light-100 dark:text-gray-700">
-                        Available books: <span className="text-gold-100 dark:text-gold-500 font-semibold">{availableBooks}</span>
+                        Available books: <span className="text-gold100 dark:text-gold600 font-semibold">{availableBooks}</span>
                     </p>
                 </div>
 

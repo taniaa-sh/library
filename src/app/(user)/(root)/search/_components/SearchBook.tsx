@@ -96,7 +96,7 @@ const SearchBook = ({ data }: PropsType) => {
                         Explore and Search for
                     </p>
                     <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900  text-center">
-                        <span className="text-gold-100 dark:text-gold-500">Any Book </span> In Our Library
+                        <span className="text-gold100 dark:text-gold600">Any Book </span> In Our Library
                     </p>
                 </div>
 

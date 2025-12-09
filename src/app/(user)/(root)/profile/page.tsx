@@ -22,7 +22,7 @@ const Profile = async () => {
                             key={item}
                             className="flex-shrink-0 w-full sm:w-64 p-4 md:p-5 flex flex-col gap-3 md:gap-5 bg-[url('/images/loginBg.png')] bg-gray-900 bg-cover dark:bg-gray-50 rounded-lg"
                         >
-                            <div className="bg-[#936F4A]/60 rounded-lg px-8 py-4 md:px-12 md:py-6 flex justify-center">
+                            <div className="bg-gold500/60 rounded-lg px-8 py-4 md:px-12 md:py-6 flex justify-center">
                                 <Image
                                     src={imagesAddresses.images.book1}
                                     alt="book"

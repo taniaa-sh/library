@@ -32,7 +32,6 @@ export default function RootNotFound() {
 
     return (
         <>
-
             <div className="min-h-screen hidden dark:flex flex-col items-center justify-center p-4">
                 <div className="w-full max-w-md flex flex-col items-center">
                     <Lottie

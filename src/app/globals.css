@@ -71,11 +71,13 @@
 
   --color-gray-100: #CBD5E1;
 
-  --color-gold-100: #EED1AC;
-  --color-gold-200: #8c6c2f;
-  --color-gold-300: #b26e16;
-  --color-gold-400: #6F460F;
-  --color-gold-500: #996c32;
+  --color-gold100: #EED1AC;
+  --color-gold200: #edae5b;
+  --color-gold400: #b26e16;
+  --color-gold500: #936F4A;
+  --color-gold600: #996c32;
+  --color-gold700: #8c6c2f;
+  --color-gold800: #6F460F;
 
   /* چارت */
   --color-chart-1: var(--chart-1);
@@ -115,32 +117,6 @@
   --chart-3: hsl(197 37% 24%);
   --chart-4: hsl(43 74% 66%);
   --chart-5: hsl(27 87% 67%);
-}
-
-/* حالت دارک */
-.dark {
-  --background: hsl(222.2 84% 4.9%);
-  --foreground: hsl(210 40% 98%);
-  --card: hsl(222.2 84% 4.9%);
-  --card-foreground: hsl(210 40% 98%);
-  --popover: hsl(222.2 84% 4.9%);
-  --popover-foreground: hsl(210 40% 98%);
-  --secondary: hsl(217.2 32.6% 17.5%);
-  --secondary-foreground: hsl(210 40% 98%);
-  --muted: hsl(217.2 32.6% 17.5%);
-  --muted-foreground: hsl(215 20.2% 65.1%);
-  --accent: hsl(217.2 32.6% 17.5%);
-  --accent-foreground: hsl(210 40% 98%);
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(210 40% 98%);
-  --border: hsl(217.2 32.6% 17.5%);
-  --input: hsl(217.2 32.6% 17.5%);
-  --ring: hsl(212.7 26.8% 83.9%);
-  --chart-1: hsl(220 70% 50%);
-  --chart-2: hsl(160 60% 45%);
-  --chart-3: hsl(30 80% 55%);
-  --chart-4: hsl(280 65% 60%);
-  --chart-5: hsl(340 75% 55%);
 }
 
 @layer base {

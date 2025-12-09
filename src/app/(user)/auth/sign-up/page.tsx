@@ -197,7 +197,7 @@ const SignUp = () => {
           <div className="text-white dark:text-gray-900 text-xs md:text-sm lg:text-base font-normal self-center">
             Have an account already?{" "}
             <span
-              className="text-gold-100 dark:text-gold-200 text-sm md:text-base cursor-pointer"
+              className="text-gold100 dark:text-gold700 text-sm md:text-base cursor-pointer"
               onClick={() => router.push(SiteUrls.signIn)}
             >
               Login

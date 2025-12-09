@@ -17,7 +17,7 @@ const ShowSopportModal = () => {
                 )
             }
             <div
-                className="fixed bottom-8 md:right-60 cursor-pointer bg-gold-100 rounded-full p-2 size-14 flex items-center justify-center animate-supportPop !z-[1000]"
+                className="fixed bottom-8 md:right-60 cursor-pointer bg-gold100 rounded-full p-2 size-14 flex items-center justify-center animate-supportPop !z-[1000]"
                 onClick={() => setShowSopportModal(!ShowSopportModal)}
                 title="Click for assistance"
             >
