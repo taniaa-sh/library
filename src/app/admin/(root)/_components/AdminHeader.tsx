@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AdminHeader = () => {
 
@@ -47,38 +48,67 @@ const AdminHeader = () => {
                     className="md:hidden cursor-pointer hidden dark:block md:dark:hidden"
                     onClick={() => setIsOpenSidebar(!isOpenSidebar)}
                 />
-                {
-                    isOpenSidebar && (
-                        <div className="md:hidden flex fixed top-20 items-center justify-center inset-0 w-full h-full bg-black/40 z-50">
-                            <div className="fixed lg:hidden top-[75px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-10 bg-white dark:bg-dark-500 shadow-2xl transition-all">
-                                {menuItems.map(
-                                    (item: { id: number, title: string, image: string, activeImage: string, link: string }) => {
-                                        const isActive = pathname === item.link;
+                <AnimatePresence>
+                    {isOpenSidebar && (
+                        <motion.div
+                            key="overlay"
+                            className="md:hidden flex fixed top-20 items-center justify-center inset-0 w-full h-full z-50"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                        >
+                            {/* Overlay */}
+                            <motion.div
+                                className="absolute inset-0 bg-black/40 dark:bg-gray-600/40"
+                                onClick={() => setIsOpenSidebar(false)}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.25 }}
+                            />
 
-                                        return (
-                                            <Link
-                                                key={item.id}
-                                                href={item.link}
-                                                onClick={() => setIsOpenSidebar(false)}
-                                                className={`flex items-center gap-3 p-4 rounded-xl transition-all 
-                                            ${isActive
-                                                        ? "bg-primary-admin !text-white font-semibold"
-                                                        : "hover:bg-light-400 dark:hover:dark-400 text-gray-700 dark:text-gray-200"
-                                                    }`}
-                                            >
-                                                <Image
-                                                    src={isActive ? item.activeImage : item.image}
-                                                    alt={item.title}
-                                                    width={24}
-                                                    height={24}
-                                                />
-                                                <span>{item.title}</span>
-                                            </Link>
-                                        );
-                                    })}
+                            {/* Sidebar */}
+                            <motion.div
+                                key="sidebar"
+                                className="fixed lg:hidden top-[75px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white dark:bg-dark-500 shadow-2xl"
+                                initial={{ x: "-100%" }}
+                                animate={{ x: 0 }}
+                                exit={{ x: "-100%" }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 80,
+                                    damping: 16
+                                }}
+                            >
+                                {menuItems.map((item) => {
+                                    const isActive = pathname === item.link;
+
+                                    return (
+                                        <Link
+                                            key={item.id}
+                                            href={item.link}
+                                            onClick={() => setIsOpenSidebar(false)}
+                                            className={`flex items-center gap-3 p-4 rounded-xl transition-all 
+                                ${isActive
+                                                    ? "bg-primary-admin !text-white font-semibold"
+                                                    : "hover:bg-light-400 dark:hover:bg-dark-400 text-gray-700 dark:text-gray-200"
+                                                }`}
+                                        >
+                                            <Image
+                                                src={isActive ? item.activeImage : item.image}
+                                                alt={item.title}
+                                                width={24}
+                                                height={24}
+                                            />
+                                            <span>{item.title}</span>
+                                        </Link>
+                                    );
+                                })}
+
+                                {/* PROFILE */}
                                 <div
                                     className="flex gap-2 mt-8 items-center border-2 border-light-400 dark:border-dark-400 rounded-[62px] py-[10px] px-3 cursor-pointer"
-                                    onClick={() => { }}
                                 >
                                     <Image
                                         src={imagesAddresses.images.profile}
@@ -100,12 +130,11 @@ const AdminHeader = () => {
                                         onClick={() => router.push(SiteUrls.logout)}
                                     />
                                 </div>
-                            </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
-                            <div className="absolute inset-0" onClick={() => setIsOpenSidebar(false)} />
-                        </div>
-                    )
-                }
             </div>
 
             {/* TEXT SECTION */}
