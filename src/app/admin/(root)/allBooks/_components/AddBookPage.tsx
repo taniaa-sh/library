@@ -12,7 +12,7 @@ import { ChromePicker, ColorResult } from 'react-color';
 import imagesAddresses from '@/utils/imageAddresses';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import CustomButton from '../../../../../components/CustomButton';
+import CustomButton from '@/components/CustomButton';
 
 const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -72,7 +72,7 @@ const AddBookPage = () => {
     };
 
     return (
-        <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg mt-[140px]">
+        <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg mt-[90px] dark:bg-dark-500">
             <Toaster />
             <CustomButton
                 text="Go back"
@@ -101,7 +101,7 @@ const AddBookPage = () => {
                         {...register('title')}
                         type="text"
                         placeholder="Enter the book title"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:dark-400 text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
                         animate={errors.title ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
                         transition={{ duration: 0.4 }}
@@ -119,7 +119,7 @@ const AddBookPage = () => {
                     <motion.input
                         {...register('author')}
                         type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:dark-400 text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
                         placeholder="Enter the author name"
                         animate={errors.author ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
@@ -138,7 +138,7 @@ const AddBookPage = () => {
                     <motion.input
                         {...register('genre')}
                         type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:dark-400 text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
                         placeholder="Enter the genre of the book"
                         animate={errors.genre ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
@@ -157,7 +157,7 @@ const AddBookPage = () => {
                     <motion.input
                         {...register('totalNumberOfBooks')}
                         type="number"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:dark-400 text-sm sm:text-base"
+                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
                         placeholder="Enter the total number of books"
                         animate={errors.totalNumberOfBooks ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
@@ -192,7 +192,7 @@ const AddBookPage = () => {
                         value={color}
                         onClick={() => setShowPicker(!showPicker)}
                         readOnly
-                        className="w-full border rounded-lg p-3  pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer"
+                        className="w-full border rounded-lg p-3  pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base cursor-pointer"
                         placeholder="Enter the primary color"
                         animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
@@ -230,7 +230,7 @@ const AddBookPage = () => {
                     <motion.textarea
                         {...register('description')}
                         rows={4}
-                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:dark-400 text-sm sm:text-base"
+                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
                         placeholder="Write a brief summary of the book"
                         animate={errors.description ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
