@@ -88,7 +88,7 @@ const AdminHeader = () => {
                             {/* Sidebar */}
                             <motion.div
                                 key="sidebar"
-                                className="fixed lg:hidden top-[75px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white dark:bg-dark-500 shadow-2xl"
+                                className="fixed lg:hidden top-[81px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white dark:bg-dark-500 shadow-2xl"
                                 initial={{ x: "-100%" }}
                                 animate={{ x: 0 }}
                                 exit={{ x: "-100%" }}
@@ -107,9 +107,9 @@ const AdminHeader = () => {
                                             href={item.link}
                                             onClick={() => setIsOpenSidebar(false)}
                                             className={`flex items-center gap-3 p-4 rounded-xl transition-all 
-                                ${isActive
+                                                    ${isActive
                                                     ? "bg-primary-admin !text-white font-semibold"
-                                                    : "hover:bg-light-400 dark:hover:bg-dark-400 text-gray-700 dark:text-gray-200"
+                                                    : "hover:bg-light-400 dark:hover:bg-dark-400 text-gray-700 dark:!text-white"
                                                 }`}
                                         >
                                             <Image
