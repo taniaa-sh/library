@@ -94,6 +94,7 @@ const imagesAddresses = {
     book8: "/images/book8.png",
     book1blur: "/images/book1blur.png",
     emptyResult: "/images/emptyResult.png",
+    emptyResultLight: "/images/emptyResultLight.png",
     profile: "/images/profile.png",
     notFoundBg: "/images/notFoundBg.png",
 

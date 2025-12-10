@@ -176,7 +176,14 @@ const SearchBook = ({ data }: PropsType) => {
                             alt="empty"
                             width={200}
                             height={200}
-                            className="object-contain"
+                            className="object-contain dark:hidden"
+                        />
+                        <Image
+                            src={imagesAddresses.images.emptyResultLight}
+                            alt="empty"
+                            width={200}
+                            height={200}
+                            className="object-contain hidden dark:block"
                         />
                         <p className="text-2xl md:text-3xl font-semibold leading-7 text-white dark:text-gray-900">
                             No Results Found
