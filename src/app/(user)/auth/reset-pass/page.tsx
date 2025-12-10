@@ -7,34 +7,44 @@ import imagesAddresses from "@/utils/imageAddresses"
 import { useRouter } from "next/navigation"
 import SiteUrls from "@/utils/routs"
 import CustomButton from "@/components/CustomButton"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { useForm } from "react-hook-form"
+
+const schema = yup.object({
+    password: yup.string().min(8, "Password must be at least 8 characters").required('Password is required'),
+    confirmPass: yup.string().min(8, "Confirm Password must be at least 8 characters").required('Confirm Password is required'),
+}).required();
+
+type ResetPasswordFormData = {
+    password: string
+    confirmPass: string
+}
 
 const ResetPasswordPage = () => {
 
-    const [password, setPassword] = useState("")
-    const [confirmPass, setConfirmPass] = useState("")
     const [loading, setLoading] = useState(false)
     const [showPass, setShowPass] = useState(false)
     const [showConfirmPass, setShowConfirmPass] = useState(false)
     const router = useRouter()
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        watch
+    } = useForm<ResetPasswordFormData>({
+        resolver: yupResolver(schema),
+    })
 
-        if (!password || !confirmPass) {
-            toast.error("Please fill both fields")
-            return
-        }
-
-        if (password !== confirmPass) {
-            toast.error("Passwords do not match")
-            return
-        }
+    const onSubmit = async (data: ResetPasswordFormData) => {
+        setLoading(true)
 
         setLoading(true)
 
         const res = await fetch("/api/auth/reset-password", {
             method: "POST",
-            body: JSON.stringify({ password }),
+            body: JSON.stringify({ password: data.password }),
         })
 
         setLoading(false)
@@ -102,7 +112,7 @@ const ResetPasswordPage = () => {
                         {/* Form */}
                         <form
                             className="flex flex-col gap-3 md:gap-4 lg:gap-5 mt-4"
-                            onSubmit={handleSubmit}
+                            onSubmit={handleSubmit(onSubmit)}
                         >
                             {/* New Password */}
                             <div className="flex flex-col gap-1 relative">
@@ -118,10 +128,17 @@ const ResetPasswordPage = () => {
                                     maxLength={30}
                                     className="bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
                                     placeholder="Enter new password"
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    {...register("password")}
                                 />
+
                                 {
-                                    password.length > 0 && (
+                                    errors.password && (
+                                        <span className="text-red-500 text-sm md:text-base lg:text-lg">
+                                            {errors.password.message}
+                                        </span>
+                                    )}
+                                {
+                                    (watch("password") || "").length > 0 && (
                                         <>
                                             <Image
                                                 src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
@@ -153,10 +170,10 @@ const ResetPasswordPage = () => {
                                     maxLength={30}
                                     className="bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg"
                                     placeholder="Repeat new password"
-                                    onChange={(e) => setConfirmPass(e.target.value)}
+                                    {...register("confirmPass")}
                                 />
                                 {
-                                    confirmPass.length > 0 && (
+                                    (watch("confirmPass") || "").length > 0 && (
                                         <>
                                             <Image
                                                 src={showConfirmPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
@@ -177,6 +194,13 @@ const ResetPasswordPage = () => {
                                         </>
                                     )
                                 }
+                                {
+                                    errors.confirmPass && (
+                                        <span className="text-red-500 text-sm md:text-base lg:text-lg">
+                                            {errors.confirmPass.message}
+                                        </span>
+                                    )
+                                }
                             </div>
 
                             {/* Submit Button */}
@@ -184,7 +208,7 @@ const ResetPasswordPage = () => {
                                 type="submit"
                                 text="Reset Password"
                                 color="yellow"
-                                containerClassName="w-full cursor-pointer flex text-nowrap"
+                                containerClassName="w-full cursor-pointer flex text-nowrap !mt-4"
                                 loading={loading}
                             />
                         </form>

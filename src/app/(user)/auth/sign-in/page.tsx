@@ -8,28 +8,41 @@ import React, { useState } from 'react'
 import { signIn, getSession } from "next-auth/react"
 import { toast } from 'sonner'
 import CustomButton from '@/components/CustomButton'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form'
+
+const schema = yup.object({
+  email: yup.string().email("Invalid email format").required('Email is required'),
+  password: yup.string().min(8, "Password must be at least 8 characters").required('Password is required'),
+}).required();
+
+type SignInFormData = {
+  email: string;
+  password: string;
+};
 
 const SignIn = () => {
-  const [email, setEmail] = useState("")
   const [loading, setLoading] = useState<boolean>(false)
   const [showPass, setShowPass] = useState<boolean>(false)
-  const [password, setPassword] = useState("")
   const router = useRouter()
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch
+  } = useForm<SignInFormData>({
+    resolver: yupResolver(schema),
+  });
 
-    if (!email || !password) {
-      toast.error("Please enter email and password")
-      setLoading(false)
-      return
-    }
+  const handleLogin = async (data: SignInFormData) => {
+    setLoading(true)
 
     const res = await signIn("credentials", {
       redirect: false,
-      email,
-      password,
+      email: data.email,
+      password: data.password,
     })
 
     if (res?.error) {
@@ -53,6 +66,8 @@ const SignIn = () => {
     <div className="w-full flex items-center flex-col lg:flex-row">
       <div className="w-full !min-h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
         <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 flex flex-col gap-8 rounded-lg">
+
+          {/* HEADER */}
           <div className="flex flex-col justify-start items-start gap-1">
             <Image
               src={imagesAddresses.images.logo}
@@ -76,65 +91,88 @@ const SignIn = () => {
             </p>
           </div>
 
-          <form className="w-full flex flex-col gap-3 text-white dark:text-gray-900">
+          <form
+            className="w-full flex flex-col gap-4 text-white dark:text-gray-900"
+            onSubmit={handleSubmit(handleLogin)}
+          >
+            {/* Email */}
             <div className="flex flex-col gap-1">
-              <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
+              <label className="text-sm md:text-base lg:text-lg">Email</label>
+
               <input
-                id="email"
-                className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                {...register("email")}
+                className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 
+                p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg
+                ${errors.email ? "border border-red-500" : ""}`}
                 type="email"
                 placeholder="Enter your email"
-                onChange={(e) => setEmail(e.target.value)}
               />
+
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.email.message?.toString()}
+                </p>
+              )}
             </div>
 
+            {/* Password */}
             <div className="flex flex-col gap-1 relative">
-              <label htmlFor="password" className="text-sm md:text-base lg:text-lg">Password</label>
+              <label className="text-sm md:text-base lg:text-lg">Password</label>
+
               <input
-                id="password"
-                maxLength={8}
-                className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg"
+                {...register("password")}
+                className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 
+                p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg
+                ${errors.password ? "border border-red-500" : ""}`}
                 type={showPass ? "text" : "password"}
                 placeholder="At least 8 characters long"
-                onChange={(e) => setPassword(e.target.value)}
+                maxLength={20}
               />
-              {password.length > 0 &&
-                <>
-                  <Image
-                    src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
-                    alt="eye"
-                    width={20}
-                    height={20}
-                    className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden`}
-                    onClick={() => setShowPass(!showPass)}
-                  />
-                  <Image
-                    src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
-                    alt="eye"
-                    width={20}
-                    height={20}
-                    className={`absolute top-8 md:top-12 right-3 cursor-pointer dark:hidden`}
-                    onClick={() => setShowPass(!showPass)}
-                  />
-                </>
+              {
+                watch("password")?.length > 0 && (
+                  <>
+                    <Image
+                      src={showPass ? imagesAddresses.icons.blindBlack : imagesAddresses.icons.eyeBlack}
+                      alt="eye"
+                      width={20}
+                      height={20}
+                      className="absolute top-8 md:top-12 right-3 cursor-pointer dark:block hidden"
+                      onClick={() => setShowPass(!showPass)}
+                    />
+                    <Image
+                      src={showPass ? imagesAddresses.icons.blind : imagesAddresses.icons.eyeWhite}
+                      alt="eye"
+                      width={20}
+                      height={20}
+                      className="absolute top-8 md:top-12 right-3 cursor-pointer dark:hidden"
+                      onClick={() => setShowPass(!showPass)}
+                    />
+                  </>
+                )
               }
+
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.password.message?.toString()}
+                </p>
+              )}
 
               <p
                 className='self-end text-xs md:text-sm text-gold100 dark:text-gold700 cursor-pointer'
-                onClick={() => { router.push(SiteUrls.forgetPass) }}
+                onClick={() => router.push(SiteUrls.forgetPass)}
               >
                 forget your password ?
               </p>
             </div>
-          </form>
 
-          <CustomButton
-            text="Login"
-            color="yellow"
-            containerClassName="w-full cursor-pointer flex text-nowrap"
-            loading={loading}
-            onClick={handleLogin}
-          />
+            <CustomButton
+              text="Login"
+              color="yellow"
+              containerClassName="w-full cursor-pointer flex text-nowrap mt-3"
+              loading={loading}
+              type="submit"
+            />
+          </form>
 
           <div className="text-white dark:text-gray-900 text-[12px] md:text-sm font-normal self-center">
             Don’t have an account already?{" "}
