@@ -157,7 +157,10 @@ const Header = () => {
                     width={25}
                     height={25}
                     className="cursor-pointer"
-                    onClick={toggleTheme}
+                    onClick={() =>{
+                      toggleTheme();
+                      setIsMenuOpen(false);
+                    }}
                     title="change theme"
                   />
                   <Image
@@ -166,7 +169,10 @@ const Header = () => {
                     width={20}
                     height={20}
                     className="cursor-pointer"
-                    onClick={() => setShowLogoutModal(true)}
+                    onClick={() => {
+                      setShowLogoutModal(true);
+                      setIsMenuOpen(false);
+                    }}
                     title="logout"
                   />
                 </div>
