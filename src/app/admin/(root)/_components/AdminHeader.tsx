@@ -77,7 +77,7 @@ const AdminHeader = () => {
                         >
                             {/* Overlay */}
                             <motion.div
-                                className="absolute inset-0 bg-black/40 dark:bg-gray-600/40"
+                                className="absolute inset-0 bg-black/40 dark:bg-gray-600/40 cursor-pointer"
                                 onClick={() => setIsOpenSidebar(false)}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
