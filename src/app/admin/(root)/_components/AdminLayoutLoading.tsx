@@ -18,7 +18,7 @@ const AdminLayoutLoading = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 w-full h-full flex flex-col items-center justify-center md:left-36">
+        <div className="fixed inset-0 w-full h-full flex flex-col items-center justify-center md:left-36 dark:bg-black/95">
             {isClient ? (
                 <Lottie
                     animationData={animationData}
@@ -32,7 +32,7 @@ const AdminLayoutLoading = () => {
                     className="w-[100px] sm:w-[200px]"
                 />
             )}
-            <p className={`sm:!ml-12  text-sm md:text-lg`}>Loading...</p>
+            <p className="sm:!ml-12  text-sm md:text-lg dark:text-white">Loading...</p>
         </div>
     );
 };
