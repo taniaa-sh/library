@@ -35,6 +35,18 @@ const Header = () => {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
     const handlePopState = () => {
       if (isMenuOpen) {
         setIsMenuOpen(false);
@@ -119,22 +131,27 @@ const Header = () => {
         </div>
 
         {/* mobile menu */}
+        {/* mobile menu */}
+        {/* mobile menu */}
         <AnimatePresence>
           {isMenuOpen && (
             <>
+              {/* overlay */}
               <motion.div
-                className="fixed md:hidden inset-0 bg-gray-600/60 z-40 cursor-pointer top-20"
+                className="fixed md:hidden inset-0 bg-gray-900/60 dark:bg-gray-300/60 backdrop-blur-sm z-40 cursor-pointer top-20"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsMenuOpen(false)}
               />
+
+              {/* mobile nav */}
               <motion.nav
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -20, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.97 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="absolute top-full border-t border-gray-300 left-0 w-full bg-gray-900 dark:bg-gray-50 flex flex-col items-center py-4 gap-4 md:hidden shadow-lg z-50"
+                className="absolute top-full border-t border-gray-700 dark:border-gray-500 left-0 w-full bg-gradient-to-b from-gray-900/95 dark:from-gray-400 to-gray-800/90 dark:to-gray-50 flex flex-col items-center py-6 gap-5 md:hidden shadow-2xl rounded-b-3xl z-50"
               >
                 {menuItems.map((item) => (
                   <Link
@@ -150,14 +167,14 @@ const Header = () => {
                   </Link>
                 ))}
 
-                <div className="flex gap-4 mt-3">
+                <div className="flex gap-5 mt-4">
                   <Image
                     src={isDark ? imagesAddresses.icons.darkLightMode : imagesAddresses.icons.darkLightMode2}
                     alt="theme"
                     width={25}
                     height={25}
                     className="cursor-pointer"
-                    onClick={() =>{
+                    onClick={() => {
                       toggleTheme();
                       setIsMenuOpen(false);
                     }}
@@ -180,7 +197,6 @@ const Header = () => {
             </>
           )}
         </AnimatePresence>
-
       </header>
     </>
   );
