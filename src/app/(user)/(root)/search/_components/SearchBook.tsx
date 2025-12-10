@@ -88,24 +88,53 @@ const SearchBook = ({ data }: PropsType) => {
         <div className="w-full flex flex-col gap-12">
             <div className="mt-10 flex flex-col items-center gap-8 px-4 md:px-10">
                 {/* Header */}
-                <div>
-                    <p className="text-[18px] md:text-[20px] font-semibold leading-7 text-light-100 dark:text-gray-700 text-center pt-20">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="text-[18px] md:text-[20px] font-semibold leading-7 text-light-100 dark:text-gray-700 text-center pt-20"
+                    >
                         Discover Your Next Great Read:
-                    </p>
-                    <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900 text-center">
+                    </motion.p>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900 text-center"
+                    >
                         Explore and Search for
-                    </p>
-                    <p className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900  text-center">
+                    </motion.p>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        className="text-[32px] md:text-[56px] font-semibold leading-snug text-white dark:text-gray-900  text-center"
+                    >
                         <span className="text-gold100 dark:text-gold600">Any Book </span> In Our Library
-                    </p>
-                </div>
+                    </motion.p>
+                </motion.div>
 
                 {/* Search Box */}
                 <div className="w-full max-w-[600px] flex flex-col sm:flex-row items-center gap-4 mt-8">
                     <div className="w-full max-w-[600px] flex flex-col">
-                        <div className="relative">
-                            <div className="flex  gap-2 items-center">
-                                <input
+                        <motion.div
+                            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            className="relative w-full"
+                        >
+                            <div className="flex gap-2 items-center">
+                                <motion.input
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.4 }}
                                     className="w-full sm:flex-1 bg-dark-300 dark:bg-white dark:text-gray-900 py-3 px-10 sm:py-4 sm:px-12 rounded-lg placeholder-gray-400 text-light-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
                                     type="text"
                                     placeholder="Search for a book"
@@ -125,23 +154,38 @@ const SearchBook = ({ data }: PropsType) => {
                                         if (e.key === "Enter") handleSearch(search)
                                     }}
                                 />
-                                <CustomButton
-                                    text="Search"
-                                    color="yellow"
-                                    containerClassName="!w-fit h-12 cursor-pointer"
-                                    loading={loading}
-                                    onClick={() => handleSearch(search)}
-                                />
+
+                                <motion.div
+                                    initial={{ opacity: 0, x: 10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                >
+                                    <CustomButton
+                                        text="Search"
+                                        color="yellow"
+                                        containerClassName="!w-fit h-12 cursor-pointer"
+                                        loading={loading}
+                                        onClick={() => handleSearch(search)}
+                                    />
+                                </motion.div>
                             </div>
-                            <Image
-                                src={imagesAddresses.icons.serach}
-                                alt="Search Icon"
-                                width={25}
-                                height={25}
-                                className="absolute top-3 md:top-4 left-2 cursor-pointer z-50"
+
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                                className="absolute top-3 md:top-4 left-2 z-50 cursor-pointer"
                                 onClick={() => handleSearch(search)}
-                            />
-                        </div>
+                            >
+                                <Image
+                                    src={imagesAddresses.icons.serach}
+                                    alt="Search Icon"
+                                    width={25}
+                                    height={25}
+                                />
+                            </motion.div>
+                        </motion.div>
+
 
                         <AnimatePresence>
                             {bookList && search.length > 0 && filterBooks.length > 0 && !showNoResult && (
