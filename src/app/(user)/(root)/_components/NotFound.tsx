@@ -111,7 +111,7 @@ export default function RootNotFound() {
                     <CustomButton
                         onClick={() => window.location.href = "/"}
                         text="Back to Home"
-                        color="white"
+                        color="yellow"
                         containerClassName="w-full md:!w-fit cursor-pointer"
                     />
                 </div>
