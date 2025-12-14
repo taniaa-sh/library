@@ -71,9 +71,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-full flex items-center flex-col lg:flex-row overflow-y-hidden">
+    <div className="w-full flex items-center flex-col lg:flex-row">
       <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
-        <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 flex flex-col gap-8 rounded-lg">
+        <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-4 md:p-8 flex flex-col gap-8 rounded-lg">
 
           <form
             onSubmit={handleSubmit(handleSignUp)}
@@ -81,7 +81,7 @@ const SignUp = () => {
           >
             {/* Full Name */}
             <div className="flex flex-col gap-1">
-              <label className="text-sm md:text-base lg:text-lg">Full Name</label>
+              <label className="text-xs md:text-base lg:text-lg">Full Name</label>
               <input
                 {...register("fullName")}
                 className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg"
@@ -94,7 +94,7 @@ const SignUp = () => {
 
             {/* Email */}
             <div className="flex flex-col gap-1">
-              <label className="text-sm md:text-base lg:text-lg">Email</label>
+              <label className="text-xs md:text-base lg:text-lg">Email</label>
               <input
                 {...register("email")}
                 className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg"
@@ -106,7 +106,7 @@ const SignUp = () => {
 
             {/* University ID */}
             <div className="flex flex-col gap-1 relative">
-              <label className="text-sm md:text-base lg:text-lg">University ID</label>
+              <label className="text-xs md:text-base lg:text-lg">University ID</label>
               <input
                 {...register("universityId")}
                 maxLength={11}
@@ -143,7 +143,7 @@ const SignUp = () => {
 
             {/* Password */}
             <div className="flex flex-col gap-1 relative">
-              <label className="text-sm md:text-base lg:text-lg">Password</label>
+              <label className="text-xs md:text-base lg:text-lg">Password</label>
               <input
                 {...register("password")}
                 className="w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg"
@@ -180,7 +180,7 @@ const SignUp = () => {
 
             {/* Upload */}
             <div className="flex flex-col gap-1">
-              <label className="text-sm md:text-base lg:text-lg">Upload University ID Card</label>
+              <label className="text-xs md:text-base lg:text-lg">Upload University ID Card</label>
               <DragAndDropUpload
                 type="image"
                 onChange={(file) => setValue('univercityIdImage', URL.createObjectURL(file as File))}
