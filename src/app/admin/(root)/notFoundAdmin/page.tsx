@@ -1,6 +1,6 @@
 "use client";
 
-import AdminNotFound from "../(root)/components/AdminNotFound";
+import AdminNotFound from "../_components/AdminNotFound";
 
 export default function notFoundAdmin() {
 
