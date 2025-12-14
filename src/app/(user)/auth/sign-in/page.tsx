@@ -4,9 +4,7 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
-import { signIn, getSession } from "next-auth/react"
-import { toast } from 'sonner'
+import  { useState } from 'react'
 import CustomButton from '@/components/CustomButton'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -38,26 +36,6 @@ const SignIn = () => {
 
   const handleLogin = async (data: SignInFormData) => {
     setLoading(true)
-
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-    })
-
-    if (res?.error) {
-      toast.error("Invalid email or password")
-      setLoading(false)
-      return
-    }
-
-    const sessionData = await getSession()
-
-    if (sessionData?.user?.role === "admin") {
-      router.push(SiteUrls.admin)
-    } else {
-      router.push(SiteUrls.dashbord)
-    }
 
     setLoading(false)
   }

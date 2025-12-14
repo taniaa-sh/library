@@ -5,7 +5,6 @@ import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { signIn, getSession } from "next-auth/react"
 import { toast } from 'sonner'
 import CustomButton from '@/components/CustomButton'
 
@@ -25,27 +24,6 @@ const AdminSignIn = () => {
       setLoading(false)
       return
     }
-
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    })
-
-    if (res?.error) {
-      toast.error("Invalid email or password")
-      setLoading(false)
-      return
-    }
-
-    const sessionData = await getSession()
-
-    if (sessionData?.user?.role === "admin") {
-      router.push(SiteUrls.admin)
-    } else {
-      router.push(SiteUrls.dashbord)
-    }
-
     setLoading(false)
   }
 
