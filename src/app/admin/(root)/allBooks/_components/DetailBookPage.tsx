@@ -22,7 +22,7 @@ const DetailBookPage = () => {
     };
 
     return (
-        <div className="mx-auto flex flex-col gap-10  p-4 sm:p-6 mt-[110px] dark:bg-gray-900 w-full">
+        <div className="mx-auto flex flex-col gap-10  p-4 sm:p-6 mt-[90px] dark:bg-gray-900 w-full">
             <CustomButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeft}
