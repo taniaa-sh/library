@@ -19,7 +19,7 @@ const AdminPage = () => {
                 ].map((item, i) => (
                     <div
                         key={i}
-                        className="bg-white dark:bg-dark-900 w-full md:w-[356px] p-4 md:p-5 rounded-lg flex flex-col gap-3 md:gap-5"
+                        className="bg-white dark:bg-dark-900 w-full p-4 md:p-5 rounded-lg flex flex-col gap-3 md:gap-5"
                     >
                         <p className="font-medium text-sm sm:text-base text-dark-50 dark:text-gray-400">
                             {item.title}
@@ -38,7 +38,7 @@ const AdminPage = () => {
                     <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4 md:w-[540px]">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Borrow Requests</p>
-                            <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
+                            <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white cursor-pointer">View All</p>
                         </div>
                         <div className="flex flex-col gap-8">
                             <div className="p-2 rounded-lg flex gap-3 bg-light-300 dark:bg-dark-950">
@@ -126,7 +126,7 @@ const AdminPage = () => {
                     <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Account Requests</p>
-                            <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
+                            <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white cursor-pointer">View All</p>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                             <div className="flex flex-col items-center gap-2 bg-light-300 dark:bg-gray-900 !p-[14px]">
@@ -216,7 +216,7 @@ const AdminPage = () => {
                 <div className="w-full flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4">
                     <div className="flex justify-between items-center">
                         <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Recently Added Books</p>
-                        <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white">View All</p>
+                        <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white cursor-pointer">View All</p>
                     </div>
 
                     <div
