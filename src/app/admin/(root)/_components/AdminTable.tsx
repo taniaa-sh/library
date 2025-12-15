@@ -1,4 +1,5 @@
 "use client";
+import EmptyList from "@/components/EmptyList";
 import React from "react";
 
 export type Column<T> = {
@@ -18,51 +19,52 @@ function AdminTable<T>({ columns, data }: TableProps<T>) {
 
             {/* Desktop */}
             <div className="hidden md:block !max-w-[1440px] bg-white dark:bg-gray-800 overflow-x-auto rounded-lg">
-                <table className="border w-full border-gray-200 dark:border-gray-700">
-                    <thead className="bg-gray-100 dark:bg-gray-900">
-                        <tr>
-                            {columns.map((col, idx) => (
-                                <th
-                                    key={idx}
-                                    className="border-b border-gray-200 dark:border-gray-700 text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200"
-                                >
-                                    {col.label}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.length === 0 ? (
-                            <tr>
-                                <td colSpan={columns.length} className="text-center py-4 text-gray-400">
-                                    No data available
-                                </td>
-                            </tr>
-                        ) : (
-                            data.map((row, rowIndex) => (<
-                                tr
-                                key={rowIndex}
-                                className="hover:bg-gray-50 dark:hover:bg-gray-700"
-                            >
-                                {columns.map((col, colIndex) => (
-                                    <td
-                                        key={colIndex}
-                                        className="border-b border-gray-200 dark:border-gray-700 px-4 py-3 text-sm text-gray-600 dark:text-gray-300"
+                {
+                    data.length === 0 ? (
+                        <EmptyList />
+                    ) : (
+                        <table className="border w-full border-gray-200 dark:border-gray-700">
+                            <thead className="bg-gray-100 dark:bg-gray-900">
+                                <tr>
+                                    {columns.map((col, idx) => (
+                                        <th
+                                            key={idx}
+                                            className="border-b border-gray-200 dark:border-gray-700 text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200"
+                                        >
+                                            {col.label}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.map((row, rowIndex) => (<
+                                        tr
+                                        key={rowIndex}
+                                        className="hover:bg-gray-50 dark:hover:bg-gray-700"
                                     >
-                                        {col.render ? col.render(row) : String(row[col.key])}
-                                    </td>
-                                ))}
-                            </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                                        {columns.map((col, colIndex) => (
+                                            <td
+                                                key={colIndex}
+                                                className="border-b border-gray-200 dark:border-gray-700 px-4 py-3 text-sm text-gray-600 dark:text-gray-300"
+                                            >
+                                                {col.render ? col.render(row) : String(row[col.key])}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    )
+                }
+
             </div>
 
             {/* Mobile */}
             <div className="md:hidden flex flex-col gap-4">
                 {data.length === 0 ? (
-                    <div className="text-center text-gray-400 text-sm sm:text-base">No data available</div>
+                    <EmptyList />
                 ) : (
                     data.map((row, idx) => (
                         <div
