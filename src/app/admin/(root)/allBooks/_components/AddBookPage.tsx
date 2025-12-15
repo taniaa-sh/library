@@ -26,6 +26,7 @@ const schema = yup.object({
 }).required();
 
 const AddBookPage = () => {
+
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
@@ -192,7 +193,7 @@ const AddBookPage = () => {
                         value={color}
                         onClick={() => setShowPicker(!showPicker)}
                         readOnly
-                        className="w-full border rounded-lg p-3  pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base cursor-pointer"
+                        className="w-full border rounded-lg p-3 pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base cursor-pointer"
                         placeholder="Enter the primary color"
                         animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
@@ -200,7 +201,7 @@ const AddBookPage = () => {
                     />
                     <div
                         style={{ backgroundColor: color }}
-                        className="absolute top-1/2 left-3 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300 cursor-pointer"
+                        className="absolute top-[34px] md:!top-[42px] left-3 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300 cursor-pointer"
                         onClick={() => setShowPicker(!showPicker)}
                     />
                     {errors.bookPrimaryColor && (
