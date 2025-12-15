@@ -27,6 +27,7 @@ const imagesAddresses = {
     save: "/icons/save.svg",
     saveWhite: "/icons/saveWhite.svg",
     serach: "/icons/search.svg",
+    searchLight: "/icons/searchLight.svg",
     eyeWhite: "/icons/eyeWhite.svg",
     eyeBlack: "/icons/eyeBlack.svg",
     blind: "/icons/blind.svg",

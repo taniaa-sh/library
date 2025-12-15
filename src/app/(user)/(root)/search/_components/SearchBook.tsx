@@ -182,6 +182,14 @@ const SearchBook = ({ data }: PropsType) => {
                                     alt="Search Icon"
                                     width={25}
                                     height={25}
+                                    className="cursor-pointer dark:hidden"
+                                />
+                                <Image
+                                    src={imagesAddresses.icons.searchLight}
+                                    alt="Search Icon"
+                                    width={25}
+                                    height={25}
+                                    className="cursor-pointer hidden dark:block"
                                 />
                             </motion.div>
                         </motion.div>
