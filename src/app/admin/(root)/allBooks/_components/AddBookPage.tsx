@@ -187,14 +187,10 @@ const AddBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Primary Color
                     </label>
-                    <motion.input
+                    <motion.div
                         {...register('bookPrimaryColor')}
-                        type="text"
-                        value={color}
                         onClick={() => setShowPicker(!showPicker)}
-                        readOnly
                         className="w-full border rounded-lg p-3 pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base cursor-pointer"
-                        placeholder="Enter the primary color"
                         animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
                         transition={{ duration: 0.4 }}
