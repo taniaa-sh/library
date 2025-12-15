@@ -8,8 +8,7 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
-import { ChromePicker, ColorResult } from 'react-color';
-import imagesAddresses from '@/utils/imageAddresses';
+import { ChromePicker } from 'react-color';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import CustomButton from '@/components/CustomButton';
@@ -29,6 +28,7 @@ const AddBookPage = () => {
 
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
+    const [tempColor, setTempColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
     const router = useRouter();
 
@@ -67,15 +67,10 @@ const AddBookPage = () => {
         }
     }, [errors]);
 
-    const handleColorChange = (newColor: ColorResult) => {
-        setColor(newColor.hex);
-        setShowPicker(false);
-    };
-
     return (
-        <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg mt-[90px] dark:bg-dark-500">
+        <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg dark:bg-dark-500">
             <Toaster />
-            <CustomButton
+            {/* <CustomButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeft}
                 iconPosition="right"
@@ -90,7 +85,7 @@ const AddBookPage = () => {
                 color="white"
                 containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
                 onClick={() => router.back()}
-            />
+            /> */}
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:gap-6">
                 {/* Title */}
@@ -194,16 +189,42 @@ const AddBookPage = () => {
                         animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
                         transition={{ duration: 0.4 }}
-                    />
-                    <div
-                        style={{ backgroundColor: color }}
-                        className="absolute top-[34px] md:!top-[42px] left-3 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300 cursor-pointer"
-                        onClick={() => setShowPicker(!showPicker)}
-                    />
+                    >
+                        <div className='flex gap-2'>
+                            <div
+                                style={{ backgroundColor: color }}
+                                className="absolute top-[34px] md:!top-[42px] left-3 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300 cursor-pointer"
+                                onClick={() => setShowPicker(!showPicker)}
+                            />
+                            {
+                                color ? (
+                                    <p className="text-sm sm:text-base">{color}</p>
+                                ) : (
+                                    <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">Select a color</p>
+                                )
+                            }
+                        </div>
+                    </motion.div>
                     {errors.bookPrimaryColor && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookPrimaryColor.message}</p>
                     )}
-                    {showPicker && <ChromePicker color={color} onChange={handleColorChange} disableAlpha />}
+                    {showPicker && (
+                        <div className="absolute z-50 mt-2">
+                            <ChromePicker
+                                color={tempColor || color}
+                                disableAlpha
+                                onChange={(c) => {
+                                    setTempColor(c.hex);
+                                }}
+                                onChangeComplete={(c) => {
+                                    setColor(c.hex);
+                                    setTempColor('');
+                                    setValue('bookPrimaryColor', c.hex);
+                                    setShowPicker(false);
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 {/* Book Video */}
