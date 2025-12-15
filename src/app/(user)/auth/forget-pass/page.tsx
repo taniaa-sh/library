@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from "react"
 import { toast } from "sonner"
@@ -59,85 +59,72 @@ const ForgotPasswordPage = () => {
 
     return (
         <div className="w-full flex items-center flex-col lg:flex-row">
-            <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
-                <div className="flex items-center justify-center">
-                    <div className="bg-gray-900 dark:bg-gray-50 p-6 md:p-8 rounded-xl w-full max-w-md text-white dark:text-black flex flex-col gap-4">
+            <div className="w-full !min-h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
+                <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 flex flex-col gap-6 rounded-lg">
 
-                        <div className="flex justify-between">
-                            <div>
-                                <Image
-                                    src={imagesAddresses.images.logo}
-                                    alt="logo"
-                                    width={120}
-                                    height={120}
-                                    className="lg:mx-0 dark:hidden"
-                                />
-                                <Image
-                                    src={imagesAddresses.icons.FrameWhite}
-                                    alt="logo"
-                                    width={120}
-                                    height={120}
-                                    className="lg:mx-0 hidden dark:block"
-                                />
-                            </div>
-
-                            <div>
-                                <Image
-                                    src={imagesAddresses.icons.arrowRightYellow2}
-                                    alt="logo"
-                                    width={25}
-                                    height={20}
-                                    className="cursor-pointer dark:hidden"
-                                    onClick={() => router.back()}
-                                />
-                                <Image
-                                    src={imagesAddresses.icons.arrowRightYellow}
-                                    alt="logo"
-                                    width={25}
-                                    height={20}
-                                    className="cursor-pointer hidden dark:flex"
-                                    onClick={() => router.back()}
-                                />
-                            </div>
-                        </div>
-
-                        <h1 className="text-2xl font-bold text-start !mt-2">Forgot Password</h1>
-                        <p className="text-gray-400 text-start text-sm !-mt-2">
+                    {/* HEADER */}
+                    <div className="flex flex-col justify-start items-start gap-1">
+                        <Image
+                            src={imagesAddresses.images.logo}
+                            alt="logo"
+                            width={120}
+                            height={120}
+                            className="lg:mx-0 dark:hidden"
+                        />
+                        <Image
+                            src={imagesAddresses.icons.FrameWhite}
+                            alt="logo"
+                            width={120}
+                            height={120}
+                            className="lg:mx-0 hidden dark:block"
+                        />
+                        <h1 className="text-xl md:text-2xl font-bold text-white dark:text-black !mt-5">
+                            Forgot Password
+                        </h1>
+                        <p className="text-gray-400 dark:text-gray-600 text-sm md:text-base font-normal -mt-1">
                             Enter your email and we will send you a reset link.
                         </p>
+                    </div>
 
-                        <form
-                            className="flex flex-col gap-3 md:gap-4 lg:gap-5 mt-4"
-                            onSubmit={handleSubmit(onSubmit)}
-                        >
-                            <div className="flex flex-col gap-1">
-                                <label htmlFor="email" className="text-sm md:text-base lg:text-lg">
-                                    Email
-                                </label>
-
-                                <input
-                                    id="email"
-                                    type="email"
-                                    className="bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 rounded-lg text-white dark:text-black text-sm md:text-base lg:text-lg"
-                                    placeholder="your@email.com"
-                                    {...register("email")}
-                                />
-
-                                {errors.email && (
-                                    <span className="text-red-500 text-xs">
-                                        {errors.email.message}
-                                    </span>
-                                )}
-                            </div>
-
-                            <CustomButton
-                                type="submit"
-                                text="Send Reset Link"
-                                color="yellow"
-                                containerClassName="w-full cursor-pointer flex text-nowrap !mt-4"
-                                loading={loading}
+                    {/* FORM */}
+                    <form
+                        className="w-full flex flex-col gap-4 text-white dark:text-gray-900"
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm md:text-base lg:text-lg">Email</label>
+                            <input
+                                {...register("email")}
+                                className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 
+                                p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg
+                                ${errors.email ? "border border-red-500" : ""}`}
+                                type="email"
+                                placeholder="Enter your email"
                             />
-                        </form>
+                            {errors.email && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.email.message?.toString()}
+                                </p>
+                            )}
+                        </div>
+
+                        <CustomButton
+                            type="submit"
+                            text="Send Reset Link"
+                            color="yellow"
+                            containerClassName="w-full cursor-pointer flex text-nowrap mt-3"
+                            loading={loading}
+                        />
+                    </form>
+
+                    <div className="text-white dark:text-gray-900 text-[12px] md:text-sm font-normal self-center">
+                        Remember your password?{" "}
+                        <span
+                            className="text-gold100 dark:text-gold700 text-sm font-normal cursor-pointer"
+                            onClick={() => router.push(SiteUrls.signIn)}
+                        >
+                            Login here
+                        </span>
                     </div>
                 </div>
             </div>
@@ -147,6 +134,8 @@ const ForgotPasswordPage = () => {
                     src={imagesAddresses.images.loginPic}
                     alt="logo"
                     fill
+                    className="object-cover rounded-lg"
+                    priority
                 />
             </div>
         </div>
