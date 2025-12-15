@@ -138,7 +138,7 @@ const Header = () => {
             <>
               {/* overlay */}
               <motion.div
-                className="fixed md:hidden inset-0 bg-gray-900/60 dark:bg-gray-300/60 backdrop-blur-sm z-40 cursor-pointer top-20"
+                className="fixed md:hidden inset-0 bg-gray-900/60 dark:bg-gray-500/60 backdrop-blur-sm z-40 cursor-pointer top-20"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
