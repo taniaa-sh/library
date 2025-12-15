@@ -138,7 +138,7 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                         </div>
                     </div>
                 )}
-                <div className="flex gap-3 mt-14 self-start">
+                <div className="flex gap-3 mt-14 self-end">
                     <CustomButton
                         containerClassName="cursor-pointer"
                         color="yellow"
