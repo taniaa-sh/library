@@ -52,7 +52,7 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                             alt="book"
                             width={200}
                             height={200}
-                            className="transition-all duration-500 hover:scale-105 mx-auto w-[240px] h-[240px] md:w-[300px] md:h-[300px]"
+                            className="transition-all duration-500 hover:scale-105 mx-auto w-60 h-60 md:w-75 md:h-75"
                         />
 
                         <motion.div
@@ -72,7 +72,7 @@ const ReadPdfComponent = ({ pdfUrl }: { pdfUrl: string }) => {
                                 backdrop-blur-md bg-white/10 
                                 shadow-lg shadow-purple-500/40
                                 absolute md:top-15 md:left-25 md:-translate-x-1/2
-                                top-6 left-17 -translate-x-1/2 mt-2 md:mt-0
+                                top-6 left-14 -translate-x-1/2 mt-2 md:mt-0
                             "
                         >
                             <motion.p whileHover={{ scale: 1.1 }}>Click</motion.p>
