@@ -44,7 +44,7 @@ const BorrowReqClient = ({ data }: Props) => {
             key: 'receipt',
             label: 'Receipt',
             render: () => (
-                <div className='flex gap-2 !p-2 rounded-lg bg-light-300'>
+                <div className='flex gap-2 !p-2 rounded-lg bg-light-300 dark:bg-dark-900'>
                     <Image
                         src={imagesAddresses.icons.receipt}
                         alt="Avatar"
