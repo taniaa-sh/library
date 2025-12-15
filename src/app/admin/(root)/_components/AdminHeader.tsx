@@ -54,7 +54,7 @@ const AdminHeader = () => {
                     alt="logo"
                     width={24}
                     height={24}
-                    className="md:hidden cursor-pointer dark:hidden"
+                    className="lg:hidden cursor-pointer dark:hidden"
                     onClick={() => setIsOpenSidebar(!isOpenSidebar)}
                 />
                 <Image
@@ -62,14 +62,14 @@ const AdminHeader = () => {
                     alt="logo"
                     width={24}
                     height={24}
-                    className="md:hidden cursor-pointer hidden dark:block md:dark:hidden"
+                    className="lg:hidden cursor-pointer hidden dark:block lg:dark:hidden"
                     onClick={() => setIsOpenSidebar(!isOpenSidebar)}
                 />
                 <AnimatePresence>
                     {isOpenSidebar && (
                         <motion.div
                             key="overlay"
-                            className="md:hidden flex fixed top-20 items-center justify-center inset-0 w-full h-full z-50"
+                            className="lg:hidden flex fixed top-20 items-center justify-center inset-0 w-full h-full z-50"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -88,7 +88,7 @@ const AdminHeader = () => {
                             {/* Sidebar */}
                             <motion.div
                                 key="sidebar"
-                                className="fixed lg:hidden top-[81px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white dark:bg-dark-500 shadow-2xl"
+                                className="fixed xl:hidden top-[81px] left-0 p-5 flex flex-col gap-2 w-[280px] h-screen z-50 bg-white dark:bg-dark-500 shadow-2xl"
                                 initial={{ x: "-100%" }}
                                 animate={{ x: 0 }}
                                 exit={{ x: "-100%" }}
@@ -156,17 +156,17 @@ const AdminHeader = () => {
 
             {/* TEXT SECTION */}
             <div className="flex flex-col gap-[6px]">
-                <p className="font-semibold text-lg md:text-2xl text-dark-500 dark:text-white">
+                <p className="font-semibold text-lg lg:text-2xl text-dark-500 dark:text-white">
                     Welcome, Adrian
                 </p>
-                <p className="font-normal text-xs md:text-base text-slate-500 dark:text-slate-300">
-                    Monitor all of your projects and tasks here
+                <p className="font-normal text-xs lg:text-base text-slate-500 dark:text-slate-300">
+                    Monitor all of your projects here
                 </p>
             </div>
 
             {/* SEARCH INPUT */}
             <input
-                className="hidden md:block p-3 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-400 text-black dark:text-white sm:w-[400px] w-full transition-all"
+                className="hidden lg:block p-3 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-400 text-black dark:text-white sm:w-[400px] w-full transition-all"
                 type="text"
                 placeholder="Search users, books by title, author, or genre."
                 onChange={() => { }}

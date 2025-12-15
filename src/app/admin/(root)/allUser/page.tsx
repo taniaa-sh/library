@@ -112,7 +112,7 @@ const fetchUsers = async () => {
             avatar: imagesAddresses.images.avatar3,
             email: 'sara@university',
         },
-                {
+        {
             id: '9',
             name: 'Sara',
             dateJoined: 'Jan 05 2024',
@@ -124,7 +124,7 @@ const fetchUsers = async () => {
             avatar: imagesAddresses.images.avatar3,
             email: 'sara@university',
         },
-                {
+        {
             id: '9',
             name: 'Sara',
             dateJoined: 'Jan 05 2024',
@@ -136,7 +136,7 @@ const fetchUsers = async () => {
             avatar: imagesAddresses.images.avatar3,
             email: 'sara@university',
         },
-                {
+        {
             id: '9',
             name: 'Sara',
             dateJoined: 'Jan 05 2024',
@@ -148,7 +148,7 @@ const fetchUsers = async () => {
             avatar: imagesAddresses.images.avatar3,
             email: 'sara@university',
         },
-                {
+        {
             id: '9',
             name: 'Sara',
             dateJoined: 'Jan 05 2024',
@@ -167,9 +167,9 @@ const AllUsersPage = async () => {
     const data = await fetchUsers();
 
     return (
-      <div className="bg-light-300 dark:bg-dark-900 px-8 py-10 !mt-[70px] w-full min-h-dvh">
+        <div className="bg-light-300 dark:bg-dark-900 px-8 py-10 !mt-[70px] w-full min-h-dvh">
             <div className="flex flex-col gap-6 bg-white dark:bg-dark-900 py-6 px-5 rounded-lg min-h-dvh">
-                  <p className="font-medium text-md md:text-xl dark:text-white">All Users</p>
+                <p className="font-medium text-md md:text-xl dark:text-white">All Users</p>
                 <UserTableClient data={data} />
             </div>
         </div>
