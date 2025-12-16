@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler, useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -30,8 +30,8 @@ const EditBookPage = () => {
     const [color, setColor] = useState('');
     const [tempColor, setTempColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
-
     const [shakeTrigger, setShakeTrigger] = useState(0);
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const {
         register,
@@ -44,6 +44,15 @@ const EditBookPage = () => {
     } = useForm<BookFormInputs>({
         resolver: yupResolver(schema),
     });
+
+    useEffect(() => {
+        const el = textareaRef.current;
+        if (el) {
+            el.style.height = 'auto';
+            el.style.height = el.scrollHeight + 'px';
+        }
+    }, [watch('description')]);
+
 
     const onSubmit: SubmitHandler<BookFormInputs> = async (data) => {
         try {
@@ -263,18 +272,25 @@ const EditBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Summary
                     </label>
+
+
                     <motion.textarea
                         {...register('description')}
-                        rows={4}
-                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
+                        ref={textareaRef}
+                        rows={1}
+                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none overflow-hidden"
                         placeholder="Write a brief summary of the book"
                         animate={errors.description ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
                         transition={{ duration: 0.4 }}
+                        onChange={(e) => {
+                            const el = textareaRef.current;
+                            if (el) {
+                                el.style.height = 'auto';
+                                el.style.height = el.scrollHeight + 'px';
+                            }
+                        }}
                     ></motion.textarea>
-                    {errors.description && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.description.message}</p>
-                    )}
                 </div>
                 <CustomButton
                     text={loading ? 'Updating...' : 'Update Book'}
