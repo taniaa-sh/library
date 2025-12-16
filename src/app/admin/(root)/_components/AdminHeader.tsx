@@ -143,7 +143,7 @@ const AdminHeader = () => {
                                         width={24}
                                         height={24}
                                         className="cursor-pointer"
-                                        onClick={() => router.push(SiteUrls.logout)}
+                                        onClick={() => router.push(SiteUrls.adminLogin)}
                                     />
                                 </div>
                             </motion.div>

@@ -4,7 +4,7 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import CustomButton from '@/components/CustomButton'
 
@@ -26,6 +26,15 @@ const AdminSignIn = () => {
     }
     setLoading(false)
   }
+  useEffect(() => {
+    const theme = localStorage.getItem("themeAdmin");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row">

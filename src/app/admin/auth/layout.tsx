@@ -1,27 +1,11 @@
-export default function AuthLayout({
+export default function RootLayout({
     children,
-}: Readonly<{
+}: {
     children: React.ReactNode;
-}>) {
+}) {
     return (
-        <html lang="en">
-            <head>
-                <script
-                    dangerouslySetInnerHTML={{
-                        __html: `
-                            (function() {
-                                try {
-                                    const saved = localStorage.getItem('themeAdmin');
-                                        if (saved === 'dark') {
-                                        document.documentElement.classList.add('dark');
-                                    }
-                                } catch (_) {}
-                            })();
-                        `,
-                    }}
-                />
-            </head>
-            <body> {children} </body>
-        </html>
+            <div className="min-h-dvh bg-white dark:bg-[#0d1b3b] transition-colors">
+                {children}
+            </div>
     );
 }

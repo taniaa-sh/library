@@ -20,6 +20,7 @@ const SiteUrls = {
   adminBorrowReq: "/admin/borrowReq",
   adminAccountReq: "/admin/accountReq",
   adminNotFound: "/admin/notFoundAdmin",
+  adminLogin: "/admin/auth/adminLogin",
 };
 
 export default SiteUrls;
