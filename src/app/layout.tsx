@@ -3,7 +3,6 @@ import "./globals.css";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import BackgroundWrapper from "@/components/BackgroundWrapperProps ";
-import ReactQueryProvider from "./providers/ReactQueryProvider";
 
 const ibmPlexSans = localFont({
   src: [
@@ -58,12 +57,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
-        <ReactQueryProvider>
           <BackgroundWrapper>
             {children}
             <Toaster position="top-right" richColors />
           </BackgroundWrapper>
-        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -6,6 +6,8 @@ import AdminTable, { Column } from '../../_components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
 import DenyAccountModal from './DenyAccountModal';
 import ApproveReq from './ApproveReq';
+import { useRouter } from "next/navigation";
+import ReactPaginate from "react-paginate";
 
 type AcountReq = {
     name: string;
@@ -23,6 +25,13 @@ const AccountRwqTableClient = ({ data }: Props) => {
     const [acountReq, setAcountReq] = useState<AcountReq[]>(data);
     const [showApproveModal, setShowApproveModal] = useState(false);
     const [showDenyModal, setShowDenyModal] = useState(false);
+    const router = useRouter();
+    const totalPages = 10;
+
+    const handlePageClick = (selectedItem: { selected: number }) => {
+        const page = selectedItem.selected + 1;
+        router.push(`?page=${page}`);
+    };
 
     const columns: Column<AcountReq>[] = [
         { key: 'name', label: 'Name', },
@@ -78,6 +87,22 @@ const AccountRwqTableClient = ({ data }: Props) => {
                 )
             }
             <AdminTable columns={columns} data={acountReq} />
+            <div className="flex justify-center mt-7">
+                <ReactPaginate
+                    previousLabel={"previous"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    pageCount={totalPages}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={3}
+                    onPageChange={handlePageClick}
+                    containerClassName="flex space-x-2 cursor-pointer"
+                    pageClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer"
+                    activeClassName="bg-primary-admin text-white cursor-pointer"
+                    previousClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                    nextClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                />
+            </div>
         </>
     );
 };

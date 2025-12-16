@@ -6,6 +6,7 @@ import AdminTable, { Column } from '../../_components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
 import SiteUrls from '@/utils/routs';
 import { useRouter } from 'next/navigation';
+import ReactPaginate from 'react-paginate';
 
 type Book = {
     bookTitle: string;
@@ -22,6 +23,12 @@ interface Props {
 const AllBooksTableClient = ({ data }: Props) => {
     const [books, setBooks] = useState<Book[]>(data);
     const router = useRouter();
+    const totalPages = 10;
+
+    const handlePageClick = (selectedItem: { selected: number }) => {
+        const page = selectedItem.selected + 1;
+        router.push(`?page=${page}`);
+    };
 
     const columns: Column<Book>[] = [
         {
@@ -72,7 +79,27 @@ const AllBooksTableClient = ({ data }: Props) => {
         },
     ];
 
-    return <AdminTable columns={columns} data={books} />;
+    return (
+        <>
+            <AdminTable columns={columns} data={books} />
+            <div className="flex justify-center mt-7">
+                <ReactPaginate
+                    previousLabel={"previous"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    pageCount={totalPages}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={3}
+                    onPageChange={handlePageClick}
+                    containerClassName="flex space-x-2 cursor-pointer"
+                    pageClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer"
+                    activeClassName="bg-primary-admin text-white cursor-pointer"
+                    previousClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                    nextClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                />
+            </div>
+        </>
+    );
 };
 
 export default AllBooksTableClient;

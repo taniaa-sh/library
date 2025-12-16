@@ -8,6 +8,8 @@ import { Popover, Dialog, DialogTitle, DialogContent, DialogActions, useMediaQue
 import AdminTable, { Column } from '../../_components/AdminTable';
 import CustomStatus from '../../_components/CustomStatus';
 import CustomButton from '@/components/CustomButton';
+import ReactPaginate from 'react-paginate';
+import { useRouter } from 'next/navigation';
 
 type User = {
     name: string;
@@ -35,6 +37,13 @@ const UserTableClient = ({ data }: Props) => {
     const [confirmOpen, setConfirmOpen] = useState(false);
 
     const isMobile = useMediaQuery('(max-width:768px)');
+    const router = useRouter();
+    const totalPages = 10;
+
+    const handlePageClick = (selectedItem: { selected: number }) => {
+        const page = selectedItem.selected + 1;
+        router.push(`?page=${page}`);
+    };
 
     const handleClick = (event: React.MouseEvent<HTMLElement>, user: User) => {
         setAnchorEl(event.currentTarget);
@@ -131,6 +140,22 @@ const UserTableClient = ({ data }: Props) => {
     return (
         <>
             <AdminTable columns={columns} data={users} />
+            <div className="flex justify-center mt-7">
+                <ReactPaginate
+                    previousLabel={"previous"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    pageCount={totalPages}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={3}
+                    onPageChange={handlePageClick}
+                    containerClassName="flex space-x-2 cursor-pointer"
+                    pageClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer"
+                    activeClassName="bg-primary-admin text-white cursor-pointer"
+                    previousClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                    nextClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                />
+            </div>
             <Popover
                 open={open}
                 anchorEl={anchorEl}

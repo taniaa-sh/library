@@ -5,6 +5,8 @@ import { useState } from 'react';
 import AdminTable, { Column } from '../../_components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
 import CustomStatusBorrowReq from './CustomStatusBorrowReq';
+import ReactPaginate from 'react-paginate';
+import { useRouter } from 'next/navigation';
 
 type Borrow = {
     book: string;
@@ -22,6 +24,13 @@ interface Props {
 
 const BorrowReqClient = ({ data }: Props) => {
     const [borrowReq, setBorrowReq] = useState<Borrow[]>(data);
+    const router = useRouter();
+    const totalPages = 10;
+
+    const handlePageClick = (selectedItem: { selected: number }) => {
+        const page = selectedItem.selected + 1;
+        router.push(`?page=${page}`);
+    };
 
     const columns: Column<Borrow>[] = [
         { key: 'book', label: 'Book' },
@@ -58,7 +67,27 @@ const BorrowReqClient = ({ data }: Props) => {
         },
     ];
 
-    return <AdminTable columns={columns} data={borrowReq} />;
+    return (
+        <>
+            <AdminTable columns={columns} data={borrowReq} />;
+            <div className="flex justify-center mt-7">
+                <ReactPaginate
+                    previousLabel={"previous"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    pageCount={totalPages}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={3}
+                    onPageChange={handlePageClick}
+                    containerClassName="flex space-x-2 cursor-pointer"
+                    pageClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer"
+                    activeClassName="bg-primary-admin text-white cursor-pointer"
+                    previousClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                    nextClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                />
+            </div>
+        </>
+    )
 };
 
 export default BorrowReqClient;
