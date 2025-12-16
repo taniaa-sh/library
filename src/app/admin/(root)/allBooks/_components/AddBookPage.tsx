@@ -1,17 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
-import { ChromePicker } from 'react-color';
-import { useRouter } from 'next/navigation';
+import { ChromePicker } from 'react-color';;
 import { motion } from 'framer-motion';
 import CustomButton from '@/components/CustomButton';
+import CustomInputSelect from '@/components/CustomInputSelect';
 
 const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -30,7 +30,6 @@ const AddBookPage = () => {
     const [color, setColor] = useState('');
     const [tempColor, setTempColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
-    const router = useRouter();
 
     const [shakeTrigger, setShakeTrigger] = useState(0);
 
@@ -38,8 +37,10 @@ const AddBookPage = () => {
         register,
         handleSubmit,
         reset,
+        watch,
         formState: { errors },
         setValue,
+        trigger,
     } = useForm<BookFormInputs>({
         resolver: yupResolver(schema),
     });
@@ -131,15 +132,24 @@ const AddBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Genre
                     </label>
-                    <motion.input
-                        {...register('genre')}
-                        type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
-                        placeholder="Enter the genre of the book"
+                    <motion.div
                         animate={errors.genre ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
                         transition={{ duration: 0.4 }}
-                    />
+                    >
+                        <CustomInputSelect
+                            name="genre"
+                            placeholder="Select a genre"
+                            Values={["Fiction", "Non-fiction", "Science", "Biography"]}
+                            value={watch("genre")}
+                            onChange={(val: string | number) => {
+                                setValue("genre", String(val));
+                                trigger("genre");
+                            }}
+                            errors={errors.genre?.message ? [errors.genre.message] : []}
+                            containerClassName="w-full"
+                        />
+                    </motion.div>
                     {errors.genre && (
                         <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.genre.message}</p>
                     )}
