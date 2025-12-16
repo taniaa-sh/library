@@ -192,50 +192,58 @@ const AddBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Primary Color
                     </label>
-                    <motion.div
+
+                    <motion.input
+                        type="text"
                         {...register('bookPrimaryColor')}
-                        onClick={() => setShowPicker(!showPicker)}
-                        className="w-full border rounded-lg p-3 pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base cursor-pointer"
+                        value={color}
+                        readOnly
+                        onFocus={() => setShowPicker(true)}
                         animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                         key={shakeTrigger}
                         transition={{ duration: 0.4 }}
+                        className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div
+                        onClick={() => document.getElementById('bookPrimaryColorInput')?.focus()}
+                        className={`
+            w-full border rounded-lg p-3 pl-4
+            bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer
+            ${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'}
+        `}
                     >
-                        <div className='flex gap-2'>
+                        <div className='flex items-center gap-2'>
                             <div
-                                style={{ backgroundColor: color }}
-                                className="absolute top-[34px] md:!top-[42px] left-3 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300 cursor-pointer"
-                                onClick={() => setShowPicker(!showPicker)}
+                                style={{ backgroundColor: color || 'transparent' }}
+                                className="w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300"
                             />
-                            {
-                                color ? (
-                                    <p className="text-sm sm:text-base">{color}</p>
-                                ) : (
-                                    <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">Select a color</p>
-                                )
-                            }
+                            <p className={`${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'} text-sm sm:text-base`}>
+                                {color || 'Select a color'}
+                            </p>
                         </div>
-                    </motion.div>
-                    {errors.bookPrimaryColor && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookPrimaryColor.message}</p>
-                    )}
+                    </div>
+
+                    {/* ChromePicker */}
                     {showPicker && (
                         <div className="absolute z-50 mt-2">
                             <ChromePicker
-                                color={tempColor || color}
+                                color={color}
                                 disableAlpha
-                                onChange={(c) => {
-                                    setTempColor(c.hex);
-                                }}
+                                onChange={(c) => setColor(c.hex)}
                                 onChangeComplete={(c) => {
                                     setColor(c.hex);
-                                    setTempColor('');
-                                    setValue('bookPrimaryColor', c.hex);
+                                    setValue('bookPrimaryColor', c.hex, { shouldValidate: true });
                                     setShowPicker(false);
                                 }}
                             />
                         </div>
                     )}
+
+                    {errors.bookPrimaryColor && (
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookPrimaryColor.message}</p>
+                    )}
                 </div>
+
 
                 {/* Book Video */}
                 <div>
