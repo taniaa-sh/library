@@ -5,17 +5,33 @@ import { menuItems } from "@/utils/adminMenuItems";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminLogoutModal from "./AdminLogoutModal";
+import CustomButton from "@/components/CustomButton";
+import SiteUrls from "@/utils/routs";
 
 const AdminHeader = () => {
-
+    const router = useRouter();
     const [isOpenSidebar, setIsOpenSidebar] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const { isDarkAdmin, toggleTheme2 } = useDarkMode();
     const pathname = usePathname();
+
+    const handleGoBack = () => {
+        const urlsWithBack = [
+            "/admin/allBooks/detail",
+            "/admin/allBooks/edite",
+            "/admin/allBooks/add",
+        ];
+
+        if (urlsWithBack.includes(pathname)) {
+            router.back();
+        } else {
+            router.push(SiteUrls.admin);
+        }
+    };
 
     useEffect(() => {
         if (isOpenSidebar) {
@@ -198,6 +214,23 @@ const AdminHeader = () => {
                             className="cursor-pointer brightness-90 hover:brightness-110 shrink-0"
                             onClick={toggleTheme2}
                         />
+                        <CustomButton
+                            text="Go back"
+                            iconAddress={imagesAddresses.icons.arrowRight}
+                            iconPosition="left"
+                            color="white"
+                            containerClassName="cursor-pointer !w-fit dark:hidden"
+                            onClick={handleGoBack}
+                        />
+                        <CustomButton
+                            text="Go back"
+                            iconAddress={imagesAddresses.icons.arrowRightWhite}
+                            iconPosition="left"
+                            color="white"
+                            containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
+                            onClick={handleGoBack}
+                        />
+
                     </div>
 
                 </div>

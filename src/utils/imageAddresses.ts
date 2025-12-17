@@ -71,6 +71,7 @@ const imagesAddresses = {
     checkWhite: "/icons/checkWhite.svg",
     arrowLeft: "/icons/arrow-left.svg",
     arrowLeftWhite: "/icons/arrow-leftWhite.svg",
+    arrowRightWhite: "/icons/arrow-RightWhite.svg",
     eye: "/icons/Eye.svg",
     calendar: "/icons/calendar.svg",
     hamburgerMenu: "/icons/hamburgerMenu.svg",
