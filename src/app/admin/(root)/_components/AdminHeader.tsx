@@ -114,7 +114,7 @@ const AdminHeader = () => {
                                                     key={item.id}
                                                     href={item.link}
                                                     onClick={() => setIsOpenSidebar(false)}
-                                                    className={`flex items-center gap-3 p-4 rounded-xl transition-all 
+                                                    className={`flex items-center gap-3 p-4 rounded-xl transition-all !mb-1
                                                     ${isActive
                                                             ? "bg-primary-admin !text-white font-semibold"
                                                             : "hover:bg-light-400 dark:hover:bg-dark-400 text-gray-700 dark:!text-white"
