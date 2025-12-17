@@ -87,20 +87,21 @@ const AccountRwqTableClient = ({ data }: Props) => {
                 )
             }
             <AdminTable columns={columns} data={acountReq} />
-            <div className="flex justify-center mt-7">
+            <div className="flex justify-center mt-7 overflow-x-auto dark:!text-white">
                 <ReactPaginate
-                    previousLabel={"previous"}
-                    nextLabel={"next"}
-                    breakLabel={"..."}
+                    previousLabel={"‹"}
+                    nextLabel={"›"}
+                    breakLabel={"…"}
                     pageCount={totalPages}
                     marginPagesDisplayed={1}
                     pageRangeDisplayed={3}
                     onPageChange={handlePageClick}
-                    containerClassName="flex space-x-2 cursor-pointer"
-                    pageClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer"
-                    activeClassName="bg-primary-admin text-white cursor-pointer"
-                    previousClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
-                    nextClassName="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer select-none"
+                    containerClassName="flex items-center gap-1 text-xs sm:text-sm cursor-pointer select-none whitespace-nowrap"
+                    pageClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
+                    activeClassName="bg-primary-admin text-white border-primary-admin"
+                    previousClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
+                    nextClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
+                    disabledClassName="opacity-40 cursor-not-allowed"
                 />
             </div>
         </>
