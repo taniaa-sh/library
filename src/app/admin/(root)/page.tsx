@@ -9,9 +9,9 @@ const AdminPage = () => {
     const router = useRouter()
 
     return (
-        <div className="w-full flex flex-col gap-6 mt-[90px] md:mt-[110px] p-4 md:p-6 bg-light-300 dark:bg-dark-500">
+        <div className="w-full flex flex-col gap-6 mt-[90px] lg:mt-[110px] p-4 md:p-6 bg-light-300 dark:bg-dark-500">
             {/* Summary Boxes */}
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-4 !max-w-[1440px]">
                 {[
                     { title: "Barrowed Books", value: "150" },
                     { title: "Total Users", value: "200" },
@@ -31,11 +31,11 @@ const AdminPage = () => {
                 ))}
             </div>
 
-            <div className="flex flex-col lg:flex-row gap-4 !max-w-[1440px]">
+            <div className="flex flex-col xl:flex-row gap-4 !max-w-[1440px]">
                 {/* Left Column */}
-                <div className=" flex flex-col gap-[22px]">
+                <div className="w-full flex flex-col gap-[22px]">
                     {/* Borrow Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4 md:w-[540px]">
+                    <div className="w-full flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Borrow Requests</p>
                             <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white cursor-pointer">View All</p>
@@ -103,27 +103,27 @@ const AdminPage = () => {
                         </div>
                         {/* Empty Brrow Requests */}
                         <div className="flex flex-col items-center justify-center gap-4">
-                           <Image
+                            <Image
                                 src={imagesAddresses.images.emptyBorrowRequests}
                                 alt="emptyBorrowRequests"
                                 width={193}
                                 height={144}
-                                className="dark:hidden" 
+                                className="dark:hidden"
                             />
-                             <Image
+                            <Image
                                 src={imagesAddresses.images.emptyBorrowRequestsDark}
                                 alt="emptyBorrowRequests"
                                 width={193}
                                 height={144}
-                                className="hidden dark:block" 
+                                className="hidden dark:block"
                             />
-                        <p className="text-base font-semibold text-dark-400 dark:text-white">No Pending Book Requests</p>
-                        <p className="text-sm font-normal text-dark-50 dark:text-gray-400">There are no borrow book requests awaiting your review at this time.</p>
-                       </div>
+                            <p className="text-base font-semibold text-dark-400 dark:text-white">No Pending Book Requests</p>
+                            <p className="text-sm font-normal text-dark-50 dark:text-gray-400">There are no borrow book requests awaiting your review at this time.</p>
+                        </div>
                     </div>
 
                     {/* Account Requests */}
-                    <div className="flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4">
+                    <div className="w-full flex flex-col gap-[14px] rounded-2xl bg-white dark:bg-dark-900 p-4">
                         <div className="flex justify-between items-center">
                             <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-white">Account Requests</p>
                             <p className="font-semibold text-sm sm:text-lg text-dark-400 dark:text-white cursor-pointer">View All</p>
