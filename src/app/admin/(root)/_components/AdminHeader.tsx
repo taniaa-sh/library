@@ -6,7 +6,7 @@ import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminLogoutModal from "./AdminLogoutModal";
 
@@ -164,34 +164,43 @@ const AdminHeader = () => {
 
                 </div>
 
-                {/* TEXT SECTION */}
-                <div className="flex flex-col gap-[6px]">
-                    <p className="font-semibold text-lg lg:text-2xl text-dark-500 dark:text-white">
-                        Welcome, Adrian
-                    </p>
-                    <p className="font-normal text-xs lg:text-base text-slate-500 dark:text-slate-300">
-                        Monitor all of your projects here
-                    </p>
+                <div className="w-full flex items-center justify-between">
+                    {/* TEXT SECTION */}
+                    <div className="flex flex-col gap-[6px]">
+                        <p className="font-semibold text-lg lg:text-2xl text-dark-500 dark:text-white">
+                            Welcome, Adrian
+                        </p>
+                        <p className="font-normal text-xs lg:text-base text-slate-500 dark:text-slate-300">
+                            Monitor all of your projects here
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-2 !shrink-0 lg:mr-80">
+                        <input
+                            className="
+                               hidden md:block
+                               p-3 rounded-lg
+                               placeholder-gray-400 dark:placeholder-gray-500
+                               border border-gray-300 dark:border-gray-600
+                               bg-white dark:bg-dark-400
+                               text-black dark:text-white
+                               w-[220px] md:w-[280px] lg:w-[300px]
+                               transition-all
+                               "
+                            type="text"
+                            placeholder="Search users, books by title, author, or genre."
+                        />
+
+                        <Image
+                            src={isDarkAdmin ? imagesAddresses.icons.darkLightMode2 : imagesAddresses.icons.darkLightMode}
+                            alt="Toggle Theme"
+                            width={25}
+                            height={25}
+                            className="cursor-pointer brightness-90 hover:brightness-110 shrink-0"
+                            onClick={toggleTheme2}
+                        />
+                    </div>
+
                 </div>
-
-                {/* SEARCH INPUT */}
-                <input
-                    className="hidden lg:block p-3 rounded-lg placeholder-gray-400 dark:placeholder-gray-500 border border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-400 text-black dark:text-white sm:w-[400px] w-full transition-all"
-                    type="text"
-                    placeholder="Search users, books by title, author, or genre."
-                    onChange={() => { }}
-                />
-
-                {/* DARK-MODE TOGGLE */}
-                <Image
-                    src={isDarkAdmin ? imagesAddresses.icons.darkLightMode2 : imagesAddresses.icons.darkLightMode}
-                    alt="Toggle Theme"
-                    width={25}
-                    height={25}
-                    className="cursor-pointer brightness-90 hover:brightness-110"
-                    onClick={toggleTheme2}
-                    title="Change Theme"
-                />
             </div>
         </>
     );
