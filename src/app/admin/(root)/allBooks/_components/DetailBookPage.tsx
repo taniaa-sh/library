@@ -22,8 +22,8 @@ const DetailBookPage = () => {
     };
 
     return (
-        <div className="mx-auto flex flex-col gap-10  p-4 sm:p-6 mt-[90px] dark:bg-gray-900 w-full">
-            <CustomButton
+        <div className="mx-auto flex flex-col gap-10  p-4 sm:p-6 mt-[90px] dark:bg-gray-900 w-full h-full">
+            {/* <CustomButton
                 text="Go back"
                 iconAddress={imagesAddresses.icons.arrowLeft}
                 iconPosition="right"
@@ -38,7 +38,7 @@ const DetailBookPage = () => {
                 color="white"
                 containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
                 onClick={() => router.back()}
-            />
+            /> */}
 
             <div className="w-full flex flex-col md:flex-row gap-6 sm:gap-[35px]">
                 <div className="flex justify-center items-center rounded-xl bg-[#C4214C1A] py-4 sm:py-6 px-6 sm:pr-18 sm:pl-8 dark:bg-[#C4214C33]">
