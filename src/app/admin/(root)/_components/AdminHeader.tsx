@@ -19,18 +19,18 @@ const AdminHeader = () => {
     const { isDarkAdmin, toggleTheme2 } = useDarkMode();
     const pathname = usePathname();
 
-    const handleGoBack = () => {
-        const urlsWithBack = [
-            "/admin/allBooks/detail",
-            "/admin/allBooks/edite",
-            "/admin/allBooks/add",
-        ];
+    const urlsWithBack = [
+        "/admin/allBooks/detail",
+        "/admin/allBooks/edite",
+        "/admin/allBooks/add",
+    ];
 
-        if (urlsWithBack.includes(pathname)) {
-            router.back();
-        } else {
-            router.push(SiteUrls.admin);
-        }
+    const shouldShowBackButton = urlsWithBack.some((url) =>
+        pathname.startsWith(url)
+    );
+
+    const handleGoBack = () => {
+        router.back();
     };
 
     useEffect(() => {
@@ -214,22 +214,26 @@ const AdminHeader = () => {
                             className="cursor-pointer brightness-90 hover:brightness-110 shrink-0"
                             onClick={toggleTheme2}
                         />
-                        <CustomButton
-                            text="Go back"
-                            iconAddress={imagesAddresses.icons.arrowRight}
-                            iconPosition="left"
-                            color="white"
-                            containerClassName="cursor-pointer !w-fit dark:hidden"
-                            onClick={handleGoBack}
-                        />
-                        <CustomButton
-                            text="Go back"
-                            iconAddress={imagesAddresses.icons.arrowRightWhite}
-                            iconPosition="left"
-                            color="white"
-                            containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
-                            onClick={handleGoBack}
-                        />
+                        {shouldShowBackButton && (
+                            <>
+                                <CustomButton
+                                    text=""
+                                    iconAddress={imagesAddresses.icons.arrowRight}
+                                    iconPosition="left"
+                                    color="white"
+                                    containerClassName="cursor-pointer !w-fit dark:hidden"
+                                    onClick={handleGoBack}
+                                />
+                                <CustomButton
+                                    text=""
+                                    iconAddress={imagesAddresses.icons.arrowRightWhite}
+                                    iconPosition="left"
+                                    color="white"
+                                    containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
+                                    onClick={handleGoBack}
+                                />
+                            </>
+                        )}
 
                     </div>
 
