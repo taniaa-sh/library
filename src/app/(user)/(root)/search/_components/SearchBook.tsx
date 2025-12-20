@@ -222,7 +222,7 @@ const SearchBook = ({ data }: PropsType) => {
 
                 {/* No Result */}
                 {showNoResult && (
-                    <div className="mt-16 flex flex-col gap-4 items-center justify-center max-w-[360px] text-center">
+                    <div className="mt-16 !mb-8 flex flex-col gap-4 items-center justify-center max-w-[360px] text-center">
                         <Image
                             src={imagesAddresses.images.emptyResult}
                             alt="empty"
