@@ -257,7 +257,6 @@ const AddBookPage = () => {
                     )}
                 </div>
 
-
                 {/* Book Video */}
                 <div>
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
