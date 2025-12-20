@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useForm, SubmitHandler, useFormContext } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
@@ -28,7 +28,6 @@ const AddBookPage = () => {
 
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
-    const [tempColor, setTempColor] = useState('');
     const [showPicker, setShowPicker] = useState(false);
     const [shakeTrigger, setShakeTrigger] = useState(0);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -43,7 +42,15 @@ const AddBookPage = () => {
         trigger,
     } = useForm<BookFormInputs>({
         resolver: yupResolver(schema),
+        mode: "onChange",
+        reValidateMode: "onChange",
     });
+
+    const {
+        ref: descriptionRef,
+        onChange: descriptionOnChange,
+        ...descriptionRest
+    } = register('description');
 
     useEffect(() => {
         const el = textareaRef.current;
@@ -52,7 +59,6 @@ const AddBookPage = () => {
             el.style.height = el.scrollHeight + 'px';
         }
     }, [watch('description')]);
-
 
     const onSubmit: SubmitHandler<BookFormInputs> = async (data) => {
         try {
@@ -215,11 +221,9 @@ const AddBookPage = () => {
                     />
                     <div
                         onClick={() => document.getElementById('bookPrimaryColorInput')?.focus()}
-                        className={`
-            w-full border rounded-lg p-3 pl-4
-            bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer
-            ${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'}
-        `}
+                        className={`w-full border rounded-lg p-3 pl-4 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer
+                                  ${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'}
+                                 `}
                     >
                         <div className='flex items-center gap-2'>
                             <div
@@ -272,11 +276,12 @@ const AddBookPage = () => {
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Summary
                     </label>
-
-
                     <motion.textarea
-                        {...register('description')}
-                        ref={textareaRef}
+                        {...descriptionRest}
+                        ref={(el) => {
+                            descriptionRef(el);
+                            textareaRef.current = el;
+                        }}
                         rows={1}
                         className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none overflow-hidden"
                         placeholder="Write a brief summary of the book"
@@ -284,13 +289,18 @@ const AddBookPage = () => {
                         key={shakeTrigger}
                         transition={{ duration: 0.4 }}
                         onChange={(e) => {
+                            descriptionOnChange(e);
                             const el = textareaRef.current;
                             if (el) {
                                 el.style.height = 'auto';
                                 el.style.height = el.scrollHeight + 'px';
                             }
                         }}
-                    ></motion.textarea>
+                    />
+
+                    {errors.description && (
+                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.description.message}</p>
+                    )}
                 </div>
                 <CustomButton
                     text={loading ? 'Updating...' : 'Update Book'}
