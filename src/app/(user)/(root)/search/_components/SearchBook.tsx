@@ -194,7 +194,6 @@ const SearchBook = ({ data }: PropsType) => {
                             </motion.div>
                         </motion.div>
 
-
                         <AnimatePresence>
                             {bookList && search.length > 0 && filterBooks.length > 0 && !showNoResult && (
                                 <motion.div
@@ -257,7 +256,7 @@ const SearchBook = ({ data }: PropsType) => {
 
                 {/* Search Results */}
                 {showResults && (
-                    <div className="flex flex-col gap-12">
+                    <div className="flex flex-col gap-6 !mt-8">
                         <p className="text-[20px] md:text-[30px] font-semibold leading-7 text-white dark:text-gray-900">Search Results</p>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (

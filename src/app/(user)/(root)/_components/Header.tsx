@@ -151,7 +151,7 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.97 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="absolute top-full border-t border-gray-700 dark:border-gray-500 left-0 w-full bg-gradient-to-b from-gray-900/95 dark:from-gray-400 to-gray-800/90 dark:to-gray-50 flex flex-col items-center py-6 gap-5 md:hidden shadow-2xl rounded-b-3xl z-50"
+                className="absolute top-full border-t border-gray-700 dark:border-gray-500 left-0 w-full bg-gradient-to-b from-gray-900 dark:from-gray-400 to-gray-800 dark:to-gray-50 flex flex-col items-center py-6 gap-5 md:hidden shadow-2xl rounded-b-3xl z-50"
               >
                 {menuItems.map((item) => (
                   <Link

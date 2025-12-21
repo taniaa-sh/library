@@ -192,7 +192,7 @@ const SignUp = () => {
             <CustomButton
               text="Sign Up"
               color="yellow"
-              containerClassName="w-full mt-4"
+              containerClassName="w-full mt-4 cursor-pointer"
               loading={isLoading}
               type="submit"
             />
@@ -201,7 +201,10 @@ const SignUp = () => {
           {/* Login Link */}
           <div className="text-white dark:text-gray-900 text-xs md:text-sm lg:text-base text-center">
             Already have an account?{" "}
-            <span className="text-gold100 cursor-pointer" onClick={() => router.push(SiteUrls.signIn)}>
+            <span
+              className="text-gold100 cursor-pointer"
+              onClick={() => router.push(SiteUrls.signIn)}
+            >
               Login
             </span>
           </div>
@@ -210,7 +213,11 @@ const SignUp = () => {
       </div>
 
       <div className="hidden lg:block relative w-full h-screen">
-        <Image src={imagesAddresses.images.loginPic} alt="logo" fill />
+        <Image
+          src={imagesAddresses.images.loginPic}
+          alt="logo"
+          fill
+        />
       </div>
     </div>
   );

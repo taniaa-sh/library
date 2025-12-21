@@ -65,7 +65,12 @@ const Profile = async () => {
                                         04 days left to due
                                     </p>
                                 </div>
-                                <Image src={imagesAddresses.icons.list} alt="list" width={24} height={24} />
+                                <Image
+                                    src={imagesAddresses.icons.list}
+                                    alt="list"
+                                    width={24}
+                                    height={24}
+                                />
                             </div>
                         </div>
                     ))}
