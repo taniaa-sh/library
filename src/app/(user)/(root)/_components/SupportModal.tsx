@@ -69,7 +69,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
 
     return (
         <div
-            className={`z-[1001] flex flex-col rounded-lg border border-gray-300 dark:border-gray-500 bg-gray-50 fixed right-0 bottom-0 
+            className={`z-[1001] flex flex-col rounded-lg border border-gray-300 dark:border-gray-500 bg-gray-50 fixed left-20 bottom-10 
                         md:right-20 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
                         shadow-xl custom-scrollbar1
                         ${isClosing ? "animate-closeModal" : "animate-openModal"}`}
