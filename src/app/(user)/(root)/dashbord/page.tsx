@@ -35,6 +35,18 @@ const Home = () => {
                 <p className="text-xl md:text-3xl font-semibold text-light-100 dark:text-gray-900">Popular Books</p>
                 <PopularBookSlider data={data} />
             </div>
+            <div className="flex flex-col gap-12 mt-20 px-4 md:px-10">
+                <p className="text-xl md:text-3xl font-semibold text-light-100 dark:text-gray-900">New Arrivals</p>
+                <PopularBookSlider data={data} />
+            </div>
+            <div className="flex flex-col gap-12 mt-20 px-4 md:px-10">
+                <p className="text-xl md:text-3xl font-semibold text-light-100 dark:text-gray-900">Top Rated</p>
+                <PopularBookSlider data={data} />
+            </div>
+            <div className="flex flex-col gap-12 mt-20 px-4 md:px-10">
+                <p className="text-xl md:text-3xl font-semibold text-light-100 dark:text-gray-900">Recommended</p>
+                <PopularBookSlider data={data} />
+            </div>
         </>
     );
 };
