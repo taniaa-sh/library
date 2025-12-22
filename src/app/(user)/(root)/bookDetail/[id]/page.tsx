@@ -72,7 +72,7 @@ const BookDetailPage = () => {
     return (
         <>
 
-            <div className="flex flex-col gap-10 px-4 py-10 md:px-0">
+            <div className="flex flex-col gap-10 px-4 py-10">
                 {/* Book Feature */}
                 <BookFeature
                     title={data?.title || ''}
