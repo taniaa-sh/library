@@ -1,8 +1,13 @@
 import SearchBook from "./_components/SearchBook";
 
-const fetchBooks = async () => { 
+const fetchBooks = async ({
+    search,
+}: {
+    search?: string;
+}) => {
     await new Promise((r) => setTimeout(r, 500));
-        return [
+
+    const allBooks = [
         "Harry Potter",
         "The Hobbit",
         "Atomic Habits",
@@ -10,14 +15,42 @@ const fetchBooks = async () => {
         "The Alchemist",
         "The Great Gatsby",
         "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
+        "To Kill a Mockingbird",
     ];
+
+    if (!search) return allBooks;
+
+    return allBooks.filter((book) =>
+        book.toLowerCase().includes(search.toLowerCase())
+    );
 };
 
-const SearchBooksPage = async () => {
-    const data = await fetchBooks();
-    return (
-        <SearchBook data={data} />
-    );
+const SearchBooksPage = async ({
+    searchParams,
+}: {
+    searchParams: { search?: string };
+}) => {
+    const data = await fetchBooks({
+        search: searchParams.search,
+    });
+
+    return <SearchBook data={data} />;
 };
 
 export default SearchBooksPage;

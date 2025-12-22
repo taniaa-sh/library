@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner";
 import CustomButton from "@/components/CustomButton";
+import BookList from "./BookList";
 
 interface PropsType {
     data: string[]
@@ -255,7 +256,7 @@ const SearchBook = ({ data }: PropsType) => {
                 )}
 
                 {/* Search Results */}
-                {showResults && (
+                {showResults ? (
                     <div className="flex flex-col gap-6 !mt-8">
                         <p className="text-[20px] md:text-[30px] font-semibold leading-7 text-white dark:text-gray-900">Search Results</p>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -277,7 +278,10 @@ const SearchBook = ({ data }: PropsType) => {
                             ))}
                         </div>
                     </div>
-                )}
+                ) : (
+                    <BookList  data={data}/>
+                )
+                }
             </div>
         </div>
     )
