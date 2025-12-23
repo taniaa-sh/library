@@ -141,7 +141,7 @@ const BookFeature = ({
 
                 {/* Right Content (Book Image) */}
                 <motion.div
-                    className="flex justify-center relative lg:right-40 right-10"
+                    className="flex justify-center relative lg:right-40 right-10 -mt-10 lg:mt-0"
                     variants={itemVariants}
                 >
                     <motion.div
@@ -163,7 +163,7 @@ const BookFeature = ({
                         initial={{ opacity: 0, scale: 0.7 }}
                         animate={{ opacity: 0.7, scale: 1 }}
                         transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                        className="absolute -right-10 top-3 rotate-[15deg] z-0 w-[250px] h-[280px] md:w-[300px] md:h-[340px] object-contain"
+                        className="absolute -right-10 top-3 rotate-[15deg] z-0"
                         style={{ filter: "blur(6px)" }}
                     >
                         <Image
@@ -171,7 +171,7 @@ const BookFeature = ({
                             alt="book"
                             width={250}
                             height={280}
-                            className="w-full h-full object-contain"
+                            className="w-[250px] h-[280px] md:w-[300px] md:h-[340px] object-contain"
                         />
                     </motion.div>
                 </motion.div>

@@ -6,8 +6,8 @@ import { BookFeatureProps } from "@/utils/type";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import ReadPdfComponent from "../_components/ReadPdfComponent";
 import { motion } from "framer-motion";
+import FlipBookPreview from "../_components/FlipBookPreview";
 
 const BookDetailPage = () => {
     const params = useParams();
@@ -72,7 +72,7 @@ const BookDetailPage = () => {
     return (
         <>
 
-            <div className="flex flex-col gap-10 px-4 py-10">
+            <div className="flex flex-col gap-10 px-4 py-10 overflow-hidden">
                 {/* Book Feature */}
                 <BookFeature
                     title={data?.title || ''}
@@ -86,10 +86,10 @@ const BookDetailPage = () => {
                 />
 
                 {/* Main Section */}
-                <div className="flex flex-col lg:flex-row gap-10 lg:gap-40">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-25">
 
                     {/* Left Column: Video + Summary */}
-                    <div className="flex flex-col w-full lg:w-[645px] gap-6">
+                    <div className="flex flex-col w-full lg:!w-[1000px] gap-6">
 
                         {/* Video */}
                         <div className="flex flex-col gap-2">
@@ -241,7 +241,7 @@ const BookDetailPage = () => {
                     </div>
 
                     {/* Right Column: Similar Books */}
-                    <div className="flex flex-col gap-3 w-full lg:w-auto">
+                    <div className="flex flex-col gap-3 w-full">
                         <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900">More similar books</p>
                         <div className="flex overflow-x-auto gap-3 lg:grid lg:grid-cols-3 custom-scrollbar">
                             {[3, 2, 4, 5, 6, 7].map((num) => {
@@ -275,7 +275,8 @@ const BookDetailPage = () => {
                                 You can read and download the book here
                             </motion.span>
                         </motion.h2>
-                        <ReadPdfComponent pdfUrl={"../../../../public/sample (1).pdf"} />
+                        {/* <ReadPdfComponent pdfUrl={"../../../../public/sample (1).pdf"} /> */}
+                        <FlipBookPreview />
                     </div>
                 </div>
             </div>
