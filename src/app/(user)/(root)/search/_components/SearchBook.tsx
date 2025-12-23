@@ -9,15 +9,21 @@ import { useEffect, useState } from "react"
 import { toast } from "sonner";
 import CustomButton from "@/components/CustomButton";
 import BookList from "./BookList";
+import { BookFeatureProps } from "@/utils/type";
+import SiteUrls from "@/utils/routs";
 
-interface PropsType {
-    data: string[]
-}
-
-const SearchBook = ({ data }: PropsType) => {
+const SearchBook = () => {
 
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get("search") || ""
+    const [data, setData] = useState<BookFeatureProps[]>([]);
+
+    useEffect(() => {
+        fetch('/data/data.json')
+            .then(res => res.json())
+            .then(json => setData(json))
+            .catch(err => console.error('خطا در خواندن JSON:', err));
+    }, []);
 
     const router = useRouter()
     const [search, setSearch] = useState(searchQuery)
@@ -26,7 +32,10 @@ const SearchBook = ({ data }: PropsType) => {
     const [loading, setLoading] = useState(false)
     const [showResults, setShowResults] = useState(false)
 
-    const filterBooks = data.filter(book => book.toLowerCase().includes(search.toLowerCase()))
+    const filterBooks = data.filter(book =>
+        book.title.toLowerCase().includes(search.toLowerCase()) ||
+        book.author.toLowerCase().includes(search.toLowerCase())
+    )
 
     useEffect(() => {
         if (searchQuery && searchQuery.trim() !== "") {
@@ -51,7 +60,7 @@ const SearchBook = ({ data }: PropsType) => {
             return
         }
         setLoading(true)
-        const exactMatch = data.some(item => item.toLowerCase() === book.toLowerCase());
+        const exactMatch = data.some(b => b.title.toLowerCase() === book.toLowerCase());
 
         if (!exactMatch) {
             setShowNoResult(true)
@@ -86,7 +95,7 @@ const SearchBook = ({ data }: PropsType) => {
     }
 
     return (
-        <div className="w-full flex flex-col gap-12">
+        <div className="w-full flex flex-col gap-12 pb-10">
             <div className="mt-10 flex flex-col items-center gap-8 px-4 md:px-10">
                 {/* Header */}
                 <motion.div
@@ -202,17 +211,18 @@ const SearchBook = ({ data }: PropsType) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2, ease: "easeOut" }}
-                                    className="bg-dark-300 dark:bg-gray-300 rounded-lg shadow-lg p-2 z-20 !mt-2"
+                                    className="bg-dark-300 dark:bg-gray-300 rounded-lg shadow-lg p-2 z-20 !mt-2 max-h-[300px] overflow-y-scroll"
                                 >
                                     {filterBooks.map((book) => (
                                         <p
-                                            key={book}
+                                            key={book.id}
+                                            onClick={() => handleSelectSuggestion(book.title)}
                                             className="p-3 cursor-pointer hover:bg-[#2b3145] dark:hover:bg-gray-200 text-light-100 dark:text-gray-900 rounded-md text-sm"
-                                            onClick={() => handleSelectSuggestion(book)}
                                         >
-                                            {book}
+                                            {book.title}
                                         </p>
                                     ))}
+
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -220,8 +230,8 @@ const SearchBook = ({ data }: PropsType) => {
 
                 </div>
 
-                {/* No Result */}
-                {showNoResult && (
+                {showNoResult ? (
+                    /* No Result */
                     <div className="mt-16 !mb-8 flex flex-col gap-4 items-center justify-center max-w-[360px] text-center">
                         <Image
                             src={imagesAddresses.images.emptyResult}
@@ -237,51 +247,84 @@ const SearchBook = ({ data }: PropsType) => {
                             height={200}
                             className="object-contain hidden dark:block"
                         />
+
                         <p className="text-2xl md:text-3xl font-semibold leading-7 text-white dark:text-gray-900">
                             No Results Found
                         </p>
+
                         <p className="text-sm md:text-base font-normal leading-6 text-light-100 dark:text-gray-600">
                             We couldn’t find any books matching your search. Try using different keywords or check for typos.
                         </p>
 
                         <CustomButton
-                            text="  Clear Search"
+                            text="Clear Search"
                             color="yellow"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
                             loading={loading}
                             onClick={handleClear}
                         />
-
                     </div>
-                )}
+                ) : showResults ? (
+                    /* Search Results */
+                    <div className="w-full max-w-[1000px] flex flex-col gap-6 !mt-8">
+                        <p className="text-[20px] md:text-[30px] font-semibold leading-7 text-white dark:text-gray-900">
+                            Search Results
+                        </p>
 
-                {/* Search Results */}
-                {showResults ? (
-                    <div className="flex flex-col gap-6 !mt-8">
-                        <p className="text-[20px] md:text-[30px] font-semibold leading-7 text-white dark:text-gray-900">Search Results</p>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                                <div key={item} className="p-4 md:p-5 flex flex-col gap-3 md:gap-5 rounded-lg">
-                                    <Image
-                                        src={imagesAddresses.images.book1}
-                                        alt="book"
-                                        width={120}
-                                        height={120}
-                                        className="-ml-2 md:-ml-4"
-                                    />
-                                    <div className="flex flex-col gap-1">
-                                        <p className="text-white dark:text-gray-900 font-semibold text-lg md:text-xl leading-5 md:leading-6">The Origin</p>
-                                        <p className="text-white dark:text-gray-900 font-semibold text-lg md:text-xl leading-5 md:leading-6">By Dan Brown</p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                            {filterBooks.map((book) => (
+                                <div
+                                    key={book.id}
+                                    onClick={() =>
+                                        router.push(`${SiteUrls.bookDetail}/${book.id}`)
+                                    }
+                                    className="
+                        group w-full max-w-[150px] sm:max-w-[170px] md:max-w-[190px]
+                        cursor-pointer rounded-2xl p-3 transition-all duration-300 hover:-translate-y-1
+                        bg-gradient-to-b from-[#0f0f0f] to-[#181818]
+                        border border-white/5
+                        shadow-[0_10px_30px_rgba(0,0,0,0.6)]
+                        hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]
+                        dark:bg-gradient-to-b dark:from-white dark:to-gray-100
+                        dark:border-gray-200
+                        dark:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
+                        dark:hover:shadow-[0_14px_30px_rgba(0,0,0,0.12)]
+                    "
+                                >
+                                    <div className="relative flex justify-center">
+                                        <Image
+                                            src={book.coverUrl}
+                                            alt={book.title}
+                                            width={180}
+                                            height={260}
+                                            className="w-[110px] h-[155px] sm:w-[130px] sm:h-[185px] md:w-[150px] md:h-[210px] object-cover rounded-xl shadow-xl !-ml-10"
+                                        />
+                                        <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/80 via-black/30 to-transparent dark:from-black/40 dark:via-black/10" />
                                     </div>
-                                    <p className="text-light-100 dark:text-gray-700 font-normal text-base md:text-xl leading-4 md:leading-5">Thriller / Mystery</p>
+
+                                    <div className="mt-3 h-[92px] flex flex-col justify-between text-start">
+                                        <div>
+                                            <p className="text-[12px] sm:text-sm font-semibold leading-5 line-clamp-2 min-h-[40px] transition-colors text-white group-hover:text-[#d4af37] dark:text-gray-900 dark:group-hover:text-amber-600">
+                                                {book.title}
+                                            </p>
+
+                                            <p className="mt-1 text-[11px] italic truncate text-gray-400 dark:text-gray-500">
+                                                by {book.author}
+                                            </p>
+                                        </div>
+
+                                        <span className="inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 dark:bg-amber-100 dark:text-amber-700 dark:border-amber-200">
+                                            {book.genre}
+                                        </span>
+                                    </div>
                                 </div>
                             ))}
                         </div>
                     </div>
                 ) : (
-                    <BookList  data={data}/>
-                )
-                }
+                    /* All Books */
+                    <BookList />
+                )}
             </div>
         </div>
     )

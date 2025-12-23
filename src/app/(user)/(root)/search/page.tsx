@@ -50,7 +50,7 @@ const SearchBooksPage = async ({
         search: searchParams.search,
     });
 
-    return <SearchBook data={data} />;
+    return <SearchBook />;
 };
 
 export default SearchBooksPage;
