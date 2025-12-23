@@ -94,7 +94,7 @@ const FlipBookPreview = () => {
         {showOpenBook && (
           <div className="flex flex-col items-center mt-10 w-full">
             <HTMLFlipBook
-              ref={flipBookRef}
+              ref={flipBookRef as any}
               width={bookWidth}
               height={bookHeight}
               size="stretch"
@@ -107,7 +107,7 @@ const FlipBookPreview = () => {
               clickEventForward={true}
               useMouseEvents={true}
               swipeDistance={30}
-              showPageCorners={true}
+              showPageCorners={!isMobile}
               disableFlipByClick={false}
               showCover={isMobile}
               mobileScrollSupport={true}
@@ -116,6 +116,8 @@ const FlipBookPreview = () => {
               minHeight={400}
               maxHeight={bookHeight}
               className="!shadow-2xl mt-[-50px] md:mt-0"
+              style={{}}
+              startZIndex={0}
             >
               <FlipPage number={1} />
               <FlipPage number={2} />
