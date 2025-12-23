@@ -38,11 +38,12 @@ export const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
         )}
 
         {/* Content */}
-        <div className="flex-1 overflow-auto text-justify">
-          <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
-            {content ||
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus mollis nibh, non convallis ex convallis eu. Suspendisse potenti. Aenean vitae pellentesque erat."}
-          </p>
+        <div className="flex-1 text-justify">
+          <div className="h-full overflow-auto pr-1">
+            <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
+              {content || "..."}
+            </p>
+          </div>
         </div>
 
         {/* Footer / Page number */}

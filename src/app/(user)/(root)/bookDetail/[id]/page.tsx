@@ -276,7 +276,9 @@ const BookDetailPage = () => {
                             </motion.span>
                         </motion.h2>
                         {/* <ReadPdfComponent pdfUrl={"../../../../public/sample (1).pdf"} /> */}
-                        <FlipBookPreview />
+                        <div className="-mt-10">
+                            <FlipBookPreview />
+                        </div>
                     </div>
                 </div>
             </div>
