@@ -46,9 +46,6 @@ const SearchBooksPage = async ({
 }: {
     searchParams: { search?: string };
 }) => {
-    const data = await fetchBooks({
-        search: searchParams.search,
-    });
 
     return <SearchBook />;
 };

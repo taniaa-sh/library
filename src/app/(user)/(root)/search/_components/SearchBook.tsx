@@ -22,7 +22,7 @@ const SearchBook = () => {
         fetch('/data/data.json')
             .then(res => res.json())
             .then(json => setData(json))
-            .catch(err => console.error('خطا در خواندن JSON:', err));
+            .catch(err => console.error('error:', err));
     }, []);
 
     const router = useRouter()
