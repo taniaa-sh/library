@@ -5,17 +5,24 @@ import { useRouter } from "next/navigation";
 import SiteUrls from "@/utils/routs";
 import { useEffect, useState } from "react";
 import { BookFeatureProps } from "@/utils/type";
+import ReactPaginate from "react-paginate";
 
 const BookList = () => {
     const router = useRouter();
 
     const [data, setData] = useState<BookFeatureProps[]>([]);
+    const totalPages = 10;
+
+    const handlePageClick = (selectedItem: { selected: number }) => {
+        const page = selectedItem.selected + 1;
+        router.push(`?page=${page}`);
+    };
 
     useEffect(() => {
         fetch('/data/data.json')
             .then(res => res.json())
             .then(json => setData(json))
-            .catch(err => console.error('خطا در خواندن JSON:', err));
+            .catch(err => console.error('error:', err));
     }, []);
 
     return (
@@ -76,6 +83,23 @@ const BookList = () => {
                         </div>
                     </div>
                 ))}
+            </div>
+            <div className="flex justify-center mt-7 overflow-x-auto dark:!text-white">
+                <ReactPaginate
+                    previousLabel={"‹"}
+                    nextLabel={"›"}
+                    breakLabel={"…"}
+                    pageCount={totalPages}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={3}
+                    onPageChange={handlePageClick}
+                    containerClassName="flex items-center gap-1 text-xs sm:text-sm cursor-pointer select-none whitespace-nowrap"
+                    pageClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-400 dark:border-dark-300 dark:text-gray-700 text-gray-200 dark:hover:bg-gray-200 hover:bg-dark-400 transition"
+                    activeClassName="bg-primary text-white border-primary"
+                    previousClassName="px-2 sm:px-3 py-1 border rounded-md dark:border-gray-300 border-dark-400 dark:text-gray-700 text-gray-200 dark:hover:bg-gray-200 hover:bg-dark-400 transition"
+                    nextClassName="px-2 sm:px-3 py-1 border rounded-md dark:border-gray-300 border-dark-400 dark:text-gray-700 text-gray-200 dark:hover:bg-gray-200 hover:bg-dark-400 transition"
+                    disabledClassName="opacity-40 cursor-not-allowed"
+                />
             </div>
         </div>
     );
