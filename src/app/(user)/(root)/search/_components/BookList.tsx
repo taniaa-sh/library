@@ -94,11 +94,12 @@ const BookList = () => {
                     pageRangeDisplayed={3}
                     onPageChange={handlePageClick}
                     containerClassName="flex items-center gap-1 text-xs sm:text-sm cursor-pointer select-none whitespace-nowrap"
-                    pageClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-400 dark:border-dark-300 dark:text-gray-700 text-gray-200 dark:hover:bg-gray-200 hover:bg-dark-400 transition"
-                    activeClassName="bg-primary text-white border-primary"
+                    pageClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-400 dark:border-gray-500 dark:text-gray-700 text-gray-200 dark:hover:bg-gray-200 hover:bg-dark-400 transition"
+                    activeClassName="bg-primary text-gray-900 dark:text-gray-700 border-primary"
                     previousClassName="px-2 sm:px-3 py-1 border rounded-md dark:border-gray-300 border-dark-400 dark:text-gray-700 text-gray-200 dark:hover:bg-gray-200 hover:bg-dark-400 transition"
                     nextClassName="px-2 sm:px-3 py-1 border rounded-md dark:border-gray-300 border-dark-400 dark:text-gray-700 text-gray-200 dark:hover:bg-gray-200 hover:bg-dark-400 transition"
                     disabledClassName="opacity-40 cursor-not-allowed"
+                    breakClassName="text-white dark:text-gray-700"
                 />
             </div>
         </div>

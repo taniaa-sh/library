@@ -102,6 +102,7 @@ const AccountRwqTableClient = ({ data }: Props) => {
                     previousClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
                     nextClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
                     disabledClassName="opacity-40 cursor-not-allowed"
+                    breakClassName="dark:text-white text-gray-700"
                 />
             </div>
         </>
