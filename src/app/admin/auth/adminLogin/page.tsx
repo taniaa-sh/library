@@ -68,7 +68,7 @@ const AdminSignIn = () => {
               <label htmlFor="email" className="text-sm md:text-base lg:text-lg">Email</label>
               <input
                 id="email"
-                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer"
+                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer"
                 type="email"
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -80,7 +80,7 @@ const AdminSignIn = () => {
               <input
                 id="password"
                 maxLength={8}
-                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer"
+                className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer"
                 type={showPass ? "text" : "password"}
                 placeholder="At least 8 characters long"
                 onChange={(e) => setPassword(e.target.value)}

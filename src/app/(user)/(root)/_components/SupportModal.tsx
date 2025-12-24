@@ -150,7 +150,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                     onKeyDown={e => e.key === "Enter" && handleSend()}
                     placeholder="Type your question..."
                     className="flex-1 px-3 py-2 border border-gray-400 rounded-lg 
-                              focus:outline-none focus:ring focus:ring-blue-300 bg-white dark:text-gray-700"
+                              focus:outline-none focus:ring bg-white dark:text-gray-700"
                 />
 
                 <button

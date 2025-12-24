@@ -75,7 +75,7 @@ const CustomInputSelect: React.FC<PropsType> = ({
                     text-sm sm:text-base font-medium
                     flex items-center justify-between
                     bg-light-600 dark:bg-dark-400
-                    focus:outline-none focus:ring-2 focus:ring-blue-500
+                    focus:outline-none focus:ring-2
                     ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
                     ${value ? "text-gray-800 dark:text-white" : "text-gray-400"}
                 `}
