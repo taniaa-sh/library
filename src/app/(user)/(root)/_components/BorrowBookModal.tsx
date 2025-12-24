@@ -84,7 +84,7 @@ const BorrowBookModal = ({
 
     const ModalContent = (
         <div
-            className={`w-full md:w-[800px] bg-gray-900 dark:bg-white rounded-t-[20px] md:rounded-xl p-5 flex flex-col gap-4 z-50 ${isClosing ? "animate-slideDown" : "animate-slideUp"
+            className={`w-full md:w-[600px] bg-gray-900 dark:bg-white rounded-t-[20px] md:rounded-xl p-5 flex flex-col gap-4 z-50 ${isClosing ? "animate-slideDown" : "animate-slideUp"
                 }`}
         >
             <div className="self-end hidden md:flex gap-2">
@@ -107,14 +107,14 @@ const BorrowBookModal = ({
             </div>
 
             {/* Book Info */}
-            <div className="flex gap-8 items-center mb-4 p-3 rounded-xl shadow-md transition-all duration-300
-        bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 dark:from-gray-100 dark:via-gray-200 dark:to-gray-300
-        hover:scale-105 hover:shadow-xl"
+            <div className="flex gap-6 items-center mb-4 rounded-xl shadow-md transition-all duration-300
+                            bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 dark:from-gray-100 dark:via-gray-200 dark:to-gray-300
+                            hover:scale-105 hover:shadow-xl"
             >
                 <Image
                     src={bookImg}
                     alt={title}
-                    width={80}
+                    width={150}
                     height={100}
                     className="object-cover"
                 />
@@ -130,13 +130,23 @@ const BorrowBookModal = ({
 
             {/* Form */}
             <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    type="text"
-                    placeholder="Your Name"
-                    {...register("name")}
-                    className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
-                />
-                {errors.name && <p className="text-red-400 text-sm">{errors.name.message}</p>}
+                <div className="flex gap-2">
+                    <input
+                        type="text"
+                        placeholder="Your Name"
+                        {...register("name")}
+                        className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
+                    />
+                    {errors.name && <p className="text-red-400 text-sm">{errors.name.message}</p>}
+                    <input
+                        type="number"
+                        maxLength={5}
+                        placeholder="Quantity"
+                        {...register("quantity")}
+                        className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
+                    />
+                    {errors.quantity && <p className="text-red-400 text-sm">{errors.quantity.message}</p>}
+                </div>
 
                 <input
                     type="email"
@@ -145,15 +155,6 @@ const BorrowBookModal = ({
                     className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
                 />
                 {errors.email && <p className="text-red-400 text-sm">{errors.email.message}</p>}
-
-                <input
-                    type="number"
-                    maxLength={5}
-                    placeholder="Quantity"
-                    {...register("quantity")}
-                    className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
-                />
-                {errors.quantity && <p className="text-red-400 text-sm">{errors.quantity.message}</p>}
 
                 <div className="flex justify-end gap-2 mt-2 w-full md:w-fit flex-col md:flex-row">
                     <CustomButton
