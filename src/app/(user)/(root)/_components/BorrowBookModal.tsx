@@ -175,15 +175,17 @@ const BorrowBookModal = ({
     );
 
     return (
-        <>
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
             {/* Overlay */}
-            <div className="fixed inset-0 bg-black/70 z-40" onClick={handleClose} />
+            <div
+                className="absolute inset-0 bg-black/70"
+                onClick={handleClose}
+            />
 
             {/* Modal */}
-            <div className="fixed inset-0 flex items-end md:items-center justify-center z-50 w-full h-full px-4">
-                {ModalContent}
-            </div>
-        </>
+            {ModalContent}
+        </div>
+
     );
 };
 
