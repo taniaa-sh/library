@@ -69,12 +69,12 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
 
     return (
         <div
-            className={`z-[1001] flex flex-col rounded-lg border border-gray-300 dark:border-gray-500 bg-gray-50 fixed left-20 bottom-10 
-                        md:right-20 md:bottom-4 w-full h-full md:w-[360px] md:h-[600px]
-                        shadow-xl custom-scrollbar1
-                        ${isClosing ? "animate-closeModal" : "animate-openModal"}`}
+            className={`
+         z-[1001] fixed flex flex-col bg-gray-50 border border-gray-300 dark:border-gray-500 shadow-xl custom-scrollbar1 top-0 left-0 w-screen h-screen rounded-none
+         md:top-auto md:left-20 md:bottom-4 md:w-[360px] md:h-[600px] md:rounded-lg
+         ${isClosing ? "animate-closeModal" : "animate-openModal"}
+        `}
         >
-
             {/* Header */}
             <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-gold100 dark:bg-gold600 select-none shadow-sm">
                 <div className="flex items-center gap-2 w-full">
