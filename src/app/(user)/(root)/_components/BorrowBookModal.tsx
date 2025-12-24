@@ -131,21 +131,29 @@ const BorrowBookModal = ({
             {/* Form */}
             <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex gap-2">
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        {...register("name")}
-                        className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
-                    />
-                    {errors.name && <p className="text-red-400 text-sm">{errors.name.message}</p>}
-                    <input
-                        type="number"
-                        maxLength={5}
-                        placeholder="Quantity"
-                        {...register("quantity")}
-                        className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
-                    />
-                    {errors.quantity && <p className="text-red-400 text-sm">{errors.quantity.message}</p>}
+                    <div className="flex flex-col w-full">
+                        <input
+                            type="text"
+                            placeholder="Your Name"
+                            {...register("name")}
+                            className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
+                        />
+                        <p className="text-red-400 text-xs min-h-[16px] mt-1">
+                            {errors.name?.message}
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col w-full">
+                        <input
+                            type="number"
+                            placeholder="Quantity"
+                            {...register("quantity")}
+                            className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
+                        />
+                        <p className="text-red-400 text-xs min-h-[16px] mt-1">
+                            {errors.quantity?.message}
+                        </p>
+                    </div>
                 </div>
 
                 <input
