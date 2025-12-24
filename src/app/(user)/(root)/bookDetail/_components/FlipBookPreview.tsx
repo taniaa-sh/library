@@ -122,12 +122,12 @@ const FlipBookPreview = () => {
                 disableFlipByClick={false}
                 className="!shadow-2xl"
               >
-                <FlipPage number={1} />
-                <FlipPage number={2} />
-                <FlipPage number={3} />
-                <FlipPage number={4} />
-                <FlipPage number={5} />
-                <FlipPage number={6} />
+                <FlipPage number={1} content="The only limit to our realization of tomorrow is our doubts of today." />
+                <FlipPage number={2} content="Learning never exhausts the mind, it only strengthens it. Every new concept is a step forward."/>
+                <FlipPage number={3} content="She opened the old book, and with every page, a new adventure unfolded before her eyes." />
+                <FlipPage number={4} content="A cup of coffee in the morning can make the day feel a little brighter." />
+                <FlipPage number={5} content="Life is not measured by the breaths we take, but by the moments that take our breath away." />
+                <FlipPage number={6} content="mdc" />
               </HTMLFlipBook>
             </div>
             <div className="flex mt-6 gap-4 flex-wrap justify-center">
