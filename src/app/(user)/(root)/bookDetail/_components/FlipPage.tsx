@@ -15,7 +15,7 @@ export const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
     return (
       <div
         ref={ref}
-        className="flex flex-col bg-white w-full h-full p-10 md:p-6 rounded-md relative"
+        className="flex flex-col bg-white w-full h-full px-20 py-8 md:p-6 rounded-md relative"
       >
         {/* Header */}
         <div className="text-center mb-2 md:mb-4">
@@ -49,7 +49,7 @@ export const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
         {/* Footer / Page number */}
         <div className="absolute bottom-3 left-4 mt-2 text-right text-gray-400 text-xs">
           <div className="border-t border-gray-300 mt-1 w-full"></div>
-          <div>{number}</div>
+          {number}
         </div>
 
         {/* Edge effect */}
