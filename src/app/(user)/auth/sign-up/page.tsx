@@ -6,7 +6,7 @@ import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -72,9 +72,8 @@ const SignUp = () => {
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row">
-      <div className="w-full h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
+      <div className="w-full min-h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center px-6 py-10 md:p-10 lg:p-20 flex items-center justify-center overflow-y-auto">
         <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-4 md:p-8 flex flex-col gap-8 rounded-lg">
-
           <form
             onSubmit={handleSubmit(handleSignUp)}
             className="w-full flex flex-col gap-3 md:gap-4 lg:gap-6 text-white dark:text-gray-900"
