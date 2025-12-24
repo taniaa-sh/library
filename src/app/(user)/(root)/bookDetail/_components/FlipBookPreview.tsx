@@ -60,31 +60,32 @@ const FlipBookPreview = () => {
         {/* Closed Book */}
         {!showOpenBook && (
           <div
-            className="relative cursor-pointer"
+            className="relative cursor-pointer mt-8"
             onClick={() => setShowOpenBook(true)}
           >
-            <div className="relative w-60 h-60 md:w-72 md:h-72 mx-auto">
+            <div className="relative w-60 h-60 md:w-75 md:h-75 mx-auto">
               <Image
                 src={imagesAddresses.icons.bookPdf}
                 alt="book"
                 fill
                 className="object-contain transition-all duration-500 hover:scale-105"
               />
-
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7 }}
-                whileHover={{ scale: 1.08 }}
-                className="absolute inset-0 flex flex-col items-center justify-center
-                  text-white text-center text-lg font-semibold space-y-1
-                  rounded-xl backdrop-blur-md shadow-lg shadow-purple-500/40"
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                whileHover={{
+                  scale: 1.08,
+                  textShadow: "0px 0px 12px rgba(255,255,255,0.9)",
+                  boxShadow: "0px 0px 20px rgba(14, 165, 233, 0.6)",
+                }}
+                className="absolute inset-0 flex flex-col items-center justify-center text-white text-center text-lg font-semibold space-y-1 px-4 py-3 rounded-xl backdrop-blur-md shadow-lg shadow-purple-500/40 z-20"
               >
-                <p>Click</p>
-                <p>here</p>
-                <p>to read</p>
-                <p>and</p>
-                <p>download</p>
+                <motion.p whileHover={{ scale: 1.1 }}>Click</motion.p>
+                <motion.p whileHover={{ scale: 1.1 }}>here</motion.p>
+                <motion.p whileHover={{ scale: 1.1 }}>to read</motion.p>
+                <motion.p whileHover={{ scale: 1.1 }}>and</motion.p>
+                <motion.p whileHover={{ scale: 1.1 }}>download</motion.p>
               </motion.div>
             </div>
           </div>
@@ -93,39 +94,38 @@ const FlipBookPreview = () => {
         {/* Open Book */}
         {showOpenBook && (
           <div className="flex flex-col items-center mt-10 w-full">
-            <HTMLFlipBook
-              ref={flipBookRef as any}
-              width={bookWidth}
-              height={bookHeight}
-              size="stretch"
-              startPage={0}
-              drawShadow={true}
-              maxShadowOpacity={0.5}
-              flippingTime={700}
-              usePortrait={isMobile}
-              autoSize={true}
-              clickEventForward={true}
-              useMouseEvents={true}
-              swipeDistance={30}
-              showPageCorners={!isMobile}
-              disableFlipByClick={false}
-              showCover={isMobile}
-              mobileScrollSupport={true}
-              minWidth={250}
-              maxWidth={bookWidth}
-              minHeight={400}
-              maxHeight={bookHeight}
-              className="!shadow-2xl mt-[-50px] md:mt-0"
-              style={{}}
-              startZIndex={0}
-            >
-              <FlipPage number={1} />
-              <FlipPage number={2} />
-              <FlipPage number={3} />
-              <FlipPage number={4} />
-              <FlipPage number={5} />
-              <FlipPage number={6} />
-            </HTMLFlipBook>
+            <div className="max-w-[680px] w-full flex justify-center overflow-hidden">
+              <HTMLFlipBook
+                key={isMobile ? "mobile" : "desktop"}
+
+                ref={flipBookRef as any}
+                width={bookWidth}
+                height={bookHeight}
+
+                size={isMobile ? "fixed" : "stretch"}
+                autoSize={!isMobile}
+
+                usePortrait={isMobile}
+                showCover={isMobile}
+
+                drawShadow={!isMobile}
+                showPageCorners={!isMobile}
+
+                clickEventForward
+                swipeDistance={30}
+                mobileScrollSupport
+
+                className="!shadow-2xl"
+              >
+
+                <FlipPage number={1} />
+                <FlipPage number={2} />
+                <FlipPage number={3} />
+                <FlipPage number={4} />
+                <FlipPage number={5} />
+                <FlipPage number={6} />
+              </HTMLFlipBook>
+            </div>
             <div className="flex mt-6 gap-4 flex-wrap justify-center">
               <CustomButton
                 color="yellow"
@@ -141,7 +141,6 @@ const FlipBookPreview = () => {
           </div>
         )}
 
-        {/* Actions */}
         <div className="flex gap-3 mt-14 self-end flex-wrap">
           <CustomButton
             color="yellow"
