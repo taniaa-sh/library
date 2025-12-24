@@ -97,27 +97,31 @@ const FlipBookPreview = () => {
             <div className="max-w-[680px] w-full flex justify-center overflow-hidden">
               <HTMLFlipBook
                 key={isMobile ? "mobile" : "desktop"}
-
                 ref={flipBookRef as any}
                 width={bookWidth}
                 height={bookHeight}
-
                 size={isMobile ? "fixed" : "stretch"}
                 autoSize={!isMobile}
-
                 usePortrait={isMobile}
                 showCover={isMobile}
-
                 drawShadow={!isMobile}
                 showPageCorners={!isMobile}
-
                 clickEventForward
                 swipeDistance={30}
                 mobileScrollSupport
-
+                style={{}}
+                startPage={0}
+                minWidth={0}
+                maxWidth={0}
+                minHeight={0}
+                maxHeight={0}
+                maxShadowOpacity={0.5}
+                flippingTime={700}
+                startZIndex={0}
+                useMouseEvents={true}
+                disableFlipByClick={false}
                 className="!shadow-2xl"
               >
-
                 <FlipPage number={1} />
                 <FlipPage number={2} />
                 <FlipPage number={3} />
