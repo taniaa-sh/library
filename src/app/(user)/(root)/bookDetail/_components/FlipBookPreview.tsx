@@ -39,12 +39,12 @@ const FlipBookPreview = () => {
     return () => window.removeEventListener("resize", updateSize)
   }, [])
 
-  const goPrevPage = () => {
-    flipBookRef.current?.flipPrev()
+  const goNextPage = () => {
+    flipBookRef.current?.pageFlip().flipNext();
   }
 
-  const goNextPage = () => {
-    flipBookRef.current?.flipNext()
+  const goPrevPage = () => {
+    flipBookRef.current?.pageFlip().flipPrev();
   }
 
   return (
@@ -123,7 +123,7 @@ const FlipBookPreview = () => {
                 className="!shadow-2xl"
               >
                 <FlipPage number={1} content="The only limit to our realization of tomorrow is our doubts of today." />
-                <FlipPage number={2} content="Learning never exhausts the mind, it only strengthens it. Every new concept is a step forward."/>
+                <FlipPage number={2} content="Learning never exhausts the mind, it only strengthens it. Every new concept is a step forward." />
                 <FlipPage number={3} content="She opened the old book, and with every page, a new adventure unfolded before her eyes." />
                 <FlipPage number={4} content="A cup of coffee in the morning can make the day feel a little brighter." />
                 <FlipPage number={5} content="Life is not measured by the breaths we take, but by the moments that take our breath away." />
@@ -133,13 +133,19 @@ const FlipBookPreview = () => {
             <div className="flex mt-6 gap-4 flex-wrap justify-center">
               <CustomButton
                 color="yellow"
-                text="Prev"
+                text=""
+                iconAddress={imagesAddresses.icons.back}
+                iconPosition="center"
                 onClick={goPrevPage}
+                containerClassName="cursor-pointer"
               />
               <CustomButton
                 color="yellow"
-                text="Next"
+                text=""
+                iconAddress={imagesAddresses.icons.next}
+                iconPosition="center"
                 onClick={goNextPage}
+                containerClassName="cursor-pointer"
               />
             </div>
           </div>
