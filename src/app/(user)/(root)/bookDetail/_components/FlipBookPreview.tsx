@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useLayoutEffect } from "react"
+import { useState, useRef, useLayoutEffect, useEffect } from "react"
 import HTMLFlipBook from "react-pageflip"
 import { FlipPage } from "./FlipPage"
 import CustomButton from "@/components/CustomButton"
@@ -17,6 +17,15 @@ const FlipBookPreview = () => {
   const [bookWidth, setBookWidth] = useState(500)
   const [bookHeight, setBookHeight] = useState(700)
   const [isMobile, setIsMobile] = useState(false)
+
+  const [isMdUp, setIsMdUp] = useState(false);
+
+  useEffect(() => {
+    const checkSize = () => setIsMdUp(window.innerWidth >= 768);
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
 
   useLayoutEffect(() => {
     const updateSize = () => {
@@ -74,11 +83,15 @@ const FlipBookPreview = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                whileHover={{
-                  scale: 1.08,
-                  textShadow: "0px 0px 12px rgba(255,255,255,0.9)",
-                  boxShadow: "0px 0px 20px rgba(14, 165, 233, 0.6)",
-                }}
+                whileHover={
+                  isMdUp
+                    ? {
+                      scale: 1.08,
+                      textShadow: "0px 0px 12px rgba(255,255,255,0.9)",
+                      boxShadow: "0px 0px 20px rgba(14, 165, 233,0.6)",
+                    }
+                    : {}
+                }
                 className="absolute inset-0 flex flex-col items-center justify-center text-white text-center text-lg font-semibold space-y-1 px-4 py-3 rounded-xl backdrop-blur-md shadow-lg shadow-purple-500/40 z-20"
               >
                 <motion.p whileHover={{ scale: 1.1 }}>Click</motion.p>
