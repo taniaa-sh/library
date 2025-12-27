@@ -4,7 +4,7 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import  { useState } from 'react'
+import { useState } from 'react'
 import CustomButton from '@/components/CustomButton'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -36,8 +36,9 @@ const SignIn = () => {
 
   const handleLogin = async (data: SignInFormData) => {
     setLoading(true)
-
-    setLoading(false)
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000);
   }
 
   return (
@@ -52,14 +53,14 @@ const SignIn = () => {
               alt="logo"
               width={120}
               height={120}
-              className="lg:mx-0 dark:hidden"
+              className="!h-[20px] !w-[120px] lg:mx-0 dark:hidden"
             />
             <Image
               src={imagesAddresses.icons.FrameWhite}
               alt="logo"
               width={120}
               height={120}
-              className="lg:mx-0 hidden dark:block"
+              className="!h-[20px] !w-[120px] lg:mx-0 hidden dark:block"
             />
             <h1 className="text-xl md:text-2xl font-bold text-white dark:text-black lg:text-left !mt-5">
               Welcome Back to the BookWise

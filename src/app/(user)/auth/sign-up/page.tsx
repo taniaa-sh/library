@@ -74,6 +74,29 @@ const SignUp = () => {
     <div className="w-full flex items-center flex-col lg:flex-row">
       <div className="w-full min-h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center px-6 py-10 md:p-10 lg:p-20 flex items-center justify-center overflow-y-auto">
         <div className="bg-gray-900 dark:bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-4 md:p-8 flex flex-col gap-8 rounded-lg">
+          {/* HEADER */}
+          <div className="flex flex-col justify-start items-start gap-1">
+            <Image
+              src={imagesAddresses.images.logo}
+              alt="logo"
+              width={120}
+              height={120}
+              className="lg:mx-0 dark:hidden !h-[20px] !w-[120px]"
+            />
+            <Image
+              src={imagesAddresses.icons.FrameWhite}
+              alt="logo"
+              width={120}
+              height={120}
+              className="lg:mx-0 hidden dark:block !h-[20px] !w-[120px]"
+            />
+            <h1 className="text-xl md:text-2xl font-bold text-white dark:text-black lg:text-left !mt-5">
+              Create your BookWise account
+            </h1>
+            <p className="text-gray-400 dark:text-gray-600 text-sm md:text-base font-normal lg:text-left -mt-2">
+              Join BookWise and get access to a world of academic resources and digital books.
+            </p>
+          </div>
           <form
             onSubmit={handleSubmit(handleSignUp)}
             className="w-full flex flex-col gap-3 md:gap-4 lg:gap-6 text-white dark:text-gray-900"
@@ -124,7 +147,7 @@ const SignUp = () => {
                       alt="eye"
                       width={20}
                       height={20}
-                      className="absolute top-9 md:top-11 right-3 cursor-pointer dark:block hidden"
+                      className="absolute top-8 md:top-11 right-3 cursor-pointer dark:block hidden"
                       onClick={() => setShowUniversityId(!showUniversityId)}
                     />
                     <Image
@@ -132,7 +155,7 @@ const SignUp = () => {
                       alt="eye"
                       width={20}
                       height={20}
-                      className="absolute top-9 md:top-11 right-3 cursor-pointer dark:hidden"
+                      className="absolute top-8 md:top-11 right-3 cursor-pointer dark:hidden"
                       onClick={() => setShowUniversityId(!showUniversityId)}
                     />
                   </>
@@ -161,7 +184,7 @@ const SignUp = () => {
                       alt="eye"
                       width={20}
                       height={20}
-                      className="absolute top-9 md:top-11 right-3 cursor-pointer dark:block hidden"
+                      className="absolute top-8 md:top-11 right-3 cursor-pointer dark:block hidden"
                       onClick={() => setShowPass(!showPass)}
                     />
                     <Image
@@ -169,7 +192,7 @@ const SignUp = () => {
                       alt="eye"
                       width={20}
                       height={20}
-                      className="absolute top-9 md:top-11 right-3 cursor-pointer dark:hidden"
+                      className="absolute top-8 md:top-11 right-3 cursor-pointer dark:hidden"
                       onClick={() => setShowPass(!showPass)}
                     />
                   </>
@@ -201,7 +224,7 @@ const SignUp = () => {
           <div className="text-white dark:text-gray-900 text-xs md:text-sm lg:text-base text-center">
             Already have an account?{" "}
             <span
-              className="text-gold100 cursor-pointer"
+              className="text-gold100 dark:text-gold700 cursor-pointer"
               onClick={() => router.push(SiteUrls.signIn)}
             >
               Login

@@ -69,14 +69,14 @@ const ResetPasswordPage = () => {
                                     alt="logo"
                                     width={120}
                                     height={120}
-                                    className="lg:mx-0 dark:hidden"
+                                    className="!h-[20px] !w-[120px]lg:mx-0 dark:hidden"
                                 />
                                 <Image
                                     src={imagesAddresses.icons.FrameWhite}
                                     alt="logo"
                                     width={120}
                                     height={120}
-                                    className="lg:mx-0 hidden dark:block"
+                                    className="!h-[20px] !w-[120px] lg:mx-0 hidden dark:block"
                                 />
                             </div>
                             <div>
