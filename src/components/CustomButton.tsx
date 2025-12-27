@@ -1,6 +1,5 @@
 "use client";
 
-import imagesAddresses from '@/utils/imageAddresses';
 import Image from 'next/image';
 
 type PropsType = {
@@ -54,6 +53,9 @@ const CustomButton: React.FC<PropsType> = ({
     } else if (color === "white") {
         newClass =
             "bg-white hover:bg-gray-50 text-gray-900 border-[0px] dark:border dark:border-gray-600 !px-4 !shadow-lg dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-gray-100";
+    } else if (color === "gray") {
+        newClass =
+            "text-white bg-gray-800 dark:bg-gray-400 hover:bg-gray-900 dark:text-gray-800 border-[0px] !px-4";
     }
     if (color === "iconbutton" && iconAddress !== undefined) {
         return (

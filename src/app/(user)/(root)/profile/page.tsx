@@ -13,7 +13,7 @@ const Profile = async () => {
         <div className="w-full mt-4 flex flex-col gap-10 md:gap-20 px-4 md:px-10 pt-30 pb-10">
             <UserInfo />
 
-            {/* Right Column: Borrowed Books */}
+            {/* Borrowed Books */}
             <div className="w-full mt-4 flex flex-col gap-4 md:gap-5">
                 <p className="text-light-100 dark:text-gray-900 font-semibold text-2xl md:text-3xl">Borrowed books</p>
                 <div className="grid grid-cols-1 gap-4 sm:flex sm:overflow-x-auto sm:gap-4 md:gap-5 py-2 custom-scrollbar1">

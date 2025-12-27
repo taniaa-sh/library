@@ -1,253 +1,235 @@
 "use client";
 
-import imagesAddresses from "@/utils/imageAddresses";
-import Image from "next/image";
 import { useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import DragAndDropUpload from "@/components/DragAndDropUpload";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
 import CustomButton from "@/components/CustomButton";
+import imagesAddresses from "@/utils/imageAddresses";
 
-import { useForm, Controller } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-interface FormValues {
+type FormValues = {
     name: string;
     university: string;
     studentId: string;
     email: string;
-}
+};
 
-const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required").min(3, "Name must be at least 3 characters"),
-    university: Yup.string().required("University is required"),
-    studentId: Yup.string()
-        .required("Student ID is required")
-        .matches(/^\d+$/, "Student ID must be numbers only"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-});
-
-const UserInfo = () => {
+const UserProfile = () => {
     const [isEditing, setIsEditing] = useState(false);
+    const [avatar, setAvatar] = useState<string>(imagesAddresses.images.profile);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [profileImage, setProfileImage] = useState<string>(imagesAddresses.images.profile);
-
-    const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({
-        resolver: yupResolver(validationSchema),
-        defaultValues: {
-            name: "Adrian",
-            university: "JS Mastery Pro",
-            studentId: "234567856",
-            email: "contact@jsmastery.pro",
-        },
-    });
 
     const changeProfileImage = () => {
         if (isEditing) inputRef.current?.click();
     };
 
-    const onSubmit = (data: FormValues) => {
-        console.log("Saved data:", data);
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<FormValues>({
+        defaultValues: {
+            name: "Adrian Hajdin",
+            university: "JS Mastery",
+            studentId: "23456789",
+            email: "contact@jsmastery.pro",
+        },
+    });
+
+    const onSave = (data: FormValues) => {
+        setIsEditing(false);
+    };
+
+    const onCancel = () => {
+        reset();
         setIsEditing(false);
     };
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full flex flex-col gap-6 md:gap-9 rounded-lg bg-[url('/images/loginBg.png')] bg-cover dark:bg-gray-50 h-auto p-6 md:p-10 relative"
+        <div
+            className="w-full max-w-5xl mx-auto bg-gray-900 dark:bg-gray-50 rounded-xl p-5 md:p-8 space-y-8"
+            style={{
+                boxShadow: "0 14px 16px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.15)"
+            }}
         >
-            {!isEditing && (
-                <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }}>
+
+            {/* HEADER ACTIONS */}
+            <div className="flex justify-between items-center">
+                <h2 className="text-lg md:text-2xl font-bold text-white dark:text-gray-900">
+                    Profile Information
+                </h2>
+
+                {!isEditing ? (
                     <CustomButton
                         text="Edit"
                         color="yellow"
-                        containerClassName="md:hidden !w-fit self-end cursor-pointer dark:hidden"
-                        onClick={() => setIsEditing(!isEditing)}
-                        iconPosition="right"
-                        iconAddress={imagesAddresses.icons.blackEdit}
+                        containerClassName="!w-fit cursor-pointer"
+                        onClick={() => setIsEditing(true)}
                     />
-                    <CustomButton
-                        text="Edit"
-                        color="yellow"
-                        containerClassName="dark:md:hidden !w-fit self-end cursor-pointer hidden dark:flex"
-                        onClick={() => setIsEditing(!isEditing)}
-                        iconPosition="right"
-                        iconAddress={imagesAddresses.icons.whiteEdit}
-                    />
-                </motion.div>
-            )}
-
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 md:gap-9">
-                <div className="flex justify-between items-center gap-6 md:gap-7">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1, duration: 0.5 }}
-                        className={`relative w-[100px] h-[100px] ${isEditing ? "cursor-pointer md:w-[150px] md:h-[150px]" : "md:w-[200px] md:h-[200px]"}`}
-                    >
-                        <Image
-                            src={profileImage}
-                            alt="profile"
-                            fill
-                            className="rounded-full border-6 md:border-8 border-[#363e58] dark:border-gray-500 object-cover"
-                            onClick={changeProfileImage}
+                ) : (
+                    <div className="flex flex-col-reverse sm:flex-row gap-2">
+                        <CustomButton
+                            text="Cancel"
+                            color="gray"
+                            containerClassName="!w-fit cursor-pointer"
+                            onClick={onCancel}
                         />
-
-                        {/* Camera Icon */}
-                        <AnimatePresence>
-                            {isEditing && (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.5 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.5 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="absolute rounded-full flex items-center justify-center cursor-pointer top-18 left-16 md:top-28 md:left-28"
-                                    onClick={changeProfileImage}
-                                >
-                                    <Image
-                                        src={imagesAddresses.icons.camera}
-                                        alt="camera"
-                                        width={25}
-                                        height={30}
-                                        className="opacity-90 md:w-30"
-                                    />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </motion.div>
-
-                    <input
-                        type="file"
-                        accept="image/*"
-                        ref={inputRef}
-                        className="hidden"
-                        onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) setProfileImage(URL.createObjectURL(file));
-                        }}
-                    />
-                </div>
-
-                <div className="flex flex-col md:flex-row gap-10 justify-between">
-                    <div className="flex flex-col gap-4 w-full">
-                        {/* Name */}
-                        <Controller
-                            name="name"
-                            control={control}
-                            render={({ field }) => isEditing ? (
-                                <div className="flex flex-col">
-                                    <p className="text-light-100 dark:text-gray-900 text-sm md:text-[18px]">Name:</p>
-                                    <input
-                                        {...field}
-                                        className={`w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 text-light-100 dark:text-gray-900 font-semibold ${errors.name ? "border border-red-500" : ""}`}
-                                        placeholder="Enter your name"
-                                    />
-                                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
-                                </div>
-                            ) : (
-                                <p className="font-semibold text-xl md:text-2xl text-white dark:text-gray-900">{field.value}</p>
-                            )}
-                        />
-
-                        {/* University */}
-                        <Controller
-                            name="university"
-                            control={control}
-                            render={({ field }) => isEditing ? (
-                                <div className="flex flex-col">
-                                    <p className="text-light-100 dark:text-gray-900 text-sm md:text-[18px]">University:</p>
-                                    <input
-                                        {...field}
-                                        className={`w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900 ${errors.university ? "border border-red-500" : ""}`}
-                                        placeholder="Enter your university"
-                                    />
-                                    {errors.university && <p className="text-red-500 text-xs mt-1">{errors.university.message}</p>}
-                                </div>
-                            ) : (
-                                <p className="font-semibold text-base md:text-2xl text-white dark:text-gray-900">{field.value}</p>
-                            )}
-                        />
-
-                        {/* Student ID */}
-                        <Controller
-                            name="studentId"
-                            control={control}
-                            render={({ field }) => isEditing ? (
-                                <div className="flex flex-col">
-                                    <p className="text-light-100 dark:text-gray-900 text-sm md:text-[18px]">Student ID:</p>
-                                    <input
-                                        {...field}
-                                        className={`w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900 ${errors.studentId ? "border border-red-500" : ""}`}
-                                        placeholder="Enter your student ID"
-                                    />
-                                    {errors.studentId && <p className="text-red-500 text-xs mt-1">{errors.studentId.message}</p>}
-                                </div>
-                            ) : (
-                                <p className="font-semibold text-base md:text-2xl text-white dark:text-gray-900">{field.value}</p>
-                            )}
-                        />
-
-                        {/* Email */}
-                        <Controller
-                            name="email"
-                            control={control}
-                            render={({ field }) => isEditing ? (
-                                <div className="flex flex-col">
-                                    <p className="text-light-100 dark:text-gray-900 text-sm md:text-[18px]">Email:</p>
-                                    <input
-                                        {...field}
-                                        className={`w-full bg-dark-300 dark:bg-gray-200 rounded-lg py-2 px-4 font-semibold text-light-100 dark:text-gray-900 ${errors.email ? "border border-red-500" : ""}`}
-                                        placeholder="Enter your email"
-                                    />
-                                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
-                                </div>
-                            ) : (
-                                <p className="font-semibold text-base md:text-2xl text-white dark:text-gray-900">{field.value}</p>
-                            )}
+                        <CustomButton
+                            text="Save"
+                            color="yellow"
+                            containerClassName="!w-fit cursor-pointer !px-[22px]"
+                            onClick={handleSubmit(onSave)}
                         />
                     </div>
+                )}
+            </div>
 
-                    {/* Upload Image */}
+            {/* CONTENT */}
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+
+                {/* AVATAR */}
+                <div className="relative shrink-0">
+                    <Image
+                        src={avatar}
+                        alt="avatar"
+                        width={150}
+                        height={150}
+                        className="rounded-full object-cover border-4 border-gray-700 dark:border-gray-300"
+                    />
+
                     {isEditing && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="flex flex-col gap-1"
-                        >
-                            <p className="text-light-100 dark:text-gray-900 font-medium">Upload your University card :</p>
-                            <DragAndDropUpload type="image" onChange={() => { }} />
-                        </motion.div>
+                        <>
+                            {/* Camera Icon */}
+                            <label
+                                onClick={changeProfileImage}
+                                className="absolute bottom-1 right-2 flex items-center justify-center cursor-pointer bg-gray-700 dark:bg-[#99a1af] rounded-full p-2 hover:scale-105 transition"
+                            >
+                                <Image
+                                    src={imagesAddresses.icons.camera}
+                                    alt="camera"
+                                    width={30}
+                                    height={30}
+                                />
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    ref={inputRef}
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) setAvatar(URL.createObjectURL(file));
+                                    }}
+                                />
+                            </label>
+                        </>
                     )}
                 </div>
 
-                {/* Save Button */}
-                {isEditing && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="self-end">
-                        <CustomButton
-                            text="Save"
-                            color="yellow"
-                            containerClassName="flex cursor-pointer md:!w-30 dark:hidden"
-                            onClick={handleSubmit(onSubmit)}
-                            iconPosition="right"
-                            iconAddress={imagesAddresses.icons.save}
-                        />
-                        <CustomButton
-                            text="Save"
-                            color="yellow"
-                            containerClassName="cursor-pointer md:!w-30 hidden dark:flex"
-                            onClick={handleSubmit(onSubmit)}
-                            iconPosition="right"
-                            iconAddress={imagesAddresses.icons.saveWhite}
-                        />
-                    </motion.div>
-                )}
-            </form>
-        </motion.div>
+
+                {/* FORM */}
+                <form className="w-full flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    {/* NAME */}
+                    <div className="!w-full flex flex-col gap-1">
+                        <label className="text-sm text-gray-400 dark:text-gray-600">
+                            Full Name
+                        </label>
+
+                        {isEditing ? (
+                            <>
+                                <input
+                                    {...register("name", { required: true })}
+                                    className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
+                                />
+                                {errors.name && (
+                                    <span className="text-xs text-red-500">Name is required</span>
+                                )}
+                            </>
+                        ) : (
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">
+                                Adrian Hajdin
+                            </p>
+                        )}
+                    </div>
+
+                    {/* UNIVERSITY */}
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm text-gray-400 dark:text-gray-600">
+                            University
+                        </label>
+
+                        {isEditing ? (
+                            <>
+                                <input
+                                    {...register("university", { required: true })}
+                                    className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
+                                />
+                                {errors.university && (
+                                    <span className="text-xs text-red-500">
+                                        University is required
+                                    </span>
+                                )}
+                            </>
+                        ) : (
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">
+                                JS Mastery
+                            </p>
+                        )}
+                    </div>
+
+                    {/* STUDENT ID */}
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm text-gray-400 dark:text-gray-600">
+                            Student ID
+                        </label>
+
+                        {isEditing ? (
+                            <>
+                                <input
+                                    {...register("studentId", { required: true })}
+                                    className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
+                                />
+                                {errors.studentId && (
+                                    <span className="text-xs text-red-500">
+                                        Student ID is required
+                                    </span>
+                                )}
+                            </>
+                        ) : (
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">
+                                23456789
+                            </p>
+                        )}
+                    </div>
+
+                    {/* EMAIL */}
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm text-gray-400 dark:text-gray-600">
+                            Email
+                        </label>
+
+                        {isEditing ? (
+                            <>
+                                <input
+                                    {...register("email", { required: true })}
+                                    className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
+                                />
+                                {errors.email && (
+                                    <span className="text-xs text-red-500">
+                                        Email is required
+                                    </span>
+                                )}
+                            </>
+                        ) : (
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">
+                                contact@jsmastery.pro
+                            </p>
+                        )}
+                    </div>
+                </form>
+            </div>
+        </div>
     );
 };
 
-export default UserInfo;
+export default UserProfile;
