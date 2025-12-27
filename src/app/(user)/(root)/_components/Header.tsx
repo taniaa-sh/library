@@ -64,7 +64,7 @@ const Header = () => {
           <LogoutModal setShowLogoutModal={setShowLogoutModal} />
         )
       }
-      <header className="!w-full bg-gray-900 dark:bg-gray-300 text-white dark:text-gray-900 flex items-center justify-between p-5 md:px-10 md:py-6 fixed top-0 z-50">
+      <header className="!w-full bg-gray-900 dark:bg-gray-300 text-white dark:!text-gray-900 flex items-center justify-between p-5 md:px-10 md:py-6 fixed top-0 z-50">
 
         {/*logo*/}
         <Link href="/">
@@ -92,7 +92,7 @@ const Header = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors duration-200 hover:!text-gold400 dark:hover:!text-gold800 ${pathName === item.href ? "!text-gold100 dark:!text-gold400 font-semibold" : "text-white"
+              className={`transition-colors duration-200 hover:!text-gold400 dark:hover:!text-gold800 ${pathName === item.href ? "!text-gold100 dark:!text-gold400 font-semibold" : "text-white dark:text-gray-900"
                 }`}
             >
               {item.label}
@@ -159,7 +159,7 @@ const Header = () => {
                     href={item.href}
                     className={`transition-colors duration-200 w-full text-center hover:!text-gold400 dark:hover:!text-gold800 ${pathName === item.href
                       ? "!text-gold100 dark:!text-gold400 font-semibold"
-                      : "text-white"
+                      : "text-white dark:text-gray-900"
                       }`}
                     onClick={() => setIsMenuOpen(false)}
                   >

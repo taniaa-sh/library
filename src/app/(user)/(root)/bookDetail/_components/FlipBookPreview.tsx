@@ -150,7 +150,15 @@ const FlipBookPreview = () => {
                 iconAddress={imagesAddresses.icons.back}
                 iconPosition="center"
                 onClick={goPrevPage}
-                containerClassName="cursor-pointer"
+                containerClassName="cursor-pointer dark:hidden"
+              />
+              <CustomButton
+                color="yellow"
+                text=""
+                iconAddress={imagesAddresses.icons.backWhite}
+                iconPosition="center"
+                onClick={goPrevPage}
+                containerClassName="cursor-pointer hidden dark:block"
               />
               <CustomButton
                 color="yellow"
@@ -158,7 +166,15 @@ const FlipBookPreview = () => {
                 iconAddress={imagesAddresses.icons.next}
                 iconPosition="center"
                 onClick={goNextPage}
-                containerClassName="cursor-pointer"
+                containerClassName="cursor-pointer dark:hidden"
+              />
+              <CustomButton
+                color="yellow"
+                text=""
+                iconAddress={imagesAddresses.icons.nextWhite}
+                iconPosition="center"
+                onClick={goNextPage}
+                containerClassName="cursor-pointer dark:block hidden"
               />
             </div>
           </div>
@@ -169,11 +185,13 @@ const FlipBookPreview = () => {
             color="yellow"
             text="See pdf"
             onClick={() => setShowPdfModal(true)}
+            containerClassName="cursor-pointer"
           />
           <CustomButton
             color="yellow"
             text="Download pdf"
             onClick={() => { }}
+            containerClassName="cursor-pointer"
           />
         </div>
       </div>

@@ -135,13 +135,14 @@ const BookFeature = ({
                             iconPosition="right"
                             color="yellow"
                             containerClassName="w-full md:!w-fit cursor-pointer hidden dark:flex text-nowrap"
+                            onClick={() => { setShowBorrowModal(true) }}
                         />
                     </motion.div>
                 </motion.div>
 
                 {/* Right Content (Book Image) */}
                 <motion.div
-                    className="flex justify-center relative lg:right-40 right-10 -mt-10 lg:mt-0"
+                    className="flex justify-center relative lg:right-40 right-10 lg:mt-0"
                     variants={itemVariants}
                 >
                     <motion.div

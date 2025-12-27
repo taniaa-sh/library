@@ -18,7 +18,7 @@ const Home = () => {
     }, []);
 
     return (
-        <>
+        <div className="pb-10">
             <div className="flex flex-col gap-10 px-4 md:px-10">
                 <BookFeature
                     title="The Lord"
@@ -47,7 +47,7 @@ const Home = () => {
                 <p className="text-xl md:text-3xl font-semibold text-light-100 dark:text-gray-900">Recommended</p>
                 <PopularBookSlider data={data} />
             </div>
-        </>
+        </div >
     );
 };
 
