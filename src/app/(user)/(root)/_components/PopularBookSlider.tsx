@@ -58,7 +58,7 @@ export default function PopularBookSlider({
                                     alt={popularBook.title}
                                     width={180}
                                     height={260}
-                                    className="w-[110px] h-[155px] sm:w-[130px] sm:h-[185px] md:w-[150px] md:h-[210px] object-cover rounded-xl shadow-xl !-ml-10"
+                                    className="w-[110px] h-[155px] sm:w-[130px] sm:h-[185px] md:w-[150px] md:h-[210px] object-cover rounded-xl shadow-xl !-ml-8 md:!-ml-10"
                                 />
                                 <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/80 via-black/30 to-transparent dark:from-black/40 dark:via-black/10" />
                             </div>

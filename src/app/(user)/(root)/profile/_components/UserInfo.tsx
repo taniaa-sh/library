@@ -101,7 +101,7 @@ const UserProfile = () => {
                         <>
                             {/* Camera Icon */}
                             <label
-                                onClick={changeProfileImage}
+                                htmlFor="avatarInput"
                                 className="absolute bottom-1 right-2 flex items-center justify-center cursor-pointer bg-gray-700 dark:bg-[#99a1af] rounded-full p-2 hover:scale-105 transition"
                             >
                                 <Image
@@ -110,21 +110,21 @@ const UserProfile = () => {
                                     width={30}
                                     height={30}
                                 />
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    ref={inputRef}
-                                    className="hidden"
-                                    onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) setAvatar(URL.createObjectURL(file));
-                                    }}
-                                />
                             </label>
+                            <input
+                                id="avatarInput"
+                                type="file"
+                                accept="image/*"
+                                ref={inputRef}
+                                className="hidden"
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) setAvatar(URL.createObjectURL(file));
+                                }}
+                            />
                         </>
                     )}
                 </div>
-
 
                 {/* FORM */}
                 <form className="w-full flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
