@@ -92,7 +92,7 @@ const FlipBookPreview = () => {
                     }
                     : {}
                 }
-                className="absolute inset-0 flex flex-col items-center justify-center text-white text-center text-lg font-semibold space-y-1 px-4 py-3 rounded-xl backdrop-blur-md shadow-lg shadow-purple-500/40 z-20"
+                className={`flex flex-col items-center justify-center text-white text-center text-lg font-semibold space-y-1 px-4 py-3 rounded-xl absolute inset-0  ${isMdUp ? "backdrop-blur-md shadow-lg shadow-purple-500/40 z-20" : ""}`}
               >
                 <motion.p whileHover={{ scale: 1.1 }}>Click</motion.p>
                 <motion.p whileHover={{ scale: 1.1 }}>here</motion.p>
