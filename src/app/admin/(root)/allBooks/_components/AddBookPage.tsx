@@ -163,6 +163,7 @@ const AddBookPage = () => {
                             }}
                             errors={errors.genre?.message ? [errors.genre.message] : []}
                             containerClassName="w-full"
+                            isAdmin
                         />
                     </motion.div>
                     {errors.genre && (

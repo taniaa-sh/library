@@ -10,11 +10,12 @@ type PropsType = {
     name: string;
     value: string;
     containerClassName?: string;
-    errors: string[];
+    errors?: string[];
     Values: string[];
     width?: string;
     disabled?: boolean;
     shakeTrigger?: number;
+    isAdmin?: boolean;
 };
 
 const CustomInputSelect: React.FC<PropsType> = ({
@@ -28,11 +29,11 @@ const CustomInputSelect: React.FC<PropsType> = ({
     Values,
     shakeTrigger = 0,
     disabled = false,
+    isAdmin = false,
 }) => {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
-    /* Close on outside click */
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
@@ -48,6 +49,23 @@ const CustomInputSelect: React.FC<PropsType> = ({
         setOpen(false);
     };
 
+    const buttonClass = isAdmin
+        ? "!bg-light-600 dark:!bg-dark-400 text-gray-800 dark:text-white"
+        : "!bg-dark-400 dark:!bg-white text-white dark:text-gray-900";
+
+    const listItemClass = (item: string) => {
+        if (item === value) {
+            return isAdmin
+                ? "!bg-primary-admin !text-white font-semibold"
+                : "!bg-yellow-400 !text-gray-900 font-semibold";
+        }
+        return isAdmin
+            ? "hover:!bg-blue-50 dark:hover:!bg-dark-300 dark:text-white"
+            : "hover:!bg-yellow-100 dark:hover:!bg-yellow-700 dark:text-gray-900 text-gray-300";
+    };
+
+    const dropdownBg = isAdmin ? "!bg-white dark:!bg-dark-500" : "!bg-dark-500 dark:!bg-white";
+
     return (
         <div
             ref={wrapperRef}
@@ -55,18 +73,15 @@ const CustomInputSelect: React.FC<PropsType> = ({
             style={{ width: width ? `${width}px` : "100%" }}
         >
             {label && (
-                <label
-                    className="mb-1 text-xs sm:text-sm font-medium text-gray-900 dark:text-white"
-                >
+                <label className="mb-1 text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
                     {label}
                 </label>
             )}
 
-            {/* Select Box */}
             <motion.button
                 type="button"
                 key={shakeTrigger}
-                animate={errors.length > 0 ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                animate={errors && errors.length > 0 ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 transition={{ duration: 0.4 }}
                 disabled={disabled}
                 onClick={() => !disabled && setOpen(prev => !prev)}
@@ -74,24 +89,17 @@ const CustomInputSelect: React.FC<PropsType> = ({
                     w-full rounded-lg border px-4 py-3
                     text-sm sm:text-base font-medium
                     flex items-center justify-between
-                    bg-light-600 dark:bg-dark-400
                     focus:outline-none focus:ring-2
                     ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                    ${value ? "text-gray-800 dark:text-white" : "text-gray-400"}
+                    ${buttonClass}
                 `}
             >
                 <span>{value || placeholder}</span>
-
-                {/* Arrow */}
-                <motion.span
-                    animate={{ rotate: open ? 180 : 0 }}
-                    className="ml-2 text-gray-400"
-                >
+                <motion.span animate={{ rotate: open ? 180 : 0 }} className="ml-2 text-gray-400">
                     ▼
                 </motion.span>
             </motion.button>
 
-            {/* Dropdown */}
             <AnimatePresence>
                 {open && (
                     <motion.ul
@@ -99,13 +107,12 @@ const CustomInputSelect: React.FC<PropsType> = ({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.2 }}
-                        className="
+                        className={`
                             absolute z-50 !mt-10 w-full
-                            rounded-lg border
-                            bg-white dark:bg-dark-500
-                            shadow-lg
+                            rounded-lg border shadow-lg
                             max-h-60 overflow-auto
-                        "
+                            ${dropdownBg}
+                        `}
                     >
                         {Values.map((item, index) => (
                             <li
@@ -114,8 +121,7 @@ const CustomInputSelect: React.FC<PropsType> = ({
                                 className={`
                                     px-4 py-3 cursor-pointer
                                     text-sm sm:text-base
-                                    hover:bg-blue-50 dark:hover:bg-dark-300 dark:text-white
-                                    ${item === value ? "bg-primary-admin text-white  font-semibold" : ""}
+                                    ${listItemClass(item)}
                                 `}
                             >
                                 {item}
@@ -124,7 +130,6 @@ const CustomInputSelect: React.FC<PropsType> = ({
                     </motion.ul>
                 )}
             </AnimatePresence>
-
         </div>
     );
 };

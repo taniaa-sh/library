@@ -1,22 +1,41 @@
-"use client";
+'use client';
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import SiteUrls from "@/utils/routs";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookFeatureProps } from "@/utils/type";
 import ReactPaginate from "react-paginate";
+import CustomInputSelect from "@/components/CustomInputSelect";
+import SiteUrls from "@/utils/routs";
+import { BookFeatureProps } from "@/utils/type";
 
 const BookList = () => {
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     const [data, setData] = useState<BookFeatureProps[]>([]);
-    const totalPages = 10;
+    const [selectedGenre, setSelectedGenre] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12;
 
-    const handlePageClick = (selectedItem: { selected: number }) => {
-        const page = selectedItem.selected + 1;
-        router.push(`?page=${page}`);
-    };
+    useEffect(() => {
+        const genreFromUrl = searchParams.get("genre");
+        const pageFromUrl = searchParams.get("page");
+
+        if (genreFromUrl) {
+            let genreName = "";
+            switch (genreFromUrl) {
+                case "1": genreName = "Fiction"; break;
+                case "2": genreName = "Non-fiction"; break;
+                case "3": genreName = "Science"; break;
+                case "4": genreName = "Biography"; break;
+            }
+            setSelectedGenre(genreName);
+        }
+
+        if (pageFromUrl) {
+            setCurrentPage(parseInt(pageFromUrl));
+        }
+    }, [searchParams]);
 
     useEffect(() => {
         fetch('/data/data.json')
@@ -25,32 +44,87 @@ const BookList = () => {
             .catch(err => console.error('error:', err));
     }, []);
 
+    const handleSelectGenre = (value: string) => {
+        setSelectedGenre(value);
+
+        let genreId = "";
+        switch (value) {
+            case "Fiction": genreId = "1"; break;
+            case "Non-fiction": genreId = "2"; break;
+            case "Science": genreId = "3"; break;
+            case "Biography": genreId = "4"; break;
+        }
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("genre", genreId);
+        url.searchParams.set("page", "1")
+        window.history.pushState({}, "", url.toString());
+        setCurrentPage(1);
+    };
+
+    const handlePageClick = (selectedItem: { selected: number }) => {
+        const page = selectedItem.selected + 1;
+        setCurrentPage(page);
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("page", page.toString());
+        if (selectedGenre) {
+            let genreId = "";
+            switch (selectedGenre) {
+                case "Fiction": genreId = "1"; break;
+                case "Non-fiction": genreId = "2"; break;
+                case "Science": genreId = "3"; break;
+                case "Biography": genreId = "4"; break;
+            }
+            url.searchParams.set("genre", genreId);
+        }
+        window.history.pushState({}, "", url.toString());
+    };
+
+    const filteredData = selectedGenre
+        ? data.filter(book => book.genre === selectedGenre)
+        : data;
+
+    const paginatedData = filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
     return (
         <div className="my-10 flex flex-col gap-6">
-            <p className="text-[20px] md:text-[28px] font-semibold text-white dark:text-gray-900">
-                All Books
-            </p>
+            <div className="flex items-center justify-between">
+                <p className="text-[20px] md:text-[28px] font-semibold text-white dark:text-gray-900">
+                    All Books
+                </p>
+                <CustomInputSelect
+                    name="genre"
+                    placeholder="Select a genre"
+                    Values={["Fiction", "Non-fiction", "Science", "Biography"]}
+                    value={selectedGenre || ""}
+                    onChange={handleSelectGenre}
+                    containerClassName="!w-fit"
+                />
+            </div>
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {data.map((book, index) => (
+                {paginatedData.map((book, index) => (
                     <div
                         key={index}
-                        onClick={() =>
-                            router.push(
-                                SiteUrls.bookDetail + `/${book.id}`
-                            )
-                        }
+                        onClick={() => router.push(SiteUrls.bookDetail + `/${book.id}`)}
                         className="
-                                group w-full max-w-[150px] sm:max-w-[170px] md:max-w-[190px]
-                                cursor-pointer rounded-2xl p-3 transition-all duration-300 hover:-translate-y-1
-                                bg-gradient-to-b from-[#0f0f0f] to-[#181818]
-                                border border-white/5
-                                shadow-[0_10px_30px_rgba(0,0,0,0.6)]
-                                hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]
-                                dark:bg-gradient-to-b dark:from-white dark:to-gray-100
-                                dark:border-gray-200
-                                dark:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
-                                dark:hover:shadow-[0_14px_30px_rgba(0,0,0,0.12)]
-                            "
+                            group w-full max-w-[150px] sm:max-w-[170px] md:max-w-[190px]
+                            cursor-pointer rounded-2xl p-3 transition-all duration-300 hover:-translate-y-1
+                            bg-gradient-to-b from-[#0f0f0f] to-[#181818]
+                            border border-white/5
+                            shadow-[0_10px_30px_rgba(0,0,0,0.6)]
+                            hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]
+                            dark:bg-gradient-to-b dark:from-white dark:to-gray-100
+                            dark:border-gray-200
+                            dark:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
+                            dark:hover:shadow-[0_14px_30px_rgba(0,0,0,0.12)]
+                        "
                     >
                         <div className="relative flex justify-center">
                             <Image
@@ -65,18 +139,13 @@ const BookList = () => {
 
                         <div className="mt-3 h-[92px] flex flex-col justify-between text-start">
                             <div>
-                                {/* Title */}
                                 <p className="text-[12px] sm:text-sm font-semibold leading-5 line-clamp-2 min-h-[40px] transition-colors text-white group-hover:text-[#d4af37] dark:text-gray-900 dark:group-hover:text-amber-600">
                                     {book.title}
                                 </p>
-
-                                {/* Author */}
                                 <p className="mt-1 text-[11px] italic truncate text-gray-400 dark:text-gray-500">
                                     by {book.author}
                                 </p>
                             </div>
-
-                            {/* Genre */}
                             <span className="inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 dark:bg-amber-100 dark:text-amber-700 dark:border-amber-200">
                                 {book.genre}
                             </span>
