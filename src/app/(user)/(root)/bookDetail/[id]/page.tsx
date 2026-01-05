@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import FlipBookPreview from "../_components/FlipBookPreview";
+import BookReviews from "../_components/BookReviews";
 
 const BookDetailPage = () => {
     const params = useParams();
@@ -280,6 +281,12 @@ const BookDetailPage = () => {
                             <FlipBookPreview />
                         </div>
                     </div>
+                </div>
+
+                {/* comments */}
+                <div className="flex flex-col gap-2">
+                    <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900 self-center !mt-8">Comments</p>
+                    <BookReviews />
                 </div>
             </div>
         </>
