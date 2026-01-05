@@ -2,18 +2,26 @@
 
 import { menuItems } from "@/utils/adminMenuItems";
 import imagesAddresses from "@/utils/imageAddresses";
-import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
+import AdminLogoutModal from "./AdminLogoutModal";
 
 const AdminSidebar = () => {
     const pathname = usePathname();
-    const router = useRouter();
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
 
     return (
-        <div className="
+        <>
+            {
+                showLogoutModal && (
+                    <AdminLogoutModal
+                        setShowLogoutModal={setShowLogoutModal}
+                    />
+                )
+            }
+            <div className="
             hidden lg:flex lg:fixed w-[280px] 
             bg-white dark:bg-[#0d1b3b]
             border border-light-400 dark:border-dark-400
@@ -22,87 +30,88 @@ const AdminSidebar = () => {
             !min-h-screen overflow-y-auto p-4
             transition-all
         ">
-            <div className="w-full">
-                {/* LOGO */}
-                <div className="flex flex-col gap-4 mb-6">
-                    <Image
-                        src={imagesAddresses.images.adminLogo}
-                        alt="logo"
-                        width={163}
-                        height={77}
-                        className="brightness-90 dark:hidden"
-                    />
-                    <Image
-                        src={imagesAddresses.icons.adminLogoWhite}
-                        alt="logo"
-                        width={163}
-                        height={77}
-                        className="brightness-90 dark:block hidden"
-                    />
+                <div className="w-full">
+                    {/* LOGO */}
+                    <div className="flex flex-col gap-4 mb-6">
+                        <Image
+                            src={imagesAddresses.images.adminLogo}
+                            alt="logo"
+                            width={163}
+                            height={77}
+                            className="brightness-90 dark:hidden"
+                        />
+                        <Image
+                            src={imagesAddresses.icons.adminLogoWhite}
+                            alt="logo"
+                            width={163}
+                            height={77}
+                            className="brightness-90 dark:block hidden"
+                        />
+                    </div>
+
+                    {/* MENU */}
+                    <nav className="flex flex-col gap-3 w-full">
+                        {menuItems.map((item) => {
+                            const isActive = pathname === item.link;
+
+                            return (
+                                <Link
+                                    key={item.id}
+                                    href={item.link}
+                                    className={`flex items-center gap-3 !p-4 rounded-xl transition-all ${isActive
+                                        ? "bg-primary-admin !text-white font-semibold"
+                                        : "hover:bg-light-400 dark:hover:bg-dark-400 text-gray-700 dark:!text-white"
+                                        }`}
+                                >
+                                    <Image
+                                        src={isActive ? item.activeImage : item.image}
+                                        alt={item.title}
+                                        width={24}
+                                        height={24}
+                                    />
+                                    <span>{item.title}</span>
+                                </Link>
+                            );
+                        })}
+                    </nav>
                 </div>
 
-                {/* MENU */}
-                <nav className="flex flex-col gap-3 w-full">
-                    {menuItems.map((item) => {
-                        const isActive = pathname === item.link;
-
-                        return (
-                            <Link
-                                key={item.id}
-                                href={item.link}
-                                className={`flex items-center gap-3 !p-4 rounded-xl transition-all ${isActive
-                                    ? "bg-primary-admin !text-white font-semibold"
-                                    : "hover:bg-light-400 dark:hover:bg-dark-400 text-gray-700 dark:!text-white"
-                                    }`}
-                            >
-                                <Image
-                                    src={isActive ? item.activeImage : item.image}
-                                    alt={item.title}
-                                    width={24}
-                                    height={24}
-                                />
-                                <span>{item.title}</span>
-                            </Link>
-                        );
-                    })}
-                </nav>
-            </div>
-
-            {/* PROFILE */}
-            <div
-                className="
+                {/* PROFILE */}
+                <div
+                    className="
                     flex gap-2 items-center 
                     border-2 border-light-400 dark:border-dark-400
                     rounded-[62px] py-[10px] px-3
                     bg-white dark:bg-dark-400
                     cursor-pointer transition-all
                 "
-            >
-                <Image
-                    src={imagesAddresses.images.profile}
-                    alt="profile"
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                />
-                <div className="flex flex-col gap-1">
-                    <p className="font-medium text-base text-dark-400 dark:text-white">
-                        Adrian Hajdin
-                    </p>
-                    <p className="font-normal text-sm text-[#8D8D8D] dark:text-gray-400">
-                        adrian@jsmastery.pro
-                    </p>
+                >
+                    <Image
+                        src={imagesAddresses.images.profile}
+                        alt="profile"
+                        width={40}
+                        height={40}
+                        className="rounded-full"
+                    />
+                    <div className="flex flex-col gap-1">
+                        <p className="font-medium text-base text-dark-400 dark:text-white">
+                            Adrian Hajdin
+                        </p>
+                        <p className="font-normal text-sm text-[#8D8D8D] dark:text-gray-400">
+                            adrian@jsmastery.pro
+                        </p>
+                    </div>
+                    <Image
+                        src={imagesAddresses.icons.logout}
+                        alt="logout"
+                        width={24}
+                        height={24}
+                        className="cursor-pointer"
+                        onClick={() => setShowLogoutModal(true)}
+                    />
                 </div>
-                <Image
-                    src={imagesAddresses.icons.logout}
-                    alt="logout"
-                    width={24}
-                    height={24}
-                    className="cursor-pointer"
-                    onClick={() => router.push(SiteUrls.adminLogin)}
-                />
             </div>
-        </div>
+        </>
     );
 };
 

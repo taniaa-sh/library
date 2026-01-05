@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminLogoutModal from "./AdminLogoutModal";
 import CustomButton from "@/components/CustomButton";
-import SiteUrls from "@/utils/routs";
 
 const AdminHeader = () => {
     const router = useRouter();
