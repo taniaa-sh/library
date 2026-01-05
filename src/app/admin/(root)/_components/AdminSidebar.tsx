@@ -5,7 +5,7 @@ import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import AdminLogoutModal from "./AdminLogoutModal";
 
 const AdminSidebar = () => {
