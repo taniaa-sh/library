@@ -101,9 +101,20 @@ const BookList = () => {
                 <CustomInputSelect
                     name="genre"
                     placeholder="Select a genre"
-                    Values={["Fiction", "Non-fiction", "Science", "Biography"]}
+                    Values={["All", "Fiction", "Non-fiction", "Science", "Biography"]}
                     value={selectedGenre || ""}
-                    onChange={handleSelectGenre}
+                    onChange={(value) => {
+                        if (value === "All") {
+                            setSelectedGenre("");
+                            const url = new URL(window.location.href);
+                            url.searchParams.delete("genre");
+                            url.searchParams.set("page", "1");
+                            window.history.pushState({}, "", url.toString());
+                            setCurrentPage(1);
+                        } else {
+                            handleSelectGenre(value);
+                        }
+                    }}
                     containerClassName="!w-[200px]"
                 />
             </div>
