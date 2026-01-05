@@ -98,25 +98,28 @@ const BookList = () => {
                 <p className="text-[20px] md:text-[28px] font-semibold text-white dark:text-gray-900">
                     All Books
                 </p>
-                <CustomInputSelect
-                    name="genre"
-                    placeholder="Select a genre"
-                    Values={["All", "Fiction", "Non-fiction", "Science", "Biography"]}
-                    value={selectedGenre || ""}
-                    onChange={(value) => {
-                        if (value === "All") {
-                            setSelectedGenre("");
-                            const url = new URL(window.location.href);
-                            url.searchParams.delete("genre");
-                            url.searchParams.set("page", "1");
-                            window.history.pushState({}, "", url.toString());
-                            setCurrentPage(1);
-                        } else {
-                            handleSelectGenre(value);
-                        }
-                    }}
-                    containerClassName="!w-[200px]"
-                />
+                <div className="flex items-center flex-col gap-2">
+                    <p className="md:text-sm text-xs font-medium text-white dark:text-gray-900 self-start">Filter By Genre :</p>
+                    <CustomInputSelect
+                        name="genre"
+                        placeholder="Select a genre"
+                        Values={["All", "Fiction", "Non-fiction", "Science", "Biography"]}
+                        value={selectedGenre || ""}
+                        onChange={(value) => {
+                            if (value === "All") {
+                                setSelectedGenre("");
+                                const url = new URL(window.location.href);
+                                url.searchParams.delete("genre");
+                                url.searchParams.set("page", "1");
+                                window.history.pushState({}, "", url.toString());
+                                setCurrentPage(1);
+                            } else {
+                                handleSelectGenre(value);
+                            }
+                        }}
+                        containerClassName="w-fit md:!w-[200px]"
+                    />
+                </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
