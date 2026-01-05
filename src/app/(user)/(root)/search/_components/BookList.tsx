@@ -94,7 +94,7 @@ const BookList = () => {
 
     return (
         <div className="my-10 flex flex-col gap-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <p className="text-[20px] md:text-[28px] font-semibold text-white dark:text-gray-900">
                     All Books
                 </p>
@@ -117,7 +117,7 @@ const BookList = () => {
                                 handleSelectGenre(value);
                             }
                         }}
-                        containerClassName="w-fit md:!w-[200px]"
+                        containerClassName="md:!w-[200px]"
                     />
                 </div>
             </div>
