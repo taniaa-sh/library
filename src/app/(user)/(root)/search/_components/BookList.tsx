@@ -104,7 +104,7 @@ const BookList = () => {
                     Values={["Fiction", "Non-fiction", "Science", "Biography"]}
                     value={selectedGenre || ""}
                     onChange={handleSelectGenre}
-                    containerClassName="!w-fit"
+                    containerClassName="!w-[200px]"
                 />
             </div>
 

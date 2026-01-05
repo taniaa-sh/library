@@ -51,17 +51,17 @@ const CustomInputSelect: React.FC<PropsType> = ({
 
     const buttonClass = isAdmin
         ? "!bg-light-600 dark:!bg-dark-400 text-gray-800 dark:text-white"
-        : "!bg-dark-400 dark:!bg-white text-white dark:text-gray-900";
+        : "!bg-dark-400 dark:!bg-white text-white dark:text-gray-900 border border-gray-600 dark:border-gray-400";
 
     const listItemClass = (item: string) => {
         if (item === value) {
             return isAdmin
                 ? "!bg-primary-admin !text-white font-semibold"
-                : "!bg-yellow-400 !text-gray-900 font-semibold";
+                : "!bg-primary dark:!bg-[#7a6233] !text-gray-900 dark:!text-white font-semibold";
         }
         return isAdmin
             ? "hover:!bg-blue-50 dark:hover:!bg-dark-300 dark:text-white"
-            : "hover:!bg-yellow-100 dark:hover:!bg-yellow-700 dark:text-gray-900 text-gray-300";
+            : "hover:!bg-gold100 dark:hover:!bg-gold600 dark:text-gray-900 dark:hover:text-white text-gray-300 hover:text-gray-900";
     };
 
     const dropdownBg = isAdmin ? "!bg-white dark:!bg-dark-500" : "!bg-dark-500 dark:!bg-white";
