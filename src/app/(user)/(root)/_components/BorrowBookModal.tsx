@@ -25,20 +25,6 @@ interface FormValues {
     quantity: number;
 }
 
-const schema = yup.object().shape({
-    name: yup.string().required("Name is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
-    quantity: yup
-        .number()
-        .transform((value, originalValue) => {
-            return originalValue === "" ? undefined : value;
-        })
-        .required("Quantity is required")
-        .min(1, "Minimum 1 book")
-        .max(10, "Maximum 10 books"),
-
-});
-
 const BorrowBookModal = ({
     setShowBorrowModal,
     bookImg,
@@ -47,8 +33,25 @@ const BorrowBookModal = ({
     Genre,
     availableBooks,
 }: BorrowBookModalProps) => {
+
     const router = useRouter();
     const [isClosing, setIsClosing] = useState(false);
+
+    const schema = yup.object().shape({
+        name: yup.string().required("Name is required"),
+        email: yup.string().email("Invalid email").required("Email is required"),
+        quantity: yup
+            .number()
+            .transform((value, originalValue) => {
+                return originalValue === "" || isNaN(value)
+                    ? undefined
+                    : value;
+            })
+            .typeError("Quantity is required")
+            .required("Quantity is required")
+            .min(1, "Minimum 1 book")
+            .max(availableBooks, `Maximum ${availableBooks} books`),
+    });
 
     const {
         register,
@@ -146,9 +149,19 @@ const BorrowBookModal = ({
                     <div className="flex flex-col w-full">
                         <input
                             type="number"
+                            min={1}
+                            max={availableBooks}
                             placeholder="Quantity"
-                            {...register("quantity")}
-                            className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
+                            {...register("quantity", {
+                                onChange: (e) => {
+                                    const value = Number(e.target.value);
+                                    if (value > availableBooks) {
+                                        e.target.value = availableBooks.toString();
+                                    }
+                                },
+                            })}
+                            className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200
+               text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
                         />
                         <p className="text-red-400 text-xs min-h-[16px] mt-1">
                             {errors.quantity?.message}
