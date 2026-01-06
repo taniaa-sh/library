@@ -60,7 +60,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
         } catch {
             setMessages(prev => [
                 ...prev,
-                { sender: "ai", text: "❌ Sorry, something went wrong." }
+                { sender: "ai", text: "Sorry, something went wrong." }
             ])
         } finally {
             setIsTyping(false)
@@ -68,11 +68,16 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
     }
 
     return (
+        <>
+           <div
+            onClick={handleClose}
+            className={`fixed inset-0 z-[1000] bg-black/40 backdrop-blur-sm transition-opacity
+            ${isClosing ? "opacity-0" : "opacity-100"}`}
+        />
         <div
-            className={`
-         z-[1001] fixed flex flex-col bg-gray-50 border border-gray-300 dark:border-gray-500 shadow-xl custom-scrollbar1 top-0 left-0 w-screen h-screen rounded-none
-         md:top-auto md:left-20 md:bottom-4 md:w-[360px] md:h-[600px] md:rounded-lg
-         ${isClosing ? "animate-closeModal" : "animate-openModal"}
+         onClick={e => e.stopPropagation()}
+            className={`z-[1001] fixed flex flex-col bg-gray-50 border border-gray-300 dark:border-gray-500 shadow-xl custom-scrollbar1 top-0 left-0 w-screen h-screen rounded-none md:top-auto md:left-20 md:bottom-4 md:w-[360px] md:h-[600px] md:rounded-lg
+            ${isClosing ? "animate-closeModal" : "animate-openModal"}
         `}
         >
             {/* Header */}
@@ -175,6 +180,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
                 </button>
             </div>
         </div>
+        </>
     )
 }
 
