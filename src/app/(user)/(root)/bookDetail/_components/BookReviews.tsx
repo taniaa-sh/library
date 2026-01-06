@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CustomButton from "@/components/CustomButton";
 
 const ratingLabels = ["", "Terrible", "Bad", "Average", "Good", "Very Good", "Excellent"];
-const maxCommentLength = 300;
 
 const dummyReviews = [
   { id: 1, name: "Tania", rating: 5, comment: "This book was amazing! Highly recommended." },
@@ -16,6 +15,22 @@ const BookReviews = () => {
   const [reviews, setReviews] = useState(dummyReviews);
   const [comment, setComment] = useState("");
   const [expandedComments, setExpandedComments] = useState<number[]>([]);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const maxCommentLength = 300;
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+
+    if (value.length > maxCommentLength) return;
+
+    setComment(value);
+
+    const el = textareaRef.current;
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = el.scrollHeight + "px";
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,13 +111,20 @@ const BookReviews = () => {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-4">
           <textarea
+            ref={textareaRef}
+            rows={1}
             value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            onChange={handleCommentChange}
             placeholder="Write your review..."
-            className="w-full p-2 rounded-lg border dark:border-gray-300 border-gray-600 dark:bg-white bg-gray-800 dark:text-black text-gray-100"
-            maxLength={maxCommentLength}
+            className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3
+             focus:outline-none focus:ring-2
+             dark:bg-light-600 bg-dark-400
+             !text-white dark:!text-gray-900 text-sm sm:text-base
+             resize-none overflow-hidden"
           />
-          <p className="text-xs text-gray-400">{comment.length} / {maxCommentLength}</p>
+          <p className="text-xs text-gray-400 self-end">
+            {comment.length} / {maxCommentLength}
+          </p>
           <CustomButton
             color="yellow"
             text="Submit"
