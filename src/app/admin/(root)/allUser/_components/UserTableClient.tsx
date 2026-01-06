@@ -142,24 +142,26 @@ const UserTableClient = ({ data }: Props) => {
             <AdminTable columns={columns} data={users} />
             {users.length > 0 && (
                 <>
-                    <div className="flex justify-center mt-7 overflow-x-auto dark:!text-white">
-                        <ReactPaginate
-                            previousLabel={"‹"}
-                            nextLabel={"›"}
-                            breakLabel={"…"}
-                            pageCount={totalPages}
-                            marginPagesDisplayed={1}
-                            pageRangeDisplayed={3}
-                            onPageChange={handlePageClick}
-                            containerClassName="flex items-center gap-1 text-xs sm:text-sm cursor-pointer select-none whitespace-nowrap"
-                            pageClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
-                            activeClassName="bg-primary-admin text-white border-primary-admin"
-                            previousClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
-                            nextClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
-                            disabledClassName="opacity-40 cursor-not-allowed"
-                            breakClassName="dark:text-white text-gray-700"
-                        />
-                    </div>
+                    {totalPages > 1 && (
+                        <div className="flex justify-center mt-7 overflow-x-auto dark:!text-white">
+                            <ReactPaginate
+                                previousLabel={"‹"}
+                                nextLabel={"›"}
+                                breakLabel={"…"}
+                                pageCount={totalPages}
+                                marginPagesDisplayed={1}
+                                pageRangeDisplayed={3}
+                                onPageChange={handlePageClick}
+                                containerClassName="flex items-center gap-1 text-xs sm:text-sm cursor-pointer select-none whitespace-nowrap"
+                                pageClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
+                                activeClassName="bg-primary-admin text-white border-primary-admin"
+                                previousClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
+                                nextClassName="px-2 sm:px-3 py-1 border rounded-md border-gray-300 dark:border-dark-400 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-dark-400 transition"
+                                disabledClassName="opacity-40 cursor-not-allowed"
+                                breakClassName="dark:text-white text-gray-700"
+                            />
+                        </div>
+                    )}
                     <Popover
                         open={open}
                         anchorEl={anchorEl}
