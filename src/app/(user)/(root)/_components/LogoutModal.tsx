@@ -31,7 +31,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
     return (
         <>
             {/* Desktop */}
-            <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/70 z-50">
+            <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/70 z-[10002]">
                 <div className="w-[450px] z-10 flex flex-col gap-4 bg-gray-900 dark:bg-white rounded-xl p-6 border border-gray-700 shadow-lg">
                     <Image
                         src={imagesAddresses.icons.modalClose}
@@ -70,7 +70,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
             </div>
 
             {/* Mobile */}
-            <div className="flex md:hidden items-end justify-center fixed inset-0 bg-black/70 z-50 w-full h-full">
+            <div className="flex md:hidden items-end justify-center fixed inset-0 bg-black/70 z-[10002] w-full h-full">
                 <div className={`
                     w-full bg-gray-900 dark:bg-white rounded-t-[20px] p-5 flex flex-col gap-4
                     ${isClosing ? 'animate-slideDown' : 'animate-slideUp'}
