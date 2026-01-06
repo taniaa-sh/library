@@ -31,7 +31,7 @@ const AdminLogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
     return (
         <>
             {/* Desktop */}
-            <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/70 z-50">
+            <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/70 z-[10002]">
                 <div className="w-[450px] z-10 flex flex-col gap-4 dark:bg-gray-900 bg-white rounded-xl p-6 border border-gray-700 shadow-lg">
                     <Image
                         src={imagesAddresses.icons.modalClose}
@@ -70,7 +70,7 @@ const AdminLogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
             </div>
 
             {/* Mobile */}
-            <div className="flex md:hidden fixed inset-0 z-50">
+            <div className="flex md:hidden fixed inset-0 z-[10002]">
                 {/* Overlay */}
                 <div
                     className="absolute inset-0 bg-black/70"
