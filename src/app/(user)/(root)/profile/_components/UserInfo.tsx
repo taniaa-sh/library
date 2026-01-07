@@ -60,12 +60,24 @@ const UserProfile = () => {
                 </h2>
 
                 {!isEditing ? (
-                    <CustomButton
-                        text="Edit"
-                        color="yellow"
-                        containerClassName="!w-fit cursor-pointer"
-                        onClick={() => setIsEditing(true)}
-                    />
+                    <>
+                        <CustomButton
+                            text=""
+                            iconAddress={imagesAddresses.icons.whiteEdit}
+                            iconPosition="center"
+                            color="yellow"
+                            containerClassName="!w-fit cursor-pointer hidden"
+                            onClick={() => setIsEditing(true)}
+                        />
+                        <CustomButton
+                            text=""
+                            iconAddress={imagesAddresses.icons.blackEdit}
+                            iconPosition="center"
+                            color="yellow"
+                            containerClassName="!w-fit cursor-pointer"
+                            onClick={() => setIsEditing(true)}
+                        />
+                    </>
                 ) : (
                     <div className="flex flex-col-reverse sm:flex-row gap-2">
                         <CustomButton
@@ -74,12 +86,24 @@ const UserProfile = () => {
                             containerClassName="!w-fit cursor-pointer"
                             onClick={onCancel}
                         />
-                        <CustomButton
-                            text="Save"
-                            color="yellow"
-                            containerClassName="!w-fit cursor-pointer !px-[22px]"
-                            onClick={handleSubmit(onSave)}
-                        />
+                        <>
+                            <CustomButton
+                                text=""
+                                color="yellow"
+                                iconAddress={imagesAddresses.icons.saveWhite}
+                                iconPosition="center"
+                                containerClassName="!w-fit cursor-pointer !px-[27px] hidden"
+                                onClick={handleSubmit(onSave)}
+                            />
+                            <CustomButton
+                                text=""
+                                iconAddress={imagesAddresses.icons.save}
+                                iconPosition="center"
+                                color="yellow"
+                                containerClassName="!w-fit cursor-pointer !px-[27px]"
+                                onClick={handleSubmit(onSave)}
+                            />
+                        </>
                     </div>
                 )}
             </div>
