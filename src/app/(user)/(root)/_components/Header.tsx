@@ -64,7 +64,7 @@ const Header = () => {
           <LogoutModal setShowLogoutModal={setShowLogoutModal} />
         )
       }
-      <header className="!w-full bg-gray-900 dark:bg-gray-300 text-white dark:!text-gray-900 flex items-center justify-between p-5 md:px-10 md:py-6 fixed top-0 z-50">
+      <header className="!w-full bg-gray-900 dark:bg-gray-300 text-white dark:!text-gray-900 flex items-center justify-between p-5 md:px-10 md:py-6 fixed top-0 z-[1003]">
 
         {/*logo*/}
         <Link href="/">
