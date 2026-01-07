@@ -89,7 +89,7 @@ const AddBookPage = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:gap-6">
                 {/* Title */}
-                <div>
+                <div className='w-full'>
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Title
                     </label>
@@ -107,71 +107,130 @@ const AddBookPage = () => {
                     )}
                 </div>
 
-                {/* Author */}
-                <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
-                        Author
-                    </label>
-                    <motion.input
-                        {...register('author')}
-                        type="text"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
-                        placeholder="Enter the author name"
-                        animate={errors.author ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
-                        key={shakeTrigger}
-                        transition={{ duration: 0.4 }}
-                    />
-                    {errors.author && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.author.message}</p>
-                    )}
-                </div>
-
-                {/* Genre */}
-                <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
-                        Genre
-                    </label>
-                    <motion.div
-                        animate={errors.genre ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
-                        key={shakeTrigger}
-                        transition={{ duration: 0.4 }}
-                    >
-                        <CustomInputSelect
-                            name="genre"
-                            placeholder="Select a genre"
-                            Values={["Fiction", "Non-fiction", "Science", "Biography"]}
-                            value={watch("genre")}
-                            onChange={(val: string | number) => {
-                                setValue("genre", String(val));
-                                trigger("genre");
-                            }}
-                            errors={errors.genre?.message ? [errors.genre.message] : []}
-                            containerClassName="w-full"
-                            isAdmin
+                <div className='w-full flex flex-col gap-4 md:flex-row md:gap-2'>
+                    {/* Author */}
+                    <div className='w-full'>
+                        <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
+                            Author
+                        </label>
+                        <motion.input
+                            {...register('author')}
+                            type="text"
+                            className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
+                            placeholder="Enter the author name"
+                            animate={errors.author ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                            key={shakeTrigger}
+                            transition={{ duration: 0.4 }}
                         />
-                    </motion.div>
-                    {errors.genre && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.genre.message}</p>
-                    )}
+                        {errors.author && (
+                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.author.message}</p>
+                        )}
+                    </div>
+
+                    {/* Total Books */}
+                    <div className='w-full'>
+                        <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
+                            Total number of books
+                        </label>
+                        <motion.input
+                            {...register('totalNumberOfBooks')}
+                            type="number"
+                            className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
+                            placeholder="Enter the total number of books"
+                            animate={errors.totalNumberOfBooks ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                            key={shakeTrigger}
+                            transition={{ duration: 0.4 }}
+                        />
+                        {errors.totalNumberOfBooks && (
+                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.totalNumberOfBooks.message}</p>
+                        )}
+                    </div>
                 </div>
 
-                {/* Total Books */}
-                <div>
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
-                        Total number of books
-                    </label>
-                    <motion.input
-                        {...register('totalNumberOfBooks')}
-                        type="number"
-                        className="w-full border rounded-lg p-3 sm:p-4 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base"
-                        placeholder="Enter the total number of books"
-                        animate={errors.totalNumberOfBooks ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
-                        key={shakeTrigger}
-                        transition={{ duration: 0.4 }}
-                    />
-                    {errors.totalNumberOfBooks && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.totalNumberOfBooks.message}</p>
-                    )}
+                <div className='w-full flex flex-col gap-4 md:flex-row md:gap-2'>
+                    {/* Genre */}
+                    <div className='w-full'>
+                        <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
+                            Genre
+                        </label>
+                        <motion.div
+                            animate={errors.genre ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                            key={shakeTrigger}
+                            transition={{ duration: 0.4 }}
+                        >
+                            <CustomInputSelect
+                                name="genre"
+                                placeholder="Select a genre"
+                                Values={["Fiction", "Non-fiction", "Science", "Biography"]}
+                                value={watch("genre")}
+                                onChange={(val: string | number) => {
+                                    setValue("genre", String(val));
+                                    trigger("genre");
+                                }}
+                                errors={errors.genre?.message ? [errors.genre.message] : []}
+                                containerClassName="w-full"
+                                isAdmin
+                            />
+                        </motion.div>
+                        {errors.genre && (
+                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.genre.message}</p>
+                        )}
+                    </div>
+
+                    {/* Book Primary Color */}
+                    <div className="relative w-full">
+                        <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
+                            Book Primary Color
+                        </label>
+
+                        <motion.input
+                            type="text"
+                            {...register('bookPrimaryColor')}
+                            value={color}
+                            readOnly
+                            onFocus={() => setShowPicker(true)}
+                            animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                            key={shakeTrigger}
+                            transition={{ duration: 0.4 }}
+                            className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div
+                            onClick={() => document.getElementById('bookPrimaryColorInput')?.focus()}
+                            className={`w-full border rounded-lg p-3 pl-4 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer
+                                  ${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'}
+                                 `}
+                        >
+                            <div className='flex items-center gap-2'>
+                                <div
+                                    style={{ backgroundColor: color || 'transparent' }}
+                                    className="w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300"
+                                />
+                                <p className={`${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'} text-sm sm:text-base`}>
+                                    {color || 'Select a color'}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* ChromePicker */}
+                        {showPicker && (
+                            <div className="absolute z-50 mt-2">
+                                <ChromePicker
+                                    color={color}
+                                    disableAlpha
+                                    onChange={(c) => setColor(c.hex)}
+                                    onChangeComplete={(c) => {
+                                        setColor(c.hex);
+                                        setValue('bookPrimaryColor', c.hex, { shouldValidate: true });
+                                        setShowPicker(false);
+                                    }}
+                                />
+                            </div>
+                        )}
+
+                        {errors.bookPrimaryColor && (
+                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookPrimaryColor.message}</p>
+                        )}
+                    </div>
                 </div>
 
                 {/* Book Image */}
@@ -185,61 +244,6 @@ const AddBookPage = () => {
                             shakeTrigger={shakeTrigger}
                         />
                     </label>
-                </div>
-
-                {/* Book Primary Color */}
-                <div className="relative">
-                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
-                        Book Primary Color
-                    </label>
-
-                    <motion.input
-                        type="text"
-                        {...register('bookPrimaryColor')}
-                        value={color}
-                        readOnly
-                        onFocus={() => setShowPicker(true)}
-                        animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
-                        key={shakeTrigger}
-                        transition={{ duration: 0.4 }}
-                        className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                    />
-                    <div
-                        onClick={() => document.getElementById('bookPrimaryColorInput')?.focus()}
-                        className={`w-full border rounded-lg p-3 pl-4 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer
-                                  ${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'}
-                                 `}
-                    >
-                        <div className='flex items-center gap-2'>
-                            <div
-                                style={{ backgroundColor: color || 'transparent' }}
-                                className="w-5 h-5 sm:w-6 sm:h-6 rounded border border-gray-300"
-                            />
-                            <p className={`${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'} text-sm sm:text-base`}>
-                                {color || 'Select a color'}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* ChromePicker */}
-                    {showPicker && (
-                        <div className="absolute z-50 mt-2">
-                            <ChromePicker
-                                color={color}
-                                disableAlpha
-                                onChange={(c) => setColor(c.hex)}
-                                onChangeComplete={(c) => {
-                                    setColor(c.hex);
-                                    setValue('bookPrimaryColor', c.hex, { shouldValidate: true });
-                                    setShowPicker(false);
-                                }}
-                            />
-                        </div>
-                    )}
-
-                    {errors.bookPrimaryColor && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookPrimaryColor.message}</p>
-                    )}
                 </div>
 
                 {/* Book Video */}
