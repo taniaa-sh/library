@@ -16,6 +16,7 @@ const DenyAccountModal = (props: DenyAccountModalProps) => {
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(() => {
+            props.setShowDenyModal(false)
             setIsClosing(false)
         }, 250);
     };

@@ -16,6 +16,7 @@ const ApproveReq = (props: ApproveReqProps) => {
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(() => {
+            props.setShowApproveModal(false)
             setIsClosing(false)
         }, 250);
     };
