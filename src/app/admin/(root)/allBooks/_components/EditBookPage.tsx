@@ -295,7 +295,7 @@ const EditBookPage = () => {
                 </div>
                 <CustomButton
                     text={loading ? 'Updating...' : 'Update Book'}
-                    width="w-fit py-2 sm:py-3 cursor-pointer"
+                    containerClassName="w-full sm:w-fit py-2 sm:py-3 cursor-pointer"
                     color="blue"
                     type="submit"
                     onClick={() => { }}

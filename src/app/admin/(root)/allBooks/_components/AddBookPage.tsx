@@ -86,22 +86,6 @@ const AddBookPage = () => {
     return (
         <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg dark:bg-dark-500">
             <Toaster />
-            {/* <CustomButton
-                text="Go back"
-                iconAddress={imagesAddresses.icons.arrowLeft}
-                iconPosition="right"
-                color="white"
-                containerClassName="cursor-pointer !w-fit dark:hidden"
-                onClick={() => router.back()}
-            />
-            <CustomButton
-                text="Go back"
-                iconAddress={imagesAddresses.icons.arrowLeftWhite}
-                iconPosition="right"
-                color="white"
-                containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
-                onClick={() => router.back()}
-            /> */}
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:gap-6">
                 {/* Title */}
@@ -304,10 +288,9 @@ const AddBookPage = () => {
                 </div>
                 <CustomButton
                     text={loading ? 'Updating...' : 'Update Book'}
-                    width="w-fit py-2 sm:py-3 cursor-pointer"
+                    containerClassName="w-full sm:w-fit py-2 sm:py-3 cursor-pointer"
                     color="blue"
                     type="submit"
-                    onClick={() => { }}
                     loading={loading}
                 />
             </form>
