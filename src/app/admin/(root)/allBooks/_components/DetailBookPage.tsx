@@ -22,25 +22,9 @@ const DetailBookPage = () => {
     };
 
     return (
-        <div className="mx-auto flex flex-col gap-10  p-4 sm:p-6 mt-[90px] dark:bg-gray-900 w-full h-full">
-            {/* <CustomButton
-                text="Go back"
-                iconAddress={imagesAddresses.icons.arrowLeft}
-                iconPosition="right"
-                color="white"
-                containerClassName="cursor-pointer !w-fit dark:hidden"
-                onClick={() => router.back()}
-            />
-            <CustomButton
-                text="Go back"
-                iconAddress={imagesAddresses.icons.arrowLeftWhite}
-                iconPosition="right"
-                color="white"
-                containerClassName="cursor-pointer !w-fit hidden dark:flex text-nowrap"
-                onClick={() => router.back()}
-            /> */}
+        <div className="mx-auto flex flex-col gap-10 p-4 sm:p-6 mt-[90px] dark:bg-gray-900 w-full h-full">
 
-            <div className="w-full flex flex-col md:flex-row gap-6 sm:gap-[35px]">
+            <div className="w-full flex flex-col lg:flex-row gap-6 sm:gap-[35px]">
                 <div className="flex justify-center items-center rounded-xl bg-[#C4214C1A] py-4 sm:py-6 px-6 sm:pr-18 sm:pl-8 dark:bg-[#C4214C33]">
                     <Image
                         src={imagesAddresses.images.book2}
@@ -89,8 +73,8 @@ const DetailBookPage = () => {
                 </div>
             </div>
 
-            <div className="w-full flex flex-col md:flex-row gap-8 sm:gap-10">
-                <div className="w-full md:w-[620px] flex flex-col gap-3 sm:gap-4">
+            <div className="w-full flex flex-col lg:flex-row gap-8 sm:gap-10">
+                <div className="w-full flex flex-col gap-3 sm:gap-4">
                     <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-gray-100">
                         Summary
                     </p>
@@ -121,7 +105,7 @@ const DetailBookPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className="flex flex-col gap-4">
+                <div className="w-full flex flex-col gap-4">
                     <p className="font-semibold text-base sm:text-lg text-dark-400 dark:text-gray-100">
                         Video
                     </p>

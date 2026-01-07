@@ -20,7 +20,7 @@ const AdminHeader = () => {
 
     const urlsWithBack = [
         "/admin/allBooks/detail",
-        "/admin/allBooks/edite",
+        "/admin/allBooks/edit",
         "/admin/allBooks/add",
     ];
 
