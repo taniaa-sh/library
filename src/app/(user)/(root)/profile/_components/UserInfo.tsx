@@ -118,7 +118,7 @@ const UserProfile = () => {
                         alt="avatar"
                         width={150}
                         height={150}
-                        className="rounded-full object-cover border-4 border-gray-700 dark:border-gray-300"
+                        className="rounded-full w-[120px] h-[120px] object-cover border-4 border-gray-700 dark:border-gray-300"
                     />
 
                     {isEditing && (
