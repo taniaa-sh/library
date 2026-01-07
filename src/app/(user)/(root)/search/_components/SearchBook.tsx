@@ -279,17 +279,17 @@ const SearchBook = () => {
                                         router.push(`${SiteUrls.bookDetail}/${book.id}`)
                                     }
                                     className="
-                        group w-full max-w-[150px] sm:max-w-[170px] md:max-w-[190px]
-                        cursor-pointer rounded-2xl p-3 transition-all duration-300 hover:-translate-y-1
-                        bg-gradient-to-b from-[#0f0f0f] to-[#181818]
-                        border border-white/5
-                        shadow-[0_10px_30px_rgba(0,0,0,0.6)]
-                        hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]
-                        dark:bg-gradient-to-b dark:from-white dark:to-gray-100
-                        dark:border-gray-200
-                        dark:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
-                        dark:hover:shadow-[0_14px_30px_rgba(0,0,0,0.12)]
-                    "
+                                    group w-full max-w-[150px] sm:max-w-[170px] md:max-w-[190px]
+                                    cursor-pointer rounded-2xl p-3 transition-all duration-300 hover:-translate-y-1
+                                    bg-gradient-to-b from-[#0f0f0f] to-[#181818]
+                                    border border-white/5
+                                    shadow-[0_10px_30px_rgba(0,0,0,0.6)]
+                                    hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]
+                                    dark:bg-gradient-to-b dark:from-white dark:to-gray-100
+                                    dark:border-gray-200
+                                    dark:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
+                                    dark:hover:shadow-[0_14px_30px_rgba(0,0,0,0.12)]
+                                    "
                                 >
                                     <div className="relative flex justify-center">
                                         <Image

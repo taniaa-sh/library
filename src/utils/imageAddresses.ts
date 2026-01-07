@@ -45,6 +45,10 @@ const imagesAddresses = {
     nextWhite: "/icons/nextWhite.svg",
     back: "/icons/back.svg",
     backWhite: "/icons/backWhite.svg",
+    arrowDown: "/icons/down-arrow.svg",
+    arrowDownWhite: "/icons/down-arrowWhite.svg",
+    arrowUp: "/icons/up-arrow.svg",
+    arrowUpWhite: "/icons/up-arrowWhite.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",

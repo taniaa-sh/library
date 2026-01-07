@@ -18,7 +18,7 @@ const LayoutLoading = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 size-full  flex flex-col items-center justify-center gap-4">
+        <div className="fixed inset-0 size-full flex flex-col items-center justify-center gap-4">
             {isClient ? (
                 <Lottie
                     animationData={animationData}
