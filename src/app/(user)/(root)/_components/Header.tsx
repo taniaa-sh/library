@@ -18,9 +18,11 @@ const Header = () => {
   const { isDark, toggleTheme } = useDarkMode();
 
   const menuItems = [
-    { label: "Home", href: SiteUrls.dashbord },
-    { label: "Search", href: SiteUrls.search },
+    { label: "Contact", href: SiteUrls.contact },
+    { label: "About Us", href: SiteUrls.about },
     { label: "Profile", href: SiteUrls.profile },
+    { label: "Search", href: SiteUrls.search },
+    { label: "Home", href: SiteUrls.dashbord },
   ];
 
   useEffect(() => {
@@ -78,16 +80,7 @@ const Header = () => {
         </Link>
 
         {/*desktop*/}
-        <nav className="hidden md:flex items-center gap-8 text-lg">
-          <Image
-            src={isDark ? imagesAddresses.icons.darkLightMode : imagesAddresses.icons.darkLightMode2}
-            alt="theme"
-            width={25}
-            height={25}
-            className="cursor-pointer"
-            onClick={toggleTheme}
-            title="change theme"
-          />
+        <nav className="hidden md:flex items-center md:gap-4 lg:gap-8 text-lg">
           {menuItems.map((item) => (
             <Link
               key={item.href}
@@ -98,6 +91,15 @@ const Header = () => {
               {item.label}
             </Link>
           ))}
+          <Image
+            src={isDark ? imagesAddresses.icons.darkLightMode : imagesAddresses.icons.darkLightMode2}
+            alt="theme"
+            width={25}
+            height={25}
+            className="cursor-pointer"
+            onClick={toggleTheme}
+            title="change theme"
+          />
           <Image
             src={imagesAddresses.icons.logout}
             alt="logout"
@@ -131,8 +133,6 @@ const Header = () => {
         </div>
 
         {/* mobile menu */}
-        {/* mobile menu */}
-        {/* mobile menu */}
         <AnimatePresence>
           {isMenuOpen && (
             <>
@@ -153,7 +153,7 @@ const Header = () => {
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="absolute top-full border-t border-gray-700 dark:border-gray-500 left-0 w-full bg-gradient-to-b from-gray-900 dark:from-gray-400 to-gray-800 dark:to-gray-50 flex flex-col items-center py-6 gap-5 md:hidden shadow-2xl rounded-b-3xl z-50"
               >
-                {menuItems.map((item) => (
+                {menuItems.reverse().map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
