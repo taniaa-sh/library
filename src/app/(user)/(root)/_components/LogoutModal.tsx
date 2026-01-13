@@ -54,13 +54,13 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                         </p>
                         <CustomButton
                             text="Logout"
-                            color="red"
+                            color="red1"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={() => router.push(SiteUrls.signIn)}
                         />
                         <CustomButton
                             text="Cancel"
-                            color="secondary"
+                            color="white"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={handleClose}
                         />
@@ -91,13 +91,13 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
 
                         <CustomButton
                             text="Logout"
-                            color="red"
+                            color="red1"
                             containerClassName="w-full !cursor-pointer flex text-nowrap"
                             onClick={() => router.push(SiteUrls.signIn)}
                         />
                         <CustomButton
                             text="Cancel"
-                            color="secondary"
+                            color="white"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={handleClose}
                         />

@@ -38,7 +38,15 @@ const AdminLogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                         alt="close"
                         width={24}
                         height={24}
-                        className="cursor-pointer self-end"
+                        className="cursor-pointer self-end dark:hidden"
+                        onClick={handleClose}
+                    />
+                    <Image
+                        src={imagesAddresses.icons.modalCloseWhite}
+                        alt="close"
+                        width={24}
+                        height={24}
+                        className="cursor-pointer self-end dark:flex hidden"
                         onClick={handleClose}
                     />
                     <div className="flex flex-col items-center gap-4">
@@ -52,18 +60,20 @@ const AdminLogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                         <p className="dark:text-gray-400 text-gray-600 text-center text-sm">
                             Are you sure you want to logout? You will need to login again to access your account.
                         </p>
-                        <CustomButton
-                            text="Logout"
-                            color="red"
-                            containerClassName="w-full cursor-pointer flex text-nowrap"
-                            onClick={() => router.push(SiteUrls.adminLogin)}
-                        />
-                        <CustomButton
-                            text="Cancel"
-                            color="blue"
-                            containerClassName="w-full cursor-pointer flex text-nowrap"
-                            onClick={handleClose}
-                        />
+                        <div className="w-full flex gap-2 justify-start">
+                            <CustomButton
+                                text="Logout"
+                                color="red1"
+                                containerClassName="w-fit cursor-pointer flex text-nowrap"
+                                onClick={() => router.push(SiteUrls.adminLogin)}
+                            />
+                            <CustomButton
+                                text="Cancel"
+                                color="white"
+                                containerClassName="w-fit cursor-pointer flex text-nowrap"
+                                onClick={handleClose}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="absolute inset-0" onClick={handleClose} />
@@ -101,13 +111,13 @@ const AdminLogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
 
                         <CustomButton
                             text="Logout"
-                            color="red"
+                            color="red1"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={() => router.push(SiteUrls.adminLogin)}
                         />
                         <CustomButton
                             text="Cancel"
-                            color="blue"
+                            color="white"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={handleClose}
                         />
