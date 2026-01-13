@@ -118,6 +118,7 @@ const BookList = () => {
                             }
                         }}
                         containerClassName="md:!w-[200px]"
+                        customScrollBar
                     />
                 </div>
             </div>
