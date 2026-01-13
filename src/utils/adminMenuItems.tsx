@@ -37,4 +37,11 @@ export const menuItems = [
         link: SiteUrls.adminAccountReq,
         id: 5
     },
+    {
+        title: "All Admins",
+        image: imagesAddresses.icons.allAdmin,
+        activeImage: imagesAddresses.icons.allAdminActive,
+        link: SiteUrls.allAdmins,
+        id: 6
+    },
 ]
