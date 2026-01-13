@@ -9,6 +9,10 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import FlipBookPreview from "../_components/FlipBookPreview";
 import BookReviews from "../_components/BookReviews";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Autoplay } from "swiper/modules";
 
 const BookDetailPage = () => {
     const params = useParams();
@@ -241,10 +245,10 @@ const BookDetailPage = () => {
                         </div>
                     </div>
 
-                    {/* Right Column: Similar Books */}
+                    {/* Similar Books */}
                     <div className="flex flex-col gap-3 w-full">
                         <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900">More similar books</p>
-                        <div className="flex overflow-x-auto gap-3 lg:grid lg:grid-cols-3 custom-scrollbar">
+                        <div className="hidden lg:grid lg:grid-cols-3">
                             {[3, 2, 4, 5, 6, 7].map((num) => {
                                 const key = `book${num}` as keyof typeof imagesAddresses.images;
                                 return (
@@ -260,11 +264,40 @@ const BookDetailPage = () => {
                                 );
                             })}
                         </div>
+                        <div className="custom-scrollbar overflow-x-auto lg:hidden">
+                            <Swiper
+                                modules={[Autoplay]}
+                                autoplay={{ delay: 2200, disableOnInteraction: false }}
+                                loop
+                                breakpoints={{
+                                    360: { slidesPerView: 2 },
+                                    500: { slidesPerView: 3 },
+                                    768: { slidesPerView: 4 },
+                                    1280: { slidesPerView: 5 },
+                                }}
+                            >
+                                {[3, 2, 4, 5, 6, 7].map((num) => {
+                                    const key = `book${num}` as keyof typeof imagesAddresses.images;
+                                    return (
+                                        <SwiperSlide key={key}>
+                                            <Image
+                                                src={imagesAddresses.images[key]}
+                                                alt="book"
+                                                width={200}
+                                                height={200}
+                                                className="rounded-lg object-cover cursor-grab"
+                                            />
+                                        </SwiperSlide>
+                                    );
+                                })}
+                            </Swiper>
+                        </div>
+
                         <p className="font-semibold text-lg md:text-3xl text-light-100 dark:text-gray-900 !mt-8">Book Pdf</p>
                         <motion.h2
                             initial={{ opacity: 0, y: -15 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            transition={{ duration: 0.8, ease: "easeOut"}}
                             className="text-3xl font-bold text-gray-300 dark:text-gray-600 mb-6 flex items-center gap-2"
                         >
                             <motion.span
@@ -273,7 +306,7 @@ const BookDetailPage = () => {
                                 transition={{ duration: 2, ease: "easeInOut" }}
                                 className="overflow-hidden whitespace-nowrap border-r-4 border-gray-500 pr-2 text-base md:text-3xl"
                             >
-                                You can read and download the book here
+                                You can read the book here
                             </motion.span>
                         </motion.h2>
                         {/* <ReadPdfComponent pdfUrl={"../../../../public/sample (1).pdf"} /> */}
