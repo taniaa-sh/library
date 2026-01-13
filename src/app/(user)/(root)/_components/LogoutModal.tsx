@@ -76,7 +76,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                     ${isClosing ? 'animate-slideDown' : 'animate-slideUp'}
                 `}>
                     <div
-                        className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4 cursor-pointer"
+                        className="self-center w-12 h-1.5 bg-gray-600 dark:bg-gray-400 rounded-full mb-4 !cursor-pointer"
                         onClick={handleClose}
                     />
 
@@ -94,14 +94,14 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
 
                         <CustomButton
                             text="Logout"
-                            color="red1"
+                            color="red"
                             containerClassName="w-full !cursor-pointer flex text-nowrap"
                             onClick={() => router.push(SiteUrls.signIn)}
                         />
                         <CustomButton
                             text="Cancel"
-                            color="white"
-                            containerClassName="w-full cursor-pointer flex text-nowrap"
+                            color="secondary"
+                            containerClassName="w-full !cursor-pointer flex text-nowrap"
                             onClick={handleClose}
                         />
                     </div>
