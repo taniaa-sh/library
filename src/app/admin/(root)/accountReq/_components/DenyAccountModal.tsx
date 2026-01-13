@@ -38,7 +38,15 @@ const DenyAccountModal = (props: DenyAccountModalProps) => {
                         alt="close"
                         width={24}
                         height={24}
-                        className="cursor-pointer self-start"
+                        className="!cursor-pointer self-end dark:hidden"
+                        onClick={() => props.setShowDenyModal(false)}
+                    />
+                    <Image
+                        src={imagesAddresses.icons.modalCloseWhite}
+                        alt="close"
+                        width={24}
+                        height={24}
+                        className="!cursor-pointer self-end hidden dark:flex"
                         onClick={() => props.setShowDenyModal(false)}
                     />
                     <div className="flex flex-col items-center gap-[22px]">

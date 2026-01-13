@@ -38,7 +38,15 @@ const ApproveReq = (props: ApproveReqProps) => {
                         alt="close"
                         width={24}
                         height={24}
-                        className="cursor-pointer self-start"
+                        className="!cursor-pointer self-end dark:hidden"
+                        onClick={() => props.setShowApproveModal(false)}
+                    />
+                    <Image
+                        src={imagesAddresses.icons.modalCloseWhite}
+                        alt="close"
+                        width={24}
+                        height={24}
+                        className="!cursor-pointer self-end hidden dark:flex"
                         onClick={() => props.setShowApproveModal(false)}
                     />
                     <div className="flex flex-col items-center gap-[22px]">
