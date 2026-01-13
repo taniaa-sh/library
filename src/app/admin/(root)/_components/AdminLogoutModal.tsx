@@ -94,7 +94,7 @@ const AdminLogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div
-                        className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4 cursor-pointer"
+                        className="self-center w-12 h-1.5 bg-gray-400 dark:bg-gray-600 rounded-full mb-4 cursor-pointer"
                         onClick={handleClose}
                     />
 

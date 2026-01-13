@@ -111,7 +111,7 @@ const BorrowBookModal = ({
             <div className="flex justify-center items-center md:hidden cursor-pointer">
                  <div 
                  onClick={handleClose}
-                 className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4" 
+                 className="self-center w-12 h-1.5 bg-gray-600 dark:bg-gray-400 rounded-full mb-4" 
                  />
             </div>
 
