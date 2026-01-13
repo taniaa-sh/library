@@ -110,15 +110,15 @@ const UserTableClient = ({ data }: Props) => {
             ),
         },
         { key: 'dateJoined', label: 'Date Joined' },
-        {
-            key: 'role',
-            label: 'Role',
-            render: (row: User) => (
-                <div className="cursor-pointer" onClick={(e) => handleClick(e, row)}>
-                    <CustomStatusAllUser isColor state={row.role === 'User' ? 1 : 2} />
-                </div>
-            ),
-        },
+        // {
+        //     key: 'role',
+        //     label: 'Role',
+        //     render: (row: User) => (
+        //         <div className="cursor-pointer" onClick={(e) => handleClick(e, row)}>
+        //             <CustomStatusAllUser isColor state={row.role === 'User' ? 1 : 2} />
+        //         </div>
+        //     ),
+        // },
         {
             key: 'booksBorrowed',
             label: 'Books Borrowed',
