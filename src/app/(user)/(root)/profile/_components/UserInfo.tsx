@@ -66,7 +66,7 @@ const UserProfile = () => {
                             iconAddress={imagesAddresses.icons.whiteEdit}
                             iconPosition="center"
                             color="yellow"
-                            containerClassName="!w-fit cursor-pointer hidden"
+                            containerClassName="!w-fit cursor-pointer hidden dark:flex"
                             onClick={() => setIsEditing(true)}
                         />
                         <CustomButton
@@ -74,7 +74,7 @@ const UserProfile = () => {
                             iconAddress={imagesAddresses.icons.blackEdit}
                             iconPosition="center"
                             color="yellow"
-                            containerClassName="!w-fit cursor-pointer"
+                            containerClassName="!w-fit cursor-pointer dark:hidden"
                             onClick={() => setIsEditing(true)}
                         />
                     </>
@@ -92,7 +92,7 @@ const UserProfile = () => {
                                 color="yellow"
                                 iconAddress={imagesAddresses.icons.saveWhite}
                                 iconPosition="center"
-                                containerClassName="!w-fit cursor-pointer !px-[27px] hidden"
+                                containerClassName="!w-fit cursor-pointer !px-[27px] hidden dark:flex"
                                 onClick={handleSubmit(onSave)}
                             />
                             <CustomButton
@@ -100,7 +100,7 @@ const UserProfile = () => {
                                 iconAddress={imagesAddresses.icons.save}
                                 iconPosition="center"
                                 color="yellow"
-                                containerClassName="!w-fit cursor-pointer !px-[27px]"
+                                containerClassName="!w-fit cursor-pointer !px-[27px] dark:hidden"
                                 onClick={handleSubmit(onSave)}
                             />
                         </>
