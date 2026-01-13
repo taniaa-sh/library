@@ -76,7 +76,7 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
         />
         <div
          onClick={e => e.stopPropagation()}
-            className={`z-[1001] fixed flex flex-col bg-gray-50 border border-gray-300 dark:border-gray-500 shadow-xl custom-scrollbar1 top-0 left-0 w-screen h-screen rounded-none md:top-auto md:left-20 md:bottom-4 md:w-[360px] md:h-[600px] md:rounded-lg
+            className={`z-[1004] md:z-[1001] fixed flex flex-col bg-gray-50 border border-gray-300 dark:border-gray-500 shadow-xl custom-scrollbar1 top-0 left-0 w-screen h-screen rounded-none md:top-auto md:left-20 md:bottom-4 md:w-[360px] md:h-[600px] md:rounded-lg
             ${isClosing ? "animate-closeModal" : "animate-openModal"}
         `}
         >
