@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import animationData from "../../../../../public/lottie/supportLoading.json";
 import dynamic from "next/dynamic";
 import fallbackGif from "../../../../../public/gif/LoadingAnimationBlue.gif";
@@ -18,7 +18,7 @@ const AdminLayoutLoading = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 w-full h-full flex flex-col items-center justify-center lg:left-[280px] dark:bg-black/95">
+        <div className="fixed inset-0 w-full h-full flex flex-col items-center justify-center lg:left-[280px] dark:bg-black/95 lg:!pr-[450px]">
             {isClient ? (
                 <Lottie
                     animationData={animationData}
