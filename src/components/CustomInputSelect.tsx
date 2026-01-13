@@ -16,6 +16,7 @@ type PropsType = {
     disabled?: boolean;
     shakeTrigger?: number;
     isAdmin?: boolean;
+    customScrollBar?: boolean;
 };
 
 const CustomInputSelect: React.FC<PropsType> = ({
@@ -30,6 +31,7 @@ const CustomInputSelect: React.FC<PropsType> = ({
     shakeTrigger = 0,
     disabled = false,
     isAdmin = false,
+    customScrollBar
 }) => {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -69,7 +71,10 @@ const CustomInputSelect: React.FC<PropsType> = ({
     return (
         <div
             ref={wrapperRef}
-            className={`relative flex flex-col ${containerClassName || ""}`}
+            className={`relative flex flex-col 
+                ${containerClassName || ""}
+                ${customScrollBar ? "custom-scrollbar1" : ""}
+                `}
             style={{ width: width ? `${width}px` : "100%" }}
         >
             {label && (

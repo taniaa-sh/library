@@ -9,6 +9,8 @@ const SiteUrls = {
   dashbord: "/dashbord",
   profile: "/profile",
   search: "/search",
+  about: "/about",
+  contact: "/contact",
   rootNotFound: "/notFoundRoot",
 
   admin: "/admin",
@@ -19,6 +21,7 @@ const SiteUrls = {
   adminDetailBook: "/admin/allBooks/detail",
   adminBorrowReq: "/admin/borrowReq",
   adminAccountReq: "/admin/accountReq",
+  allAdmins: "/admin/allAdmin",
   adminNotFound: "/admin/notFoundAdmin",
   adminLogin: "/admin/auth/adminLogin",
 };

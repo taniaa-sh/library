@@ -5,7 +5,7 @@ import Image from 'next/image';
 type PropsType = {
     text?: string;
     width?: string;
-    color: "primary" | "secondary" | "tertiary" | "textbutton" | "iconbutton" | "red" | "blue" | "gray" | "white" | "yellow" | "green";
+    color: "primary" | "secondary" | "tertiary" | "textbutton" | "iconbutton" | "red" | "blue" | "gray" | "white" | "yellow" | "green" | "red1";
     type?: "button" | "submit" | "reset";
     loading?: boolean;
     containerClassName?: string;
@@ -41,6 +41,9 @@ const CustomButton: React.FC<PropsType> = ({
     } else if (color === "red") {
         newClass =
             "dark:bg-[#ef4444] hover:dark:bg-[#dc2626] text-white border-[0px] !px-4 bg-[#7c1f1f] hover:bg-[#991b1b] dark:text-white";
+    } else if (color === "red1") {
+        newClass =
+            "bg-[#ef4444] hover:bg-[#dc2626] text-white border-[0px] !px-4 dark:bg-[#7c1f1f] hover:dark:bg-[#991b1b]";
     } else if (color === "green") {
         newClass =
             "text-white bg-[#2e6b57] hover:bg-[#357c63] dark:bg-[#4C7B62] dark:hover:bg-[#3f6d59] border-0 px-4 rounded-md"
