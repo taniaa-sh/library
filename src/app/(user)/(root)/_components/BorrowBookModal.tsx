@@ -108,6 +108,12 @@ const BorrowBookModal = ({
                     height={24}
                 />
             </div>
+            <div className="flex justify-center items-center md:hidden cursor-pointer">
+                 <div 
+                 onClick={handleClose}
+                 className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4" 
+                 />
+            </div>
 
             {/* Book Info */}
             <div className="flex gap-6 items-center mb-4 rounded-xl shadow-md transition-all duration-300
@@ -136,8 +142,9 @@ const BorrowBookModal = ({
                 <div className="flex gap-2">
                     <div className="flex flex-col w-full">
                         <input
+                            autoFocus
                             type="text"
-                            placeholder="Your Name"
+                            placeholder="Your fullName"
                             {...register("name")}
                             className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
                         />
@@ -160,8 +167,7 @@ const BorrowBookModal = ({
                                     }
                                 },
                             })}
-                            className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200
-               text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
+                            className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
                         />
                         <p className="text-red-400 text-xs min-h-[16px] mt-1">
                             {errors.quantity?.message}
@@ -179,16 +185,16 @@ const BorrowBookModal = ({
 
                 <div className="flex justify-end gap-2 mt-2 w-full md:w-fit flex-col md:flex-row">
                     <CustomButton
-                        text="Cancel"
-                        color="secondary"
-                        containerClassName="w-full md:w-fit cursor-pointer flex md:px-6"
-                        onClick={handleClose}
-                    />
-                    <CustomButton
                         text="Submit"
                         color="yellow"
                         type="submit"
                         containerClassName="w-full md:w-fit cursor-pointer flex md:!px-8"
+                    />
+                    <CustomButton
+                        text="Cancel"
+                        color="secondary"
+                        containerClassName="w-full md:w-fit cursor-pointer flex md:px-6"
+                        onClick={handleClose}
                     />
                 </div>
             </form>
