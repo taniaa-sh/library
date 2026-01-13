@@ -93,7 +93,10 @@ const AdminLogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                     ${isClosing ? 'animate-slideDown' : 'animate-slideUp'} `}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4" />
+                    <div
+                        className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4 cursor-pointer"
+                        onClick={handleClose}
+                    />
 
                     <div className="flex flex-col items-center gap-4">
                         <Image
