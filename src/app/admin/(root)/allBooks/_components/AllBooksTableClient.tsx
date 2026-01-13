@@ -7,6 +7,7 @@ import imagesAddresses from '@/utils/imageAddresses';
 import SiteUrls from '@/utils/routs';
 import { useRouter } from 'next/navigation';
 import ReactPaginate from 'react-paginate';
+import DeleteAdminModal from '../../_components/DeleteAdminModal';
 
 type Book = {
     bookTitle: string;
@@ -14,6 +15,7 @@ type Book = {
     genre: string;
     dateCreated: string;
     action: string;
+    id?: string;
 };
 
 interface Props {
@@ -22,12 +24,19 @@ interface Props {
 
 const AllBooksTableClient = ({ data }: Props) => {
     const [books, setBooks] = useState<Book[]>(data);
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
+    const [id, setId] = useState("")
     const router = useRouter();
     const totalPages = 10;
 
     const handlePageClick = (selectedItem: { selected: number }) => {
         const page = selectedItem.selected + 1;
         router.push(`?page=${page}`);
+    };
+
+    const handleDelete = () => {
+        setBooks((prev) => prev.filter((book) => book.id !== id));
+        setShowDeleteModal(false)
     };
 
     const columns: Column<Book>[] = [
@@ -41,7 +50,7 @@ const AllBooksTableClient = ({ data }: Props) => {
         {
             key: 'action',
             label: 'Action',
-            render: () => (
+            render: (row: Book) => (
                 <div className='flex gap-2'>
                     <Image
                         src={imagesAddresses.icons.edit}
@@ -57,6 +66,11 @@ const AllBooksTableClient = ({ data }: Props) => {
                         width={20}
                         height={20}
                         className="cursor-pointer"
+                        onClick={() => {
+                            setShowDeleteModal(true)
+                            setId(row.id || "")
+                        }
+                        }
                     />
                     <Image
                         src={imagesAddresses.icons.eye}
@@ -81,6 +95,15 @@ const AllBooksTableClient = ({ data }: Props) => {
 
     return (
         <>
+            {
+                showDeleteModal && (
+                    <DeleteAdminModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        onDelete={() => handleDelete()}
+                        isBook
+                    />
+                )
+            }
             <AdminTable columns={columns} data={books} />
             {totalPages > 1 && (
                 <div className="flex justify-center mt-7 overflow-x-auto dark:!text-white">

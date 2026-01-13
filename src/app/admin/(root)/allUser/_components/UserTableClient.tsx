@@ -10,6 +10,7 @@ import CustomStatus from '../../_components/CustomStatus';
 import CustomButton from '@/components/CustomButton';
 import ReactPaginate from 'react-paginate';
 import { useRouter } from 'next/navigation';
+import DeleteAdminModal from '../../_components/DeleteAdminModal';
 
 type User = {
     name: string;
@@ -35,6 +36,8 @@ const UserTableClient = ({ data }: Props) => {
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [pendingRole, setPendingRole] = useState<string | null>(null);
     const [confirmOpen, setConfirmOpen] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
+    const [id, setId] = useState("")
 
     const isMobile = useMediaQuery('(max-width:768px)');
     const router = useRouter();
@@ -57,8 +60,9 @@ const UserTableClient = ({ data }: Props) => {
 
     const open = Boolean(anchorEl);
 
-    const handleDelete = (id: string) => {
+    const handleDelete = () => {
         setUsers((prev) => prev.filter((user) => user.id !== id));
+        setShowDeleteModal(false)
     };
 
     const handleRoleChange = (newRole: string) => {
@@ -131,7 +135,11 @@ const UserTableClient = ({ data }: Props) => {
                     width={isMobile ? 16 : 20}
                     height={isMobile ? 16 : 20}
                     className="cursor-pointer"
-                    onClick={() => handleDelete(row.id || '')}
+                    onClick={() => {
+                        setShowDeleteModal(true)
+                        setId(row.id || "")
+                    }
+                    }
                 />
             ),
         },
@@ -139,6 +147,15 @@ const UserTableClient = ({ data }: Props) => {
 
     return (
         <>
+            {
+                showDeleteModal && (
+                    <DeleteAdminModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        onDelete={() => handleDelete()}
+                        isUser
+                    />
+                )
+            }
             <AdminTable columns={columns} data={users} />
             {users.length > 0 && (
                 <>

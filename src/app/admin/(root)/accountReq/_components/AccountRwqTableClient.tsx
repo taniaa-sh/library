@@ -8,6 +8,7 @@ import DenyAccountModal from './DenyAccountModal';
 import ApproveReq from './ApproveReq';
 import { useRouter } from "next/navigation";
 import ReactPaginate from "react-paginate";
+import DeleteAdminModal from '../../_components/DeleteAdminModal';
 
 type AcountReq = {
     name: string;
@@ -15,6 +16,7 @@ type AcountReq = {
     universityIDNumber: string;
     action: string;
     delete: string;
+    id?: string;
 };
 
 interface Props {
@@ -23,6 +25,8 @@ interface Props {
 
 const AccountRwqTableClient = ({ data }: Props) => {
     const [acountReq, setAcountReq] = useState<AcountReq[]>(data);
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
+    const [id, setId] = useState("")
     const [showApproveModal, setShowApproveModal] = useState(false);
     const [showDenyModal, setShowDenyModal] = useState(false);
     const router = useRouter();
@@ -31,6 +35,11 @@ const AccountRwqTableClient = ({ data }: Props) => {
     const handlePageClick = (selectedItem: { selected: number }) => {
         const page = selectedItem.selected + 1;
         router.push(`?page=${page}`);
+    };
+
+    const handleDelete = () => {
+        setAcountReq((prev) => prev.filter((req) => req.id !== id));
+        setShowDeleteModal(false)
     };
 
     const columns: Column<AcountReq>[] = [
@@ -58,13 +67,18 @@ const AccountRwqTableClient = ({ data }: Props) => {
         {
             key: 'delete',
             label: '',
-            render: () => (
+            render: (row: AcountReq) => (
                 <Image
                     src={imagesAddresses.icons.close}
                     alt="Avatar"
                     width={20}
                     height={20}
                     className="cursor-pointer"
+                    onClick={() => {
+                        setShowDeleteModal(true)
+                        setId(row.id || "")
+                    }
+                    }
                 />
             ),
         },
@@ -72,6 +86,15 @@ const AccountRwqTableClient = ({ data }: Props) => {
 
     return (
         <>
+            {
+                showDeleteModal && (
+                    <DeleteAdminModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        onDelete={() => handleDelete()}
+                        isReq
+                    />
+                )
+            }
             {
                 showDenyModal && (
                     <DenyAccountModal
