@@ -25,12 +25,16 @@ const BookReviews = () => {
 
     setComment(value);
 
-    const el = textareaRef.current;
-    if (el) {
-      el.style.height = "auto";
-      el.style.height = el.scrollHeight + "px";
-    }
-  };
+      const el = textareaRef.current;
+      if (el && el.scrollHeight > 600) {
+        el.style.scrollBehavior = "auto" //todo
+        return
+      }
+      if (el) {
+        el.style.height = "auto";
+        el.style.height = el.scrollHeight + "px";
+      }
+    };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
