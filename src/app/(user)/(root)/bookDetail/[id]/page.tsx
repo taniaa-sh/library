@@ -298,13 +298,13 @@ const BookDetailPage = () => {
                             initial={{ opacity: 0, y: -15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: "easeOut"}}
-                            className="text-3xl font-bold text-gray-300 dark:text-gray-600 mb-6 flex items-center gap-2"
+                            className="text-3xl font-bold text-gray-300 dark:text-gray-600 mb-6 flex items-center gap-2 w-fit"
                         >
                             <motion.span
                                 initial={{ width: 0 }}
                                 animate={{ width: "100%" }}
                                 transition={{ duration: 2, ease: "easeInOut" }}
-                                className="overflow-hidden whitespace-nowrap border-r-4 border-gray-500 pr-2 text-base md:text-3xl"
+                                className="overflow-hidden whitespace-nowrap border-r-4 border-gray-500 !pr-2 text-base md:text-3xl"
                             >
                                 You can read the book here
                             </motion.span>
