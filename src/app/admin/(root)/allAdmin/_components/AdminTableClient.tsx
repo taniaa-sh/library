@@ -59,7 +59,7 @@ const AdminTableClient = ({ data }: Props) => {
         },
         {
             key: 'action',
-            label: 'Action',
+            label: '',
             render: (row: Admin) => (
                 <Image
                     src={imagesAddresses.icons.delete}

@@ -39,8 +39,8 @@ export const menuItems = [
     },
     {
         title: "All Admins",
-        image: imagesAddresses.icons.allAdmin,
-        activeImage: imagesAddresses.icons.allAdminActive,
+        image: imagesAddresses.icons.allUser,
+        activeImage: imagesAddresses.icons.allUserActive,
         link: SiteUrls.allAdmins,
         id: 6
     },

@@ -75,7 +75,10 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                     w-full bg-gray-900 dark:bg-white rounded-t-[20px] p-5 flex flex-col gap-4
                     ${isClosing ? 'animate-slideDown' : 'animate-slideUp'}
                 `}>
-                    <div className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4" />
+                    <div
+                        className="self-center w-12 h-1.5 bg-gray-600 rounded-full mb-4 cursor-pointer"
+                        onClick={handleClose}
+                    />
 
                     <div className="flex flex-col items-center gap-4">
                         <Image

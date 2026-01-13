@@ -127,7 +127,7 @@ const UserTableClient = ({ data }: Props) => {
         { key: 'universityIDNumber', label: 'University ID No' },
         {
             key: 'action',
-            label: 'Action',
+            label: '',
             render: (row: User) => (
                 <Image
                     src={imagesAddresses.icons.delete}

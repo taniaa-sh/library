@@ -49,7 +49,7 @@ const AllBooksTableClient = ({ data }: Props) => {
         { key: 'dateCreated', label: 'Date Created' },
         {
             key: 'action',
-            label: 'Action',
+            label: '',
             render: (row: Book) => (
                 <div className='flex gap-2'>
                     <Image
