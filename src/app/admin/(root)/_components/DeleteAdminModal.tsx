@@ -34,13 +34,21 @@ const DeleteAdminModal = ({ setShowDeleteModal, onDelete, isUser, isBook, isAdmi
         <>
             {/* Desktop */}
             <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/70 z-[10002]">
-                <div className="w-[450px] z-10 flex flex-col gap-4 dark:bg-gray-900 bg-white rounded-xl p-6 border border-gray-700 shadow-lg">
+                <div className="w-[450px] z-10 flex flex-col gap-4 dark:bg-gray-900 bg-white rounded-xl p-4 border border-gray-700 shadow-lg">
                     <Image
                         src={imagesAddresses.icons.modalClose}
                         alt="close"
                         width={24}
                         height={24}
-                        className="cursor-pointer self-end"
+                        className="!cursor-pointer self-end dark:hidden"
+                        onClick={handleClose}
+                    />
+                    <Image
+                        src={imagesAddresses.icons.modalCloseWhite}
+                        alt="close"
+                        width={24}
+                        height={24}
+                        className="!cursor-pointer self-end hidden dark:flex"
                         onClick={handleClose}
                     />
                     <div className="flex flex-col items-center gap-4">
@@ -53,24 +61,27 @@ const DeleteAdminModal = ({ setShowDeleteModal, onDelete, isUser, isBook, isAdmi
                         <p className="dark:text-gray-400 text-gray-600 text-center text-sm">
                             Are you sure you want to delete this
                             <span>
+                                {" "}
                                 {
                                     isUser ? "user" : isAdmin ? "admin" : isBook ? "book" : "request"
                                 }
                             </span>
                             ?
                         </p>
-                        <CustomButton
-                            text="delete"
-                            color="red1"
-                            containerClassName="w-full cursor-pointer flex text-nowrap"
-                            onClick={() => onDelete()}
-                        />
-                        <CustomButton
-                            text="Cancel"
-                            color="white"
-                            containerClassName="w-full cursor-pointer flex text-nowrap"
-                            onClick={handleClose}
-                        />
+                        <div className="w-full flex gap-2 justify-start">
+                            <CustomButton
+                                text="delete"
+                                color="red1"
+                                containerClassName="w-fit cursor-pointer flex text-nowrap"
+                                onClick={() => onDelete()}
+                            />
+                            <CustomButton
+                                text="Cancel"
+                                color="white"
+                                containerClassName="w-fit cursor-pointer flex text-nowrap"
+                                onClick={handleClose}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="absolute inset-0" onClick={handleClose} />
