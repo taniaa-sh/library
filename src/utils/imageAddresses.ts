@@ -55,6 +55,13 @@ const imagesAddresses = {
     purpose1White: "/icons/purpose1White.svg",
     purpose2White: "/icons/pupose2White.svg",
     purpose3White: "/icons/purpose3White.svg",
+    instagram: "/icons/instagram.svg",
+    print: "/icons/print.svg",
+    phone: "/icons/phone.svg",
+    mail: "/icons/mail.svg",
+    twitter: "/icons/twitter.svg",
+    facebook: "/icons/facebook.svg",
+    linkedin: "/icons/linkedin.svg",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",

@@ -3,6 +3,7 @@
 import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const ContactUs = () => {
@@ -22,7 +23,7 @@ const ContactUs = () => {
     }
 
     return (
-        <div className="w-full max-w-5xl mx-auto bg-gray-900 dark:bg-gray-50 rounded-xl p-4 md:p-8 space-y-8">
+        <div className="w-full  mx-auto bg-gray-900 dark:bg-gray-50 rounded-xl p-4 md:p-8 space-y-8">
             {/* common question */}
             <div className="flex flex-col gap-3">
                 <p className="flex items-center justify-center text-white dark:text-gray-900 text-sm md:text-xl">common question</p>
@@ -35,7 +36,7 @@ const ContactUs = () => {
                                     className={`flex items-center justify-between bg-gray-800 dark:bg-gray-100 border border-gray-200 px-4 py-2 cursor-pointer ${showAnswer ? "rounded-b-0 rounded-t-lg" : "rounded-lg"}`}
                                     onClick={() => setShowAnswer(!showAnswer)}
                                 >
-                                    <p className="text-xs md:text-lg text-white dark:text-gray-900">ggg fgc</p>
+                                    <p className="text-xs md:text-lg text-white dark:text-gray-900">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                                     <Image
                                         src={showAnswer ? imagesAddresses.icons.arrowUpWhite : imagesAddresses.icons.arrowDownWhite}
                                         alt="arrowDown"
@@ -56,7 +57,7 @@ const ContactUs = () => {
                                         <div
                                             className="flex items-center justify-between bg-gray-500 dark:bg-gray-100 border border-gray-200 border-t-0 rounded-lg px-4 py-2 cursor-pointer -mt-3 rounded-t-none"
                                         >
-                                            <p className="text-xs md:text-lg text-white dark:text-gray-900">ggg fgc</p>
+                                            <p className="text-xs md:text-lg text-white dark:text-gray-900">Lorem ipsum dolor sit amet consectetur.</p>
                                         </div>
                                     )
                                 }
@@ -128,12 +129,12 @@ const ContactUs = () => {
                         />
                     </form>
                 </section>
-                <div className="w-full flex flex-col md:flex-row gap-20 mt-20">
-                    <div className="w-full flex flex-col gap-2">
+                <div className="w-full flex flex-col md:flex-row gap-6 mt-20">
+                    <div className="bg-gray-800 dark:bg-gray-100 border border-gray-200 w-full flex flex-col gap-2 rounded-lg p-4">
                         <div className="flex items-center justify-between">
-                            <div className="flex gap-1 items-center">
+                            <div className="flex gap-2 items-center">
                                 <Image
-                                    src={imagesAddresses.icons.deny}
+                                    src={imagesAddresses.icons.phone}
                                     alt="logout"
                                     width={16}
                                     height={16}
@@ -143,9 +144,9 @@ const ContactUs = () => {
                             <p className="text-xs md:text-lg text-white dark:text-gray-900">1630</p>
                         </div>
                         <div className="flex items-center justify-between">
-                            <div className="flex gap-1 items-center">
+                            <div className="flex gap-2 items-center">
                                 <Image
-                                    src={imagesAddresses.icons.deny}
+                                    src={imagesAddresses.icons.print}
                                     alt="logout"
                                     width={16}
                                     height={16}
@@ -155,9 +156,9 @@ const ContactUs = () => {
                             <p className="text-xs md:text-lg text-white dark:text-gray-900">1630</p>
                         </div>
                         <div className="flex items-center justify-between">
-                            <div className="flex gap-1 items-center">
+                            <div className="flex gap-2 items-center">
                                 <Image
-                                    src={imagesAddresses.icons.deny}
+                                    src={imagesAddresses.icons.mail}
                                     alt="logout"
                                     width={16}
                                     height={16}
@@ -168,33 +169,36 @@ const ContactUs = () => {
                         </div>
                         <span className="w-full h-px bg-gray-400" />
                         <div className="flex gap-2 items-center justify-center">
-                            <Image
-                                src={imagesAddresses.icons.deny}
-                                alt="logout"
-                                width={30}
-                                height={30}
-                            />
-                            <Image
-                                src={imagesAddresses.icons.deny}
-                                alt="logout"
-                                width={30}
-                                height={30}
-                            />
-                            <Image
-                                src={imagesAddresses.icons.deny}
-                                alt="logout"
-                                width={30}
-                                height={30}
-                            />
-                            <Image
-                                src={imagesAddresses.icons.deny}
-                                alt="logout"
-                                width={30}
-                                height={30}
-                            />
+                            <Link target='_blank' href={""}>
+                                <Image
+                                    src={imagesAddresses.icons.twitter}
+                                    alt="logout"
+                                    width={30}
+                                    height={30}
+                                    className="cursor-pointer"
+                                />
+                            </Link>
+                            <Link target='_blank' href={""}>
+                                <Image
+                                    src={imagesAddresses.icons.facebook}
+                                    alt="logout"
+                                    width={16}
+                                    height={16}
+                                    className="cursor-pointer"
+                                />
+                            </Link>
+                            <Link target='_blank' href={""}>
+                                <Image
+                                    src={imagesAddresses.icons.linkedin}
+                                    alt="logout"
+                                    width={30}
+                                    height={30}
+                                    className="cursor-pointer"
+                                />
+                            </Link>
                         </div>
                     </div>
-                    <div className="flex flex-col w-full">
+                    <div className="bg-gray-800 dark:bg-gray-100 border border-gray-200 rounded-lg p-4 flex flex-col gap-4 w-full">
                         <p className="text-xs md:text-lg text-white dark:text-gray-900">address</p>
                         <p className="text-xs md:text-lg text-white dark:text-gray-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, a.</p>
                     </div>
