@@ -69,7 +69,7 @@ const BorrowReqClient = ({ data }: Props) => {
 
     return (
         <>
-            <AdminTable columns={columns} data={borrowReq} />;
+            <AdminTable columns={columns} data={borrowReq} />
             {totalPages > 1 && (
                 <div className="flex justify-center mt-7 overflow-x-auto dark:!text-white">
                     <ReactPaginate
