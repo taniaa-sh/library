@@ -302,11 +302,12 @@ const BookDetailPage = () => {
                         >
                             <motion.span
                                 initial={{ width: 0 }}
-                                animate={{ width: "100%" }}
+                                whileInView={{ width: "100%" }}
+                                viewport={{ once: true, amount: 0.5 }}
                                 transition={{ duration: 2, ease: "easeInOut" }}
                                 className="overflow-hidden whitespace-nowrap border-r-4 border-gray-500 !pr-2 text-base md:text-3xl"
                             >
-                                You can read the book here
+                                You can read and download the book here
                             </motion.span>
                         </motion.h2>
                         {/* <ReadPdfComponent pdfUrl={"../../../../public/sample (1).pdf"} /> */}

@@ -120,6 +120,7 @@ const imagesAddresses = {
     emptyResultLight: "/images/emptyResultLight.png",
     profile: "/images/profile.png",
     notFoundBg: "/images/notFoundBg.png",
+    library: "/images/library.webp",
 
     adminLogo: "/images/adminLogo.png",
     avatar1: "/images/avatar1.png",
