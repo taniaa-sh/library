@@ -1,7 +1,6 @@
 "use client";
 
 import CustomButton from "@/components/CustomButton";
-import DragAndDropUpload from "@/components/DragAndDropUpload";
 import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import Image from "next/image";
@@ -69,7 +68,7 @@ const AdminRgister = () => {
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row">
-      <div className="w-full min-h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center px-6 py-10 md:p-10 lg:p-20 flex items-center justify-center overflow-y-auto">
+      <div className="w-full min-h-screen bg-[url('/images/loginBg.png')] dark:bg-gray-800 bg-cover bg-center px-6 py-10 md:p-10 lg:p-20 flex items-center justify-center overflow-y-auto">
         <div className="dark:bg-gray-900 bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-4 md:p-8 flex flex-col gap-8 rounded-lg">
           {/* HEADER */}
           <div className="flex flex-col justify-start items-start gap-1">
@@ -103,7 +102,7 @@ const AdminRgister = () => {
               <label className="text-xs md:text-base lg:text-lg">Full Name</label>
               <input
                 {...register("fullName")}
-                className="w-full !dark:bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
+                className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type="text"
                 placeholder="Enter your full name"
                 maxLength={50}
@@ -116,7 +115,7 @@ const AdminRgister = () => {
               <label className="text-xs md:text-base lg:text-lg">Email</label>
               <input
                 {...register("email")}
-                className="w-full !dark:bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
+                className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type="email"
                 placeholder="Enter your email"
               />
@@ -129,7 +128,7 @@ const AdminRgister = () => {
               <input
                 {...register("universityId")}
                 maxLength={11}
-                className="w-full !dark:bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
+                className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type={showUniversityId ? "text" : "password"}
                 placeholder="Enter your personal ID number"
               />
@@ -165,7 +164,7 @@ const AdminRgister = () => {
               <label className="text-xs md:text-base lg:text-lg">Password</label>
               <input
                 {...register("password")}
-                className="w-full !dark:bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
+                className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type={showPass ? "text" : "password"}
                 maxLength={50}
                 placeholder="At least 8 characters long"

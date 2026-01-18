@@ -57,7 +57,7 @@ const AdminResetPass = () => {
     return (
         <div className="w-full flex items-center flex-col lg:flex-row">
             {/* Left Section */}
-            <div className="w-full !min-h-screen bg-[url('/images/loginBg.png')] bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
+            <div className="w-full !min-h-screen bg-[url('/images/loginBg.png')] dark:bg-gray-800 bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
                 <div className="w-full flex items-center justify-center">
                     <div className="dark:bg-gray-900 bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 flex flex-col gap-6 rounded-lg dark:text-white text-black">
 
@@ -117,7 +117,7 @@ const AdminResetPass = () => {
                                     maxLength={30}
                                     placeholder="Enter new password"
                                     {...register("password")}
-                                    className={`w-full !dark:bg-dark-300 !bg-gray-50 border border-gray-300 p-2 md:p-3 rounded-lg dark:text-white text-gray-700 text-sm md:text-base lg:text-lg ${errors.password ? "border border-red-500" : ""}`}
+                                    className={`w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 md:p-3 rounded-lg dark:text-white text-gray-700 text-sm md:text-base lg:text-lg ${errors.password ? "border border-red-500" : ""}`}
                                 />
                                 {(watch("password") || "").length > 0 && (
                                     <>
@@ -154,7 +154,7 @@ const AdminResetPass = () => {
                                     maxLength={30}
                                     placeholder="Repeat new password"
                                     {...register("confirmPass")}
-                                    className={`w-full !dark:bg-dark-300 !bg-gray-50 border border-gray-300 p-2 md:p-3 rounded-lg dark:text-white text-gray-700 text-sm md:text-base lg:text-lg ${errors.confirmPass ? "border border-red-500" : ""}`}
+                                    className={`w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 md:p-3 rounded-lg dark:text-white text-gray-700 text-sm md:text-base lg:text-lg ${errors.confirmPass ? "border border-red-500" : ""}`}
                                 />
                                 {(watch("confirmPass") || "").length > 0 && (
                                     <>
