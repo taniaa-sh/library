@@ -24,6 +24,9 @@ const SiteUrls = {
   allAdmins: "/admin/allAdmin",
   adminNotFound: "/admin/notFoundAdmin",
   adminLogin: "/admin/auth/adminLogin",
+  adminRgister: "/admin/auth/adminRgister",
+  adminForgetPass: "/admin/auth/adminForgetPass",
+  adminResetPass: "/admin/auth/adminResetPass",
 };
 
 export default SiteUrls;
