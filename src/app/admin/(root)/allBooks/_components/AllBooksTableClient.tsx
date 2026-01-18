@@ -55,16 +55,16 @@ const AllBooksTableClient = ({ data }: Props) => {
                     <Image
                         src={imagesAddresses.icons.edit}
                         alt="Avatar"
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         className="cursor-pointer"
                         onClick={() => router.push(SiteUrls.adminEditBook)}
                     />
                     <Image
                         src={imagesAddresses.icons.delete}
                         alt="Avatar"
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         className="cursor-pointer"
                         onClick={() => {
                             setShowDeleteModal(true)
@@ -75,16 +75,16 @@ const AllBooksTableClient = ({ data }: Props) => {
                     <Image
                         src={imagesAddresses.icons.eye}
                         alt="Avatar"
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         className="cursor-pointer dark:hidden"
                         onClick={() => router.push(SiteUrls.adminDetailBook)}
                     />
                     <Image
                         src={imagesAddresses.icons.eyeWhite}
                         alt="Avatar"
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         className="cursor-pointer hidden dark:block"
                         onClick={() => router.push(SiteUrls.adminDetailBook)}
                     />
