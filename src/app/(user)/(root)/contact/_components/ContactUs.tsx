@@ -1,24 +1,52 @@
 "use client";
-
 import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+const questions = [
+    {
+        id: 1,
+        question: "how i can borrow the book?",
+        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    }, {
+        id: 2,
+        question: "how i can return the book?",
+        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    }, {
+        id: 3,
+        question: "how i can extend the deadline?",
+        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    }, {
+        id: 4,
+        question: "is there a fine for late return?",
+        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    }, {
+        id: 5,
+        question: "how i can reserve a book?",
+        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    }, {
+        id: 6,
+        question: "contact support?",
+        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+    },
+]
+
 const ContactUs = () => {
 
-    const [showAnswer, setShowAnswer] = useState<boolean>(false)
+    const [openQuestionId, setOpenQuestionId] = useState<number | null>(null)
+
+    const handleChangeCategoryQuestion = (id: number) => {
+        setOpenQuestionId(prevId => prevId === id ? null : id)
+    }
 
     function handleSubmit(event: any) {
         event.preventDefault();
-
         const email = event.target.email.value;
         const subject = event.target.subject.value;
         const message = event.target.message.value;
-
         const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-
         window.open(mailtoLink, "_blank");
     }
 
@@ -28,24 +56,25 @@ const ContactUs = () => {
             <div className="flex flex-col gap-3">
                 <p className="flex items-center justify-center text-white dark:text-gray-900 text-sm md:text-xl">common question</p>
                 {
-                    [1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
+                    questions.map((question) => {
+                        const isOpen = openQuestionId === question.id;
+
                         return (
-                            <>
+                            <div key={question.id} className="flex flex-col">
                                 <div
-                                    key={index}
-                                    className={`flex items-center justify-between bg-gray-800 dark:bg-gray-100 border border-gray-200 px-4 py-2 cursor-pointer ${showAnswer ? "rounded-b-0 rounded-t-lg" : "rounded-lg"}`}
-                                    onClick={() => setShowAnswer(!showAnswer)}
+                                    className={`flex items-center justify-between bg-gray-800 dark:bg-gray-100 border border-gray-200 px-4 py-2 cursor-pointer ${isOpen ? "rounded-b-0 rounded-t-lg" : "rounded-lg"}`}
+                                    onClick={() => handleChangeCategoryQuestion(question.id)}
                                 >
-                                    <p className="text-xs md:text-lg text-white dark:text-gray-900">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    <p className="text-xs md:text-lg text-white dark:text-gray-900">{question.question}</p>
                                     <Image
-                                        src={showAnswer ? imagesAddresses.icons.arrowUpWhite : imagesAddresses.icons.arrowDownWhite}
+                                        src={isOpen ? imagesAddresses.icons.arrowUpWhite : imagesAddresses.icons.arrowDownWhite}
                                         alt="arrowDown"
                                         width={24}
                                         height={24}
                                         className="dark:hidden block w-4 h-4 md:w-6 md:h-6"
                                     />
                                     <Image
-                                        src={showAnswer ? imagesAddresses.icons.arrowUp : imagesAddresses.icons.arrowDown}
+                                        src={isOpen ? imagesAddresses.icons.arrowUp : imagesAddresses.icons.arrowDown}
                                         alt="arrowDown"
                                         width={24}
                                         height={24}
@@ -53,29 +82,31 @@ const ContactUs = () => {
                                     />
                                 </div>
                                 {
-                                    showAnswer && (
+                                    isOpen && (
                                         <div
-                                            className="flex items-center justify-between bg-gray-500 dark:bg-gray-100 border border-gray-200 border-t-0 rounded-lg px-4 py-2 cursor-pointer -mt-3 rounded-t-none"
+                                            className="flex items-center justify-between bg-gray-500 dark:bg-gray-100 border border-gray-200 border-t-0 rounded-lg px-4 py-2 cursor-pointer rounded-t-none"
                                         >
-                                            <p className="text-xs md:text-lg text-white dark:text-gray-900">Lorem ipsum dolor sit amet consectetur.</p>
+                                            <p className="text-xs md:text-lg text-white dark:text-gray-900">{question.answer}</p>
                                         </div>
                                     )
                                 }
-                            </>
+                            </div>
                         )
                     })
                 }
             </div>
-
             {/* contact us */}
             <div className="flex flex-col gap-3 mt-20">
                 <p className="flex items-center justify-center text-white dark:text-gray-900 text-sm md:text-xl">contact us</p>
-                <section className="grid !gap-6 md:gap-12 relative">
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-4 justify-center items-center self-center w-full">
+                <section className="grid relative">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="flex flex-col gap-4 justify-center items-center self-center w-full"
+                    >
                         <div className="w-full">
                             <label
                                 htmlFor="email"
-                                className="text-white block !mb-1 text-xs md:text-lg font-medium"
+                                className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
                             >
                                 Your Email
                             </label>
@@ -88,11 +119,10 @@ const ContactUs = () => {
                                 className="p-2.5 rounded-lg bg-gray-800 dark:bg-gray-100 border border-gray-200 text-gray-100 dark:text-gray-700 text-sm block w-full"
                             />
                         </div>
-
                         <div className="w-full">
                             <label
                                 htmlFor="subject"
-                                className="text-white block !mb-1 text-xs md:text-lg font-medium"
+                                className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
                             >
                                 Subject
                             </label>
@@ -105,11 +135,10 @@ const ContactUs = () => {
                                 className="p-2.5 rounded-lg bg-gray-800 dark:bg-gray-100 border border-gray-200 text-gray-100 dark:text-gray-700 text-sm block w-full"
                             />
                         </div>
-
                         <div className="!mb-6 w-full">
                             <label
                                 htmlFor="message"
-                                className="text-white block text-xs md:text-lg !mb-2 font-medium"
+                                className="text-white dark:text-gray-700 block text-xs md:text-lg !mb-2 font-medium"
                             >
                                 Message
                             </label>
@@ -138,6 +167,14 @@ const ContactUs = () => {
                                     alt="logout"
                                     width={16}
                                     height={16}
+                                    className="hidden dark:flex"
+                                />
+                                <Image
+                                    src={imagesAddresses.icons.phoneWhite}
+                                    alt="logout"
+                                    width={16}
+                                    height={16}
+                                    className="dark:hidden"
                                 />
                                 <p className="text-xs md:text-lg text-white dark:text-gray-900">call to support:</p>
                             </div>
@@ -150,6 +187,14 @@ const ContactUs = () => {
                                     alt="logout"
                                     width={16}
                                     height={16}
+                                    className="hidden dark:flex"
+                                />
+                                <Image
+                                    src={imagesAddresses.icons.printWhite}
+                                    alt="logout"
+                                    width={16}
+                                    height={16}
+                                    className="dark:hidden"
                                 />
                                 <p className="text-xs md:text-lg text-white dark:text-gray-900">call to support:</p>
                             </div>
@@ -162,6 +207,14 @@ const ContactUs = () => {
                                     alt="logout"
                                     width={16}
                                     height={16}
+                                    className="hidden dark:flex"
+                                />
+                                <Image
+                                    src={imagesAddresses.icons.mailWhite}
+                                    alt="logout"
+                                    width={16}
+                                    height={16}
+                                    className="dark:hidden"
                                 />
                                 <p className="text-xs md:text-lg text-white dark:text-gray-900">call to support:</p>
                             </div>
@@ -173,8 +226,8 @@ const ContactUs = () => {
                                 <Image
                                     src={imagesAddresses.icons.twitter}
                                     alt="logout"
-                                    width={30}
-                                    height={30}
+                                    width={20}
+                                    height={20}
                                     className="cursor-pointer"
                                 />
                             </Link>
@@ -182,8 +235,8 @@ const ContactUs = () => {
                                 <Image
                                     src={imagesAddresses.icons.facebook}
                                     alt="logout"
-                                    width={16}
-                                    height={16}
+                                    width={10}
+                                    height={10}
                                     className="cursor-pointer"
                                 />
                             </Link>
@@ -191,8 +244,8 @@ const ContactUs = () => {
                                 <Image
                                     src={imagesAddresses.icons.linkedin}
                                     alt="logout"
-                                    width={30}
-                                    height={30}
+                                    width={20}
+                                    height={20}
                                     className="cursor-pointer"
                                 />
                             </Link>
@@ -207,5 +260,4 @@ const ContactUs = () => {
         </div>
     );
 };
-
 export default ContactUs;
