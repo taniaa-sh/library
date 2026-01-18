@@ -189,16 +189,17 @@ const EditBookPage = () => {
                             value={color}
                             readOnly
                             onFocus={() => setShowPicker(true)}
+                            className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
+
+                        <motion.div
+                            onClick={() => document.getElementById('bookPrimaryColorInput')?.focus()}
+                            className={`w-full border rounded-lg p-3 pl-4 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer
+                            ${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'}
+                            `}
                             animate={errors.bookPrimaryColor ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                             key={shakeTrigger}
                             transition={{ duration: 0.4 }}
-                            className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                        />
-                        <div
-                            onClick={() => document.getElementById('bookPrimaryColorInput')?.focus()}
-                            className={`w-full border rounded-lg p-3 pl-4 bg-light-600 dark:bg-dark-400 text-sm sm:text-base cursor-pointer
-                                  ${!color ? 'text-gray-400' : 'text-gray-700 dark:text-white'}
-                                 `}
                         >
                             <div className='flex items-center gap-2'>
                                 <div
@@ -209,7 +210,7 @@ const EditBookPage = () => {
                                     {color || 'Select a color'}
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* ChromePicker */}
                         {showPicker && (
@@ -226,7 +227,6 @@ const EditBookPage = () => {
                                 />
                             </div>
                         )}
-
                         {errors.bookPrimaryColor && (
                             <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.bookPrimaryColor.message}</p>
                         )}
