@@ -25,16 +25,16 @@ const BookReviews = () => {
 
     setComment(value);
 
-      const el = textareaRef.current;
-      if (el && el.scrollHeight > 600) {
-        el.style.scrollBehavior = "auto" //todo
-        return
-      }
-      if (el) {
-        el.style.height = "auto";
-        el.style.height = el.scrollHeight + "px";
-      }
-    };
+    const el = textareaRef.current;
+    if (el && el.scrollHeight > 600) {
+      el.style.scrollBehavior = "auto" //todo
+      return
+    }
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = el.scrollHeight + "px";
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,7 +103,7 @@ const BookReviews = () => {
               fill={hovered >= i || selected >= i ? "#E7C9A5" : "none"}
               stroke={hovered >= i || selected >= i ? "#E7C9A5" : "#888888"}
               strokeWidth={2}
-              className="w-6 h-6 cursor-pointer dark:stroke-gray-400"
+              className="w-6 h-6 cursor-pointer dark:stroke-gray-600 dark:hover:fill-gold200"
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(0)}
               onClick={() => setSelected(i)}
@@ -121,7 +121,7 @@ const BookReviews = () => {
             onChange={handleCommentChange}
             placeholder="Write your review..."
             className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3
-             focus:outline-none focus:ring-2
+             focus:outline-none focus:ring-2 border dark:border-gray-300 border-gray-700border dark:border-gray-300 border-gray-700
              dark:bg-light-600 bg-dark-400
              !text-white dark:!text-gray-900 text-sm sm:text-base
              resize-none overflow-hidden"
