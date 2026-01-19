@@ -4,11 +4,12 @@ import imagesAddresses from '@/utils/imageAddresses'
 import SiteUrls from '@/utils/routs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CustomButton from '@/components/CustomButton'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form'
+import { motion } from 'framer-motion';
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required('Email is required'),
@@ -23,6 +24,7 @@ type SignInFormData = {
 const SignIn = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [showPass, setShowPass] = useState<boolean>(false)
+  const [shakeTrigger, setShakeTrigger] = useState(0);
   const router = useRouter()
 
   const {
@@ -33,6 +35,12 @@ const SignIn = () => {
   } = useForm<SignInFormData>({
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      setShakeTrigger((prev) => prev + 1);
+    }
+  }, [errors]);
 
   const handleLogin = async (data: SignInFormData) => {
     setLoading(true)
@@ -78,13 +86,16 @@ const SignIn = () => {
             <div className="flex flex-col gap-1">
               <label className="text-sm md:text-base lg:text-lg">Email</label>
 
-              <input
+              <motion.input
                 {...register("email")}
                 className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 
                 p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg
                 ${errors.email ? "border border-red-500" : ""}`}
                 type="email"
                 placeholder="Enter your email"
+                animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                key={shakeTrigger}
+                transition={{ duration: 0.4 }}
               />
 
               {errors.email && (
@@ -98,7 +109,7 @@ const SignIn = () => {
             <div className="flex flex-col gap-1 relative">
               <label className="text-sm md:text-base lg:text-lg">Password</label>
 
-              <input
+              <motion.input
                 {...register("password")}
                 className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 
                 p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg
@@ -106,6 +117,9 @@ const SignIn = () => {
                 type={showPass ? "text" : "password"}
                 placeholder="At least 8 characters long"
                 maxLength={20}
+                animate={errors.password ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                key={shakeTrigger}
+                transition={{ duration: 0.4 }}
               />
               {
                 watch("password")?.length > 0 && (
