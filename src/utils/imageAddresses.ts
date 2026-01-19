@@ -83,6 +83,7 @@ const imagesAddresses = {
     edit: "/icons/edit.svg",
     receipt: "/icons/receipt.svg",
     close: "/icons/close.svg",
+    closeGreen: "/icons/closeGreen.svg",
     modalClose: "/icons/modalClose.svg",
     modalCloseWhite: "/icons/modalCloseWhite.svg",
     loading: "/icons/loading.svg",
