@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
@@ -10,6 +10,7 @@ import CustomButton from "@/components/CustomButton"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
+import { motion } from 'framer-motion';
 
 const schema = yup.object({
     password: yup.string().min(8, "Password must be at least 8 characters").required('Password is required'),
@@ -25,6 +26,7 @@ const ResetPasswordPage = () => {
     const [loading, setLoading] = useState(false)
     const [showPass, setShowPass] = useState(false)
     const [showConfirmPass, setShowConfirmPass] = useState(false)
+    const [shakeTrigger, setShakeTrigger] = useState(0);
     const router = useRouter()
 
     const {
@@ -35,6 +37,12 @@ const ResetPasswordPage = () => {
     } = useForm<ResetPasswordFormData>({
         resolver: yupResolver(schema),
     })
+
+    useEffect(() => {
+        if (Object.keys(errors).length > 0) {
+            setShakeTrigger((prev) => prev + 1);
+        }
+    }, [errors]);
 
     const onSubmit = async (data: ResetPasswordFormData) => {
         setLoading(true)
@@ -112,12 +120,15 @@ const ResetPasswordPage = () => {
                             {/* New Password */}
                             <div className="flex flex-col gap-1 relative">
                                 <label className="text-sm md:text-base lg:text-lg">New Password</label>
-                                <input
+                                <motion.input
                                     type={showPass ? "text" : "password"}
                                     maxLength={30}
                                     placeholder="Enter new password"
                                     {...register("password")}
                                     className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg ${errors.password ? "border border-red-500" : ""}`}
+                                    animate={errors.password ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                                    key={shakeTrigger}
+                                    transition={{ duration: 0.4 }}
                                 />
                                 {(watch("password") || "").length > 0 && (
                                     <>
@@ -149,12 +160,15 @@ const ResetPasswordPage = () => {
                             {/* Confirm Password */}
                             <div className="flex flex-col gap-1 relative">
                                 <label className="text-sm md:text-base lg:text-lg">Confirm Password</label>
-                                <input
+                                <motion.input
                                     type={showConfirmPass ? "text" : "password"}
                                     maxLength={30}
                                     placeholder="Repeat new password"
                                     {...register("confirmPass")}
                                     className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 p-2 md:p-3 rounded-lg text-white dark:text-gray-700 text-sm md:text-base lg:text-lg ${errors.confirmPass ? "border border-red-500" : ""}`}
+                                    animate={errors.confirmPass ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                                    key={shakeTrigger}
+                                    transition={{ duration: 0.4 }}
                                 />
                                 {(watch("confirmPass") || "").length > 0 && (
                                     <>
