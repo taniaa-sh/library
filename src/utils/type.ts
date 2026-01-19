@@ -23,3 +23,12 @@ export interface BookFormInputs {
   totalNumberOfBooks: string;
   description: string;
 }
+
+export type ToastType = {
+  text: string,
+  color: 'success' | 'error',
+  isAdmin?: boolean,
+  timeWait?: number,
+  pauseOnHover?: boolean;
+  onClose: () => void
+}
