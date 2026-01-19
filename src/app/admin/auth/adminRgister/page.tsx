@@ -5,11 +5,12 @@ import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { motion } from 'framer-motion';
 
 const schema = yup
   .object({
@@ -32,6 +33,7 @@ const AdminRgister = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showUniversityId, setShowUniversityId] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const [shakeTrigger, setShakeTrigger] = useState(0);
 
   const {
     register,
@@ -41,6 +43,12 @@ const AdminRgister = () => {
   } = useForm<SignUpFormData>({
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      setShakeTrigger((prev) => prev + 1);
+    }
+  }, [errors]);
 
   const handleSignUp = async (data: SignUpFormData) => {
     setIsLoading(true);
@@ -100,12 +108,15 @@ const AdminRgister = () => {
             {/* Full Name */}
             <div className="flex flex-col gap-1">
               <label className="text-xs md:text-base lg:text-lg">Full Name</label>
-              <input
+              <motion.input
                 {...register("fullName")}
                 className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type="text"
                 placeholder="Enter your full name"
                 maxLength={50}
+                animate={errors.fullName ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                key={shakeTrigger}
+                transition={{ duration: 0.4 }}
               />
               {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
             </div>
@@ -113,11 +124,14 @@ const AdminRgister = () => {
             {/* Email */}
             <div className="flex flex-col gap-1">
               <label className="text-xs md:text-base lg:text-lg">Email</label>
-              <input
+              <motion.input
                 {...register("email")}
                 className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type="email"
                 placeholder="Enter your email"
+                animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                key={shakeTrigger}
+                transition={{ duration: 0.4 }}
               />
               {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
             </div>
@@ -125,12 +139,15 @@ const AdminRgister = () => {
             {/*  Personal ID */}
             <div className="flex flex-col gap-1 relative">
               <label className="text-xs md:text-base lg:text-lg">Personal ID</label>
-              <input
+              <motion.input
                 {...register("universityId")}
                 maxLength={11}
                 className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type={showUniversityId ? "text" : "password"}
                 placeholder="Enter your personal ID number"
+                animate={errors.universityId ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                key={shakeTrigger}
+                transition={{ duration: 0.4 }}
               />
               {errors.universityId && <p className="text-red-500 text-xs">{errors.universityId.message}</p>}
 
@@ -162,12 +179,15 @@ const AdminRgister = () => {
             {/* Password */}
             <div className="flex flex-col gap-1 relative">
               <label className="text-xs md:text-base lg:text-lg">Password</label>
-              <input
+              <motion.input
                 {...register("password")}
                 className="w-full dark:!bg-dark-300 !bg-gray-50 border border-gray-300 p-2 rounded-lg"
                 type={showPass ? "text" : "password"}
                 maxLength={50}
                 placeholder="At least 8 characters long"
+                animate={errors.password ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                key={shakeTrigger}
+                transition={{ duration: 0.4 }}
               />
               {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
 
