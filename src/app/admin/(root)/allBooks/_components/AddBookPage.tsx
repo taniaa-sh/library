@@ -8,7 +8,7 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
-import { ChromePicker } from 'react-color';;
+import { ChromePicker } from 'react-color';
 import { motion } from 'framer-motion';
 import CustomButton from '@/components/CustomButton';
 import CustomInputSelect from '@/components/CustomInputSelect';
