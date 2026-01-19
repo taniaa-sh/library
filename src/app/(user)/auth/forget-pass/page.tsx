@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
@@ -10,6 +10,7 @@ import CustomButton from "@/components/CustomButton"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
+import { motion } from 'framer-motion';
 
 const schema = yup.object({
     email: yup
@@ -24,6 +25,7 @@ type SignUpFormData = {
 
 const ForgotPasswordPage = () => {
     const [loading, setLoading] = useState(false)
+    const [shakeTrigger, setShakeTrigger] = useState(0);
     const router = useRouter()
 
     const {
@@ -33,6 +35,12 @@ const ForgotPasswordPage = () => {
     } = useForm<SignUpFormData>({
         resolver: yupResolver(schema),
     })
+
+    useEffect(() => {
+        if (Object.keys(errors).length > 0) {
+            setShakeTrigger((prev) => prev + 1);
+        }
+    }, [errors]);
 
     const onSubmit = async (data: SignUpFormData) => {
         setLoading(true)
@@ -93,13 +101,16 @@ const ForgotPasswordPage = () => {
                     >
                         <div className="flex flex-col gap-1">
                             <label className="text-sm md:text-base lg:text-lg">Email</label>
-                            <input
+                            <motion.input
                                 {...register("email")}
                                 className={`w-full bg-dark-300 dark:bg-gray-50 dark:border dark:border-gray-300 
                                 p-2 md:p-3 rounded-lg placeholder-gray-400 text-sm md:text-base lg:text-lg
                                 ${errors.email ? "border border-red-500" : ""}`}
                                 type="email"
                                 placeholder="Enter your email"
+                                animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                                key={shakeTrigger}
+                                transition={{ duration: 0.4 }}
                             />
                             {errors.email && (
                                 <p className="text-red-500 text-xs mt-1">
