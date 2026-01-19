@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
+import { motion } from 'framer-motion';
 
 interface BorrowBookModalProps {
     setShowBorrowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,6 +37,7 @@ const BorrowBookModal = ({
 
     const router = useRouter();
     const [isClosing, setIsClosing] = useState(false);
+    const [shakeTrigger, setShakeTrigger] = useState(0);
 
     const schema = yup.object().shape({
         name: yup.string().required("Name is required"),
@@ -63,6 +65,12 @@ const BorrowBookModal = ({
         defaultValues: { name: "", email: "", quantity: 1 },
         mode: "onChange",
     });
+
+    useEffect(() => {
+        if (Object.keys(errors).length > 0) {
+            setShakeTrigger((prev) => prev + 1);
+        }
+    }, [errors]);
 
     const onSubmit = async (data: FormValues) => {
         await new Promise((res) => setTimeout(res, 1000));
@@ -109,10 +117,10 @@ const BorrowBookModal = ({
                 />
             </div>
             <div className="flex justify-center items-center md:hidden cursor-pointer">
-                 <div 
-                 onClick={handleClose}
-                 className="self-center w-12 h-1.5 bg-gray-600 dark:bg-gray-400 rounded-full mb-4" 
-                 />
+                <div
+                    onClick={handleClose}
+                    className="self-center w-12 h-1.5 bg-gray-600 dark:bg-gray-400 rounded-full mb-4"
+                />
             </div>
 
             {/* Book Info */}
@@ -141,12 +149,15 @@ const BorrowBookModal = ({
             <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex gap-2">
                     <div className="flex flex-col w-full">
-                        <input
+                        <motion.input
                             autoFocus
                             type="text"
                             placeholder="Your fullName"
                             {...register("name")}
                             className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
+                            animate={errors.name ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                            key={shakeTrigger}
+                            transition={{ duration: 0.4 }}
                         />
                         <p className="text-red-400 text-xs min-h-[16px] mt-1">
                             {errors.name?.message}
@@ -154,7 +165,7 @@ const BorrowBookModal = ({
                     </div>
 
                     <div className="flex flex-col w-full">
-                        <input
+                        <motion.input
                             type="number"
                             min={1}
                             max={availableBooks}
@@ -168,6 +179,9 @@ const BorrowBookModal = ({
                                 },
                             })}
                             className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 focus:outline-none"
+                            animate={errors.quantity ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                            key={shakeTrigger}
+                            transition={{ duration: 0.4 }}
                         />
                         <p className="text-red-400 text-xs min-h-[16px] mt-1">
                             {errors.quantity?.message}
@@ -175,11 +189,14 @@ const BorrowBookModal = ({
                     </div>
                 </div>
 
-                <input
+                <motion.input
                     type="email"
                     placeholder="Your Email"
                     {...register("email")}
                     className="w-full px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
+                    animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
+                    key={shakeTrigger}
+                    transition={{ duration: 0.4 }}
                 />
                 {errors.email && <p className="text-red-400 text-sm">{errors.email.message}</p>}
 
