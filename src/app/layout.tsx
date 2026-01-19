@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
-import { Toaster } from "sonner";
 import BackgroundWrapper from "@/components/BackgroundWrapperProps ";
 
 const ibmPlexSans = localFont({
@@ -59,7 +58,6 @@ export default function RootLayout({
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
           <BackgroundWrapper>
             {children}
-            <Toaster position="top-right" richColors />
           </BackgroundWrapper>
       </body>
     </html>

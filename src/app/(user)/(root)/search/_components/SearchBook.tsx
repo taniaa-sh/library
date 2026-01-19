@@ -6,11 +6,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { toast } from "sonner";
 import CustomButton from "@/components/CustomButton";
 import BookList from "./BookList";
 import { BookFeatureProps } from "@/utils/type";
 import SiteUrls from "@/utils/routs";
+import showToast from "@/utils/toast";
 
 const SearchBook = () => {
 
@@ -56,7 +56,7 @@ const SearchBook = () => {
             setShowNoResult(false)
             setShowResults(false)
             setBookList(false)
-            toast.error("Please enter a book name")
+             showToast("Please enter a book name", "error");
             return
         }
         setLoading(true)

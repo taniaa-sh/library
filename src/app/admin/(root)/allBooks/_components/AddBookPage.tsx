@@ -5,13 +5,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
 import { ChromePicker } from 'react-color';
 import { motion } from 'framer-motion';
 import CustomButton from '@/components/CustomButton';
 import CustomInputSelect from '@/components/CustomInputSelect';
+import showToast from '@/utils/toast';
 
 const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -64,13 +64,13 @@ const AddBookPage = () => {
         try {
             setLoading(true);
             await axios.post('/api/books', data);
-            toast.success('Book added successfully');
+            showToast('Book added successfully', "success", true, undefined, true);
             reset();
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data?.message || 'Something went wrong');
+                showToast(error.response?.data?.message || 'Something went wrong', "error", true, undefined, true);
             } else {
-                toast.error('Unexpected error occurred');
+                showToast('Unexpected error occurred', "error", true, undefined, true);
             }
         } finally {
             setLoading(false);
@@ -85,7 +85,6 @@ const AddBookPage = () => {
 
     return (
         <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg dark:bg-dark-500">
-            <Toaster />
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 sm:gap-6">
                 {/* Title */}

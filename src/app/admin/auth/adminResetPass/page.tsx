@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { toast } from "sonner"
 import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
 import { useRouter } from "next/navigation"
@@ -11,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { motion } from 'framer-motion';
+import showToast from "@/utils/toast"
 
 const schema = yup.object({
     password: yup.string().min(8, "Password must be at least 8 characters").required('Password is required'),
@@ -55,7 +55,7 @@ const AdminResetPass = () => {
         setLoading(false)
 
         if (res.ok) {
-            toast.success("Password updated successfully")
+            showToast("Password updated successfully", "success", true, undefined, true);
             router.push(SiteUrls.signIn)
         } else {
             router.push(SiteUrls.signIn)

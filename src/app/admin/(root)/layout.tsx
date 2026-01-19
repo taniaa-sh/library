@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Toaster } from "sonner";
 import ProgressBar from "@/components/ProgressBar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import AdminSidebar from "./_components/AdminSidebar";
@@ -31,7 +30,6 @@ export default function AdminLayout({
                             {children}
                         </div>
                     </div>
-                    <Toaster position="top-right" richColors />
                 </div>
             </body>
         </html>

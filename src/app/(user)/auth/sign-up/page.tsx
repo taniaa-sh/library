@@ -7,11 +7,11 @@ import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { motion } from 'framer-motion';
+import showToast from "@/utils/toast";
 
 const schema = yup
   .object({
@@ -64,15 +64,15 @@ const SignUp = () => {
       });
 
       if (res.ok) {
-        toast.success("Account created successfully");
+        showToast("Account created successfully", "success");
         router.push(SiteUrls.signIn);
       } else {
         const error = await res.json();
-        toast.error(error.error || "Signup failed");
+        showToast(error.error || "Signup failed", "error" );
       }
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong");
+      showToast("Something went wrong", "error",true );
     } finally {
       setIsLoading(false);
     }

@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { toast } from "sonner"
 import Image from "next/image"
 import imagesAddresses from "@/utils/imageAddresses"
 import { useRouter } from "next/navigation"
@@ -11,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { motion } from 'framer-motion';
+import showToast from "@/utils/toast"
 
 const schema = yup.object({
     email: yup
@@ -54,14 +54,14 @@ const ForgotPasswordPage = () => {
             setLoading(false)
 
             if (res.ok) {
-                toast.success("A reset link has been sent to your email")
+                showToast("A reset link has been sent to your email", "success");
             } else {
-                toast.error("Failed to send reset link")
+                showToast("Failed to send reset link", "error");
                 router.push(SiteUrls.resetPass)
             }
         } catch (error) {
             setLoading(false)
-            toast.error("Something went wrong")
+            showToast("Something went wrong", "error");
         }
     }
 

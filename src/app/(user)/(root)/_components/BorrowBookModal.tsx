@@ -4,12 +4,12 @@ import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { motion } from 'framer-motion';
+import showToast from "@/utils/toast";
 
 interface BorrowBookModalProps {
     setShowBorrowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -75,7 +75,7 @@ const BorrowBookModal = ({
     const onSubmit = async (data: FormValues) => {
         await new Promise((res) => setTimeout(res, 1000));
 
-        toast.success("Book borrowed successfully");
+        showToast("Book borrowed successfully", "success");
         reset();
         setShowBorrowModal(false);
         router.push("/");
