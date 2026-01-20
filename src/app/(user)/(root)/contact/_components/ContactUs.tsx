@@ -1,6 +1,7 @@
 "use client";
 import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
+import showToast from "@/utils/toast";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -8,30 +9,35 @@ import { useState } from "react";
 const questions = [
     {
         id: 1,
-        question: "how i can borrow the book?",
-        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    }, {
-        id: 2,
-        question: "how i can return the book?",
-        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    }, {
-        id: 3,
-        question: "how i can extend the deadline?",
-        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    }, {
-        id: 4,
-        question: "is there a fine for late return?",
-        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    }, {
-        id: 5,
-        question: "how i can reserve a book?",
-        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    }, {
-        id: 6,
-        question: "contact support?",
-        answer: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+        question: "How can I borrow a book?",
+        answer: "To borrow a book, visit the library desk or use our online catalog to request it. Make sure you have a valid library card."
     },
-]
+    {
+        id: 2,
+        question: "How can I return a book?",
+        answer: "You can return books at the library's return desk or use the drop-off box outside the library if it's after hours."
+    },
+    {
+        id: 3,
+        question: "How can I extend the deadline for a borrowed book?",
+        answer: "You can extend the borrowing period online via your account, or by calling/emailing the library before the due date."
+    },
+    {
+        id: 4,
+        question: "Is there a fine for late returns?",
+        answer: "Yes, late returns incur a fine. The amount depends on how many days the book is overdue."
+    },
+    {
+        id: 5,
+        question: "How can I reserve a book?",
+        answer: "You can reserve a book through our online catalog or request it at the library desk. You'll be notified when the book is ready for pickup."
+    },
+    {
+        id: 6,
+        question: "How can I contact support?",
+        answer: "You can contact library support via phone at 1630, by email at support@library.com, or through our website's contact form."
+    },
+];
 
 const ContactUs = () => {
 
@@ -41,11 +47,25 @@ const ContactUs = () => {
         setOpenQuestionId(prevId => prevId === id ? null : id)
     }
 
-    function handleSubmit(event: any) {
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const email = event.target.email.value;
-        const subject = event.target.subject.value;
-        const message = event.target.message.value;
+
+        const form = event.currentTarget;
+        const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+        const subject = (form.elements.namedItem("subject") as HTMLInputElement).value.trim();
+        const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
+
+        if (!email || !subject || !message) {
+            showToast("Please fill in all fields before sending your message.", 'error');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showToast("Please enter a valid email address.", 'error');
+            return;
+        }
+
         const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
         window.open(mailtoLink, "_blank");
     }
@@ -103,37 +123,37 @@ const ContactUs = () => {
                         onSubmit={handleSubmit}
                         className="flex flex-col gap-4 justify-center items-center self-center w-full"
                     >
-                        <div className="w-full">
-                            <label
-                                htmlFor="email"
-                                className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
-                            >
-                                Your Email
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                required
-                                placeholder="name@gmail.com"
-                                className="p-2.5 rounded-lg bg-gray-800 dark:bg-gray-100 border border-gray-200 text-gray-100 dark:text-gray-700 text-sm block w-full"
-                            />
-                        </div>
-                        <div className="w-full">
-                            <label
-                                htmlFor="subject"
-                                className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
-                            >
-                                Subject
-                            </label>
-                            <input
-                                type="text"
-                                id="subject"
-                                name="subject"
-                                required
-                                placeholder="Just saying hi !"
-                                className="p-2.5 rounded-lg bg-gray-800 dark:bg-gray-100 border border-gray-200 text-gray-100 dark:text-gray-700 text-sm block w-full"
-                            />
+                        <div className="w-full flex flex-col md:flex-row gap-4">
+                            <div className="w-full">
+                                <label
+                                    htmlFor="email"
+                                    className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
+                                >
+                                    Your Email
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="name@gmail.com"
+                                    className="p-2.5 rounded-lg bg-gray-800 dark:bg-gray-100 border border-gray-200 text-gray-100 dark:text-gray-700 text-sm block w-full"
+                                />
+                            </div>
+                            <div className="w-full">
+                                <label
+                                    htmlFor="subject"
+                                    className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
+                                >
+                                    Subject
+                                </label>
+                                <input
+                                    type="text"
+                                    id="subject"
+                                    name="subject"
+                                    placeholder="Just saying hi !"
+                                    className="p-2.5 rounded-lg bg-gray-800 dark:bg-gray-100 border border-gray-200 text-gray-100 dark:text-gray-700 text-sm block w-full"
+                                />
+                            </div>
                         </div>
                         <div className="!mb-6 w-full">
                             <label
@@ -146,12 +166,12 @@ const ContactUs = () => {
                                 maxLength={500}
                                 id="message"
                                 name="message"
-                                required
                                 placeholder="Let's talk about..."
                                 className="p-2.5 -mt-1 resize-none h-40 rounded-lg bg-gray-800 dark:bg-gray-100 border border-gray-200 text-gray-100 dark:text-gray-700 text-sm block w-full"
                             />
                         </div>
                         <CustomButton
+                            type="submit"
                             text="Send Message"
                             color="yellow"
                             containerClassName="w-full md:!w-fit cursor-pointer flex text-nowrap self-start"
@@ -196,7 +216,7 @@ const ContactUs = () => {
                                     height={16}
                                     className="dark:hidden"
                                 />
-                                <p className="text-xs md:text-lg text-white dark:text-gray-900">call to support:</p>
+                                <p className="text-xs md:text-lg text-white dark:text-gray-900">Print Documents:</p>
                             </div>
                             <p className="text-xs md:text-lg text-white dark:text-gray-900">1630</p>
                         </div>
@@ -216,9 +236,9 @@ const ContactUs = () => {
                                     height={16}
                                     className="dark:hidden"
                                 />
-                                <p className="text-xs md:text-lg text-white dark:text-gray-900">call to support:</p>
+                                <p className="text-xs md:text-lg text-white dark:text-gray-900">Email Support:</p>
                             </div>
-                            <p className="text-xs md:text-lg text-white dark:text-gray-900">1630</p>
+                            <p className="text-xs md:text-lg text-white dark:text-gray-900">support@library.com</p>
                         </div>
                         <span className="w-full h-px bg-gray-400" />
                         <div className="flex gap-2 items-center justify-center">
