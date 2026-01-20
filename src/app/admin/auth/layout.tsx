@@ -23,7 +23,7 @@ export default function AuthLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body className="admin">{children}</body>
     </html>
   );
 }

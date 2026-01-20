@@ -19,7 +19,7 @@ export default function AdminLayout({
 }) {
     return (
         <html lang="en">
-            <body className="min-h-dvh bg-white dark:bg-[#0d1b3b] transition-colors">
+            <body className="min-h-dvh bg-white dark:bg-[#0d1b3b] transition-colors admin">
                 <div className="mx-auto">
                     <ProgressBar isAdmin />
                     <ScrollProgressBar isAdmin />
