@@ -15,7 +15,7 @@ export const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
     return (
       <div
         ref={ref}
-        className="flex flex-col bg-gray-600 dark:bg-white w-full md:p-6 px-10 py-2 rounded-md relative"
+        className="flex flex-col bg-gray-600 dark:bg-white w-full md:p-6 px-10 py-2 rounded-md relative !max-h-[450px]"
       >
         {/* Header */}
         <div className="text-center mb-2 md:mb-4">
