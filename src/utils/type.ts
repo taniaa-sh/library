@@ -20,6 +20,7 @@ export interface BookFormInputs {
   bookVideo: string;
   bookPrimaryColor: string;
   bookImage: string;
+  bookPdf: string;
   totalNumberOfBooks: string;
   description: string;
 }
