@@ -6,12 +6,17 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import PdfViewer from "./PdfViewer";
 
-interface LogoutModalProps {
-    setShowPdfModal: React.Dispatch<React.SetStateAction<boolean>>
-    pdfUrl: string
+interface PdfPreviewModalProps {
+    setShowPdfModal: React.Dispatch<React.SetStateAction<boolean>>;
+    pdfUrl: string;
+    isAdmin?: boolean;
 }
 
-const PdfPreviewModal = ({ setShowPdfModal, pdfUrl }: LogoutModalProps) => {
+const PdfPreviewModal = ({
+    setShowPdfModal,
+    pdfUrl,
+    isAdmin = false,
+}: PdfPreviewModalProps) => {
 
     const [isClosing, setIsClosing] = useState(false);
 
@@ -27,11 +32,24 @@ const PdfPreviewModal = ({ setShowPdfModal, pdfUrl }: LogoutModalProps) => {
         }
     }, []);
 
+    const modalBgClass = isAdmin
+        ? "bg-white dark:bg-gray-900"
+        : "bg-gray-900 dark:bg-white";
+
+    const overlayBgClass = isAdmin
+        ? "bg-black/70"
+        : "bg-white/70";
+
+    const dividerClass = isAdmin
+        ? "bg-gray-400 dark:bg-gray-600"
+        : "bg-gray-600 dark:bg-gray-400";
+
     return (
         <>
-            {/* Desktop */}
-            <div className="hidden md:flex items-center justify-center fixed inset-0 w-full h-full bg-black/70 z-[10002]">
-                <div className="w-[450px] z-10 flex flex-col gap-4 dark:bg-gray-900 bg-white rounded-xl p-6 border border-gray-700 shadow-lg">
+            {/* desktop */}
+            <div className={`hidden md:flex items-center justify-center fixed inset-0 w-full h-full z-[10002] ${overlayBgClass}`}
+            >
+                <div className={`w-[450px] z-10 flex flex-col gap-4 rounded-xl p-6 border border-gray-700 shadow-lg ${modalBgClass}`} >
                     <Image
                         src={imagesAddresses.icons.modalClose}
                         alt="close"
@@ -45,16 +63,17 @@ const PdfPreviewModal = ({ setShowPdfModal, pdfUrl }: LogoutModalProps) => {
                         alt="close"
                         width={24}
                         height={24}
-                        className="cursor-pointer self-end dark:flex hidden"
+                        className="cursor-pointer self-end hidden dark:block"
                         onClick={handleClose}
                     />
+
                     <div className="flex flex-col items-center gap-4">
                         <PdfViewer fileUrl={pdfUrl} className="h-[280px] w-full" />
                         <div className="w-full flex gap-2 justify-start">
                             <CustomButton
                                 text="Close"
                                 color="white"
-                                containerClassName="w-fit cursor-pointer flex text-nowrap"
+                                containerClassName="w-fit cursor-pointer text-nowrap"
                                 onClick={handleClose}
                             />
                         </div>
@@ -63,36 +82,38 @@ const PdfPreviewModal = ({ setShowPdfModal, pdfUrl }: LogoutModalProps) => {
                 <div className="absolute inset-0" onClick={handleClose} />
             </div>
 
-            {/* Mobile */}
             <div className="flex md:hidden fixed inset-0 z-[10002]">
-                {/* Overlay */}
                 <div
-                    className="absolute inset-0 bg-black/70"
+                    className={`absolute inset-0 ${overlayBgClass}`}
                     onClick={handleClose}
                 />
 
-                {/* Bottom Sheet */}
                 <div
-                    className={`relative z-10 mt-auto w-full dark:bg-gray-900 bg-white rounded-t-[20px] p-5 flex flex-col gap-4
-                    ${isClosing ? 'animate-slideDown' : 'animate-slideUp'} `}
+                    className={`relative z-10 mt-auto w-full rounded-t-[20px] p-5 flex flex-col gap-4
+                     ${modalBgClass}
+                     ${isClosing ? "animate-slideDown" : "animate-slideUp"}`}
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div
-                        className="self-center w-12 h-1.5 bg-gray-400 dark:bg-gray-600 rounded-full mb-4 cursor-pointer"
+                        className={`self-center w-12 h-1.5 rounded-full mb-4 cursor-pointer ${dividerClass}`}
                         onClick={handleClose}
                     />
                     <PdfViewer fileUrl={pdfUrl} className="h-[280px] w-full" />
-                    <div className="flex flex-col items-center gap-4">
-                        <CustomButton
-                            text="Close"
-                            color="white"
-                            containerClassName="w-full cursor-pointer flex text-nowrap"
-                            onClick={handleClose}
-                        />
-                    </div>
+
+                    <CustomButton
+                        text="Close"
+                        color="white"
+                        containerClassName={`w-full cursor-pointer text-nowrap ${!isAdmin && "hidden"}`}
+                        onClick={handleClose}
+                    />
+                    <CustomButton
+                        text="Close"
+                        color="secondary"
+                        containerClassName={`w-full cursor-pointer text-nowrap ${isAdmin && "hidden"}`}
+                        onClick={handleClose}
+                    />
                 </div>
             </div>
-
         </>
     );
 };

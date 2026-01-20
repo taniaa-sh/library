@@ -61,6 +61,7 @@ const DragAndDropUpload = ({ onChange, type = 'image', preview, error, shakeTrig
                     <PdfPreviewModal
                         setShowPdfModal={setShowPdfModal}
                         pdfUrl={previewUrl || ""}
+                        isAdmin
                     />
                 )
             }
