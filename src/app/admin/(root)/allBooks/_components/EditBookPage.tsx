@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
-import { ChromePicker } from 'react-color';;
+import { ChromePicker } from 'react-color';
 import { motion } from 'framer-motion';
 import CustomButton from '@/components/CustomButton';
 import CustomInputSelect from '@/components/CustomInputSelect';
@@ -31,6 +31,24 @@ const EditBookPage = () => {
     const [showPicker, setShowPicker] = useState(false);
     const [shakeTrigger, setShakeTrigger] = useState(0);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const MAX_LINES = 20;
+    const LINE_HEIGHT = 24;
+    const MAX_HEIGHT = MAX_LINES * LINE_HEIGHT;
+
+    const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const el = textareaRef.current;
+        if (!el) return;
+
+        setValue("description", e.target.value, { shouldValidate: true });
+        el.style.height = "auto";
+        if (el.scrollHeight > MAX_HEIGHT) {
+            el.style.height = `${MAX_HEIGHT}px`;
+            el.style.overflowY = "auto";
+        } else {
+            el.style.height = `${el.scrollHeight}px`;
+            el.style.overflowY = "hidden";
+        }
+    };
 
     const {
         register,
@@ -76,6 +94,21 @@ const EditBookPage = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        const el = textareaRef.current;
+        if (!el) return;
+
+        el.style.height = "auto";
+
+        if (el.scrollHeight > MAX_HEIGHT) {
+            el.style.height = `${MAX_HEIGHT}px`;
+            el.style.overflowY = "auto";
+        } else {
+            el.style.height = `${el.scrollHeight}px`;
+            el.style.overflowY = "hidden";
+        }
+    }, []);
 
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
@@ -270,19 +303,10 @@ const EditBookPage = () => {
                             textareaRef.current = el;
                         }}
                         rows={1}
-                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none overflow-hidden"
+                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none"
                         placeholder="Write a brief summary of the book"
-                        animate={errors.description ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
-                        key={shakeTrigger}
-                        transition={{ duration: 0.4 }}
-                        onChange={(e) => {
-                            descriptionOnChange(e);
-                            const el = textareaRef.current;
-                            if (el) {
-                                el.style.height = 'auto';
-                                el.style.height = el.scrollHeight + 'px';
-                            }
-                        }}
+                        onChange={handleDescriptionChange}
+                        style={{ lineHeight: `${LINE_HEIGHT}px`, maxHeight: `${MAX_HEIGHT}px` }}
                     />
 
                     {errors.description && (
