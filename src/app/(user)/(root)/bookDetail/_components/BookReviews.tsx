@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import CustomButton from "@/components/CustomButton";
+import showToast from "@/utils/toast";
 
 const ratingLabels = ["", "Terrible", "Bad", "Average", "Good", "Very Good", "Excellent"];
+const MAX_LINES = 20;
+const LINE_HEIGHT = 24;
+const MAX_HEIGHT = MAX_LINES * LINE_HEIGHT;
 
 const dummyReviews = [
   { id: 1, name: "Tania", rating: 5, comment: "This book was amazing! Highly recommended." },
@@ -20,42 +24,52 @@ const BookReviews = () => {
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-
     if (value.length > maxCommentLength) return;
 
     setComment(value);
 
     const el = textareaRef.current;
-    if (el && el.scrollHeight > 600) {
-      el.style.scrollBehavior = "auto" //todo
-      return
-    }
-    if (el) {
-      el.style.height = "auto";
-      el.style.height = el.scrollHeight + "px";
+    if (!el) return;
+
+    el.style.height = "auto";
+
+    if (el.scrollHeight > MAX_HEIGHT) {
+      el.style.height = `${MAX_HEIGHT}px`;
+      el.style.overflowY = "auto";
+    } else {
+      el.style.height = `${el.scrollHeight}px`;
+      el.style.overflowY = "hidden";
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selected || !comment.trim()) return;
 
-    const newReview = {
-      id: reviews.length + 1,
-      name: "You",
+    if (!selected || !comment.trim()) {
+      showToast("Please fill all fields (rating & review)", "error");
+      return;
+    }
+
+    const payload = {
       rating: selected,
       comment: comment.trim(),
     };
 
-    setReviews([newReview, ...reviews]);
-    setComment("");
-    setSelected(0);
-  };
+    console.log("SEND TO BACKEND:", payload);
+    showToast("Review submitted successfully", "success");
 
-  const toggleExpand = (id: number) => {
-    setExpandedComments((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
+    setReviews((prev) => [
+      {
+        id: prev.length + 1,
+        name: "You",
+        rating: selected,
+        comment: comment.trim(),
+      },
+      ...prev,
+    ]);
+
+    setSelected(0);
+    setComment("");
   };
 
   const averageRating =
@@ -124,12 +138,13 @@ const BookReviews = () => {
              focus:outline-none focus:ring-2 border dark:border-gray-300 border-gray-700border dark:border-gray-300 border-gray-700
              dark:bg-light-600 bg-dark-400
              !text-white dark:!text-gray-900 text-sm sm:text-base
-             resize-none overflow-hidden"
+             resize-none overflow-hidden leading-[24px]"
           />
           <p className="text-xs text-gray-400 self-end">
             {comment.length} / {maxCommentLength}
           </p>
           <CustomButton
+            type="submit"
             color="yellow"
             text="Submit"
             containerClassName="cursor-pointer w-full md:w-fit self-end"
@@ -172,15 +187,6 @@ const BookReviews = () => {
                 ? r.comment.slice(0, 150) + "..."
                 : r.comment}
             </p>
-
-            {r.comment.length > 150 && (
-              <button
-                className="text-xs text-primary dark:text-[#7a6233] mt-1"
-                onClick={() => toggleExpand(r.id)}
-              >
-                {expandedComments.includes(r.id) ? "Show less" : "Read more"}
-              </button>
-            )}
           </div>
         ))}
       </div>

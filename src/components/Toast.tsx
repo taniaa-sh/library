@@ -46,12 +46,12 @@ const Toast = (props: ToastType) => {
     return (
         <div
             className={`
-    fixed top-8 right-1 desktop:right-12 flex items-center gap-5
-    ${containerClass}
-    border border-solid rounded-2xl py-3 desktop:py-4 px-4 desktop:px-5
-    z-[1000] transition-all duration-1000
-    ${isVisible ? '' : 'translate-x-[999px]'}
-  `}
+            fixed top-8 right-1 desktop:right-12 flex items-center gap-5
+            ${containerClass}
+            border border-solid rounded-2xl py-3 desktop:py-4 px-4 desktop:px-5
+            z-[1005] transition-all duration-1000
+            ${isVisible ? '' : 'translate-x-[999px]'}
+        `}
             onMouseEnter={() => props.pauseOnHover && setIsHover(true)}
             onMouseLeave={() => props.pauseOnHover && setIsHover(false)}
         >
