@@ -22,6 +22,7 @@ const schema = yup.object({
     bookImage: yup.string().required('Book image is required'),
     totalNumberOfBooks: yup.string().required('Total number of books is required'),
     description: yup.string().required('Description is required'),
+    bookPdf: yup.string().required('Book pdf is required'),
 }).required();
 
 const EditBookPage = () => {
@@ -287,6 +288,19 @@ const EditBookPage = () => {
                         type="video"
                         onChange={(file) => setValue('bookVideo', URL.createObjectURL(file as File))}
                         error={errors.bookVideo?.message}
+                        shakeTrigger={shakeTrigger}
+                    />
+                </div>
+
+                {/* Book pdf */}
+                <div>
+                    <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
+                        Book Pdf
+                    </label>
+                    <DragAndDropUpload
+                        type="pdf"
+                        onChange={(file) => setValue('bookPdf', URL.createObjectURL(file as File))}
+                        error={errors.bookPdf?.message}
                         shakeTrigger={shakeTrigger}
                     />
                 </div>
