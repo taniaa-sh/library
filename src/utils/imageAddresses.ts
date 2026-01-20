@@ -125,6 +125,10 @@ const imagesAddresses = {
     profile: "/images/profile.png",
     notFoundBg: "/images/notFoundBg.png",
     library: "/images/library.webp",
+    libraryStaff1: "/images/libraryStaff1.webp",
+    libraryShelves: "/images/libraryShelves.webp",
+    libraryReading: "/images/libraryReading.webp",
+    libraryCommunity: "/images/libraryCommunity.webp",
 
     adminLogo: "/images/adminLogo.png",
     avatar1: "/images/avatar1.png",
