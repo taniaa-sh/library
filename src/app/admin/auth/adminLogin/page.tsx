@@ -50,7 +50,7 @@ const AdminLogin = () => {
   }
 
   return (
-    <div className="w-full flex items-center flex-col lg:flex-row">
+    <div className="w-full  flex items-center flex-col lg:flex-row">
       <div className="w-full !min-h-screen bg-[url('/images/loginBg.png')] dark:bg-gray-800 bg-cover bg-center p-6 md:p-10 lg:p-20 flex items-center justify-center">
         <div className="dark:bg-gray-900 bg-gray-50 w-full max-w-md md:max-w-lg lg:max-w-none p-6 md:p-8 flex flex-col gap-8 rounded-lg">
 
