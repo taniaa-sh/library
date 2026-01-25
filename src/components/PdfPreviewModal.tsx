@@ -4,7 +4,7 @@ import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import PdfViewer from "./PdfViewer";
+// import PdfViewer from "./PdfViewer";
 
 interface PdfPreviewModalProps {
     setShowPdfModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -68,7 +68,7 @@ const PdfPreviewModal = ({
                     />
 
                     <div className="flex flex-col items-center gap-4">
-                        <PdfViewer fileUrl={pdfUrl} className="h-[280px] w-full" />
+                        {/* <PdfViewer fileUrl={pdfUrl} className="h-[280px] w-full" /> */}
                         <div className="w-full flex gap-2 justify-start">
                             <CustomButton
                                 text="Close"
@@ -98,7 +98,7 @@ const PdfPreviewModal = ({
                         className={`self-center w-12 h-1.5 rounded-full mb-4 cursor-pointer ${dividerClass}`}
                         onClick={handleClose}
                     />
-                    <PdfViewer fileUrl={pdfUrl} className="h-[280px] w-full" />
+                    {/* <PdfViewer fileUrl={pdfUrl} className="h-[280px] w-full" /> */}
 
                     <CustomButton
                         text="Close"
