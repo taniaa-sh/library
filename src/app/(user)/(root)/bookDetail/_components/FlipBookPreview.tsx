@@ -4,7 +4,6 @@ import { useState, useRef, useLayoutEffect, useEffect } from "react"
 import HTMLFlipBook from "react-pageflip"
 import { FlipPage } from "./FlipPage"
 import CustomButton from "@/components/CustomButton"
-import PdfModal from "./PdfModal"
 import imagesAddresses from "@/utils/imageAddresses"
 import Image from "next/image"
 import { motion } from "framer-motion"
@@ -67,9 +66,9 @@ const FlipBookPreview = () => {
         showPdfModal &&
         <PdfPreviewModal
           setShowPdfModal={setShowPdfModal}
-          pdfUrl=""
+          pdfUrl="/pdf.pdf"
         />
-        }
+      }
 
       <div className="flex flex-col items-center w-full mt-10 px-4 md:px-0">
 
@@ -193,9 +192,19 @@ const FlipBookPreview = () => {
         <div className="flex gap-3 mt-14 self-end flex-wrap">
           <CustomButton
             color="yellow"
-            text="See pdf"
+            text=""
+            iconPosition="center"
+            iconAddress={imagesAddresses.icons.eyeBlack}
             onClick={() => setShowPdfModal(true)}
-            containerClassName="cursor-pointer"
+            containerClassName="cursor-pointer dark:hidden"
+          />
+          <CustomButton
+            color="yellow"
+            text=""
+            iconPosition="center"
+            iconAddress={imagesAddresses.icons.eyeWhite}
+            onClick={() => setShowPdfModal(true)}
+            containerClassName="cursor-pointer dark:flex hidden"
           />
           <CustomButton
             color="yellow"

@@ -79,12 +79,13 @@
   --color-gold700: #8c6c2f;
   --color-gold800: #6F460F;
 
+  --radius: 8px;
+
   /* radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
 }
-
 
 @layer base {
   * {
@@ -429,4 +430,38 @@ input:-webkit-autofill:active {
 .admin input:-webkit-autofill:focus,
 .admin input:-webkit-autofill:active {
   -webkit-text-fill-color: #111827;
+}
+
+.rpv-core__inner-page {
+  background-color: transparent !important;
+}
+
+.rpv-core__inner-pages::-webkit-scrollbar {
+  width: 5px;
+}
+
+.rpv-core__inner-pages::-webkit-scrollbar-track {
+  background: #1f2937;
+  border-radius: 10px;
+}
+
+.rpv-core__inner-pages::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 10px;
+}
+
+.rpv-core__inner-pages::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+.dark .rpv-core__inner-pages::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+.dark .rpv-core__inner-pages::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+}
+
+.dark .rpv-core__inner-pages::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }
