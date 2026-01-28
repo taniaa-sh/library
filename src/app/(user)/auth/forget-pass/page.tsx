@@ -111,6 +111,10 @@ const ForgotPasswordPage = () => {
                                 animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                                 key={shakeTrigger}
                                 transition={{ duration: 0.4 }}
+                                style={{
+                                    borderRadius: '8px',
+                                    outline: 'none',
+                                }}
                             />
                             {errors.email && (
                                 <p className="text-red-500 text-xs mt-1">

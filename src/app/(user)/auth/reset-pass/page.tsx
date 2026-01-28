@@ -13,8 +13,20 @@ import { motion } from 'framer-motion';
 import showToast from "@/utils/toast"
 
 const schema = yup.object({
-    password: yup.string().min(8, "Password must be at least 8 characters").required('Password is required'),
-    confirmPass: yup.string().min(8, "Confirm Password must be at least 8 characters").required('Confirm Password is required'),
+    password: yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .required('Password is required')
+        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .matches(/[0-9]/, "Password must contain at least one number")
+        .matches(/[@$!%*?&]/, "Password must contain at least one special character"),
+    confirmPass: yup.string()
+        .min(8, "confirmPass must be at least 8 characters")
+        .required('confirmPass is required')
+        .matches(/[a-z]/, "confirmPass must contain at least one lowercase letter")
+        .matches(/[A-Z]/, "confirmPass must contain at least one uppercase letter")
+        .matches(/[0-9]/, "confirmPass must contain at least one number")
+        .matches(/[@$!%*?&]/, "confirmPass must contain at least one special character"),
 }).required();
 
 type ResetPasswordFormData = {
@@ -129,6 +141,10 @@ const ResetPasswordPage = () => {
                                     animate={errors.password ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                                     key={shakeTrigger}
                                     transition={{ duration: 0.4 }}
+                                    style={{
+                                        borderRadius: '8px',
+                                        outline: 'none',
+                                    }}
                                 />
                                 {(watch("password") || "").length > 0 && (
                                     <>
@@ -169,6 +185,10 @@ const ResetPasswordPage = () => {
                                     animate={errors.confirmPass ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                                     key={shakeTrigger}
                                     transition={{ duration: 0.4 }}
+                                    style={{
+                                        borderRadius: '8px',
+                                        outline: 'none',
+                                    }}
                                 />
                                 {(watch("confirmPass") || "").length > 0 && (
                                     <>
