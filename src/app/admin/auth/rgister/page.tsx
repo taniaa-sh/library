@@ -15,7 +15,13 @@ import showToast from "@/utils/toast";
 const schema = yup
   .object({
     email: yup.string().email("Invalid email format").required("Email is required"),
-    password: yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
+    password: yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .required('Password is required')
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/[0-9]/, "Password must contain at least one number")
+      .matches(/[@$!%*?&]/, "Password must contain at least one special character"),
     fullName: yup.string().required("Full name is required"),
     universityId: yup.string().required("Personal ID is required"),
   })
@@ -117,6 +123,10 @@ const AdminRgister = () => {
                 animate={errors.fullName ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
+                style={{
+                  borderRadius: '8px',
+                  outline: 'none',
+                }}
               />
               {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
             </div>
@@ -132,6 +142,10 @@ const AdminRgister = () => {
                 animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
+                style={{
+                  borderRadius: '8px',
+                  outline: 'none',
+                }}
               />
               {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
             </div>
@@ -148,6 +162,10 @@ const AdminRgister = () => {
                 animate={errors.universityId ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
+                style={{
+                  borderRadius: '8px',
+                  outline: 'none',
+                }}
               />
               {errors.universityId && <p className="text-red-500 text-xs">{errors.universityId.message}</p>}
 
@@ -188,6 +206,10 @@ const AdminRgister = () => {
                 animate={errors.password ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
+                style={{
+                  borderRadius: '8px',
+                  outline: 'none',
+                }}
               />
               {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
 
