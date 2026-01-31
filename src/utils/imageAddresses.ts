@@ -129,6 +129,10 @@ const imagesAddresses = {
     libraryShelves: "/images/libraryShelves.webp",
     libraryReading: "/images/libraryReading.webp",
     libraryCommunity: "/images/libraryCommunity.webp",
+    ourStaff: "/images/ourStaff.png",
+    ourServices: "/images/ourServices.png",
+    ourCommunity: "/images/ourCommunity.png",
+    ourResources: "/images/ourResources.png",
 
     adminLogo: "/images/adminLogo.png",
     avatar1: "/images/avatar1.png",

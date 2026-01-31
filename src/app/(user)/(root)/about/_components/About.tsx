@@ -106,25 +106,25 @@ const About = () => {
           {/* Importance sections */}
           {[
             {
-              src: imagesAddresses.images.notFoundBg,
+              src: imagesAddresses.images.ourStaff,
               reverse: false,
               heading: "Our staff",
               text: "Our success is made possible by the dedication of our librarians and staff. Their passion ensures every visitor has a smooth, welcoming experience and access to knowledge. Joining BookWise means joining a community focused on growth, curiosity, and learning."
             },
             {
-              src: imagesAddresses.images.notFoundBg,
+              src: imagesAddresses.images.ourResources,
               reverse: true,
               heading: "Our resources",
               text: "We provide access to thousands of books, e-resources, and learning tools to help you expand your knowledge anytime, anywhere."
             },
             {
-              src: imagesAddresses.images.notFoundBg,
+              src: imagesAddresses.images.ourServices,
               reverse: false,
               heading: "Our services",
               text: "Our online catalog and digital services make borrowing, returning, and reserving books simple and convenient for everyone."
             },
             {
-              src: imagesAddresses.images.notFoundBg,
+              src: imagesAddresses.images.ourCommunity,
               reverse: true,
               heading: "Our community",
               text: "Joining BookWise connects you to a community that values curiosity, education, and lifelong learning."
@@ -134,13 +134,17 @@ const About = () => {
               key={idx}
               className={`mt-12 flex flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} gap-6 lg:gap-8 items-center`}
             >
-              <Image
-                src={src}
-                alt=""
-                width={700}
-                height={500}
-                className="rounded-xl w-full max-w-full sm:max-w-[500]"
-              />
+              <div className="relative w-full max-w-full sm:max-w-[500px] rounded-xl overflow-hidden">
+                <Image
+                  src={src}
+                  alt={heading}
+                  width={700}
+                  height={500}
+                  className="w-full h-full object-cover"
+                />
+
+                <div className="absolute inset-0 bg-black/60 dark:bg-black/10" />
+              </div>
               <div className="flex flex-col gap-2 px-4 sm:px-0">
                 <div className="flex gap-2 items-center">
                   <span className="w-10 h-3 dark:bg-[#7a6233] bg-primary rounded-lg" />
