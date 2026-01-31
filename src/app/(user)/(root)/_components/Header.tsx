@@ -66,7 +66,8 @@ const Header = () => {
           <LogoutModal setShowLogoutModal={setShowLogoutModal} />
         )
       }
-      <header className="!w-full bg-gray-900 dark:bg-gray-300 text-white dark:!text-gray-900 flex items-center justify-between p-5 md:px-10 md:py-6 fixed top-0 z-[1003]">
+      <header className="w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-gray-200 dark:via-gray-100 dark:to-gray-50 text-white dark:text-gray-900 flex items-center justify-between p-5 md:px-10 md:py-6 fixed top-0 z-[1003] shadow-lg">
+        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-400/60 to-transparent dark:via-gray-500/70" />
 
         {/*logo*/}
         <Link href="/">
@@ -151,7 +152,7 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.97 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="absolute top-full border-t border-gray-700 dark:border-gray-500 left-0 w-full bg-gradient-to-b from-gray-900 dark:from-gray-400 to-gray-800 dark:to-gray-50 flex flex-col items-center py-6 gap-5 md:hidden shadow-2xl rounded-b-3xl z-50"
+                className="absolute top-full left-0 w-full bg-gradient-to-b from-gray-900 dark:from-gray-400 to-gray-800 dark:to-gray-50 flex flex-col items-center py-6 gap-5 md:hidden shadow-2xl rounded-b-3xl z-50"
               >
                 {menuItems.reverse().map((item) => (
                   <Link
