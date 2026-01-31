@@ -127,10 +127,6 @@ const SignUp = () => {
                 animate={errors.fullName ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
-                style={{
-                  borderRadius: '8px',
-                  outline: 'none',
-                }}
               />
               {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
             </div>
@@ -146,10 +142,6 @@ const SignUp = () => {
                 animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
-                style={{
-                  borderRadius: '8px',
-                  outline: 'none',
-                }}
               />
               {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
             </div>
@@ -166,10 +158,6 @@ const SignUp = () => {
                 animate={errors.universityId ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
-                style={{
-                  borderRadius: '8px',
-                  outline: 'none',
-                }}
               />
               {errors.universityId && <p className="text-red-500 text-xs">{errors.universityId.message}</p>}
 
@@ -210,10 +198,6 @@ const SignUp = () => {
                 animate={errors.password ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
-                style={{
-                  borderRadius: '8px',
-                  outline: 'none',
-                }}
               />
               {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
 

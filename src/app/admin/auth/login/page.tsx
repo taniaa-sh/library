@@ -102,10 +102,6 @@ const AdminLogin = () => {
                 animate={errors.email ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
-                style={{
-                  borderRadius: '8px',
-                  outline: 'none',
-                }}
               />
 
               {errors.email && (
@@ -130,10 +126,6 @@ const AdminLogin = () => {
                 animate={errors.password ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
                 key={shakeTrigger}
                 transition={{ duration: 0.4 }}
-                style={{
-                  borderRadius: '8px',
-                  outline: 'none',
-                }}
               />
               {
                 watch("password")?.length > 0 && (

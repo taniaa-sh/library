@@ -163,10 +163,6 @@ const SearchBook = () => {
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") handleSearch(search)
                                     }}
-                                                                                  style={{
-    borderRadius: '8px',
-    outline: 'none',
-  }}
                                 />
 
                                 <motion.div
