@@ -72,11 +72,11 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
             {/* Mobile */}
             <div className="flex md:hidden items-end justify-center fixed inset-0 bg-black/70 z-[10002] w-full h-full">
                 <div className={`
-                    w-full bg-gray-900 dark:bg-white rounded-t-[20px] p-5 flex flex-col gap-4
+                    w-full bg-gray-900 dark:bg-white rounded-t-[20px] px-5 py-3 flex flex-col gap-4
                     ${isClosing ? 'animate-slideDown' : 'animate-slideUp'}
                 `}>
                     <div
-                        className="self-center w-12 h-1.5 bg-gray-600 dark:bg-gray-400 rounded-full mb-4 !cursor-pointer"
+                        className="self-center w-8 h-1 bg-gray-600 dark:bg-gray-400 rounded-full mb-4 !cursor-pointer"
                         onClick={handleClose}
                     />
 

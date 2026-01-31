@@ -118,13 +118,13 @@ const PdfPreviewModal = ({
                     onClick={handleClose}
                 />
                 <div
-                    className={`relative z-10 mt-auto w-full rounded-t-[20px] p-5 flex flex-col gap-4
+                    className={`relative z-10 mt-auto w-full rounded-t-[20px] px-5 py-3 flex flex-col gap-4
                      ${modalBgClass}
                      ${isClosing ? "animate-slideDown" : "animate-slideUp"}`}
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div
-                        className={`self-center w-12 h-1.5 rounded-full mb-4 cursor-pointer ${dividerClass}`}
+                        className={`self-center w-8 h-1 rounded-full mb-4 cursor-pointer ${dividerClass}`}
                         onClick={handleClose}
                     />
                     <div className="w-full h-[400px] overflow-auto">

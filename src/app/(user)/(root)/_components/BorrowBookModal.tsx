@@ -95,7 +95,7 @@ const BorrowBookModal = ({
 
     const ModalContent = (
         <div
-            className={`w-full md:w-[600px] bg-gray-900 dark:bg-white rounded-t-[20px] md:rounded-xl p-5 flex flex-col gap-4 z-50 ${isClosing ? "animate-slideDown" : "animate-slideUp"
+            className={`w-full md:w-[600px] bg-gray-900 dark:bg-white rounded-t-[20px] md:rounded-xl px-5 py-3 md:py-5 flex flex-col gap-4 z-[1005] ${isClosing ? "animate-slideDown" : "animate-slideUp"
                 }`}
         >
             <div className="self-end hidden md:flex gap-2">
@@ -119,7 +119,7 @@ const BorrowBookModal = ({
             <div className="flex justify-center items-center md:hidden cursor-pointer">
                 <div
                     onClick={handleClose}
-                    className="self-center w-12 h-1.5 bg-gray-600 dark:bg-gray-400 rounded-full mb-4"
+                    className="self-center w-8 h-1 bg-gray-600 dark:bg-gray-400 rounded-full mb-4"
                 />
             </div>
 
@@ -219,7 +219,7 @@ const BorrowBookModal = ({
     );
 
     return (
-        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
+        <div className="fixed inset-0 z-[10004] flex items-end md:items-center justify-center">
             {/* Overlay */}
             <div
                 className="absolute inset-0 bg-black/70"

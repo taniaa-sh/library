@@ -97,12 +97,12 @@ const DeleteAdminModal = ({ setShowDeleteModal, onDelete, isUser, isBook, isAdmi
 
                 {/* Bottom Sheet */}
                 <div
-                    className={`relative z-10 mt-auto w-full dark:bg-gray-900 bg-white rounded-t-[20px] p-5 flex flex-col gap-4
+                    className={`relative z-10 mt-auto w-full dark:bg-gray-900 bg-white rounded-t-[20px] px-5 py-3 flex flex-col gap-4
                     ${isClosing ? 'animate-slideDown' : 'animate-slideUp'} `}
                     onClick={(e) => e.stopPropagation()}
                 >
                     <div
-                        className="self-center w-12 h-1.5 bg-gray-400 dark:bg-gray-600 rounded-full mb-4 cursor-pointer"
+                        className="self-center w-8 h-1 bg-gray-400 dark:bg-gray-600 rounded-full mb-4 cursor-pointer"
                         onClick={handleClose}
                     />
 
