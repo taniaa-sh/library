@@ -31,7 +31,7 @@ export const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
             <img
               src={`data:image/png;base64,${imageSrc}`}
               alt={`Page ${number}`}
-              className="w-full h-[350px] md:h-[300px] object-cover rounded-sm"
+              className="w-full h-[350px] md:h-[340px] object-center rounded-sm"
               sizes="(max-width: 768px), (max-width: 1200px)"
             />
           </div>
