@@ -140,7 +140,7 @@ const AddBookPage = () => {
                     )}
                 </div>
 
-                <div className='w-full flex flex-col gap-4 md:flex-row md:gap-2'>
+                <div className='w-full flex flex-col gap-4 md:flex-row md:gap-4'>
                     {/* Author */}
                     <div className='w-full'>
                         <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
@@ -180,7 +180,7 @@ const AddBookPage = () => {
                     </div>
                 </div>
 
-                <div className='w-full flex flex-col gap-4 md:flex-row md:gap-2'>
+                <div className='w-full flex flex-col gap-4 md:flex-row md:gap-4'>
                     {/* Genre */}
                     <div className='w-full'>
                         <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
@@ -316,8 +316,8 @@ const AddBookPage = () => {
                             descriptionRef(el);
                             textareaRef.current = el;
                         }}
-                        rows={1}
-                        className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none"
+                        rows={3}
+                        className="w-full border rounded-lg px-3 py-4 sm:px-4 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none"
                         placeholder="Write a brief summary of the book"
                         onChange={handleDescriptionChange}
                         style={{ lineHeight: `${LINE_HEIGHT}px`, maxHeight: `${MAX_HEIGHT}px` }}
