@@ -33,7 +33,7 @@ const AllBooksPage = async () => {
     const data = await fetchUsers();
 
     return (
-      <div className="bg-light-300 dark:bg-dark-900 px-8 py-10 !mt-[70px] w-full min-h-dvh">
+      <div className="bg-light-300 dark:bg-dark-900 px-8 py-10 !mt-[130px] md:!mt-[70px] w-full min-h-dvh">
             <div className="flex flex-col gap-6 bg-white dark:bg-dark-900 py-6 px-5 rounded-lg min-h-dvh">
                 <div className="flex justify-between items-center !max-w-[1440px]">
                     <p className="font-medium text-md md:text-xl dark:text-white">All Books</p>
