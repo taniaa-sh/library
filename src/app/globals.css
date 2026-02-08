@@ -486,3 +486,24 @@ input:-webkit-autofill:active {
 .dark .scroll-gray {
   scrollbar-color: #D0D5DD transparent;
 }
+
+.scroll-gray1::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.scroll-gray1::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-gray1::-webkit-scrollbar-thumb {
+  @apply bg-[#D0D5DD] dark:bg-[#667085];
+}
+
+.scroll-gray1 {
+  scrollbar-width: thin;
+  scrollbar-color: #D0D5DD transparent;
+}
+
+.dark .scroll-gray1 {
+  scrollbar-color: #667085 transparent;
+}

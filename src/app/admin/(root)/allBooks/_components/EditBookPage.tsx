@@ -317,7 +317,7 @@ const EditBookPage = () => {
                             textareaRef.current = el;
                         }}
                         rows={3}
-                        className="w-full border rounded-lg px-3 py-4 sm:px-4 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none"
+                        className="w-full border rounded-lg px-3 py-4 sm:px-4 focus:outline-none focus:ring-2 bg-light-600 dark:bg-dark-400 dark:!text-white text-sm sm:text-base resize-none scroll-gray1"
                         placeholder="Write a brief summary of the book"
                         onChange={handleDescriptionChange}
                         style={{ lineHeight: `${LINE_HEIGHT}px`, maxHeight: `${MAX_HEIGHT}px` }}
