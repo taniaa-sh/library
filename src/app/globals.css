@@ -465,3 +465,24 @@ input:-webkit-autofill:active {
 .dark .rpv-core__inner-pages::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
+
+.scroll-gray::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.scroll-gray::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-gray::-webkit-scrollbar-thumb {
+  @apply dark:bg-[#D0D5DD] bg-[#667085];
+}
+
+.scroll-gray {
+  scrollbar-width: thin;
+  scrollbar-color: #667085 transparent;
+}
+
+.dark .scroll-gray {
+  scrollbar-color: #D0D5DD transparent;
+}

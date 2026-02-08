@@ -138,16 +138,16 @@ const BookReviews = () => {
              focus:outline-none focus:ring-2 border dark:border-gray-300 border-gray-700border dark:border-gray-300 border-gray-700
              dark:bg-light-600 bg-dark-400
              !text-white dark:!text-gray-900 text-sm sm:text-base
-             resize-none overflow-hidden leading-[24px]"
+             resize-none overflow-hidden leading-[24px] scroll-gray"
           />
-          <p className="text-xs text-gray-400 self-end">
+          <p className="text-xs text-gray-400 self-start">
             {comment.length} / {maxCommentLength}
           </p>
           <CustomButton
             type="submit"
             color="yellow"
             text="Submit"
-            containerClassName="cursor-pointer w-full md:w-fit self-end"
+            containerClassName="cursor-pointer w-full md:w-fit self-end mt-3 md:mt-0"
           />
         </form>
       </div>

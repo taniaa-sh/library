@@ -134,18 +134,16 @@ const About = () => {
               key={idx}
               className={`mt-12 flex flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} gap-6 lg:gap-8 items-center`}
             >
-              <div className="relative w-full max-w-full sm:max-w-[500px] rounded-xl overflow-hidden">
+              <div className="relative w-full sm:w-1/2 rounded-xl overflow-hidden aspect-[4/3]">
                 <Image
                   src={src}
                   alt={heading}
-                  width={700}
-                  height={500}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="w-full h-full object-cover rounded-xl"
                 />
-
-                <div className="absolute inset-0 bg-black/60 dark:bg-black/10" />
+                <div className="absolute inset-0 bg-black/20 dark:bg-black/10" />
               </div>
-              <div className="flex flex-col gap-2 px-4 sm:px-0">
+              <div className="flex flex-col gap-2 px-4 sm:px-0 sm:w-1/2">
                 <div className="flex gap-2 items-center">
                   <span className="w-10 h-3 dark:bg-[#7a6233] bg-primary rounded-lg" />
                   <p className="text-gray-300 dark:text-gray-800 font-semibold">{heading}</p>

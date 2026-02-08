@@ -252,7 +252,10 @@ const BookDetailPage = () => {
                             {[3, 2, 4, 5, 6, 7].map((num) => {
                                 const key = `book${num}` as keyof typeof imagesAddresses.images;
                                 return (
-                                    <div key={num} className="flex-shrink-0 w-40 lg:w-auto">
+                                    <div 
+                                    key={num} 
+                                    className="flex-shrink-0 w-40 lg:w-auto cursor-pointer"
+                                    >
                                         <Image
                                             src={imagesAddresses.images[key]}
                                             alt="book"

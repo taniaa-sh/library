@@ -12,7 +12,7 @@ const Toast = (props: ToastType) => {
         props.color === 'success'
             ? isAdmin
                 ? 'border-green dark:border-green bg-green-100 dark:bg-[#4C7B62]'
-                : 'border-green dark:border-green-500 bg-[#4C7B62] dark:bg-green-100'
+                : 'border-green dark:border-green-500 bg-green-900 dark:bg-green-100'
             : isAdmin
                 ? '!border-red-400 dark:!border-red !bg-red-100 dark:!bg-[#7c1f1f]'
                 : '!border-red-400 dark:!border-red !bg-[#7c1f1f] dark:!bg-red-100'
@@ -20,7 +20,7 @@ const Toast = (props: ToastType) => {
         props.color === 'success'
             ? isAdmin
                 ? 'text-green-900 dark:text-green-600'
-                : 'dark:text-green-600 text-green-900'
+                : 'dark:text-green-600 text-white'
             : isAdmin
                 ? 'text-red-400 dark:text-red-600'
                 : 'dark:text-red-600 text-red-400'
@@ -56,8 +56,7 @@ const Toast = (props: ToastType) => {
             onMouseLeave={() => props.pauseOnHover && setIsHover(false)}
         >
             <h4
-                className={`w-[244px] tablet:w-[280px] ${textClass}
-    text-sm desktop:text-base leading-8 font-medium`}
+                className={`w-[244px] tablet:w-[280px] ${textClass} text-sm desktop:text-base leading-8 font-medium`}
             >
                 {props.text}
             </h4>

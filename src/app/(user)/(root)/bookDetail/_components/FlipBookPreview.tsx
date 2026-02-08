@@ -9,6 +9,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import PdfPreviewModal from "@/components/PdfPreviewModal"
 import * as pdfjsLib from "pdfjs-dist";
+import showToast from "@/utils/toast"
 
 const FlipBookPreview = () => {
   const [showOpenBook, setShowOpenBook] = useState(false)
@@ -22,6 +23,7 @@ const FlipBookPreview = () => {
   const [isMdUp, setIsMdUp] = useState(false);
   const [pages, setPages] = useState<string[]>([]);
   const [isLoadingPdf, setIsLoadingPdf] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -64,9 +66,17 @@ const FlipBookPreview = () => {
     flipBookRef.current?.pageFlip().flipPrev();
   }
 
-  const handleDownloadPdf = () => {
-    //todo
+const handleDownloadPdf = async () => {
+  try {
+    setLoading(true);
+
+    await new Promise(res => setTimeout(res, 3000));
+
+    showToast("PDF downloaded successfully", "success");
+  } finally {
+    setLoading(false);
   }
+};
 
   const loadPdfAsImages = async (pdfUrl: string) => {
     setIsLoadingPdf(true);
@@ -75,14 +85,14 @@ const FlipBookPreview = () => {
       const loadingTask = pdfjsLib.getDocument(pdfUrl);
       const pdf = await loadingTask.promise;
       const images: string[] = [];
-      
+
       for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
         const page = await pdf.getPage(pageNumber);
         const baseViewport = page.getViewport({ scale: 1 });
         const DPR = window.devicePixelRatio || 2;
         const scale =
           window.innerWidth < 768
-            ? (bookWidth / baseViewport.width) * 2.8 * DPR 
+            ? (bookWidth / baseViewport.width) * 2.8 * DPR
             : (bookWidth / baseViewport.width) * 3.2 * DPR;
         const viewport = page.getViewport({ scale });
         const canvas = document.createElement("canvas");
@@ -269,6 +279,7 @@ const FlipBookPreview = () => {
             iconAddress={imagesAddresses.icons.save}
             onClick={handleDownloadPdf}
             containerClassName="cursor-pointer dark:hidden"
+            loading={loading}
           />
           <CustomButton
             color="yellow"
@@ -277,6 +288,7 @@ const FlipBookPreview = () => {
             iconAddress={imagesAddresses.icons.saveWhite}
             onClick={handleDownloadPdf}
             containerClassName="cursor-pointer dark:flex hidden"
+            loading={loading}
           />
         </div>
       </div>

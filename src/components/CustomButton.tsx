@@ -85,7 +85,7 @@ const CustomButton: React.FC<PropsType> = ({
             {loading ? (
                 <div className="flex justify-center items-center gap-2">
                     <span
-                        className={`w-4 h-4 border-2 border-t-transparent rounded-full animate-spin ${color === 'white' ? 'border-black' : 'border-white'
+                        className={`w-4 h-4 border-2 border-t-transparent rounded-full animate-spin ${color === 'white' ? 'border-black' : 'dark:border-white border-gray-700'
                             }`}
                     ></span>
                     {text && <span className="opacity-70">{text}</span>}

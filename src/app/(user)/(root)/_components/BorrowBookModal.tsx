@@ -147,7 +147,7 @@ const BorrowBookModal = ({
 
             {/* Form */}
             <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                     <div className="flex flex-col w-full">
                         <motion.input
                             autoFocus

@@ -74,7 +74,7 @@ const ContactUs = () => {
         <div className="w-full  mx-auto bg-gray-900 dark:bg-gray-50 rounded-xl p-4 md:p-8 space-y-8">
             {/* common question */}
             <div className="flex flex-col gap-3">
-                <p className="flex items-center justify-center text-white dark:text-gray-900 text-sm md:text-xl">common question</p>
+                <p className="flex items-start justify-start text-white dark:text-gray-900 text-sm md:text-xl !mb-4">common question</p>
                 {
                     questions.map((question) => {
                         const isOpen = openQuestionId === question.id;
@@ -116,18 +116,18 @@ const ContactUs = () => {
                 }
             </div>
             {/* contact us */}
-            <div className="flex flex-col gap-3 mt-20">
-                <p className="flex items-center justify-center text-white dark:text-gray-900 text-sm md:text-xl">contact us</p>
+            <div className="flex flex-col gap-3 mt-16 md:mt-20">
+                <p className="flex items-center justify-start text-white dark:text-gray-900 text-sm md:text-3xl !mb-4 md:!mb-10">contact us</p>
                 <section className="grid relative">
                     <form
                         onSubmit={handleSubmit}
                         className="flex flex-col gap-4 justify-center items-center self-center w-full"
                     >
-                        <div className="w-full flex flex-col md:flex-row gap-4">
+                        <div className="w-full flex flex-col md:flex-row gap-6">
                             <div className="w-full">
                                 <label
                                     htmlFor="email"
-                                    className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
+                                    className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-base font-medium"
                                 >
                                     Your Email
                                 </label>
@@ -142,7 +142,7 @@ const ContactUs = () => {
                             <div className="w-full">
                                 <label
                                     htmlFor="subject"
-                                    className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-lg font-medium"
+                                    className="text-white dark:text-gray-700 block !mb-1 text-xs md:text-base font-medium"
                                 >
                                     Subject
                                 </label>
@@ -158,7 +158,7 @@ const ContactUs = () => {
                         <div className="!mb-6 w-full">
                             <label
                                 htmlFor="message"
-                                className="text-white dark:text-gray-700 block text-xs md:text-lg !mb-2 font-medium"
+                                className="text-white dark:text-gray-700 block text-xs md:text-base !mb-2 font-medium"
                             >
                                 Message
                             </label>
@@ -174,11 +174,11 @@ const ContactUs = () => {
                             type="submit"
                             text="Send Message"
                             color="yellow"
-                            containerClassName="w-full md:!w-fit cursor-pointer flex text-nowrap self-start"
+                            containerClassName="w-full md:!w-fit cursor-pointer flex text-nowrap self-end -mt-3"
                         />
                     </form>
                 </section>
-                <div className="w-full flex flex-col md:flex-row gap-6 mt-20">
+                <div className="w-full flex flex-col md:flex-row gap-6 mt-6">
                     <div className="bg-gray-800 dark:bg-gray-100 border border-gray-200 w-full flex flex-col gap-2 rounded-lg p-4">
                         <div className="flex items-center justify-between">
                             <div className="flex gap-2 items-center">
