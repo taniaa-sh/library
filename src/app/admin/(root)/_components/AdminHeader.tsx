@@ -70,7 +70,7 @@ const AdminHeader = () => {
                     />
                 )
             }
-            <div className="w-full flex flex-col gap-4 fixed bg-white dark:bg-[#0d1b3b] p-6 !shadow-md z-50 transition-all">
+            <div className="w-full flex flex-col gap-4 fixed bg-white dark:bg-[#0d1b3b] p-6 !shadow-md z-50 transition-all border-b-[0.5px] border-gray-300 dark:border-gray-700">
                 <div className="flex items-center gap-8 w-full">
                     <div className="flex flex-col">
                         <Image
