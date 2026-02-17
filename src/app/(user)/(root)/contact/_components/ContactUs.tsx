@@ -2,9 +2,11 @@
 import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import showToast from "@/utils/toast";
+import { AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion"
 
 const questions = [
     {
@@ -71,16 +73,41 @@ const ContactUs = () => {
     }
 
     return (
-        <div className="w-full  mx-auto bg-gray-900 dark:bg-gray-50 rounded-xl p-4 md:p-8 space-y-8">
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full mx-auto bg-gray-900 dark:bg-gray-50 rounded-xl p-4 md:p-8 space-y-8"
+        >
             {/* common question */}
-            <div className="flex flex-col gap-3">
-                <p className="flex items-start justify-start text-white dark:text-gray-900 text-sm md:text-xl !mb-4">common question</p>
+            <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                    hidden: {},
+                    visible: {
+                        transition: {
+                            staggerChildren: 0.08
+                        }
+                    }
+                }}
+                className="flex flex-col gap-3"
+            >
+                <p className="flex items-start justify-start text-gold100 dark:text-gold800 text-base md:text-3xl !mb-4">common question</p>
                 {
                     questions.map((question) => {
                         const isOpen = openQuestionId === question.id;
 
                         return (
-                            <div key={question.id} className="flex flex-col">
+                            <motion.div
+                                key={question.id}
+                                variants={{
+                                    hidden: { opacity: 0, y: 10 },
+                                    visible: { opacity: 1, y: 0 }
+                                }}
+                                className="flex flex-col"
+                            >
+
                                 <div
                                     className={`flex items-center justify-between bg-gray-800 dark:bg-gray-100 border border-gray-200 px-4 py-2 cursor-pointer ${isOpen ? "rounded-b-0 rounded-t-lg" : "rounded-lg"}`}
                                     onClick={() => handleChangeCategoryQuestion(question.id)}
@@ -101,24 +128,37 @@ const ContactUs = () => {
                                         className="hidden dark:block w-4 h-4 md:w-6 md:h-6"
                                     />
                                 </div>
-                                {
-                                    isOpen && (
-                                        <div
-                                            className="flex items-center justify-between bg-gray-500 dark:bg-gray-100 border border-gray-200 border-t-0 rounded-lg px-4 py-2 cursor-pointer rounded-t-none"
+                                <AnimatePresence>
+                                    {isOpen && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="overflow-hidden bg-gray-700 dark:bg-gray-200 border border-gray-200 border-t-0 rounded-b-lg px-4"
                                         >
-                                            <p className="text-xs md:text-lg text-white dark:text-gray-900">{question.answer}</p>
-                                        </div>
-                                    )
-                                }
-                            </div>
+                                            <div className="py-2">
+                                                <p className="text-xs md:text-lg text-white dark:text-gray-900">
+                                                    {question.answer}
+                                                </p>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                            </motion.div>
                         )
                     })
                 }
-            </div>
+            </motion.div>
             {/* contact us */}
             <div className="flex flex-col gap-3 mt-16 md:mt-20">
-                <p className="flex items-center justify-start text-white dark:text-gray-900 text-sm md:text-3xl !mb-4 md:!mb-10">contact us</p>
-                <section className="grid relative">
+                <p className="flex items-center justify-start text-gold100 dark:text-gold800 text-base md:text-3xl !mb-4 md:!mb-10">contact us</p>
+                <motion.section
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                    className="grid relative border border-gold100 dark:border-gold800 rounded-lg p-4"
+                >
                     <form
                         onSubmit={handleSubmit}
                         className="flex flex-col gap-4 justify-center items-center self-center w-full"
@@ -177,9 +217,14 @@ const ContactUs = () => {
                             containerClassName="w-full md:!w-fit cursor-pointer flex text-nowrap self-end -mt-3"
                         />
                     </form>
-                </section>
+                </motion.section>
                 <div className="w-full flex flex-col md:flex-row gap-6 mt-6">
-                    <div className="bg-gray-800 dark:bg-gray-100 border border-gray-200 w-full flex flex-col gap-2 rounded-lg p-4">
+                    <motion.div
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        transition={{ type: "spring", stiffness: 200 }}
+                        className="bg-gray-800 dark:bg-gray-100 border border-gray-200 w-full flex flex-col gap-2 rounded-lg p-4"
+                    >
+
                         <div className="flex items-center justify-between">
                             <div className="flex gap-2 items-center">
                                 <Image
@@ -270,14 +315,18 @@ const ContactUs = () => {
                                 />
                             </Link>
                         </div>
-                    </div>
-                    <div className="bg-gray-800 dark:bg-gray-100 border border-gray-200 rounded-lg p-4 flex flex-col gap-4 w-full">
+                    </motion.div>
+                    <motion.div
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        transition={{ type: "spring", stiffness: 200 }}
+                        className="bg-gray-800 dark:bg-gray-100 border border-gray-200 rounded-lg p-4 flex flex-col gap-4 w-full"
+                    >
                         <p className="text-xs md:text-lg text-white dark:text-gray-900">address</p>
                         <p className="text-xs md:text-lg text-white dark:text-gray-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, a.</p>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 export default ContactUs;
