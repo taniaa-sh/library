@@ -70,7 +70,7 @@ const Header = () => {
         <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-400/60 to-transparent dark:via-gray-500/70" />
 
         {/*logo*/}
-        <Link href="/">
+        <Link href={SiteUrls.dashbord}>
           <Image
             src={isDark ? imagesAddresses.icons.FrameWhite : imagesAddresses.images.logo}
             alt="Logo"
