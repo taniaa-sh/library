@@ -85,71 +85,71 @@ const ContactUs = () => {
                 animate="visible"
                 variants={{
                     hidden: {},
-                    visible: {
-                        transition: {
-                            staggerChildren: 0.08
-                        }
-                    }
+                    visible: { transition: { staggerChildren: 0.08 } },
                 }}
                 className="flex flex-col gap-3"
             >
-                <p className="flex items-start justify-start text-gold100 dark:text-gold800 text-base md:text-3xl !mb-4">common question</p>
-                {
-                    questions.map((question) => {
-                        const isOpen = openQuestionId === question.id;
+                <p className="flex items-start justify-start text-gold100 dark:text-gold800 text-base md:text-3xl !mb-4">
+                    common question
+                </p>
 
-                        return (
+                {questions.map((question) => {
+                    const isOpen = openQuestionId === question.id;
+
+                    return (
+                        <motion.div
+                            key={question.id}
+                            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                            className="flex flex-col"
+                        >
                             <motion.div
-                                key={question.id}
-                                variants={{
-                                    hidden: { opacity: 0, y: 10 },
-                                    visible: { opacity: 1, y: 0 }
-                                }}
-                                className="flex flex-col"
+                                whileHover={{ scale: 1.02, y: -2 }}
+                                transition={{ type: "spring", stiffness: 200 }}
+                                className={`flex items-center justify-between bg-gray-800 dark:bg-gray-100 border border-gray-200 px-4 py-2 cursor-pointer ${isOpen ? "rounded-b-0 rounded-t-lg" : "rounded-lg"
+                                    }`}
+                                onClick={() => handleChangeCategoryQuestion(question.id)}
                             >
+                                <p className="text-xs md:text-lg text-white dark:text-gray-900">
+                                    {question.question}
+                                </p>
 
-                                <div
-                                    className={`flex items-center justify-between bg-gray-800 dark:bg-gray-100 border border-gray-200 px-4 py-2 cursor-pointer ${isOpen ? "rounded-b-0 rounded-t-lg" : "rounded-lg"}`}
-                                    onClick={() => handleChangeCategoryQuestion(question.id)}
-                                >
-                                    <p className="text-xs md:text-lg text-white dark:text-gray-900">{question.question}</p>
-                                    <Image
-                                        src={isOpen ? imagesAddresses.icons.arrowUpWhite : imagesAddresses.icons.arrowDownWhite}
-                                        alt="arrowDown"
-                                        width={24}
-                                        height={24}
-                                        className="dark:hidden block w-4 h-4 md:w-6 md:h-6"
-                                    />
-                                    <Image
-                                        src={isOpen ? imagesAddresses.icons.arrowUp : imagesAddresses.icons.arrowDown}
-                                        alt="arrowDown"
-                                        width={24}
-                                        height={24}
-                                        className="hidden dark:block w-4 h-4 md:w-6 md:h-6"
-                                    />
-                                </div>
-                                <AnimatePresence>
-                                    {isOpen && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: "auto", opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="overflow-hidden bg-gray-700 dark:bg-gray-200 border border-gray-200 border-t-0 rounded-b-lg px-4"
-                                        >
-                                            <div className="py-2">
-                                                <p className="text-xs md:text-lg text-white dark:text-gray-900">
-                                                    {question.answer}
-                                                </p>
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                                <Image
+                                    src={isOpen ? imagesAddresses.icons.arrowUpWhite : imagesAddresses.icons.arrowDownWhite}
+                                    alt="arrow"
+                                    width={24}
+                                    height={24}
+                                    className="dark:hidden block w-4 h-4 md:w-6 md:h-6"
+                                />
 
+                                <Image
+                                    src={isOpen ? imagesAddresses.icons.arrowUp : imagesAddresses.icons.arrowDown}
+                                    alt="arrow"
+                                    width={24}
+                                    height={24}
+                                    className="hidden dark:block w-4 h-4 md:w-6 md:h-6"
+                                />
                             </motion.div>
-                        )
-                    })
-                }
+
+                            <AnimatePresence>
+                                {isOpen && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="overflow-hidden bg-gray-700 dark:bg-gray-200 border border-gray-200 border-t-0 rounded-b-lg px-4"
+                                    >
+                                        <div className="py-2">
+                                            <p className="text-xs md:text-lg text-white dark:text-gray-900">
+                                                {question.answer}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+                    );
+                })}
             </motion.div>
             {/* contact us */}
             <div className="flex flex-col gap-3 mt-16 md:mt-20">
