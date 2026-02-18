@@ -59,6 +59,17 @@ const Header = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMenuOpen]);
+
   return (
     <>
       {
@@ -86,10 +97,11 @@ const Header = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors duration-200 hover:!text-gold400 dark:hover:!text-gold800 ${pathName === item.href ? "!text-gold100 dark:!text-gold400 font-semibold" : "text-white dark:text-gray-900"
+              className={`group relative transition-colors duration-200 hover:!text-gold400 dark:hover:!text-gold800 ${pathName === item.href ? "!text-gold100 dark:!text-gold400 font-semibold" : "text-white dark:text-gray-900"
                 }`}
             >
               {item.label}
+              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gold400 dark:bg-gold800 group-hover:w-full transition-all duration-300" />
             </Link>
           ))}
           <Image
