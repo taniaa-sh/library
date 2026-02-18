@@ -7,6 +7,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion"
+import { branches } from "../../../../../../public/data/banch";
+import BranchMap from "./BranchMap";
+
+type Branch = {
+    id: number;
+    name: string;
+    lat: number;
+    lng: number;
+    address: string;
+    phone: string;
+};
 
 const questions = [
     {
@@ -44,6 +55,7 @@ const questions = [
 const ContactUs = () => {
 
     const [openQuestionId, setOpenQuestionId] = useState<number | null>(null)
+    const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
 
     const handleChangeCategoryQuestion = (id: number) => {
         setOpenQuestionId(prevId => prevId === id ? null : id)
@@ -151,6 +163,7 @@ const ContactUs = () => {
                     );
                 })}
             </motion.div>
+
             {/* contact us */}
             <div className="flex flex-col gap-3 mt-16 md:mt-20">
                 <p className="flex items-center justify-start text-gold100 dark:text-gold800 text-base md:text-3xl !mb-4 md:!mb-10">contact us</p>
@@ -316,14 +329,47 @@ const ContactUs = () => {
                             </Link>
                         </div>
                     </motion.div>
-                    <motion.div
+                    {/* <motion.div
                         whileHover={{ scale: 1.02, y: -2 }}
                         transition={{ type: "spring", stiffness: 200 }}
                         className="bg-gray-800 dark:bg-gray-100 border border-gray-200 rounded-lg p-4 flex flex-col gap-4 w-full"
                     >
                         <p className="text-xs md:text-lg text-white dark:text-gray-900">address</p>
                         <p className="text-xs md:text-lg text-white dark:text-gray-900">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, a.</p>
-                    </motion.div>
+                    </motion.div> */}
+                </div>
+            </div>
+
+            {/* map section */}
+            <div className="mt-10 md:mt-16">
+                <p className="flex items-center justify-start text-gold100 dark:text-gold800 text-base md:text-3xl !mb-4 md:!mb-10">our branches</p>
+
+                <div className="flex flex-col md:flex-row gap-6">
+                    <div className="w-full md:w-1/3 flex flex-col gap-3">
+                        {branches.map((branch) => (
+                            <motion.div
+                                key={branch.id}
+                                whileHover={{ scale: 1.02 }}
+                                className={`p-4 border rounded-lg cursor-pointer ${selectedBranch?.id === branch.id
+                                    ? "bg-gold100 dark:bg-gold800 text-gray-900"
+                                    : "bg-gray-800 dark:bg-gray-100 text-white"
+                                    }`}
+                                onClick={() => setSelectedBranch(branch)}
+                            >
+                                <h3 className="font-bold text-sm md:text-base">{branch.name}</h3>
+                                <p className="text-sm">{branch.address}</p>
+                                <p className="text-sm">{branch.phone}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="w-full md:w-2/3">
+                        <BranchMap
+                            branches={branches}
+                            selectedBranch={selectedBranch}
+                            onSelectBranch={setSelectedBranch}
+                        />
+                    </div>
                 </div>
             </div>
         </motion.div>
