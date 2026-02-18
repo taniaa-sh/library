@@ -8,7 +8,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion"
 import { branches } from "../../../../../../public/data/banch";
-import BranchMap from "./BranchMap";
+import dynamic from "next/dynamic";
+
+const BranchMap = dynamic(() => import("./BranchMap"), { ssr: false });
+
 
 type Branch = {
     id: number;
