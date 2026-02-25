@@ -65,6 +65,12 @@ const imagesAddresses = {
     twitter: "/icons/twitter.svg",
     facebook: "/icons/facebook.svg",
     linkedin: "/icons/linkedin.svg",
+    linkdin: "/icons/linkedin.png",
+    linkdinWhite: "/icons/linkdinWhite.png",
+    email: "/icons/email2.png",
+    emailWhite: "/icons/emailWhite.png",
+    facebook1: "/icons/facebook1.png",
+    facebook1White: "/icons/facebook1White.png",
 
     home: "/icons/home.svg",
     homeActive: "/icons/homeActive.svg",
