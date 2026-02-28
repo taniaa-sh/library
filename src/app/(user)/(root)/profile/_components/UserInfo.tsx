@@ -1,10 +1,10 @@
 "use client";
-
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
+import { motion } from "framer-motion";
 
 type FormValues = {
     name: string;
@@ -46,13 +46,15 @@ const UserProfile = () => {
     };
 
     return (
-        <div
+        <motion.div
             className="w-full max-w-5xl mx-auto bg-gray-900 dark:bg-gray-50 rounded-xl p-5 md:p-8 space-y-8"
             style={{
                 boxShadow: "0 14px 16px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.15)"
             }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
         >
-
             {/* HEADER ACTIONS */}
             <div className="flex justify-between items-center">
                 <h2 className="text-lg md:text-2xl font-bold text-white dark:text-gray-900">
@@ -61,22 +63,27 @@ const UserProfile = () => {
 
                 {!isEditing ? (
                     <>
-                        <CustomButton
-                            text=""
-                            iconAddress={imagesAddresses.icons.whiteEdit}
-                            iconPosition="center"
-                            color="yellow"
-                            containerClassName="!w-fit cursor-pointer hidden dark:flex"
-                            onClick={() => setIsEditing(true)}
-                        />
-                        <CustomButton
-                            text=""
-                            iconAddress={imagesAddresses.icons.blackEdit}
-                            iconPosition="center"
-                            color="yellow"
-                            containerClassName="!w-fit cursor-pointer dark:hidden"
-                            onClick={() => setIsEditing(true)}
-                        />
+                        <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <CustomButton
+                                text=""
+                                iconAddress={imagesAddresses.icons.whiteEdit}
+                                iconPosition="center"
+                                color="yellow"
+                                containerClassName="!w-fit cursor-pointer hidden dark:flex"
+                                onClick={() => setIsEditing(true)}
+                            />
+                            <CustomButton
+                                text=""
+                                iconAddress={imagesAddresses.icons.blackEdit}
+                                iconPosition="center"
+                                color="yellow"
+                                containerClassName="!w-fit cursor-pointer dark:hidden"
+                                onClick={() => setIsEditing(true)}
+                            />
+                        </motion.div>
                     </>
                 ) : (
                     <div className="flex flex-col-reverse sm:flex-row gap-2">
@@ -112,18 +119,22 @@ const UserProfile = () => {
             <div className="flex flex-col md:flex-row gap-8 items-start">
 
                 {/* AVATAR */}
-                <div className="relative shrink-0">
+                <motion.div
+                    className="relative shrink-0 cursor-pointer"
+                    whileHover={{ scale: isEditing ? 1.05 : 1 }}
+                    whileTap={{ scale: isEditing ? 0.97 : 1 }}
+                >
                     <Image
                         src={avatar}
                         alt="avatar"
                         width={150}
                         height={150}
                         className="rounded-full w-[120px] h-[120px] object-cover border-4 border-gray-700 dark:border-gray-300"
+                        onClick={changeProfileImage}
                     />
 
                     {isEditing && (
                         <>
-                            {/* Camera Icon */}
                             <label
                                 htmlFor="avatarInput"
                                 className="absolute bottom-1 right-2 flex items-center justify-center cursor-pointer bg-gray-700 dark:bg-[#99a1af] rounded-full p-2 hover:scale-105 transition"
@@ -148,111 +159,81 @@ const UserProfile = () => {
                             />
                         </>
                     )}
-                </div>
+                </motion.div>
 
                 {/* FORM */}
-                <form className="w-full flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
-
+                <motion.form
+                    className="w-full flex-1 grid grid-cols-1 md:grid-cols-2 gap-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                >
                     {/* NAME */}
                     <div className="!w-full flex flex-col gap-1">
-                        <label className="text-sm text-gray-400 dark:text-gray-600">
-                            Full Name
-                        </label>
-
+                        <label className="text-sm text-gray-400 dark:text-gray-600">Full Name</label>
                         {isEditing ? (
                             <>
                                 <input
                                     {...register("name", { required: true })}
                                     className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
                                 />
-                                {errors.name && (
-                                    <span className="text-xs text-red-500">Name is required</span>
-                                )}
+                                {errors.name && <span className="text-xs text-red-500">Name is required</span>}
                             </>
                         ) : (
-                            <p className="text-lg font-semibold text-white dark:text-gray-900">
-                                Adrian Hajdin
-                            </p>
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">Adrian Hajdin</p>
                         )}
                     </div>
 
                     {/* UNIVERSITY */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-400 dark:text-gray-600">
-                            University
-                        </label>
-
+                        <label className="text-sm text-gray-400 dark:text-gray-600">University</label>
                         {isEditing ? (
                             <>
                                 <input
                                     {...register("university", { required: true })}
                                     className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
                                 />
-                                {errors.university && (
-                                    <span className="text-xs text-red-500">
-                                        University is required
-                                    </span>
-                                )}
+                                {errors.university && <span className="text-xs text-red-500">University is required</span>}
                             </>
                         ) : (
-                            <p className="text-lg font-semibold text-white dark:text-gray-900">
-                                JS Mastery
-                            </p>
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">JS Mastery</p>
                         )}
                     </div>
 
                     {/* STUDENT ID */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-400 dark:text-gray-600">
-                            Student ID
-                        </label>
-
+                        <label className="text-sm text-gray-400 dark:text-gray-600">Student ID</label>
                         {isEditing ? (
                             <>
                                 <input
                                     {...register("studentId", { required: true })}
                                     className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
                                 />
-                                {errors.studentId && (
-                                    <span className="text-xs text-red-500">
-                                        Student ID is required
-                                    </span>
-                                )}
+                                {errors.studentId && <span className="text-xs text-red-500">Student ID is required</span>}
                             </>
                         ) : (
-                            <p className="text-lg font-semibold text-white dark:text-gray-900">
-                                23456789
-                            </p>
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">23456789</p>
                         )}
                     </div>
 
                     {/* EMAIL */}
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm text-gray-400 dark:text-gray-600">
-                            Email
-                        </label>
-
+                        <label className="text-sm text-gray-400 dark:text-gray-600">Email</label>
                         {isEditing ? (
                             <>
                                 <input
                                     {...register("email", { required: true })}
                                     className="bg-gray-800 dark:bg-gray-200 rounded-lg px-4 py-2 text-white dark:text-gray-900"
                                 />
-                                {errors.email && (
-                                    <span className="text-xs text-red-500">
-                                        Email is required
-                                    </span>
-                                )}
+                                {errors.email && <span className="text-xs text-red-500">Email is required</span>}
                             </>
                         ) : (
-                            <p className="text-lg font-semibold text-white dark:text-gray-900">
-                                contact@jsmastery.pro
-                            </p>
+                            <p className="text-lg font-semibold text-white dark:text-gray-900">contact@jsmastery.pro</p>
                         )}
                     </div>
-                </form>
+                </motion.form>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

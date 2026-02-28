@@ -8,6 +8,7 @@ import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const books = [1, 2, 3, 4, 5, 6, 7, 8];
 const INITIAL_COUNT = 4;
@@ -64,7 +65,11 @@ const BorrowedBooks = () => {
                     >
                         {books.map((item) => (
                             <SwiperSlide key={item}>
-                                <div className="flex flex-col gap-5 p-5 bg-[url('/images/loginBg.png')] bg-gray-900 bg-cover dark:bg-gray-50 rounded-lg cursor-grab">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{ duration: 0.6, delay: item * 0.1, ease: "easeOut" }}
+                                    className="flex flex-col gap-5 p-5 bg-[url('/images/loginBg.png')] bg-gray-900 bg-cover dark:bg-gray-50 rounded-lg cursor-grab">
                                     <div className="bg-gold500/60 rounded-lg px-12 py-6 flex justify-center">
                                         <Image
                                             src={imagesAddresses.images.book1}
@@ -114,20 +119,24 @@ const BorrowedBooks = () => {
                                             height={24}
                                         />
                                     </div>
-                                </div>
+                                </motion.div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 </div>
             </div>
             {/* Mobile */}
-            <div className="sm:hidden grid grid-cols-1 gap-4 py-2">
+            <div className="sm:hidden grid grid-cols-1 gap-6 py-4 px-2">
                 {books.slice(0, visibleCount).map((item) => (
-                    <div
+                    <motion.div
                         key={item}
-                        className="flex-shrink-0 w-full p-4 flex flex-col gap-3 bg-[url('/images/loginBg.png')] bg-gray-900 bg-cover dark:bg-gray-50 rounded-lg"
+                        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ duration: 0.5, delay: item * 0.1, ease: "easeOut" }}
+                        className="flex flex-col gap-4 p-5 bg-gray-900 dark:bg-gray-50 rounded-2xl shadow-md dark:shadow-gray-700 cursor-pointer"
                     >
-                        <div className="bg-gold500/60 rounded-lg px-8 py-4 flex justify-center">
+                        <div className="bg-gold500/60 rounded-xl px-6 py-6 flex justify-center">
                             <Image
                                 src={imagesAddresses.images.book1}
                                 alt="book"
@@ -135,39 +144,35 @@ const BorrowedBooks = () => {
                                 height={120}
                             />
                         </div>
-                        <div className="flex flex-col gap-1">
-                            <p className="text-white dark:text-gray-900 font-semibold text-lg md:text-xl leading-5">
+                        <div className="flex flex-col gap-1 text-center">
+                            <p className="text-white dark:text-gray-900 font-semibold text-lg md:text-xl">
                                 The Origin
                             </p>
-                            <p className="text-white dark:text-gray-900 font-semibold text-lg md:text-xl leading-5">
+                            <p className="text-white dark:text-gray-900 font-semibold text-sm md:text-base">
                                 By Dan Brown
                             </p>
                         </div>
-                        <p className="text-light-100 dark:text-gray-900 font-normal text-base leading-4">
+                        <p className="text-light-100 dark:text-gray-900 font-normal text-sm md:text-base text-center">
                             Thriller / Mystery
                         </p>
-                        <div className="flex gap-1">
+                        <div className="flex justify-center gap-2 items-center text-sm md:text-base">
                             <Image
                                 src={imagesAddresses.icons.greenBook}
                                 alt="star"
                                 width={16}
                                 height={16}
                             />
-                            <p className="text-light-100 dark:text-gray-900 font-normal text-sm">
-                                Borrowed on Dec 31
-                            </p>
+                            <p className="text-light-100 dark:text-gray-900">Borrowed on Dec 31</p>
                         </div>
-                        <div className="flex justify-between items-center">
-                            <div className="flex gap-1">
+                        <div className="flex justify-between items-center text-sm md:text-base">
+                            <div className="flex gap-2 items-center">
                                 <Image
                                     src={imagesAddresses.icons.calender}
                                     alt="calendar"
                                     width={16}
                                     height={16}
                                 />
-                                <p className="text-light-100 dark:text-gray-900 font-normal text-sm">
-                                    04 days left to due
-                                </p>
+                                <p className="text-light-100 dark:text-gray-900">04 days left to due</p>
                             </div>
                             <Image
                                 src={imagesAddresses.icons.list}
@@ -176,7 +181,7 @@ const BorrowedBooks = () => {
                                 height={24}
                             />
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
             <div className="w-full flex sm:hidden">
