@@ -354,8 +354,8 @@ const ContactUs = () => {
                                 key={branch.id}
                                 whileHover={{ scale: 1.02 }}
                                 className={`p-4 border rounded-lg cursor-pointer ${selectedBranch?.id === branch.id
-                                    ? "bg-gold100 dark:bg-gold800 text-gray-900"
-                                    : "bg-gray-800 dark:bg-gray-100 text-white"
+                                    ? "bg-gold100 dark:bg-[#7a6233] text-gray-900 dark:text-white"
+                                    : "bg-gray-800 dark:bg-gray-100 text-white dark:text-gray-800"
                                     }`}
                                 onClick={() => setSelectedBranch(branch)}
                             >

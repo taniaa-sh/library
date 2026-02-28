@@ -67,8 +67,12 @@ export default function BranchMap({
                 zoom={5}
                 scrollWheelZoom={true}
                 className="w-full h-full"
+                attributionControl={false}
             >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution=""
+                />
 
                 {branches.map((branch) => (
                     <Marker
@@ -80,9 +84,7 @@ export default function BranchMap({
                 ))}
 
                 {selectedBranch && (
-                    <FlyToLocation
-                        position={[selectedBranch.lat, selectedBranch.lng]}
-                    />
+                    <FlyToLocation position={[selectedBranch.lat, selectedBranch.lng]} />
                 )}
             </MapContainer>
         </div>
