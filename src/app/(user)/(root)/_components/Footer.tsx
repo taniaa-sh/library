@@ -51,7 +51,7 @@ const Footer = () => {
                             Profile
                             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gold400 dark:bg-gold200 group-hover:w-full transition-all duration-300" />
                         </Link>
-                            <Link
+                        <Link
                             href={SiteUrls.search}
                             className="hover:!text-gold400 dark:hover:!text-gold200 group relative transition-colors duration-200"
                         >
@@ -69,8 +69,16 @@ const Footer = () => {
                             <Image
                                 src={imagesAddresses.icons.linkdin}
                                 alt="linkdin"
-                                width={24}
-                                height={24}
+                                width={22}
+                                height={22}
+                                className="block dark:hidden"
+                            />
+                            <Image
+                                src={imagesAddresses.icons.linkdinWhite}
+                                alt="linkdin"
+                                width={22}
+                                height={22}
+                                className="dark:block hidden"
                             />
                         </Link>
                         <Link
@@ -82,6 +90,14 @@ const Footer = () => {
                                 alt="email"
                                 width={24}
                                 height={24}
+                                className="block dark:hidden"
+                            />
+                            <Image
+                                src={imagesAddresses.icons.emailWhite}
+                                alt="linkdin"
+                                width={24}
+                                height={24}
+                                className="dark:block hidden"
                             />
                         </Link>
                         <Link
@@ -93,6 +109,14 @@ const Footer = () => {
                                 alt="facebook"
                                 width={24}
                                 height={24}
+                                className="block dark:hidden"
+                            />
+                            <Image
+                                src={imagesAddresses.icons.facebook1White}
+                                alt="linkdin"
+                                width={24}
+                                height={24}
+                                className="dark:block hidden"
                             />
                         </Link>
                     </div>
