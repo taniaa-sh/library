@@ -10,6 +10,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion';
+import { Axios_Route } from '@/utils/axiosRoutes'
+import { AxiosMethodEnum } from '@/utils/type'
+import showToast from '@/utils/toast'
+import { fetchData } from '@/utils/utils'
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required('Email is required'),
@@ -25,6 +29,24 @@ const schema = yup.object({
 type SignInFormData = {
   email: string;
   password: string;
+};
+
+type LoginResponse = {
+  success: boolean;
+  status: number;
+  error?: string;
+  data?: {
+    _id: string;
+    email: string;
+    fulName: string;
+    universityId: string;
+    password: string;
+    role: string;
+    univercityIdImage: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
 };
 
 const SignIn = () => {
@@ -49,10 +71,38 @@ const SignIn = () => {
   }, [errors]);
 
   const handleLogin = async (data: SignInFormData) => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000);
+    setLoading(true);
+
+    try {
+      const result = await fetchData<unknown, LoginResponse>({
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        apiRoute: Axios_Route.login,
+        method: AxiosMethodEnum.post,
+        queryParams: {
+          email: data.email,
+          password: data.password,
+        },
+        isFormData: false,
+      });
+
+      if (result?.success) {
+        showToast("login successfully", "success");
+
+        router.push(SiteUrls.dashbord);
+      } else {
+        showToast(result.error ?? "Something went wrong", "error");
+      }
+
+    } catch (err) {
+      console.log(err);
+
+      showToast(
+        err instanceof Error ? err.message : "Something went wrong",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
