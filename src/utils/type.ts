@@ -33,3 +33,11 @@ export type ToastType = {
   pauseOnHover?: boolean;
   onClose: () => void
 }
+
+export enum AxiosMethodEnum {
+  post = 'POST',
+  get = 'GET',
+  delete = 'DELETE',
+  put = 'PUT',
+  patch = 'PATCH',
+}

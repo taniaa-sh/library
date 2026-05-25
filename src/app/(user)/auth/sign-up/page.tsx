@@ -12,6 +12,9 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { motion } from 'framer-motion';
 import showToast from "@/utils/toast";
+import { fetchData } from "@/utils/utils";
+import { AxiosMethodEnum } from "@/utils/type";
+import { Axios_Route } from "@/utils/axiosRoutes";
 
 const schema = yup
   .object({
@@ -37,12 +40,27 @@ type SignUpFormData = {
   univercityIdImage: string;
 };
 
+type RegisterResponse = {
+  success: boolean;
+  status: number;
+  error: string
+  data: {
+    _id: string;
+    email: string;
+    fulName: string;
+    universityId: string;
+    role: string;
+    univercityIdImage: string;
+  };
+};
+
 const SignUp = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showUniversityId, setShowUniversityId] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [shakeTrigger, setShakeTrigger] = useState(0);
+  const [file, setFile] = useState<File | null>(null);
 
   const {
     register,
@@ -62,24 +80,43 @@ const SignUp = () => {
 
   const handleSignUp = async (data: SignUpFormData) => {
     setIsLoading(true);
+
     try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+      const formData = new FormData();
+
+      formData.append("email", data.email);
+      formData.append("fulName", data.fullName);
+      formData.append("universityId", data.universityId);
+      formData.append("password", data.password);
+
+      if (file) {
+        formData.append("media", file);
+      }
+
+      const result = await fetchData<FormData, RegisterResponse>({
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        apiRoute: Axios_Route.register,
+        method: AxiosMethodEnum.post,
+        queryParams: formData,
+        isFormData: true,
       });
 
-      if (res.ok) {
+      if (result?.success) {
         showToast("Account created successfully", "success");
+
         router.push(SiteUrls.signIn);
       } else {
-        const error = await res.json();
-        showToast(error.error || "Signup failed", "error");
+         showToast(result.error, "error");
       }
+
     } catch (err) {
-      console.error(err);
-      showToast("Something went wrong", "error", true);
-    } finally {
+  console.log(err);
+
+  showToast(
+    err instanceof Error ? err.message : "Something went wrong",
+    "error"
+  );
+} finally {
       setIsLoading(false);
     }
   };
@@ -231,7 +268,10 @@ const SignUp = () => {
               <label className="text-xs md:text-base lg:text-lg">Upload University ID Card</label>
               <DragAndDropUpload
                 type="image"
-                onChange={(file) => setValue('univercityIdImage', URL.createObjectURL(file as File))}
+                onChange={(file) => {
+                  setFile(file as File);
+                  setValue("univercityIdImage", "ok");
+                }}
                 error={errors.univercityIdImage?.message}
                 shakeTrigger={shakeTrigger}
               />
