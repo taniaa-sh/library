@@ -12,7 +12,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { motion } from 'framer-motion';
 import showToast from "@/utils/toast";
-import { fetchData } from "@/utils/utils";
+import { delay, fetchData } from "@/utils/utils";
 import { AxiosMethodEnum } from "@/utils/type";
 import { Axios_Route } from "@/utils/axiosRoutes";
 
@@ -81,44 +81,49 @@ const SignUp = () => {
   const handleSignUp = async (data: SignUpFormData) => {
     setIsLoading(true);
 
-    try {
-      const formData = new FormData();
+    await delay(1000);
 
-      formData.append("email", data.email);
-      formData.append("fulName", data.fullName);
-      formData.append("universityId", data.universityId);
-      formData.append("password", data.password);
+    showToast("Account created successfully", "success");
+    router.push(SiteUrls.signIn);
 
-      if (file) {
-        formData.append("media", file);
-      }
+    // try {
+    //   const formData = new FormData();
 
-      const result = await fetchData<FormData, RegisterResponse>({
-        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-        apiRoute: Axios_Route.register,
-        method: AxiosMethodEnum.post,
-        queryParams: formData,
-        isFormData: true,
-      });
+    //   formData.append("email", data.email);
+    //   formData.append("fulName", data.fullName);
+    //   formData.append("universityId", data.universityId);
+    //   formData.append("password", data.password);
 
-      if (result?.success) {
-        showToast("Account created successfully", "success");
+    //   if (file) {
+    //     formData.append("media", file);
+    //   }
 
-        router.push(SiteUrls.signIn);
-      } else {
-         showToast(result.error, "error");
-      }
+    //   const result = await fetchData<FormData, RegisterResponse>({
+    //     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    //     apiRoute: Axios_Route.register,
+    //     method: AxiosMethodEnum.post,
+    //     queryParams: formData,
+    //     isFormData: true,
+    //   });
 
-    } catch (err) {
-  console.log(err);
+    //   if (result?.success) {
+    //     showToast("Account created successfully", "success");
 
-  showToast(
-    err instanceof Error ? err.message : "Something went wrong",
-    "error"
-  );
-} finally {
-      setIsLoading(false);
-    }
+    //     router.push(SiteUrls.signIn);
+    //   } else {
+    //     showToast(result.error, "error");
+    //   }
+
+    // } catch (err) {
+    //   console.log(err);
+
+    //   showToast(
+    //     err instanceof Error ? err.message : "Something went wrong",
+    //     "error"
+    //   );
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return (

@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
 import { Axios_Route } from '@/utils/axiosRoutes'
 import { AxiosMethodEnum } from '@/utils/type'
 import showToast from '@/utils/toast'
-import { fetchData } from '@/utils/utils'
+import { delay, fetchData } from '@/utils/utils'
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required('Email is required'),
@@ -73,36 +73,41 @@ const SignIn = () => {
   const handleLogin = async (data: SignInFormData) => {
     setLoading(true);
 
-    try {
-      const result = await fetchData<unknown, LoginResponse>({
-        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-        apiRoute: Axios_Route.login,
-        method: AxiosMethodEnum.post,
-        queryParams: {
-          email: data.email,
-          password: data.password,
-        },
-        isFormData: false,
-      });
+    await delay(1000);
 
-      if (result?.success) {
-        showToast("login successfully", "success");
+    showToast("login successfully", "success");
+    router.push(SiteUrls.dashbord);
 
-        router.push(SiteUrls.dashbord);
-      } else {
-        showToast(result.error ?? "Something went wrong", "error");
-      }
+    // try {
+    //   const result = await fetchData<unknown, LoginResponse>({
+    //     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    //     apiRoute: Axios_Route.login,
+    //     method: AxiosMethodEnum.post,
+    //     queryParams: {
+    //       email: data.email,
+    //       password: data.password,
+    //     },
+    //     isFormData: false,
+    //   });
 
-    } catch (err) {
-      console.log(err);
+    //   if (result?.success) {
+    //     showToast("login successfully", "success");
 
-      showToast(
-        err instanceof Error ? err.message : "Something went wrong",
-        "error"
-      );
-    } finally {
-      setLoading(false);
-    }
+    //     router.push(SiteUrls.dashbord);
+    //   } else {
+    //     showToast(result.error ?? "Something went wrong", "error");
+    //   }
+
+    // } catch (err) {
+    //   console.log(err);
+
+    //   showToast(
+    //     err instanceof Error ? err.message : "Something went wrong",
+    //     "error"
+    //   );
+    // } finally {
+    //   setLoading(false);
+    // }
   }
 
   return (
