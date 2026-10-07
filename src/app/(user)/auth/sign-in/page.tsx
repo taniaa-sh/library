@@ -10,8 +10,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion';
-import { Axios_Route } from '@/utils/axiosRoutes'
-import { AxiosMethodEnum } from '@/utils/type'
 import showToast from '@/utils/toast'
 import { delay, fetchData } from '@/utils/utils'
 
