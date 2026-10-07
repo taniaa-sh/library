@@ -36,6 +36,7 @@ type LoginResponse = {
   status: number;
   error?: string;
   data?: {
+    accessToken: string;
     _id: string;
     email: string;
     fulName: string;
@@ -72,11 +73,10 @@ const SignIn = () => {
 
   const handleLogin = async (data: SignInFormData) => {
     setLoading(true);
-
     await delay(1000);
 
     showToast("login successfully", "success");
-    router.push(SiteUrls.dashbord);
+    router.push(SiteUrls.dashbord)
 
     // try {
     //   const result = await fetchData<unknown, LoginResponse>({
@@ -90,25 +90,48 @@ const SignIn = () => {
     //     isFormData: false,
     //   });
 
-    //   if (result?.success) {
-    //     showToast("login successfully", "success");
-
-    //     router.push(SiteUrls.dashbord);
-    //   } else {
-    //     showToast(result.error ?? "Something went wrong", "error");
+    //   if (!result?.success) {
+    //     showToast(result?.error ?? "Something went wrong", "error");
+    //     return;
     //   }
 
+    //   const accessToken = result.data?.accessToken;
+
+    //   if (!accessToken) {
+    //     showToast("Access token not received", "error");
+    //     return;
+    //   }
+
+    //   const cookieResponse = await fetch("/api/auth/set-token", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       accessToken,
+    //     }),
+    //   });
+
+    //   if (!cookieResponse.ok) {
+    //     throw new Error("Failed to set access token");
+    //   }
+
+    //   showToast("Login successfully", "success");
+
+    //   router.push(SiteUrls.dashbord);
     // } catch (err) {
     //   console.log(err);
 
     //   showToast(
-    //     err instanceof Error ? err.message : "Something went wrong",
+    //     err instanceof Error
+    //       ? err.message
+    //       : "Something went wrong",
     //     "error"
     //   );
     // } finally {
     //   setLoading(false);
     // }
-  }
+  };
 
   return (
     <div className="w-full flex items-center flex-col lg:flex-row">

@@ -31,7 +31,7 @@ const Footer = () => {
                         />
                     </Link>
                     <p className="text-sm md:text-base max-w-xs">
-                        Tawsigh Platform – The best way to securely manage and verify information.
+                        Tania Platform – The best way to securely manage and verify information.
                     </p>
                 </div>
                 <div className="flex flex-col gap-2">
@@ -125,7 +125,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="mt-10 border-t border-black/20 dark:border-white/20 pt-4 text-sm text-center">
-                © 2026 Tawsigh Platform. All rights reserved.
+                © 2026 Tania Platform. All rights reserved.
             </div>
         </footer>
     );
