@@ -12,6 +12,8 @@ import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion';
 import showToast from '@/utils/toast'
 import { delay, fetchData } from '@/utils/utils'
+import { Axios_Route } from '@/utils/axiosRoutes'
+import { AxiosMethodEnum } from '@/utils/type'
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required('Email is required'),
@@ -71,64 +73,60 @@ const SignIn = () => {
 
   const handleLogin = async (data: SignInFormData) => {
     setLoading(true);
-    await delay(1000);
 
-    showToast("login successfully", "success");
-    router.push(SiteUrls.dashbord)
+    try {
+      const result = await fetchData<unknown, LoginResponse>({
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        apiRoute: Axios_Route.login,
+        method: AxiosMethodEnum.post,
+        queryParams: {
+          email: data.email,
+          password: data.password,
+        },
+        isFormData: false,
+      });
 
-    // try {
-    //   const result = await fetchData<unknown, LoginResponse>({
-    //     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-    //     apiRoute: Axios_Route.login,
-    //     method: AxiosMethodEnum.post,
-    //     queryParams: {
-    //       email: data.email,
-    //       password: data.password,
-    //     },
-    //     isFormData: false,
-    //   });
+      if (!result?.success) {
+        showToast(result?.error ?? "Something went wrong", "error");
+        return;
+      }
 
-    //   if (!result?.success) {
-    //     showToast(result?.error ?? "Something went wrong", "error");
-    //     return;
-    //   }
+      const accessToken = result.data?.accessToken;
 
-    //   const accessToken = result.data?.accessToken;
+      if (!accessToken) {
+        showToast("Access token not received", "error");
+        return;
+      }
 
-    //   if (!accessToken) {
-    //     showToast("Access token not received", "error");
-    //     return;
-    //   }
+      const cookieResponse = await fetch("/api/auth/set-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          accessToken,
+        }),
+      });
 
-    //   const cookieResponse = await fetch("/api/auth/set-token", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       accessToken,
-    //     }),
-    //   });
+      if (!cookieResponse.ok) {
+        throw new Error("Failed to set access token");
+      }
 
-    //   if (!cookieResponse.ok) {
-    //     throw new Error("Failed to set access token");
-    //   }
+      showToast("Login successfully", "success");
 
-    //   showToast("Login successfully", "success");
+      router.push(SiteUrls.dashbord);
+    } catch (err) {
+      console.log(err);
 
-    //   router.push(SiteUrls.dashbord);
-    // } catch (err) {
-    //   console.log(err);
-
-    //   showToast(
-    //     err instanceof Error
-    //       ? err.message
-    //       : "Something went wrong",
-    //     "error"
-    //   );
-    // } finally {
-    //   setLoading(false);
-    // }
+      showToast(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

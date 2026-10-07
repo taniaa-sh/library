@@ -81,49 +81,44 @@ const SignUp = () => {
   const handleSignUp = async (data: SignUpFormData) => {
     setIsLoading(true);
 
-    await delay(1000);
+    try {
+      const formData = new FormData();
 
-    showToast("Account created successfully", "success");
-    router.push(SiteUrls.signIn);
+      formData.append("email", data.email);
+      formData.append("fulName", data.fullName);
+      formData.append("universityId", data.universityId);
+      formData.append("password", data.password);
 
-    // try {
-    //   const formData = new FormData();
+      if (file) {
+        formData.append("media", file);
+      }
 
-    //   formData.append("email", data.email);
-    //   formData.append("fulName", data.fullName);
-    //   formData.append("universityId", data.universityId);
-    //   formData.append("password", data.password);
+      const result = await fetchData<FormData, RegisterResponse>({
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        apiRoute: Axios_Route.register,
+        method: AxiosMethodEnum.post,
+        queryParams: formData,
+        isFormData: true,
+      });
 
-    //   if (file) {
-    //     formData.append("media", file);
-    //   }
+      if (result?.success) {
+        showToast("Account created successfully", "success");
 
-    //   const result = await fetchData<FormData, RegisterResponse>({
-    //     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-    //     apiRoute: Axios_Route.register,
-    //     method: AxiosMethodEnum.post,
-    //     queryParams: formData,
-    //     isFormData: true,
-    //   });
+        router.push(SiteUrls.signIn);
+      } else {
+        showToast(result.error, "error");
+      }
 
-    //   if (result?.success) {
-    //     showToast("Account created successfully", "success");
+    } catch (err) {
+      console.log(err);
 
-    //     router.push(SiteUrls.signIn);
-    //   } else {
-    //     showToast(result.error, "error");
-    //   }
-
-    // } catch (err) {
-    //   console.log(err);
-
-    //   showToast(
-    //     err instanceof Error ? err.message : "Something went wrong",
-    //     "error"
-    //   );
-    // } finally {
-    //   setIsLoading(false);
-    // }
+      showToast(
+        err instanceof Error ? err.message : "Something went wrong",
+        "error"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
