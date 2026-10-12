@@ -6,7 +6,7 @@ import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -47,7 +47,7 @@ type RegisterResponse = {
   data: {
     _id: string;
     email: string;
-    fulName: string;
+    fullName: string;
     universityId: string;
     role: string;
     univercityIdImage: string;
@@ -82,31 +82,25 @@ const SignUp = () => {
     setIsLoading(true);
 
     try {
-      const formData = new FormData();
-
-      formData.append("email", data.email);
-      formData.append("fullName", data.fullName);
-      formData.append("universityId", data.universityId);
-      formData.append("password", data.password);
-
-      if (file) {
-        formData.append("media", file);
-      }
-
-      const result = await fetchData<FormData, RegisterResponse>({
+      const result = await fetchData<unknown, RegisterResponse>({
         baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
         apiRoute: Axios_Route.register,
         method: AxiosMethodEnum.post,
-        queryParams: formData,
-        isFormData: true,
+        queryParams: {
+          email: data.email,
+          password: data.password,
+          universityId: data.universityId,
+          fullName: data.fullName,
+        },
+        isFormData: false,
       });
 
-      if (result?.success) {
+      if (result) {
         showToast("Account created successfully", "success");
 
         router.push(SiteUrls.signIn);
       } else {
-        showToast(result.error, "error");
+        showToast("Something went wrong", "error");
       }
 
     } catch (err) {

@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion';
 import showToast from '@/utils/toast'
-import { delay, fetchData } from '@/utils/utils'
+import { fetchData } from '@/utils/utils'
 import { Axios_Route } from '@/utils/axiosRoutes'
 import { AxiosMethodEnum } from '@/utils/type'
 
@@ -32,22 +32,10 @@ type SignInFormData = {
 };
 
 type LoginResponse = {
-  success: boolean;
-  status: number;
+  message: number;
   error?: string;
-  data?: {
-    accessToken: string;
-    _id: string;
-    email: string;
-    fulName: string;
-    universityId: string;
-    password: string;
-    role: string;
-    univercityIdImage: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  };
+  accessToken: string;
+  isAdmin: boolean;
 };
 
 const SignIn = () => {
@@ -86,12 +74,7 @@ const SignIn = () => {
         isFormData: false,
       });
 
-      if (!result?.success) {
-        showToast(result?.error ?? "Something went wrong", "error");
-        return;
-      }
-
-      const accessToken = result.data?.accessToken;
+      const accessToken = result?.accessToken;
 
       if (!accessToken) {
         showToast("Access token not received", "error");
