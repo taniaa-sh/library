@@ -78,10 +78,40 @@ const SignUp = () => {
     }
   }, [errors]);
 
+
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          resolve(reader.result.split(",")[1]);
+        } else {
+          reject(new Error("Failed to convert file to Base64"));
+        }
+      };
+
+      reader.onerror = () => {
+        reject(new Error("Failed to read file"));
+      };
+    });
+  };
+
+
+
   const handleSignUp = async (data: SignUpFormData) => {
+    if (!file) {
+      showToast("Please upload your university ID card", "error");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
+      const univercityIdImage = await fileToBase64(file);
+
       const result = await fetchData<unknown, RegisterResponse>({
         baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
         apiRoute: Axios_Route.register,
@@ -91,6 +121,7 @@ const SignUp = () => {
           password: data.password,
           universityId: data.universityId,
           fullName: data.fullName,
+          univercityIdImage,
         },
         isFormData: false,
       });
