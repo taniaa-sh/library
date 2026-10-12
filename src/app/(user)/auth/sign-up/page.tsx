@@ -6,13 +6,13 @@ import imagesAddresses from "@/utils/imageAddresses";
 import SiteUrls from "@/utils/routs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { motion } from 'framer-motion';
 import showToast from "@/utils/toast";
-import { delay, fetchData } from "@/utils/utils";
+import { fetchData } from "@/utils/utils";
 import { AxiosMethodEnum } from "@/utils/type";
 import { Axios_Route } from "@/utils/axiosRoutes";
 
@@ -85,7 +85,7 @@ const SignUp = () => {
       const formData = new FormData();
 
       formData.append("email", data.email);
-      formData.append("fulName", data.fullName);
+      formData.append("fullName", data.fullName);
       formData.append("universityId", data.universityId);
       formData.append("password", data.password);
 

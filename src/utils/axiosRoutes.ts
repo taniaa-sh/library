@@ -1,4 +1,4 @@
 export const Axios_Route = {
-    register: '/auth/register',
-    login: '/auth/login',
+    register: 'api/auth/register',
+    login: 'api/auth/login',
 };
