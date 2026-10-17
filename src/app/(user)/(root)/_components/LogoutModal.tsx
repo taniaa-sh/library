@@ -15,6 +15,37 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
 
     const router = useRouter();
     const [isClosing, setIsClosing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleLogout = async () => {
+
+        if (isLoading) return;
+
+        setIsLoading(true);
+
+        try {
+            console.log("Calling logout API");
+
+            const response = await fetch("/api/auth/logout", {
+                method: "POST",
+            });
+
+            console.log("Logout status:", response.status);
+
+            if (!response.ok) {
+                console.error("Logout failed");
+                return;
+            }
+
+            setShowLogoutModal(false);
+            router.replace(SiteUrls.signIn);
+            router.refresh();
+        } catch (error) {
+            console.error("Logout error:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const handleClose = () => {
         setIsClosing(true);
@@ -53,10 +84,10 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                             Are you sure you want to logout? You will need to login again to access your account.
                         </p>
                         <CustomButton
-                            text="Logout"
+                            text={isLoading ? "Logging out..." : "Logout"}
                             color="red"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
-                            onClick={() => router.push(SiteUrls.signIn)}
+                            onClick={handleLogout}
                         />
                         <CustomButton
                             text="Cancel"
@@ -71,10 +102,13 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
 
             {/* Mobile */}
             <div className="flex md:hidden items-end justify-center fixed inset-0 bg-black/70 z-[10002] w-full h-full">
-                <div className={`
-                    w-full bg-gray-900 dark:bg-white rounded-t-[20px] px-5 py-3 flex flex-col gap-4
-                    ${isClosing ? 'animate-slideDown' : 'animate-slideUp'}
-                `}>
+                <div
+                    className={`
+        relative z-10 w-full bg-gray-900 dark:bg-white
+        rounded-t-[20px] px-5 py-3 flex flex-col gap-4
+        ${isClosing ? "animate-slideDown" : "animate-slideUp"}
+    `}
+                >
                     <div
                         className="self-center w-8 h-1 bg-gray-600 dark:bg-gray-400 rounded-full mb-4 !cursor-pointer"
                         onClick={handleClose}
@@ -93,10 +127,10 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                         </p>
 
                         <CustomButton
-                            text="Logout"
+                            text={isLoading ? "Logging out..." : "Logout"}
                             color="red"
-                            containerClassName="w-full !cursor-pointer flex text-nowrap"
-                            onClick={() => router.push(SiteUrls.signIn)}
+                            containerClassName="w-full cursor-pointer flex text-nowrap"
+                            onClick={handleLogout}
                         />
                         <CustomButton
                             text="Cancel"
