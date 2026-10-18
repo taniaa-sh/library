@@ -12,19 +12,16 @@ import ReactPaginate from 'react-paginate';
 import { useRouter } from 'next/navigation';
 import DeleteAdminModal from '../../_components/DeleteAdminModal';
 
-type User = {
-    name: string;
-    dateJoined: string;
-    role: string;
-    booksBorrowed: string;
-    universityIDNumber: string;
-    universityIDCard: string;
-    action: string;
-    avatar?: string;
-    status?: 'Active' | 'Inactive';
-    email?: string;
-    id?: string;
-};
+interface User {
+    _id: string;
+    id: number;
+    email: string;
+    fullName: string;
+    universityId: string;
+    role: "ADMIN" | "USER";
+    createdAt: string;
+    updatedAt: string;
+}
 
 interface Props {
     data: User[];
@@ -34,14 +31,19 @@ const UserTableClient = ({ data }: Props) => {
     const [users, setUsers] = useState<User[]>(data);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [pendingRole, setPendingRole] = useState<string | null>(null);
+    const [pendingRole, setPendingRole] = useState<"ADMIN" | "USER" | null>(null);
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
-    const [id, setId] = useState("")
+    const [id, setId] = useState<string | null>(null);
 
     const isMobile = useMediaQuery('(max-width:768px)');
     const router = useRouter();
-    const totalPages = 10;
+    const totalPages = 1;
+
+    const roleOptions: { label: string; value: "USER" | "ADMIN" }[] = [
+        { label: "User", value: "USER" },
+        { label: "Admin", value: "ADMIN" },
+    ];
 
     const handlePageClick = (selectedItem: { selected: number }) => {
         const page = selectedItem.selected + 1;
@@ -61,12 +63,19 @@ const UserTableClient = ({ data }: Props) => {
     const open = Boolean(anchorEl);
 
     const handleDelete = () => {
-        setUsers((prev) => prev.filter((user) => user.id !== id));
-        setShowDeleteModal(false)
+        if (!id) return;
+
+        setUsers((prev) => prev.filter((user) => user._id !== id));
+        setShowDeleteModal(false);
+        setId(null);
     };
 
-    const handleRoleChange = (newRole: string) => {
-        if (!selectedUser) return;
+    const handleRoleChange = (newRole: "ADMIN" | "USER") => {
+        if (!selectedUser || selectedUser.role === newRole) {
+            handleClose();
+            return;
+        }
+
         setPendingRole(newRole);
         setConfirmOpen(true);
     };
@@ -76,7 +85,9 @@ const UserTableClient = ({ data }: Props) => {
 
         setUsers((prev) =>
             prev.map((user) =>
-                user.id === selectedUser.id ? { ...user, role: pendingRole } : user
+                user._id === selectedUser._id
+                    ? { ...user, role: pendingRole }
+                    : user
             )
         );
 
@@ -91,42 +102,42 @@ const UserTableClient = ({ data }: Props) => {
 
     const columns: Column<User>[] = [
         {
-            key: 'name',
-            label: 'Name',
+            key: 'fullName',
+            label: 'fullName',
             render: (row: User) => (
                 <div className="flex gap-2 items-center">
                     <Image
-                        src={row.avatar || '/avatar1.png'}
+                        src={imagesAddresses.images.avatar3}
                         alt="Avatar"
                         width={isMobile ? 30 : 40}
                         height={isMobile ? 30 : 40}
                         className="rounded-full object-cover"
                     />
                     <div className="flex flex-col gap-1">
-                        <p className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'} text-dark-400 dark:text-white`}>{row.name}</p>
+                        <p className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'} text-dark-400 dark:text-white`}>{row.fullName}</p>
                         <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-dark-50 dark:text-gray-400 break-words`}>{row.email}</p>
                     </div>
                 </div>
             ),
         },
-        { key: 'dateJoined', label: 'Date Joined' },
-        // {
-        //     key: 'role',
-        //     label: 'Role',
-        //     render: (row: User) => (
-        //         <div className="cursor-pointer" onClick={(e) => handleClick(e, row)}>
-        //             <CustomStatusAllUser isColor state={row.role === 'User' ? 1 : 2} />
-        //         </div>
-        //     ),
-        // },
+        { key: 'createdAt', label: 'Date Joined' },
         {
-            key: 'booksBorrowed',
-            label: 'Books Borrowed',
-            render: (row: User) => <span className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'}`}>{row.booksBorrowed}</span>,
+            key: 'role',
+            label: 'Role',
+            render: (row: User) => (
+                <div className="cursor-pointer" onClick={(e) => handleClick(e, row)}>
+                    <CustomStatusAllUser isColor state={row.role === 'USER' ? 1 : 2} />
+                </div>
+            ),
         },
-        { key: 'universityIDNumber', label: 'University ID No' },
+        // {
+        //     key: 'booksBorrowed',
+        //     label: 'Books Borrowed',
+        //     render: (row: User) => <span className={`font-semibold ${isMobile ? 'text-sm' : 'text-base'}`}>{row.booksBorrowed}</span>,
+        // },
+        { key: 'universityId', label: 'University ID No' },
         {
-            key: 'action',
+            key: 'email',
             label: '',
             render: (row: User) => (
                 <Image
@@ -136,10 +147,9 @@ const UserTableClient = ({ data }: Props) => {
                     height={isMobile ? 16 : 20}
                     className="cursor-pointer"
                     onClick={() => {
-                        setShowDeleteModal(true)
-                        setId(row.id || "")
-                    }
-                    }
+                        setId(row._id);
+                        setShowDeleteModal(true);
+                    }}
                 />
             ),
         },
@@ -191,35 +201,26 @@ const UserTableClient = ({ data }: Props) => {
                     >
                         {selectedUser && (
                             <div className="flex flex-col gap-2">
-                                {['User', 'Admin'].map((roleOption) => (
+                                {roleOptions.map((roleOption) => (
                                     <div
-                                        key={roleOption}
+                                        key={roleOption.value}
                                         className="flex justify-between items-center cursor-pointer"
-                                        onClick={() => handleRoleChange(roleOption)}
+                                        onClick={() => handleRoleChange(roleOption.value)}
                                     >
                                         <CustomStatus
-                                            text={roleOption}
-                                            color={roleOption === 'User' ? 'red' : 'lightGreen'}
+                                            text={roleOption.label}
+                                            color={roleOption.value === "USER" ? "red" : "lightGreen"}
                                             size="medium"
                                             width=""
                                         />
-                                        {selectedUser.role === roleOption && (
-                                            <>
-                                                <Image
-                                                    src={imagesAddresses.icons.check}
-                                                    alt="check"
-                                                    width={isMobile ? 16 : 20}
-                                                    height={isMobile ? 16 : 20}
-                                                    className='dark:hidden'
-                                                />
-                                                <Image
-                                                    src={imagesAddresses.icons.checkWhite}
-                                                    alt="check"
-                                                    width={isMobile ? 16 : 20}
-                                                    height={isMobile ? 16 : 20}
-                                                    className='hidden dark:block'
-                                                />
-                                            </>
+
+                                        {selectedUser.role === roleOption.value && (
+                                            <Image
+                                                src={imagesAddresses.icons.check}
+                                                alt="Selected role"
+                                                width={20}
+                                                height={20}
+                                            />
                                         )}
                                     </div>
                                 ))}
