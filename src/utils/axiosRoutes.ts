@@ -6,4 +6,5 @@ export const Axios_Route = {
     allBook: 'api/allBook/getAll',
     bookDetail: 'api/allBook/getBookById',
     deleteBook: 'api/allBook/deleteBook',
+    updateBook: 'api/allBook/updateBook',
 };
