@@ -4,14 +4,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import axios from 'axios';
-import { BookFormInputs } from '@/utils/type';
+import { AxiosMethodEnum, BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
 import { ChromePicker } from 'react-color';
 import { motion } from 'framer-motion';
 import CustomButton from '@/components/CustomButton';
 import CustomInputSelect from '@/components/CustomInputSelect';
 import showToast from '@/utils/toast';
+import { Axios_Route } from '@/utils/axiosRoutes';
+import { fetchData } from '@/utils/utils';
+import { uploadToCloudinary } from '@/utils/cloudinary';
+import { useRouter } from 'next/navigation';
+import SiteUrls from '@/utils/routs';
 
 const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -25,6 +29,12 @@ const schema = yup.object({
     bookPdf: yup.string().required('Book pdf is required'),
 }).required();
 
+interface AddBookResponse {
+    success?: boolean;
+    message?: string;
+    [key: string]: unknown;
+}
+
 const AddBookPage = () => {
 
     const [loading, setLoading] = useState(false);
@@ -35,6 +45,12 @@ const AddBookPage = () => {
     const MAX_LINES = 20;
     const LINE_HEIGHT = 24;
     const MAX_HEIGHT = MAX_LINES * LINE_HEIGHT;
+
+    const [bookImageFile, setBookImageFile] = useState<File | null>(null);
+    const [bookVideoFile, setBookVideoFile] = useState<File | null>(null);
+    const [bookPdfFile, setBookPdfFile] = useState<File | null>(null);
+
+    const router = useRouter();
 
     const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const el = textareaRef.current;
@@ -80,17 +96,77 @@ const AddBookPage = () => {
     }, [watch('description')]);
 
     const onSubmit: SubmitHandler<BookFormInputs> = async (data) => {
+        if (!bookImageFile || !bookVideoFile || !bookPdfFile) {
+            showToast(
+                'Please upload the image, video, and PDF.',
+                'error',
+                true,
+                undefined,
+                true
+            );
+            return;
+        }
+
+        setLoading(true);
+
         try {
-            setLoading(true);
-            await axios.post('/api/books', data);
-            showToast('Book added successfully', "success", true, undefined, true);
-            reset();
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                showToast(error.response?.data?.message || 'Something went wrong', "error", true, undefined, true);
-            } else {
-                showToast('Unexpected error occurred', "error", true, undefined, true);
+            const [bookImage, bookVideo, bookPdf] = await Promise.all([
+                uploadToCloudinary(bookImageFile, 'image'),
+                uploadToCloudinary(bookVideoFile, 'video'),
+                uploadToCloudinary(bookPdfFile, 'raw'),
+            ]);
+
+            const result = await fetchData<
+                Record<string, unknown>,
+                AddBookResponse
+            >({
+                baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
+                apiRoute: Axios_Route.addBook,
+                method: AxiosMethodEnum.post,
+                queryParams: {
+                    title: data.title,
+                    author: data.author,
+                    genre: data.genre,
+                    bookVideo,
+                    bookPrimaryColor: data.bookPrimaryColor,
+                    bookImage,
+                    totalNumberOfBooks: Number(data.totalNumberOfBooks),
+                    description: data.description,
+                    bookPdf,
+                },
+                isFormData: false,
+            });
+
+            if (!result) {
+                throw new Error('Failed to add book');
             }
+
+            showToast(
+                'Book added successfully',
+                'success',
+                true,
+                undefined,
+                true
+            );
+            router.push(SiteUrls.adminAllBooks)
+
+            reset();
+            setColor('');
+            setBookImageFile(null);
+            setBookVideoFile(null);
+            setBookPdfFile(null);
+        } catch (error) {
+            console.error('Add book error:', error);
+
+            showToast(
+                error instanceof Error
+                    ? error.message
+                    : 'Something went wrong',
+                'error',
+                true,
+                undefined,
+                true
+            );
         } finally {
             setLoading(false);
         }
@@ -267,39 +343,69 @@ const AddBookPage = () => {
                 </div>
 
                 {/* Book Image */}
+                {/* Book Image */}
                 <div>
                     <label className="block text-xs sm:text-sm md:text-base font-medium !mb-3 text-gray-900 dark:text-white">
                         Book Image
-                        <DragAndDropUpload
-                            type="image"
-                            onChange={(file) => setValue('bookImage', URL.createObjectURL(file as File))}
-                            error={errors.bookImage?.message}
-                            shakeTrigger={shakeTrigger}
-                        />
                     </label>
+
+                    <DragAndDropUpload
+                        type="image"
+                        onChange={(file) => {
+                            if (file instanceof File) {
+                                setBookImageFile(file);
+                                setValue('bookImage', file.name, {
+                                    shouldValidate: true,
+                                    shouldDirty: true,
+                                });
+                            }
+                        }}
+                        error={errors.bookImage?.message}
+                        shakeTrigger={shakeTrigger}
+                    />
                 </div>
 
+                {/* Book Video */}
                 {/* Book Video */}
                 <div>
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book Video
                     </label>
+
                     <DragAndDropUpload
                         type="video"
-                        onChange={(file) => setValue('bookVideo', URL.createObjectURL(file as File))}
+                        onChange={(file) => {
+                            if (file instanceof File) {
+                                setBookVideoFile(file);
+                                setValue('bookVideo', file.name, {
+                                    shouldValidate: true,
+                                    shouldDirty: true,
+                                });
+                            }
+                        }}
                         error={errors.bookVideo?.message}
                         shakeTrigger={shakeTrigger}
                     />
                 </div>
 
                 {/* Book pdf */}
+                {/* Book PDF */}
                 <div>
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
-                        Book Pdf
+                        Book PDF
                     </label>
+
                     <DragAndDropUpload
                         type="pdf"
-                        onChange={(file) => setValue('bookPdf', URL.createObjectURL(file as File))}
+                        onChange={(file) => {
+                            if (file instanceof File) {
+                                setBookPdfFile(file);
+                                setValue('bookPdf', file.name, {
+                                    shouldValidate: true,
+                                    shouldDirty: true,
+                                });
+                            }
+                        }}
                         error={errors.bookPdf?.message}
                         shakeTrigger={shakeTrigger}
                     />
