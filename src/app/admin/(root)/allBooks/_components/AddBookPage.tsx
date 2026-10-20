@@ -343,7 +343,6 @@ const AddBookPage = () => {
                 </div>
 
                 {/* Book Image */}
-                {/* Book Image */}
                 <div>
                     <label className="block text-xs sm:text-sm md:text-base font-medium !mb-3 text-gray-900 dark:text-white">
                         Book Image
@@ -365,7 +364,6 @@ const AddBookPage = () => {
                     />
                 </div>
 
-                {/* Book Video */}
                 {/* Book Video */}
                 <div>
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
@@ -389,7 +387,6 @@ const AddBookPage = () => {
                 </div>
 
                 {/* Book pdf */}
-                {/* Book PDF */}
                 <div>
                     <label className="block text-xs sm:text-sm md:text-base font-medium mb-1 text-gray-900 dark:text-white">
                         Book PDF

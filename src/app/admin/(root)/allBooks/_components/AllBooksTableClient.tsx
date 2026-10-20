@@ -70,7 +70,7 @@ const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
                 new Date(row.createdAt).toLocaleDateString('en-GB'),
         },
         {
-            key: '_id',
+            key: 'id',
             label: '',
             render: (row: Book) => (
                 <div className="flex gap-2">
@@ -104,7 +104,7 @@ const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
                         height={16}
                         className="cursor-pointer dark:hidden"
                         onClick={() =>
-                            router.push(`${SiteUrls.adminDetailBook}?id=${row._id}`)
+                            router.push(`${SiteUrls.adminDetailBook}?id=${row.id}`)
                         }
                     />
 
@@ -115,7 +115,7 @@ const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
                         height={16}
                         className="hidden cursor-pointer dark:block"
                         onClick={() =>
-                            router.push(`${SiteUrls.adminDetailBook}?id=${row._id}`)
+                            router.push(`${SiteUrls.adminDetailBook}?id=${row.id}`)
                         }
                     />
                 </div>

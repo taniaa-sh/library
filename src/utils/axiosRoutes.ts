@@ -4,4 +4,5 @@ export const Axios_Route = {
     allUser: 'api/auth/getAll',
     addBook: 'api/allBook/addBook',
     allBook: 'api/allBook/getAll',
+    bookDetail: 'api/allBook/getBookById',
 };
