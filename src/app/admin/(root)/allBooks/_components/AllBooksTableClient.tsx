@@ -2,32 +2,42 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import ReactPaginate from 'react-paginate';
+
 import AdminTable, { Column } from '../../_components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
 import SiteUrls from '@/utils/routs';
-import { useRouter } from 'next/navigation';
-import ReactPaginate from 'react-paginate';
 import DeleteAdminModal from '../../_components/DeleteAdminModal';
 
 type Book = {
-    bookTitle: string;
+    _id: string;
+    id: number;
+    title: string;
     author: string;
     genre: string;
-    dateCreated: string;
-    action: string;
-    id?: string;
+    bookVideo: string;
+    bookPrimaryColor: string;
+    bookImage: string;
+    totalNumberOfBooks: number;
+    description: string;
+    bookPdf: string;
+    createdAt: string;
+    updatedAt: string;
+    __v?: number;
 };
 
 interface Props {
     data: Book[];
+    totalPages?: number;
 }
 
-const AllBooksTableClient = ({ data }: Props) => {
+const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
     const [books, setBooks] = useState<Book[]>(data);
-    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
-    const [id, setId] = useState("")
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [id, setId] = useState<string>('');
+
     const router = useRouter();
-    const totalPages = 10;
 
     const handlePageClick = (selectedItem: { selected: number }) => {
         const page = selectedItem.selected + 1;
@@ -35,58 +45,78 @@ const AllBooksTableClient = ({ data }: Props) => {
     };
 
     const handleDelete = () => {
-        setBooks((prev) => prev.filter((book) => book.id !== id));
-        setShowDeleteModal(false)
+        setBooks((prev) => prev.filter((book) => book._id !== id));
+        setShowDeleteModal(false);
+        setId('');
     };
 
     const columns: Column<Book>[] = [
         {
-            key: 'bookTitle',
+            key: 'title',
             label: 'Book Title',
         },
-        { key: 'author', label: 'Author' },
-        { key: 'genre', label: 'Genre' },
-        { key: 'dateCreated', label: 'Date Created' },
         {
-            key: 'action',
+            key: 'author',
+            label: 'Author',
+        },
+        {
+            key: 'genre',
+            label: 'Genre',
+        },
+        {
+            key: 'createdAt',
+            label: 'Date Created',
+            render: (row: Book) =>
+                new Date(row.createdAt).toLocaleDateString('en-GB'),
+        },
+        {
+            key: '_id',
             label: '',
             render: (row: Book) => (
-                <div className='flex gap-2'>
+                <div className="flex gap-2">
                     <Image
                         src={imagesAddresses.icons.edit}
-                        alt="Avatar"
+                        alt="Edit"
                         width={16}
                         height={16}
                         className="cursor-pointer"
-                        onClick={() => router.push(SiteUrls.adminEditBook)}
+                        onClick={() =>
+                            router.push(`${SiteUrls.adminEditBook}?id=${row._id}`)
+                        }
                     />
+
                     <Image
                         src={imagesAddresses.icons.delete}
-                        alt="Avatar"
+                        alt="Delete"
                         width={16}
                         height={16}
                         className="cursor-pointer"
                         onClick={() => {
-                            setShowDeleteModal(true)
-                            setId(row.id || "")
-                        }
-                        }
+                            setId(row._id);
+                            setShowDeleteModal(true);
+                        }}
                     />
+
                     <Image
                         src={imagesAddresses.icons.eye}
-                        alt="Avatar"
+                        alt="View"
                         width={16}
                         height={16}
                         className="cursor-pointer dark:hidden"
-                        onClick={() => router.push(SiteUrls.adminDetailBook)}
+                        onClick={() =>
+                            router.push(`${SiteUrls.adminDetailBook}?id=${row._id}`)
+                        }
                     />
+
                     <Image
                         src={imagesAddresses.icons.eyeWhite}
-                        alt="Avatar"
+                        alt="View"
                         width={16}
                         height={16}
-                        className="cursor-pointer hidden dark:block"
-                        onClick={() => router.push(SiteUrls.adminDetailBook)}
+                        className="hidden cursor-pointer dark:block"
+                        onClick={() =>
+                            router.push(`${SiteUrls.adminDetailBook}?id=${row._id}`)
+                        }
                     />
                 </div>
             ),
@@ -95,22 +125,22 @@ const AllBooksTableClient = ({ data }: Props) => {
 
     return (
         <>
-            {
-                showDeleteModal && (
-                    <DeleteAdminModal
-                        setShowDeleteModal={setShowDeleteModal}
-                        onDelete={() => handleDelete()}
-                        isBook
-                    />
-                )
-            }
+            {showDeleteModal && (
+                <DeleteAdminModal
+                    setShowDeleteModal={setShowDeleteModal}
+                    onDelete={handleDelete}
+                    isBook
+                />
+            )}
+
             <AdminTable columns={columns} data={books} />
+
             {totalPages > 1 && (
-                <div className="flex justify-center mt-7 overflow-x-auto dark:!text-white">
+                <div className="mt-7 flex justify-center overflow-x-auto dark:!text-white">
                     <ReactPaginate
-                        previousLabel={"‹"}
-                        nextLabel={"›"}
-                        breakLabel={"…"}
+                        previousLabel="‹"
+                        nextLabel="›"
+                        breakLabel="…"
                         pageCount={totalPages}
                         marginPagesDisplayed={1}
                         pageRangeDisplayed={3}

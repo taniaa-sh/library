@@ -62,6 +62,7 @@ export const fetchData = async <TRequest = unknown, TResponse = unknown>({
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(isFormData ? {} : { "Content-Type": "application/json" }),
     },
+    cache: "no-cache",
   };
 
   if (method !== AxiosMethodEnum.get) {
