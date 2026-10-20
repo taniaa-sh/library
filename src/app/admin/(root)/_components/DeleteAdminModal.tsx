@@ -12,9 +12,10 @@ interface DeleteModalProps {
     isBook?: boolean
     isAdmin?: boolean
     isReq?: boolean
+    loading?: boolean
 }
 
-const DeleteAdminModal = ({ setShowDeleteModal, onDelete, isUser, isBook, isAdmin, isReq }: DeleteModalProps) => {
+const DeleteAdminModal = ({ setShowDeleteModal, onDelete, isUser, isBook, isAdmin, isReq, loading }: DeleteModalProps) => {
 
     const [isClosing, setIsClosing] = useState(false);
 
@@ -74,6 +75,7 @@ const DeleteAdminModal = ({ setShowDeleteModal, onDelete, isUser, isBook, isAdmi
                                 color="red1"
                                 containerClassName="w-fit cursor-pointer flex text-nowrap"
                                 onClick={() => onDelete()}
+                                loading={loading}
                             />
                             <CustomButton
                                 text="Cancel"
@@ -129,6 +131,7 @@ const DeleteAdminModal = ({ setShowDeleteModal, onDelete, isUser, isBook, isAdmi
                             color="red1"
                             containerClassName="w-full cursor-pointer flex text-nowrap"
                             onClick={() => onDelete()}
+                            loading={loading}
                         />
                         <CustomButton
                             text="Cancel"

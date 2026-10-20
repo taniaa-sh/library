@@ -9,6 +9,10 @@ import AdminTable, { Column } from '../../_components/AdminTable';
 import imagesAddresses from '@/utils/imageAddresses';
 import SiteUrls from '@/utils/routs';
 import DeleteAdminModal from '../../_components/DeleteAdminModal';
+import showToast from '@/utils/toast';
+import { fetchData } from '@/utils/utils';
+import { Axios_Route } from '@/utils/axiosRoutes';
+import { AxiosMethodEnum } from '@/utils/type';
 
 type Book = {
     _id: string;
@@ -35,6 +39,7 @@ interface Props {
 const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
     const [books, setBooks] = useState<Book[]>(data);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [id, setId] = useState<string>('');
 
     const router = useRouter();
@@ -44,10 +49,49 @@ const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
         router.push(`?page=${page}`);
     };
 
-    const handleDelete = () => {
-        setBooks((prev) => prev.filter((book) => book._id !== id));
-        setShowDeleteModal(false);
-        setId('');
+    const handleDelete = async () => {
+        if (!id) {
+            showToast('Book ID is required.', 'error', true, undefined, true);
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const result = await fetchData<
+                undefined,
+                { success?: boolean; message?: string }
+            >({
+                baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
+                apiRoute: `${Axios_Route.deleteBook}/${id}`,
+                method: AxiosMethodEnum.delete,
+            });
+
+            showToast(
+                result.message || 'Book deleted successfully',
+                'success',
+                true,
+                undefined,
+                true
+            );
+
+            setBooks((prev) => prev.filter((book) => book.id.toString() !== id));
+            setShowDeleteModal(false);
+            setId('');
+
+        } catch (error) {
+            console.error('Delete book error:', error);
+
+            showToast(
+                error instanceof Error ? error.message : 'Failed to delete book',
+                'error',
+                true,
+                undefined,
+                true
+            );
+        } finally {
+            setLoading(false);
+        }
     };
 
     const columns: Column<Book>[] = [
@@ -81,7 +125,7 @@ const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
                         height={16}
                         className="cursor-pointer"
                         onClick={() =>
-                            router.push(`${SiteUrls.adminEditBook}?id=${row._id}`)
+                            router.push(`${SiteUrls.adminEditBook}?id=${row.id}`)
                         }
                     />
 
@@ -92,7 +136,7 @@ const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
                         height={16}
                         className="cursor-pointer"
                         onClick={() => {
-                            setId(row._id);
+                            setId(row.id.toString());
                             setShowDeleteModal(true);
                         }}
                     />
@@ -129,6 +173,7 @@ const AllBooksTableClient = ({ data, totalPages = 1 }: Props) => {
                 <DeleteAdminModal
                     setShowDeleteModal={setShowDeleteModal}
                     onDelete={handleDelete}
+                    loading={loading}
                     isBook
                 />
             )}
