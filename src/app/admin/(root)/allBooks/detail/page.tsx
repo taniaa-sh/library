@@ -40,7 +40,6 @@ const DetailBook = async ({ searchParams }: Props) => {
     }
 
     const data = await fetchBookDetails(id);
-    console.log("yyyyyyyyy",data);
 
     return (
         <div className="bg-light-300 dark:bg-dark-900 px-8 py-10 w-full min-h-dvh">
