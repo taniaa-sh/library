@@ -25,7 +25,27 @@ const schema = yup.object({
     bookPdf: yup.string().required('Book pdf is required'),
 }).required();
 
-const EditBookPage = () => {
+interface Book {
+    _id: string;
+    id: number;
+    title: string;
+    author: string;
+    genre: string;
+    bookVideo: string;
+    bookPrimaryColor: string;
+    bookImage: string;
+    totalNumberOfBooks: number;
+    description: string;
+    bookPdf: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface Props {
+    data: Book;
+}
+
+const EditBookPage = ({ data }: Props) => {
 
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
@@ -116,6 +136,24 @@ const EditBookPage = () => {
             setShakeTrigger((prev) => prev + 1);
         }
     }, [errors]);
+
+    useEffect(() => {
+        if (!data) return;
+
+        reset({
+            title: data.title ?? '',
+            author: data.author ?? '',
+            genre: data.genre ?? '',
+            bookVideo: data.bookVideo ?? '',
+            bookPrimaryColor: data.bookPrimaryColor ?? '',
+            bookImage: data.bookImage ?? '',
+            totalNumberOfBooks: String(data.totalNumberOfBooks ?? ''),
+            description: data.description ?? '',
+            bookPdf: data.bookPdf ?? '',
+        });
+
+        setColor(data.bookPrimaryColor ?? '');
+    }, [data, reset]);
 
     return (
         <div className="!max-w-[1440px] flex flex-col gap-8 sm:gap-10 p-4 sm:p-6 rounded-xl shadow-lg dark:bg-dark-500">
@@ -254,7 +292,9 @@ const EditBookPage = () => {
                                     onChange={(c) => setColor(c.hex)}
                                     onChangeComplete={(c) => {
                                         setColor(c.hex);
-                                        setValue('bookPrimaryColor', c.hex, { shouldValidate: true });
+                                        setValue('bookPrimaryColor', c.hex, {
+                                            shouldValidate: true,
+                                        });
                                         setShowPicker(false);
                                     }}
                                 />
@@ -272,7 +312,10 @@ const EditBookPage = () => {
                         Book Image
                         <DragAndDropUpload
                             type="image"
-                            onChange={(file) => setValue('bookImage', URL.createObjectURL(file as File))}
+                            preview={data.bookImage}
+                            onChange={(file) => {
+                                setValue('bookImage', file ? URL.createObjectURL(file) : data.bookImage);
+                            }}
                             error={errors.bookImage?.message}
                             shakeTrigger={shakeTrigger}
                         />
@@ -286,7 +329,10 @@ const EditBookPage = () => {
                     </label>
                     <DragAndDropUpload
                         type="video"
-                        onChange={(file) => setValue('bookVideo', URL.createObjectURL(file as File))}
+                        preview={data.bookVideo}
+                        onChange={(file) => {
+                            setValue('bookVideo', file ? URL.createObjectURL(file) : data.bookVideo);
+                        }}
                         error={errors.bookVideo?.message}
                         shakeTrigger={shakeTrigger}
                     />
@@ -299,7 +345,10 @@ const EditBookPage = () => {
                     </label>
                     <DragAndDropUpload
                         type="pdf"
-                        onChange={(file) => setValue('bookPdf', URL.createObjectURL(file as File))}
+                        preview={data.bookPdf}
+                        onChange={(file) => {
+                            setValue('bookPdf', file ? URL.createObjectURL(file) : data.bookPdf);
+                        }}
                         error={errors.bookPdf?.message}
                         shakeTrigger={shakeTrigger}
                     />
