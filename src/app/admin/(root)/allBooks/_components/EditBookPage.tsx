@@ -4,14 +4,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import axios from 'axios';
-import { BookFormInputs } from '@/utils/type';
+import { AxiosMethodEnum, BookFormInputs } from '@/utils/type';
 import DragAndDropUpload from '../../../../../components/DragAndDropUpload';
 import { ChromePicker } from 'react-color';
 import { motion } from 'framer-motion';
 import CustomButton from '@/components/CustomButton';
 import CustomInputSelect from '@/components/CustomInputSelect';
 import showToast from '@/utils/toast';
+import { useRouter } from 'next/navigation';
+import { uploadToCloudinary } from '@/utils/cloudinary';
+import { fetchData } from '@/utils/utils';
+import { Axios_Route } from '@/utils/axiosRoutes';
+import SiteUrls from '@/utils/routs';
 
 const schema = yup.object({
     title: yup.string().required('Title is required'),
@@ -46,6 +50,11 @@ interface Props {
 }
 
 const EditBookPage = ({ data }: Props) => {
+    const router = useRouter();
+
+    const [bookImageFile, setBookImageFile] = useState<File | null>(null);
+    const [bookVideoFile, setBookVideoFile] = useState<File | null>(null);
+    const [bookPdfFile, setBookPdfFile] = useState<File | null>(null);
 
     const [loading, setLoading] = useState(false);
     const [color, setColor] = useState('');
@@ -99,22 +108,82 @@ const EditBookPage = ({ data }: Props) => {
         }
     }, [watch('description')]);
 
-    const onSubmit: SubmitHandler<BookFormInputs> = async (data) => {
+
+    const onSubmit: SubmitHandler<BookFormInputs> = async (formData) => {
+        setLoading(true);
+
         try {
-            setLoading(true);
-            await axios.post('/api/books', data);
-            showToast('Book added successfully', "success", true, undefined, true);
-            reset();
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                showToast(error.response?.data?.message || 'Something went wrong', "error", true, undefined, true);
-            } else {
-                showToast('Unexpected error occurred', "error", true, undefined, true);
+            const [bookImage, bookVideo, bookPdf] = await Promise.all([
+                bookImageFile
+                    ? uploadToCloudinary(bookImageFile, 'image')
+                    : Promise.resolve(data.bookImage),
+
+                bookVideoFile
+                    ? uploadToCloudinary(bookVideoFile, 'video')
+                    : Promise.resolve(data.bookVideo),
+
+                bookPdfFile
+                    ? uploadToCloudinary(bookPdfFile, 'raw')
+                    : Promise.resolve(data.bookPdf),
+            ]);
+
+            const result = await fetchData<
+                Record<string, unknown>,
+                unknown
+            >({
+                baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
+                apiRoute: Axios_Route.updateBook + `/${data.id}`,
+                method: AxiosMethodEnum.put,
+                queryParams: {
+                    title: formData.title.trim(),
+                    author: formData.author.trim(),
+                    genre: formData.genre,
+                    bookVideo,
+                    bookPrimaryColor: color || formData.bookPrimaryColor,
+                    bookImage,
+                    totalNumberOfBooks: Number(formData.totalNumberOfBooks),
+                    description: formData.description.trim(),
+                    bookPdf,
+                },
+                isFormData: false,
+            });
+
+            if (!result) {
+                throw new Error('Failed to update book');
             }
+
+            showToast(
+                'Book updated successfully',
+                'success',
+                true,
+                undefined,
+                true
+            );
+
+            router.push(SiteUrls.adminAllBooks);
+
+            reset();
+            setColor('');
+            setBookImageFile(null);
+            setBookVideoFile(null);
+            setBookPdfFile(null);
+        } catch (error) {
+            console.error('Update book error:', error);
+
+            showToast(
+                error instanceof Error
+                    ? error.message
+                    : 'Something went wrong',
+                'error',
+                true,
+                undefined,
+                true
+            );
         } finally {
             setLoading(false);
         }
     };
+
 
     useEffect(() => {
         const el = textareaRef.current;
@@ -313,7 +382,9 @@ const EditBookPage = ({ data }: Props) => {
                         <DragAndDropUpload
                             type="image"
                             preview={data.bookImage}
+
                             onChange={(file) => {
+                                setBookImageFile(file);
                                 setValue('bookImage', file ? URL.createObjectURL(file) : data.bookImage);
                             }}
                             error={errors.bookImage?.message}
@@ -331,6 +402,7 @@ const EditBookPage = ({ data }: Props) => {
                         type="video"
                         preview={data.bookVideo}
                         onChange={(file) => {
+                            setBookVideoFile(file);
                             setValue('bookVideo', file ? URL.createObjectURL(file) : data.bookVideo);
                         }}
                         error={errors.bookVideo?.message}
@@ -347,6 +419,7 @@ const EditBookPage = ({ data }: Props) => {
                         type="pdf"
                         preview={data.bookPdf}
                         onChange={(file) => {
+                            setBookPdfFile(file);
                             setValue('bookPdf', file ? URL.createObjectURL(file) : data.bookPdf);
                         }}
                         error={errors.bookPdf?.message}
