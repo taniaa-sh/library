@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import showToast from "@/utils/toast";
-import { fetchData } from "@/utils/utils";
 import { Axios_Route } from "@/utils/axiosRoutes";
 import { AxiosMethodEnum } from "@/utils/type";
 
@@ -18,19 +17,6 @@ const dummyReviews = [
 
 interface BookReviewsProps {
   bookId: string;
-}
-
-interface ReviewResponse {
-  message: string;
-  data: {
-    _id: string;
-    bookId: string;
-    userId: string;
-    rating: number;
-    comment: string;
-    createdAt: string;
-    updatedAt: string;
-  };
 }
 
 const BookReviews = ({ bookId }: BookReviewsProps) => {
@@ -64,7 +50,7 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!selected || !comment.trim()) {
@@ -79,56 +65,60 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
 
     setIsSubmitting(true);
 
-    try {
-      const result = await fetchData<
-        unknown,
-        ReviewResponse
-      >({
-        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    const postData = async () => {
+      const obj = {
         apiRoute: Axios_Route.addReview,
-        method: AxiosMethodEnum.post,
-        queryParams: {
+        data: {
           bookId,
           rating: selected,
           comment: comment.trim(),
         },
-        isFormData: false,
+      };
+
+      const response = await fetch("/api/post", {
+        method: AxiosMethodEnum.post,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
       });
 
-      if (result) {
-        showToast("Review submitted successfully", "success");
+      return response.json();
+    };
 
-        // setReviews((prev) => [
-        //   {
-        //     id: result.data._id,
-        //     name: "You",
-        //     rating: result.data.rating,
-        //     comment: result.data.comment,
-        //   },
-        //   ...prev.filter((review) => review.id !== result.data._id),
-        // ]);
+    postData()
+      .then((res) => {
+        if (res) {
+          showToast("Review submitted successfully", "success");
 
-        setSelected(0);
-        setHovered(0);
-        setComment("");
+          setSelected(0);
+          setHovered(0);
+          setComment("");
+          setReviews(res.data);
 
-        if (textareaRef.current) {
-          textareaRef.current.style.height = "auto";
-          textareaRef.current.style.overflowY = "hidden";
+          if (textareaRef.current) {
+            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.overflowY = "hidden";
+          }
+        } else {
+          showToast(
+            res.response?.message ||
+            res.response?.detail ||
+            "Failed to submit review",
+            "error"
+          );
         }
-      } else {
-        showToast("Failed to submit review", "error");
-      }
-    } catch (err) {
-      console.error(err);
-
-      showToast(
-        err instanceof Error ? err.message : "Failed to submit review",
-        "error"
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+      })
+      .catch((err) => {
+        console.error(err);
+        showToast(
+          err instanceof Error ? err.message : "Failed to submit review",
+          "error"
+        );
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   const averageRating =
