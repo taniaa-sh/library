@@ -316,7 +316,7 @@ export default function HomePage() {
           <div className="hidden items-center gap-3 sm:flex">
             <Link
               href={SiteUrls.signIn}
-              className="whitespace-nowrap rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-[#17110B] transition hover:bg-[#F2D9B9] hover:shadow-lg hover:shadow-primary/15"
+              className="whitespace-nowrap rounded-xl bg-primary px-4 py-2.5 text-xs font-bold !text-[#17110B] transition hover:bg-[#F2D9B9] hover:shadow-lg hover:shadow-primary/15"
             >
               Login / Sign Up
             </Link>
@@ -397,7 +397,7 @@ export default function HomePage() {
           <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
             <Link
               href="#books"
-              className="group inline-flex items-center gap-3 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-[#17110B] shadow-xl shadow-primary/10 transition duration-300 hover:-translate-y-1 hover:bg-[#F2D9B9] hover:shadow-primary/20"
+              className="group inline-flex items-center gap-3 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold !text-[#17110B] shadow-xl shadow-primary/10 transition duration-300 hover:-translate-y-1 hover:bg-[#F2D9B9] hover:shadow-primary/20"
             >
               Explore Books
               <span className="transition-transform group-hover:translate-x-1">
@@ -694,7 +694,7 @@ export default function HomePage() {
 
               <Link
                 href={SiteUrls.signIn}
-                className="mt-7 inline-flex items-center gap-3 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-black transition hover:-translate-y-0.5 hover:bg-[#F2D9B9]"
+                className="mt-7 inline-flex items-center gap-3 rounded-xl bg-primary px-5 py-3 text-sm font-bold !text-black transition hover:-translate-y-0.5 hover:bg-[#F2D9B9]"
               >
                 Start Your Journey <Icon name="arrow" size={17} />
               </Link>
@@ -757,7 +757,7 @@ export default function HomePage() {
 
           <Link
             href={SiteUrls.signIn}
-            className="mt-7 inline-flex items-center gap-3 rounded-xl bg-primary px-7 py-4 text-sm font-bold text-black shadow-lg shadow-primary/10 transition hover:-translate-y-1 hover:bg-[#F2D9B9]"
+            className="mt-7 inline-flex items-center gap-3 rounded-xl bg-primary px-7 py-4 text-sm font-bold !text-black shadow-lg shadow-primary/10 transition hover:-translate-y-1 hover:bg-[#F2D9B9]"
           >
             Join BookWise <Icon name="arrow" size={18} />
           </Link>
