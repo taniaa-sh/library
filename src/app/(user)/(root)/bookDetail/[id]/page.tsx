@@ -10,8 +10,6 @@ import { motion } from "framer-motion";
 import FlipBookPreview from "../_components/FlipBookPreview";
 import BookReviews from "../_components/BookReviews";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
 
 const BookDetailPage = () => {
@@ -323,7 +321,7 @@ const BookDetailPage = () => {
                 {/* comments */}
                 <div className="flex flex-col gap-2">
                     <p className="font-semibold text-2xl md:text-3xl text-light-100 dark:text-gray-900 self-center !mt-8">Comments</p>
-                    <BookReviews />
+                    <BookReviews bookId={"6ad71041c970a93284732e79"} />
                 </div>
             </div>
         </>

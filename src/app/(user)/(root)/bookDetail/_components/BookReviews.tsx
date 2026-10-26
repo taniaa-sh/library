@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import showToast from "@/utils/toast";
+import { fetchData } from "@/utils/utils";
+import { Axios_Route } from "@/utils/axiosRoutes";
+import { AxiosMethodEnum } from "@/utils/type";
 
 const ratingLabels = ["", "Terrible", "Bad", "Average", "Good", "Very Good", "Excellent"];
 const MAX_LINES = 20;
@@ -13,7 +16,24 @@ const dummyReviews = [
   { id: 3, name: "Sara", rating: 3, comment: "It was average, not bad but not great either." },
 ];
 
-const BookReviews = () => {
+interface BookReviewsProps {
+  bookId: string;
+}
+
+interface ReviewResponse {
+  message: string;
+  data: {
+    _id: string;
+    bookId: string;
+    userId: string;
+    rating: number;
+    comment: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+const BookReviews = ({ bookId }: BookReviewsProps) => {
   const [hovered, setHovered] = useState(0);
   const [selected, setSelected] = useState(0);
   const [reviews, setReviews] = useState(dummyReviews);
@@ -21,6 +41,8 @@ const BookReviews = () => {
   const [expandedComments, setExpandedComments] = useState<number[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const maxCommentLength = 300;
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -42,7 +64,7 @@ const BookReviews = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!selected || !comment.trim()) {
@@ -50,26 +72,63 @@ const BookReviews = () => {
       return;
     }
 
-    const payload = {
-      rating: selected,
-      comment: comment.trim(),
-    };
+    if (!bookId) {
+      showToast("Book ID is missing", "error");
+      return;
+    }
 
-    console.log("SEND TO BACKEND:", payload);
-    showToast("Review submitted successfully", "success");
+    setIsSubmitting(true);
 
-    setReviews((prev) => [
-      {
-        id: prev.length + 1,
-        name: "You",
-        rating: selected,
-        comment: comment.trim(),
-      },
-      ...prev,
-    ]);
+    try {
+      const result = await fetchData<
+        unknown,
+        ReviewResponse
+      >({
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        apiRoute: Axios_Route.addReview,
+        method: AxiosMethodEnum.post,
+        queryParams: {
+          bookId,
+          rating: selected,
+          comment: comment.trim(),
+        },
+        isFormData: false,
+      });
 
-    setSelected(0);
-    setComment("");
+      if (result) {
+        showToast("Review submitted successfully", "success");
+
+        // setReviews((prev) => [
+        //   {
+        //     id: result.data._id,
+        //     name: "You",
+        //     rating: result.data.rating,
+        //     comment: result.data.comment,
+        //   },
+        //   ...prev.filter((review) => review.id !== result.data._id),
+        // ]);
+
+        setSelected(0);
+        setHovered(0);
+        setComment("");
+
+        if (textareaRef.current) {
+          textareaRef.current.style.height = "auto";
+          textareaRef.current.style.overflowY = "hidden";
+        }
+      } else {
+        showToast("Failed to submit review", "error");
+      }
+    } catch (err) {
+      console.error(err);
+
+      showToast(
+        err instanceof Error ? err.message : "Failed to submit review",
+        "error"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const averageRating =
@@ -148,6 +207,7 @@ const BookReviews = () => {
             color="yellow"
             text="Submit"
             containerClassName="cursor-pointer w-full md:w-fit self-end mt-3 md:mt-0"
+            loading={isSubmitting}
           />
         </form>
       </div>
