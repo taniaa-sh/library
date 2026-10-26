@@ -69,117 +69,117 @@ const SupportModal = ({ setShowSopportModal }: PropsType) => {
 
     return (
         <>
-           <div
-            onClick={handleClose}
-            className={`fixed inset-0 z-[1000] bg-black/40 backdrop-blur-sm transition-opacity
+            <div
+                onClick={handleClose}
+                className={`fixed inset-0 z-[1000] bg-black/40 backdrop-blur-sm transition-opacity
             ${isClosing ? "opacity-0" : "opacity-100"}`}
-        />
-        <div
-         onClick={e => e.stopPropagation()}
-            className={`z-[1004] md:z-[1001] fixed flex flex-col bg-gray-50 border border-gray-300 dark:border-gray-500 shadow-xl custom-scrollbar1 top-0 left-0 w-screen h-screen rounded-none md:top-auto md:left-20 md:bottom-4 md:w-[360px] md:h-[600px] md:rounded-lg
+            />
+            <div
+                onClick={e => e.stopPropagation()}
+                className={`z-[1004] md:z-[1001] fixed flex flex-col bg-gray-50 border border-gray-300 dark:border-gray-500 shadow-xl custom-scrollbar1 top-0 left-0 w-screen h-screen rounded-none md:top-auto md:left-20 md:bottom-4 md:w-[360px] md:h-[600px] md:rounded-lg
             ${isClosing ? "animate-closeModal" : "animate-openModal"}
         `}
-        >
-            {/* Header */}
-            <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-gold100 dark:bg-gold600 select-none shadow-sm">
-                <div className="flex items-center gap-2 w-full">
-                    <Image
-                        src={imagesAddresses.icons.support}
-                        width={40}
-                        height={40}
-                        alt="Support"
-                        className="dark:hidden"
-                    />
-                    <Image
-                        src={imagesAddresses.icons.supportIconWhite}
-                        width={40}
-                        height={40}
-                        alt="Support"
-                        className="hidden dark:block"
-                    />
-                    <div className="flex flex-col">
-                        <p className="text-base font-semibold leading-8 dark:text-white">Library Support</p>
-                        {isTyping && (
-                            <p className="text-xs font-normal text-gray-600 dark:text-white leading-6">
-                                Typing...
-                            </p>
-                        )}
-                    </div>
-                </div>
-                <Image
-                    src={imagesAddresses.icons.modalClose}
-                    width={22}
-                    height={22}
-                    alt="close"
-                    className="cursor-pointer hover:scale-105 transition dark:hidden"
-                    onClick={handleClose}
-                />
-                <Image
-                    src={imagesAddresses.icons.modalCloseWhite}
-                    width={22}
-                    height={22}
-                    alt="close"
-                    className="cursor-pointer hover:scale-105 transition hidden dark:block"
-                    onClick={handleClose}
-                />
-            </div>
-
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 dark:bg-[url('/images/supportBackGround.png')] bg-[url('/images/supportBackGroundDark.png')] bg-center bg-cover">
-                {messages.map((msg, idx) => (
-                    <div
-                        key={idx}
-                        className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-                    >
-                        <div
-                            className={`max-w-[75%] p-2 rounded-xl text-sm leading-6 shadow-sm
-                                        ${msg.sender === "user"
-                                    ? "bg-gold400 text-white rounded-br-none"
-                                    : "bg-gray-200 text-gray-900 rounded-bl-none"
-                                }`}
-                        >
-                            {msg.text}
+            >
+                {/* Header */}
+                <div className="w-full flex px-5 py-2 rounded-none md:rounded-t-lg bg-gold100 dark:bg-gold600 select-none shadow-sm">
+                    <div className="flex items-center gap-2 w-full">
+                        <Image
+                            src={imagesAddresses.icons.support}
+                            width={40}
+                            height={40}
+                            alt="Support"
+                            className="dark:hidden"
+                        />
+                        <Image
+                            src={imagesAddresses.icons.supportIconWhite}
+                            width={40}
+                            height={40}
+                            alt="Support"
+                            className="hidden dark:block"
+                        />
+                        <div className="flex flex-col">
+                            <p className="text-base font-semibold leading-8 dark:text-white text-gray-900">Library Support</p>
+                            {isTyping && (
+                                <p className="text-xs font-normal text-gray-600 dark:text-white leading-6">
+                                    Typing...
+                                </p>
+                            )}
                         </div>
                     </div>
-                ))}
+                    <Image
+                        src={imagesAddresses.icons.modalClose}
+                        width={22}
+                        height={22}
+                        alt="close"
+                        className="cursor-pointer hover:scale-105 transition dark:hidden"
+                        onClick={handleClose}
+                    />
+                    <Image
+                        src={imagesAddresses.icons.modalCloseWhite}
+                        width={22}
+                        height={22}
+                        alt="close"
+                        className="cursor-pointer hover:scale-105 transition hidden dark:block"
+                        onClick={handleClose}
+                    />
+                </div>
 
-                <div ref={messagesEndRef} />
-            </div>
+                {/* Messages */}
+                <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 dark:bg-[url('/images/supportBackGround.png')] bg-[url('/images/supportBackGroundDark.png')] bg-center bg-cover">
+                    {messages.map((msg, idx) => (
+                        <div
+                            key={idx}
+                            className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                        >
+                            <div
+                                className={`max-w-[75%] p-2 rounded-xl text-sm leading-6 shadow-sm
+                                        ${msg.sender === "user"
+                                        ? "bg-gold400 text-white rounded-br-none"
+                                        : "bg-gray-200 text-gray-900 rounded-bl-none"
+                                    }`}
+                            >
+                                {msg.text}
+                            </div>
+                        </div>
+                    ))}
 
-            {/* Input section */}
-            <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-300 bg-gold100 dark:bg-gold600">
-                <input
-                    type="text"
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={e => e.key === "Enter" && handleSend()}
-                    placeholder="Type your question..."
-                    className="flex-1 px-3 py-2 border border-gray-400 rounded-lg 
-                              focus:outline-none focus:ring bg-white dark:text-gray-700"
-                />
+                    <div ref={messagesEndRef} />
+                </div>
 
-                <button
-                    onClick={handleSend}
-                    className="px-2 py-2 rounded-full bg-gold200 hover:bg-gold100 dark:bg-gold200 dark:hover:bg-gold200 dark:text-gray-900
+                {/* Input section */}
+                <div className="flex items-center gap-2 px-4 py-3 border-t border-gray-300 bg-gold100 dark:bg-gold600">
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        onKeyDown={e => e.key === "Enter" && handleSend()}
+                        placeholder="Type your question..."
+                        className="flex-1 px-3 py-2 border border-gray-400 rounded-lg 
+                              focus:outline-none focus:ring bg-white !text-gray-800 dark:text-gray-700"
+                    />
+
+                    <button
+                        onClick={handleSend}
+                        className="px-2 py-2 rounded-full bg-gold200 hover:bg-gold100 dark:bg-gold200 dark:hover:bg-gold200 dark:text-gray-900
                                transition shadow cursor-pointer"
-                >
-                    <Image
-                        src={imagesAddresses.icons.plain}
-                        width={22}
-                        height={22}
-                        alt="send"
-                        className="dark:hidden"
-                    />
-                    <Image
-                        src={imagesAddresses.icons.plainWhite}
-                        width={22}
-                        height={22}
-                        alt="send"
-                        className="hidden dark:block"
-                    />
-                </button>
+                    >
+                        <Image
+                            src={imagesAddresses.icons.plain}
+                            width={22}
+                            height={22}
+                            alt="send"
+                            className="dark:hidden"
+                        />
+                        <Image
+                            src={imagesAddresses.icons.plainWhite}
+                            width={22}
+                            height={22}
+                            alt="send"
+                            className="hidden dark:block"
+                        />
+                    </button>
+                </div>
             </div>
-        </div>
         </>
     )
 }
