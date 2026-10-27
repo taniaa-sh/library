@@ -1,57 +1,35 @@
-"use client"
+"use client";
 
-import imagesAddresses from "@/utils/imageAddresses"
-import Image from "next/image"
-import { useEffect, useState } from "react"
-import SupportModal from "./SupportModal"
+import Image from "next/image";
+import { useState } from "react";
+import SupportModal from "./SupportModal";
+import imagesAddresses from "@/utils/imageAddresses";
 
 const ShowSopportModal = () => {
-    const [showModal, setShowModal] = useState(false)
-    const [bottomOffset, setBottomOffset] = useState(32)
-
-    useEffect(() => {
-        const footer = document.querySelector("footer")
-        if (!footer) return
-
-        const updatePosition = () => {
-            const rect = footer.getBoundingClientRect()
-            if (rect.top < window.innerHeight) {
-                setBottomOffset(window.innerHeight - rect.top + 16)
-            } else {
-                setBottomOffset(32)
-            }
-        }
-
-        updatePosition()
-
-        const handleScroll = () => requestAnimationFrame(updatePosition)
-        window.addEventListener("scroll", handleScroll)
-
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <>
-            {showModal && <SupportModal setShowSopportModal={setShowModal} />}
-            <div
-                className="cursor-pointer bg-gold100 rounded-full p-2 size-14 flex items-center justify-center animate-supportPop !z-[1000] shadow-2xl border-2 border-gold200 transition-all duration-300"
-                style={{
-                    position: "fixed",
-                    left: "1.5rem",
-                    bottom: `${bottomOffset}px`,
-                }}
-                onClick={() => setShowModal(!showModal)}
+            {showModal && (
+                <SupportModal setShowSopportModal={setShowModal} />
+            )}
+
+            <button
+                type="button"
+                className="fixed bottom-8 right-6 z-[1000] flex size-14 items-center justify-center rounded-full border-2 border-gold200 bg-gold100 p-2 shadow-2xl transition-all duration-300 hover:scale-110 animate-supportPop"
+                onClick={() => setShowModal((prev) => !prev)}
                 title="Click for assistance"
+                aria-label="Open support"
             >
                 <Image
                     src={imagesAddresses.icons.support}
-                    alt="support"
+                    alt=""
                     width={36}
                     height={36}
                 />
-            </div>
+            </button>
         </>
-    )
-}
+    );
+};
 
-export default ShowSopportModal
+export default ShowSopportModal;
