@@ -152,15 +152,15 @@ const BookFeature = ({
                             </div>
 
                             <div className="flex items-center gap-3 rounded-xl border border-[#E7C9A5]/20 bg-[#E7C9A5]/[0.07] px-4 py-2.5 dark:border-[#B88A4B]/25 dark:bg-[#B88A4B]/[0.08]">
-<div className="flex size-9 items-center justify-center rounded-lg bg-[#E7C9A5]/10 dark:bg-[#B88A4B]/15">
-    <Image
-        src={imagesAddresses.icons.stare}
-        alt=""
-        width={21}
-        height={21}
-        className="brightness-0 sepia saturate-[1000%] hue-rotate-[5deg] dark:invert"
-    />
-</div>
+                                <div className="flex size-9 items-center justify-center rounded-lg bg-[#E7C9A5]/10 dark:bg-[#B88A4B]/15">
+                                    <Image
+                                        src={imagesAddresses.icons.stare}
+                                        alt=""
+                                        width={21}
+                                        height={21}
+                                        className="brightness-0 sepia saturate-[1000%] hue-rotate-[5deg] dark:invert"
+                                    />
+                                </div>
 
                                 <div>
                                     <p className="text-lg font-bold leading-tight text-[#E7C9A5] dark:text-[#805827]">
@@ -259,8 +259,8 @@ const BookFeature = ({
 
                             <span
                                 className={`text-xs font-medium ${isAvailable
-                                        ? "text-emerald-400 dark:text-emerald-700"
-                                        : "text-red-400 dark:text-red-600"
+                                    ? "text-emerald-400 dark:text-emerald-700"
+                                    : "text-red-400 dark:text-red-600"
                                     }`}
                             >
                                 {isAvailable
@@ -276,8 +276,8 @@ const BookFeature = ({
                         >
                             <div
                                 className={`transition-transform duration-300 ${isAvailable
-                                        ? "hover:-translate-y-0.5"
-                                        : "pointer-events-none opacity-50"
+                                    ? "hover:-translate-y-0.5"
+                                    : "pointer-events-none opacity-50"
                                     }`}
                             >
                                 <CustomButton
