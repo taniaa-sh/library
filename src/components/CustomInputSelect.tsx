@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 type PropsType = {
     label?: string;
@@ -25,25 +25,43 @@ const CustomInputSelect: React.FC<PropsType> = ({
     placeholder = "Select an option",
     onChange,
     value,
+    name,
     containerClassName,
     errors,
     Values,
     shakeTrigger = 0,
     disabled = false,
     isAdmin = false,
-    customScrollBar
+    customScrollBar = false,
 }) => {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const shouldReduceMotion = useReducedMotion();
+    const hasError = Boolean(errors?.length);
 
     useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                wrapperRef.current &&
+                !wrapperRef.current.contains(event.target as Node)
+            ) {
                 setOpen(false);
             }
         };
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setOpen(false);
+            }
+        };
+
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleEscape);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEscape);
+        };
     }, []);
 
     const handleSelect = (item: string) => {
@@ -52,86 +70,196 @@ const CustomInputSelect: React.FC<PropsType> = ({
     };
 
     const buttonClass = isAdmin
-        ? "!bg-light-600 dark:!bg-dark-400 text-gray-800 dark:text-white"
-        : "!bg-dark-400 dark:!bg-white text-white dark:text-gray-900 border border-gray-600 dark:border-gray-400";
+        ? `
+            bg-white dark:bg-[#201E1A]
+            text-[#17130F] dark:text-[#F8F2E6]
+            border-[#E5DED2] dark:border-white/10
+            hover:border-[#1565C0]/50 dark:hover:border-[#1565C0]/60
+        `
+        : `
+            bg-[#171614] dark:bg-[#FBF7EF]
+            text-[#F8F2E6] dark:text-[#17130F]
+            border-white/10 dark:border-[#A87938]/20
+            hover:border-[#E7C9A5]/40 dark:hover:border-[#A87938]/40
+        `;
+
+    const dropdownBg = isAdmin
+        ? "bg-white dark:bg-[#201E1A] border-[#E5DED2] dark:border-white/10"
+        : "bg-[#201E1A] dark:bg-[#FBF7EF] border-white/10 dark:border-[#A87938]/20";
 
     const listItemClass = (item: string) => {
-        if (item === value) {
-            return isAdmin
-                ? "!bg-primary-admin !text-white font-semibold"
-                : "!bg-primary dark:!bg-[#7a6233] !text-gray-900 dark:!text-white font-semibold";
-        }
-        return isAdmin
-            ? "hover:!bg-blue-50 dark:hover:!bg-dark-300 dark:text-white"
-            : "hover:!bg-gold100 dark:hover:!bg-gold600 dark:text-gray-900 dark:hover:text-white text-gray-300 hover:text-gray-900";
-    };
+        const isSelected = item === value;
 
-    const dropdownBg = isAdmin ? "!bg-white dark:!bg-dark-500" : "!bg-dark-500 dark:!bg-white";
+        if (isAdmin) {
+            return isSelected
+                ? "bg-[#1565C0]/10 dark:bg-[#1565C0]/20 text-[#1565C0] dark:text-blue-300 font-semibold"
+                : "text-[#403A32] dark:text-[#F8F2E6] hover:bg-[#1565C0]/5 dark:hover:bg-white/5";
+        }
+
+        return isSelected
+            ? "bg-[#E7C9A5]/15 dark:bg-[#A87938]/15 text-[#E7C9A5] dark:text-[#8B642D] font-semibold"
+            : "text-[#D8CDBD] dark:text-[#40372B] hover:bg-white/5 dark:hover:bg-[#A87938]/10 hover:text-[#F8F2E6] dark:hover:text-[#17130F]";
+    };
 
     return (
         <div
             ref={wrapperRef}
-            className={`relative flex flex-col 
-                ${containerClassName || ""}
-                ${customScrollBar ? "custom-scrollbar1" : ""}
-                `}
+            className={`relative flex w-full flex-col ${containerClassName || ""}`}
             style={{ width: width ? `${width}px` : "100%" }}
         >
             {label && (
-                <label className="mb-1 text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                    htmlFor={name}
+                    className={`mb-2 text-xs sm:text-sm font-medium ${isAdmin
+                            ? "text-[#403A32] dark:text-[#F8F2E6]"
+                            : "text-[#B8AA96] dark:text-[#75634E]"
+                        }`}
+                >
                     {label}
                 </label>
             )}
 
             <motion.button
+                id={name}
                 type="button"
-                key={shakeTrigger}
-                animate={errors && errors.length > 0 ? { x: [0, -5, 5, -5, 5, 0] } : { x: 0 }}
-                transition={{ duration: 0.4 }}
+                aria-haspopup="listbox"
+                aria-expanded={open}
+                aria-invalid={hasError}
+                aria-label={label || placeholder}
+                animate={
+                    hasError && !shouldReduceMotion
+                        ? { x: [0, -5, 5, -5, 5, 0] }
+                        : { x: 0 }
+                }
+                transition={{
+                    duration: shouldReduceMotion ? 0 : 0.35,
+                }}
                 disabled={disabled}
-                onClick={() => !disabled && setOpen(prev => !prev)}
+                onClick={() => setOpen((previous) => !previous)}
                 className={`
-                    w-full rounded-lg border px-4 py-3
-                    text-sm sm:text-base font-medium
-                    flex items-center justify-between
-                    focus:outline-none focus:ring-2
-                    ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+                    group flex w-full items-center justify-between gap-3
+                    rounded-xl border px-4 py-3
+                    text-left text-sm sm:text-base font-medium
+                    outline-none transition-all duration-300
+                    focus-visible:ring-2 focus-visible:ring-offset-2
+                    ${isAdmin
+                        ? "focus-visible:ring-[#1565C0] focus-visible:ring-offset-white dark:focus-visible:ring-offset-[#201E1A]"
+                        : "focus-visible:ring-[#E7C9A5] dark:focus-visible:ring-[#A87938] focus-visible:ring-offset-[#0D0D0C] dark:focus-visible:ring-offset-[#F8F2E6]"
+                    }
                     ${buttonClass}
+                    ${hasError
+                        ? "!border-red-500 focus-visible:!ring-red-500"
+                        : ""
+                    }
+                    ${disabled
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
+                    }
                 `}
             >
-                <span>{value || placeholder}</span>
-                <motion.span animate={{ rotate: open ? 180 : 0 }} className="ml-2 text-gray-400">
+                <span
+                    className={`min-w-0 truncate ${value
+                            ? ""
+                            : isAdmin
+                                ? "text-gray-400 dark:text-gray-500"
+                                : "text-[#887D6D] dark:text-[#9A8A74]"
+                        }`}
+                >
+                    {value || placeholder}
+                </span>
+
+                <motion.span
+                    animate={{ rotate: open ? 180 : 0 }}
+                    transition={{
+                        duration: shouldReduceMotion ? 0 : 0.25,
+                    }}
+                    className={`shrink-0 text-xs ${isAdmin
+                            ? "text-gray-400 dark:text-gray-500"
+                            : "text-[#B8AA96] dark:text-[#8B642D]"
+                        }`}
+                >
                     ▼
                 </motion.span>
             </motion.button>
 
+            {hasError && (
+                <p className="mt-1.5 text-xs text-red-500">
+                    {errors?.[0]}
+                </p>
+            )}
+
             <AnimatePresence>
-                {open && (
+                {open && !disabled && (
                     <motion.ul
-                        initial={{ opacity: 0, y: -6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.2 }}
+                        key="dropdown"
+                        role="listbox"
+                        aria-label={label || placeholder}
+                        initial={
+                            shouldReduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 0, y: -8, scale: 0.98 }
+                        }
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={
+                            shouldReduceMotion
+                                ? { opacity: 0 }
+                                : { opacity: 0, y: -5, scale: 0.98 }
+                        }
+                        transition={{
+                            duration: shouldReduceMotion ? 0 : 0.18,
+                            ease: "easeOut",
+                        }}
                         className={`
-                            absolute z-50 !mt-10 w-full
-                            rounded-lg border shadow-lg
-                            max-h-60 overflow-auto
+                            absolute left-0 right-0 top-full z-50 mt-2
+                            max-h-60 overflow-y-auto overscroll-contain
+                            rounded-xl border p-1.5
+                            shadow-[0_16px_40px_rgba(0,0,0,0.25)]
                             ${dropdownBg}
+                            ${customScrollBar
+                                ? "custom-scrollbar1"
+                                : ""
+                            }
                         `}
                     >
-                        {Values.map((item, index) => (
+                        {Values.length > 0 ? (
+                            Values.map((item) => (
+                                <li
+                                    key={item}
+                                    role="option"
+                                    aria-selected={item === value}
+                                    onClick={() => handleSelect(item)}
+                                    className={`
+                                        flex cursor-pointer items-center justify-between
+                                        gap-3 rounded-lg px-3 py-2.5
+                                        text-sm sm:text-base
+                                        transition-colors duration-200
+                                        ${listItemClass(item)}
+                                    `}
+                                >
+                                    <span className="min-w-0 truncate">
+                                        {item}
+                                    </span>
+
+                                    {item === value && (
+                                        <span
+                                            aria-hidden="true"
+                                            className="shrink-0 text-xs"
+                                        >
+                                            ✓
+                                        </span>
+                                    )}
+                                </li>
+                            ))
+                        ) : (
                             <li
-                                key={index}
-                                onClick={() => handleSelect(item)}
-                                className={`
-                                    px-4 py-3 cursor-pointer
-                                    text-sm sm:text-base
-                                    ${listItemClass(item)}
-                                `}
+                                className={`px-3 py-4 text-center text-sm ${isAdmin
+                                        ? "text-gray-500 dark:text-gray-400"
+                                        : "text-[#B8AA96] dark:text-[#75634E]"
+                                    }`}
                             >
-                                {item}
+                                No options available
                             </li>
-                        ))}
+                        )}
                     </motion.ul>
                 )}
             </AnimatePresence>
