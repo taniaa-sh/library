@@ -1,56 +1,130 @@
+"use client";
+
 import { useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import CustomButton from "@/components/CustomButton";
 import showToast from "@/utils/toast";
 import { Axios_Route } from "@/utils/axiosRoutes";
 import { AxiosMethodEnum } from "@/utils/type";
 
-const ratingLabels = ["", "Terrible", "Bad", "Average", "Good", "Very Good", "Excellent"];
+const ratingLabels = ["", "Terrible", "Bad", "Average", "Good", "Very Good"];
+
 const MAX_LINES = 20;
 const LINE_HEIGHT = 24;
 const MAX_HEIGHT = MAX_LINES * LINE_HEIGHT;
+const MAX_COMMENT_LENGTH = 300;
 
-const dummyReviews = [
-  { id: 1, name: "Tania", rating: 5, comment: "This book was amazing! Highly recommended." },
-  { id: 2, name: "Reza", rating: 4, comment: "Pretty good, but some parts felt a bit slow." },
-  { id: 3, name: "Sara", rating: 3, comment: "It was average, not bad but not great either." },
-];
+interface Review {
+  id: string | number;
+  name: string;
+  rating: number;
+  comment: string;
+}
 
 interface BookReviewsProps {
   bookId: string;
 }
 
+const dummyReviews: Review[] = [
+  {
+    id: 1,
+    name: "Tania",
+    rating: 5,
+    comment: "This book was amazing! Highly recommended.",
+  },
+  {
+    id: 2,
+    name: "Reza",
+    rating: 4,
+    comment: "Pretty good, but some parts felt a bit slow.",
+  },
+  {
+    id: 3,
+    name: "Sara",
+    rating: 3,
+    comment: "It was average, not bad but not great either.",
+  },
+];
+
+const Star = ({
+  filled,
+  size = "h-5 w-5",
+}: {
+  filled: boolean;
+  size?: string;
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill={filled ? "#E7C9A5" : "none"}
+    stroke={filled ? "#E7C9A5" : "currentColor"}
+    strokeWidth={1.7}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={`${size} shrink-0 transition-colors duration-200 ${filled
+        ? "text-[#E7C9A5] dark:text-[#A87938]"
+        : "text-stone-500 dark:text-[#9A856B]"
+      }`}
+    aria-hidden="true"
+  >
+    <path d="M12 2.5l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.52l-5.88 3.09 1.12-6.55L2.48 9.42l6.58-.96L12 2.5z" />
+  </svg>
+);
+
 const BookReviews = ({ bookId }: BookReviewsProps) => {
+  const shouldReduceMotion = useReducedMotion();
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
   const [hovered, setHovered] = useState(0);
   const [selected, setSelected] = useState(0);
-  const [reviews, setReviews] = useState(dummyReviews);
+  const [reviews, setReviews] = useState<Review[]>(dummyReviews);
   const [comment, setComment] = useState("");
-  const [expandedComments, setExpandedComments] = useState<number[]>([]);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const maxCommentLength = 300;
-
+  const [expandedComments, setExpandedComments] = useState<
+    (string | number)[]
+  >([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const averageRating =
+    reviews.length > 0
+      ? reviews.reduce((acc, review) => acc + review.rating, 0) /
+      reviews.length
+      : 0;
+
+  const handleCommentChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const value = e.target.value;
-    if (value.length > maxCommentLength) return;
+
+    if (value.length > MAX_COMMENT_LENGTH) return;
 
     setComment(value);
 
-    const el = textareaRef.current;
-    if (!el) return;
+    const textarea = textareaRef.current;
+    if (!textarea) return;
 
-    el.style.height = "auto";
+    textarea.style.height = "auto";
 
-    if (el.scrollHeight > MAX_HEIGHT) {
-      el.style.height = `${MAX_HEIGHT}px`;
-      el.style.overflowY = "auto";
+    if (textarea.scrollHeight > MAX_HEIGHT) {
+      textarea.style.height = `${MAX_HEIGHT}px`;
+      textarea.style.overflowY = "auto";
     } else {
-      el.style.height = `${el.scrollHeight}px`;
-      el.style.overflowY = "hidden";
+      textarea.style.height = `${textarea.scrollHeight}px`;
+      textarea.style.overflowY = "hidden";
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const resetForm = () => {
+    setSelected(0);
+    setHovered(0);
+    setComment("");
+
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.overflowY = "hidden";
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!selected || !comment.trim()) {
@@ -63,9 +137,11 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
       return;
     }
 
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
 
-    const postData = async () => {
+    try {
       const obj = {
         apiRoute: Axios_Route.addReview,
         data: {
@@ -83,163 +159,405 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
         body: JSON.stringify(obj),
       });
 
-      return response.json();
-    };
+      const res = await response.json();
 
-    postData()
-      .then((res) => {
-        if (res) {
-          showToast("Review submitted successfully", "success");
-
-          setSelected(0);
-          setHovered(0);
-          setComment("");
-          setReviews(res.data);
-
-          if (textareaRef.current) {
-            textareaRef.current.style.height = "auto";
-            textareaRef.current.style.overflowY = "hidden";
-          }
-        } else {
-          showToast(
-            res.response?.message ||
-            res.response?.detail ||
-            "Failed to submit review",
-            "error"
-          );
-        }
-      })
-      .catch((err) => {
-        console.error(err);
+      if (
+        !response.ok ||
+        res?.response?.message ||
+        res?.success === false
+      ) {
         showToast(
-          err instanceof Error ? err.message : "Failed to submit review",
+          res?.response?.message ||
+          res?.response?.detail ||
+          res?.message ||
+          "Failed to submit review",
           "error"
         );
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+        return;
+      }
+
+      showToast("Review submitted successfully", "success");
+
+      if (Array.isArray(res?.data)) {
+        setReviews(res.data);
+      } else if (res?.data && typeof res.data === "object") {
+        const createdReview = res.data as Partial<Review>;
+
+        if (
+          createdReview.comment &&
+          typeof createdReview.rating === "number"
+        ) {
+          // Add the returned review here if the API response
+          // includes the reviewer's name and identifier.
+        }
+      }
+
+      resetForm();
+    } catch (error) {
+      console.error("Failed to submit review:", error);
+
+      showToast(
+        error instanceof Error
+          ? error.message
+          : "Failed to submit review",
+        "error"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const averageRating =
-    reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length || 0;
+  const toggleExpanded = (id: string | number) => {
+    setExpandedComments((previous) =>
+      previous.includes(id)
+        ? previous.filter((item) => item !== id)
+        : [...previous, id]
+    );
+  };
+
+  const panelClass =
+    "rounded-2xl border border-[#E7C9A5]/15 bg-[#171614] dark:border-[#B88A4B]/25 dark:bg-[#F8F2E6]";
+
+  const headingClass =
+    "text-lg font-semibold tracking-tight text-[#F8F2E6] dark:text-[#17130F] md:text-2xl";
+
+  const secondaryTextClass = "text-stone-400 dark:text-[#75634E]";
+
+  const accentTextClass =
+    "text-[#E7C9A5] dark:text-[#A87938]";
+
+  const dividerClass =
+    "border-[#E7C9A5]/15 dark:border-[#B88A4B]/25";
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-8 mt-8">
-      {/* Average Rating */}
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-1">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <svg
-              key={i}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill={i <= Math.round(averageRating) ? "#E7C9A5" : "none"}
-              stroke={i <= Math.round(averageRating) ? "#E7C9A5" : "#888888"}
-              strokeWidth={2}
-              className="w-5 h-5"
-            >
-              <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21z" />
-            </svg>
-          ))}
-        </div>
-        <p className="text-sm md:text-base text-gray-300 dark:text-gray-900">
-          {averageRating.toFixed(1)} / 5 ({reviews.length} reviews)
-        </p>
-      </div>
+    <div className="mx-auto mt-6 flex w-full max-w-[1200px] flex-col gap-7 sm:gap-9">
+      {/* Rating overview */}
+      <motion.section
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{
+          duration: shouldReduceMotion ? 0 : 0.4,
+          ease: "easeOut",
+        }}
+        className={`${panelClass} relative overflow-hidden p-5 sm:p-7`}
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#E7C9A5]/[0.07] blur-3xl dark:bg-[#A87938]/[0.12]"
+        />
 
-      {/* User Rating Form */}
-      <div className="w-full flex flex-col gap-4 p-4 rounded-lg border-2 border-primary dark:border-[#7a6233]">
-        <div className="h-8 flex items-center gap-2">
-          <p className="text-xs md:text-base text-white dark:text-gray-900">What do you rate?</p>
-          <p className="text-lg md:text-2xl text-primary dark:text-[#7a6233]">
-            {ratingLabels[hovered || selected]}
+        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-2">
+            <p className={`text-xs font-medium uppercase tracking-[0.18em] ${secondaryTextClass}`}>
+              Community rating
+            </p>
+
+            <div className="flex items-end gap-2">
+              <span className="text-4xl font-semibold tracking-tight text-[#F8F2E6] dark:text-[#17130F]">
+                {averageRating.toFixed(1)}
+              </span>
+              <span className={`mb-1 text-sm ${secondaryTextClass}`}>
+                / 5.0
+              </span>
+            </div>
+
+            <p className={`text-sm ${secondaryTextClass}`}>
+              Based on {reviews.length}{" "}
+              {reviews.length === 1 ? "review" : "reviews"}
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-2 sm:items-end">
+            <div className="flex items-center gap-1">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star
+                  key={i}
+                  filled={i <= Math.round(averageRating)}
+                  size="h-6 w-6 sm:h-7 sm:w-7"
+                />
+              ))}
+            </div>
+
+            <p className={`text-xs ${secondaryTextClass}`}>
+              What did you think of this book?
+            </p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Review form */}
+      <motion.section
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{
+          duration: shouldReduceMotion ? 0 : 0.45,
+          ease: "easeOut",
+        }}
+        className={`${panelClass} flex flex-col gap-5 p-4 sm:p-7`}
+      >
+        <div className="flex flex-col gap-1.5">
+          <p className={`text-xs font-medium uppercase tracking-[0.18em] ${accentTextClass}`}>
+            Your opinion matters
+          </p>
+          <h3 className={headingClass}>Write a review</h3>
+          <p className={`text-sm leading-6 ${secondaryTextClass}`}>
+            Tell other readers what you liked or what could be better.
           </p>
         </div>
 
-        <div className="flex gap-2 self-end">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <svg
-              key={i}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill={hovered >= i || selected >= i ? "#E7C9A5" : "none"}
-              stroke={hovered >= i || selected >= i ? "#E7C9A5" : "#888888"}
-              strokeWidth={2}
-              className="w-6 h-6 cursor-pointer dark:stroke-gray-600 dark:hover:fill-gold200"
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(0)}
-              onClick={() => setSelected(i)}
-            >
-              <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21z" />
-            </svg>
-          ))}
+        {/* Interactive rating */}
+        <div className="flex flex-col gap-3 rounded-xl border border-[#E7C9A5]/15 bg-white/[0.02] p-4 dark:border-[#B88A4B]/25 dark:bg-[#A87938]/[0.06] sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-h-10 flex-col justify-center gap-1">
+            <span className={`text-xs ${secondaryTextClass}`}>
+              Your rating
+            </span>
+
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.p
+                key={hovered || selected}
+                initial={
+                  shouldReduceMotion ? false : { opacity: 0, y: 4 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                exit={
+                  shouldReduceMotion
+                    ? undefined
+                    : { opacity: 0, y: -4 }
+                }
+                transition={{
+                  duration: shouldReduceMotion ? 0 : 0.15,
+                }}
+                className={`text-sm font-semibold ${accentTextClass}`}
+              >
+                {ratingLabels[hovered || selected] || "Select a rating"}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          <div
+            className="flex items-center gap-1 self-start sm:self-auto"
+            onMouseLeave={() => setHovered(0)}
+            onBlur={(event) => {
+              if (
+                !event.currentTarget.contains(
+                  event.relatedTarget as Node | null
+                )
+              ) {
+                setHovered(0);
+              }
+            }}
+            role="group"
+            aria-label="Choose a rating from one to five stars"
+          >
+            {[1, 2, 3, 4, 5].map((i) => {
+              const active = (hovered || selected) >= i;
+
+              return (
+                <motion.button
+                  key={i}
+                  type="button"
+                  aria-label={`${i} out of 5 stars`}
+                  aria-pressed={selected === i}
+                  onMouseEnter={() => setHovered(i)}
+                  onFocus={() => setHovered(i)}
+                  onClick={() => setSelected(i)}
+                  whileHover={
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: 1.12, y: -2 }
+                  }
+                  whileTap={
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: 0.9 }
+                  }
+                  className="rounded-md p-0.5 outline-none focus-visible:ring-2 focus-visible:ring-[#E7C9A5] dark:focus-visible:ring-[#A87938]"
+                >
+                  <Star
+                    filled={active}
+                    size="h-7 w-7 sm:h-8 sm:w-8"
+                  />
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <label
+            htmlFor="book-review-comment"
+            className="text-sm font-medium text-[#F8F2E6] dark:text-[#17130F]"
+          >
+            Your review
+          </label>
+
           <textarea
+            id="book-review-comment"
             ref={textareaRef}
             rows={1}
             value={comment}
             onChange={handleCommentChange}
-            placeholder="Write your review..."
-            className="w-full border rounded-lg px-3 py-2 sm:px-4 sm:py-3
-             focus:outline-none focus:ring-2 border dark:border-gray-300 border-gray-700border dark:border-gray-300 border-gray-700
-             dark:bg-light-600 bg-dark-400
-             !text-white dark:!text-gray-900 text-sm sm:text-base
-             resize-none overflow-hidden leading-[24px] scroll-gray"
+            maxLength={MAX_COMMENT_LENGTH}
+            placeholder="Share your thoughts about this book..."
+            disabled={isSubmitting}
+            className="
+                            min-h-12 w-full resize-none overflow-hidden rounded-xl
+                            border border-[#E7C9A5]/20 bg-[#0D0D0C] px-4 py-3
+                            text-sm leading-6 text-[#F8F2E6]
+                            placeholder:text-stone-500
+                            outline-none transition-all duration-200
+                            focus:border-[#E7C9A5]/70 focus:ring-2 focus:ring-[#E7C9A5]/10
+                            disabled:cursor-not-allowed disabled:opacity-60
+                            dark:border-[#B88A4B]/30 dark:bg-white/60
+                            dark:text-[#17130F] dark:placeholder:text-[#8C7962]
+                            dark:focus:border-[#A87938]/70 dark:focus:ring-[#A87938]/10
+                        "
           />
-          <p className="text-xs text-gray-400 self-start">
-            {comment.length} / {maxCommentLength}
-          </p>
-          <CustomButton
-            type="submit"
-            color="yellow"
-            text="Submit"
-            containerClassName="cursor-pointer w-full md:w-fit self-end mt-3 md:mt-0"
-            loading={isSubmitting}
-          />
-        </form>
-      </div>
 
-      {/* Reviews List */}
-      <div className="flex flex-col gap-4">
-        <h3 className="text-lg md:text-2xl font-semibold text-light-100 dark:text-gray-900">
-          Reviews
-        </h3>
+          <div className="flex items-center justify-between gap-3">
+            <p className={`text-xs ${secondaryTextClass}`}>
+              Maximum {MAX_COMMENT_LENGTH} characters
+            </p>
 
-        {reviews.map((r) => (
-          <div
-            key={r.id}
-            className="p-4 rounded-lg border dark:border-gray-300 border-gray-700 dark:bg-white bg-gray-800"
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <p className="font-semibold text-sm md:text-base text-primary dark:text-[#7a6233]">{r.name}</p>
-              <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <svg
-                    key={i}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill={i <= r.rating ? "#E7C9A5" : "none"}
-                    stroke={i <= r.rating ? "#E7C9A5" : "#888888"}
-                    strokeWidth={2}
-                    className="w-3 h-3"
-                  >
-                    <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21z" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-
-            <p className="text-sm md:text-base text-light-100 dark:text-gray-800">
-              {r.comment.length > 150 && !expandedComments.includes(r.id)
-                ? r.comment.slice(0, 150) + "..."
-                : r.comment}
+            <p
+              aria-live="polite"
+              className={`text-xs tabular-nums ${comment.length >= MAX_COMMENT_LENGTH
+                  ? "text-amber-400 dark:text-[#8B642D]"
+                  : secondaryTextClass
+                }`}
+            >
+              {comment.length}/{MAX_COMMENT_LENGTH}
             </p>
           </div>
-        ))}
-      </div>
+
+          <div className={`mt-2 flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center sm:justify-between ${dividerClass}`}>
+            <p className={`text-xs leading-5 ${secondaryTextClass}`}>
+              Please keep your review helpful and respectful.
+            </p>
+
+            <CustomButton
+              type="submit"
+              color="yellow"
+              text={isSubmitting ? "Submitting..." : "Submit review"}
+              containerClassName="w-full cursor-pointer sm:w-auto sm:min-w-[150px]"
+              loading={isSubmitting}
+            />
+          </div>
+        </form>
+      </motion.section>
+
+      {/* Reviews list */}
+      <section className="flex flex-col gap-5">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-col gap-1.5">
+            <p className={`text-xs font-medium uppercase tracking-[0.18em] ${accentTextClass}`}>
+              Reader feedback
+            </p>
+            <h3 className={headingClass}>Reviews</h3>
+          </div>
+
+          <span className="rounded-full border border-[#E7C9A5]/25 bg-[#E7C9A5]/10 px-3 py-1.5 text-xs font-medium text-[#E7C9A5] dark:border-[#B88A4B]/30 dark:bg-[#A87938]/10 dark:text-[#8B642D]">
+            {reviews.length} total
+          </span>
+        </div>
+
+        {reviews.length > 0 ? (
+          <div className="flex flex-col gap-3">
+            {reviews.map((review, index) => {
+              const isExpanded = expandedComments.includes(review.id);
+              const isLong = review.comment.length > 150;
+
+              return (
+                <motion.article
+                  key={review.id}
+                  initial={
+                    shouldReduceMotion
+                      ? false
+                      : { opacity: 0, y: 10 }
+                  }
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.35,
+                    delay: shouldReduceMotion
+                      ? 0
+                      : Math.min(index * 0.05, 0.2),
+                  }}
+                  className="
+                                        group rounded-2xl border border-[#E7C9A5]/15
+                                        bg-[#171614] p-4 transition-colors duration-300
+                                        hover:border-[#E7C9A5]/40
+                                        dark:border-[#B88A4B]/25 dark:bg-[#F8F2E6]
+                                        dark:hover:border-[#A87938]/50
+                                        sm:p-5
+                                    "
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#E7C9A5]/25 bg-[#E7C9A5]/10 text-sm font-semibold text-[#E7C9A5] dark:border-[#B88A4B]/30 dark:bg-[#A87938]/10 dark:text-[#8B642D]">
+                      {(review.name || "R").charAt(0).toUpperCase()}
+                    </div>
+
+                    <div className="flex min-w-0 flex-1 flex-col gap-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="truncate text-sm font-semibold text-[#F8F2E6] dark:text-[#17130F] sm:text-base">
+                          {review.name}
+                        </p>
+
+                        <div
+                          className="flex items-center gap-0.5"
+                          aria-label={`${review.rating} out of 5 stars`}
+                        >
+                          {[1, 2, 3, 4, 5].map((i) => (
+                            <Star
+                              key={i}
+                              filled={i <= review.rating}
+                              size="h-3.5 w-3.5"
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <p className="whitespace-pre-line break-words text-sm leading-7 text-stone-300 dark:text-[#40372B]">
+                          {isLong && !isExpanded
+                            ? `${review.comment.slice(0, 150).trimEnd()}...`
+                            : review.comment}
+                        </p>
+
+                        {isLong && (
+                          <button
+                            type="button"
+                            onClick={() => toggleExpanded(review.id)}
+                            className="mt-2 text-xs font-semibold text-[#E7C9A5] transition-colors hover:text-white focus-visible:outline-none focus-visible:underline dark:text-[#8B642D] dark:hover:text-[#6F4D21]"
+                          >
+                            {isExpanded ? "Show less" : "Read more"}
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={`${panelClass} flex flex-col items-center gap-3 px-5 py-10 text-center`}>
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E7C9A5]/15 bg-[#E7C9A5]/10 dark:border-[#B88A4B]/25 dark:bg-[#A87938]/10">
+              <Star filled size="h-7 w-7" />
+            </div>
+
+            <h4 className="text-base font-semibold text-[#F8F2E6] dark:text-[#17130F]">
+              No reviews yet
+            </h4>
+
+            <p className={`max-w-sm text-sm leading-6 ${secondaryTextClass}`}>
+              Be the first to share your thoughts about this book.
+            </p>
+          </div>
+        )}
+      </section>
     </div>
   );
 };

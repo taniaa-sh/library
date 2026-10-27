@@ -612,3 +612,13 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+.similar-books-swiper .swiper-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.similar-books-swiper .swiper-slide {
+    flex-shrink: 0;
+    height: auto;
+}

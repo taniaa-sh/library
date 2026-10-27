@@ -66,17 +66,17 @@ const FlipBookPreview = () => {
     flipBookRef.current?.pageFlip().flipPrev();
   }
 
-const handleDownloadPdf = async () => {
-  try {
-    setLoading(true);
+  const handleDownloadPdf = async () => {
+    try {
+      setLoading(true);
 
-    await new Promise(res => setTimeout(res, 3000));
+      await new Promise(res => setTimeout(res, 3000));
 
-    showToast("PDF downloaded successfully", "success");
-  } finally {
-    setLoading(false);
-  }
-};
+      showToast("PDF downloaded successfully", "success");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loadPdfAsImages = async (pdfUrl: string) => {
     setIsLoadingPdf(true);
@@ -155,16 +155,7 @@ const handleDownloadPdf = async () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                whileHover={
-                  isMdUp
-                    ? {
-                      scale: 1.08,
-                      textShadow: "0px 0px 12px rgba(255,255,255,0.9)",
-                      boxShadow: "0px 0px 20px rgba(14, 165, 233,0.6)",
-                    }
-                    : {}
-                }
-                className={`flex flex-col items-center justify-center text-white text-center text-lg font-semibold space-y-1 px-4 py-3 rounded-xl absolute inset-0  ${isMdUp ? "backdrop-blur-md shadow-lg shadow-purple-500/40 z-20" : ""}`}
+                className={`flex flex-col items-center justify-center text-white text-center text-lg font-semibold space-y-1 px-4 py-3 rounded-xl absolute inset-0`}
               >
                 <motion.p whileHover={{ scale: 1.1 }}>Click</motion.p>
                 <motion.p whileHover={{ scale: 1.1 }}>here</motion.p>
@@ -179,82 +170,110 @@ const handleDownloadPdf = async () => {
         {/* Open Book */}
         {showOpenBook && (
           <div className="flex flex-col items-center mt-10 w-full">
-            <div className="max-w-[680px] w-full flex justify-center overflow-hidden">
-              <HTMLFlipBook
-                key={isMobile ? "mobile" : "desktop"}
-                ref={flipBookRef as any}
-                width={bookWidth}
-                height={bookHeight}
-                size={isMobile ? "fixed" : "stretch"}
-                autoSize={!isMobile}
-                usePortrait={isMobile}
-                showCover={isMobile}
-                drawShadow={!isMobile}
-                showPageCorners={!isMobile}
-                clickEventForward
-                swipeDistance={30}
-                mobileScrollSupport
-                style={{}}
-                startPage={0}
-                minWidth={0}
-                maxWidth={0}
-                minHeight={0}
-                maxHeight={0}
-                maxShadowOpacity={0.5}
-                flippingTime={700}
-                startZIndex={0}
-                useMouseEvents={true}
-                disableFlipByClick={false}
-                className="!shadow-2xl"
-              >
-                {
-                  pages.map((pageBase64, index) => (
-                    <FlipPage
-                      key={index}
-                      number={index + 1}
-                      imageSrc={pageBase64}
+            {isLoadingPdf ? (
+              <div className="flex flex-col items-center justify-center gap-5 w-full min-h-[300px] md:min-h-[450px] rounded-2xl border border-[#A87938]/20 bg-[#171614] dark:bg-[#FBF7EF] transition-colors duration-300">
+                <div className="relative w-14 h-14">
+                  <div className="absolute inset-0 rounded-full border-4 border-[#E7C9A5]/30" />
+                  <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#A87938] dark:border-t-[#E7C9A5] animate-spin" />
+                </div>
+
+                <div className="flex flex-col items-center gap-2">
+                  <p className="text-sm font-semibold text-[#75634E] dark:text-[#E7C9A5]">
+                    Preparing your book...
+                  </p>
+                  <p className="text-xs text-[#9A8975] dark:text-[#B8AA96]">
+                    Please wait while the pages are loading
+                  </p>
+                </div>
+
+                <div className="flex gap-1.5">
+                  {[0, 1, 2].map((item) => (
+                    <span
+                      key={item}
+                      className="w-2 h-2 rounded-full bg-[#A87938] dark:bg-[#E7C9A5] animate-bounce"
+                      style={{ animationDelay: `${item * 150}ms` }}
                     />
-                  ))
-                }
-              </HTMLFlipBook>
-            </div>
-            <div className="flex mt-6 gap-4 flex-wrap justify-center">
-              <CustomButton
-                color="yellow"
-                text=""
-                iconAddress={imagesAddresses.icons.back}
-                iconPosition="center"
-                onClick={goPrevPage}
-                containerClassName="cursor-pointer dark:hidden"
-              />
-              <CustomButton
-                color="yellow"
-                text=""
-                iconAddress={imagesAddresses.icons.backWhite}
-                iconPosition="center"
-                onClick={goPrevPage}
-                containerClassName="cursor-pointer hidden dark:block"
-              />
-              <CustomButton
-                color="yellow"
-                text=""
-                iconAddress={imagesAddresses.icons.next}
-                iconPosition="center"
-                onClick={goNextPage}
-                containerClassName="cursor-pointer dark:hidden"
-              />
-              <CustomButton
-                color="yellow"
-                text=""
-                iconAddress={imagesAddresses.icons.nextWhite}
-                iconPosition="center"
-                onClick={goNextPage}
-                containerClassName="cursor-pointer dark:block hidden"
-              />
-            </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="max-w-[680px] w-full flex justify-center overflow-hidden">
+                  <HTMLFlipBook
+                    key={isMobile ? "mobile" : "desktop"}
+                    ref={flipBookRef as any}
+                    width={bookWidth}
+                    height={bookHeight}
+                    size={isMobile ? "fixed" : "stretch"}
+                    autoSize={!isMobile}
+                    usePortrait={isMobile}
+                    showCover={isMobile}
+                    drawShadow={!isMobile}
+                    showPageCorners={!isMobile}
+                    clickEventForward
+                    swipeDistance={30}
+                    mobileScrollSupport
+                    style={{}}
+                    startPage={0}
+                    minWidth={0}
+                    maxWidth={0}
+                    minHeight={0}
+                    maxHeight={0}
+                    maxShadowOpacity={0.5}
+                    flippingTime={700}
+                    startZIndex={0}
+                    useMouseEvents={true}
+                    disableFlipByClick={false}
+                    className="!shadow-2xl"
+                  >
+                    {pages.map((pageBase64, index) => (
+                      <FlipPage
+                        key={index}
+                        number={index + 1}
+                        imageSrc={pageBase64}
+                      />
+                    ))}
+                  </HTMLFlipBook>
+                </div>
+
+                <div className="flex mt-6 gap-4 flex-wrap justify-center">
+                  <CustomButton
+                    color="yellow"
+                    text=""
+                    iconAddress={imagesAddresses.icons.back}
+                    iconPosition="center"
+                    onClick={goPrevPage}
+                    containerClassName="cursor-pointer dark:hidden"
+                  />
+                  <CustomButton
+                    color="yellow"
+                    text=""
+                    iconAddress={imagesAddresses.icons.backWhite}
+                    iconPosition="center"
+                    onClick={goPrevPage}
+                    containerClassName="cursor-pointer hidden dark:block"
+                  />
+                  <CustomButton
+                    color="yellow"
+                    text=""
+                    iconAddress={imagesAddresses.icons.next}
+                    iconPosition="center"
+                    onClick={goNextPage}
+                    containerClassName="cursor-pointer dark:hidden"
+                  />
+                  <CustomButton
+                    color="yellow"
+                    text=""
+                    iconAddress={imagesAddresses.icons.nextWhite}
+                    iconPosition="center"
+                    onClick={goNextPage}
+                    containerClassName="cursor-pointer dark:block hidden"
+                  />
+                </div>
+              </>
+            )}
           </div>
         )}
-
         <div className="flex gap-3 mt-14 self-end flex-wrap">
           <CustomButton
             color="yellow"

@@ -15,7 +15,7 @@ export const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
     return (
       <div
         ref={ref}
-        className="flex flex-col bg-gray-800 dark:bg-gray-300 w-full md:p-6 px-10 py-2 rounded-md relative !max-h-[450px]"
+        className="flex flex-col bg-[#433313] dark:bg-[#f4dfb5] w-full md:p-6 px-10 py-2 rounded-md relative !max-h-[450px]"
       >
         {/* Header */}
         <div className="text-center mb-2 md:mb-4">
@@ -31,7 +31,7 @@ export const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
             <img
               src={`data:image/png;base64,${imageSrc}`}
               alt={`Page ${number}`}
-              className="w-full h-[350px] md:h-[340px] object-center rounded-sm"
+              className="w-full h-[340px] lg:h-[300px] object-center rounded-sm lg:-mt-5"
               sizes="(max-width: 768px), (max-width: 1200px)"
             />
           </div>
