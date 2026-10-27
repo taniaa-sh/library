@@ -31,8 +31,11 @@ export default function PopularBookSlider({
                 autoplay={{ delay: 2200, disableOnInteraction: false }}
                 loop
             >
-                {data.map((popularBook, idx) => (
-                    <SwiperSlide key={idx} className="flex justify-center">
+                {data.map((popularBook) => (
+                    <SwiperSlide
+                        key={popularBook.id}
+                        className="flex justify-center"
+                    >
                         <div
                             onClick={() =>
                                 router.push(
@@ -40,44 +43,47 @@ export default function PopularBookSlider({
                                 )
                             }
                             className="
-                                group w-full max-w-[150px] sm:max-w-[170px] md:max-w-[190px]
-                                cursor-pointer rounded-2xl p-3 transition-all duration-300 hover:-translate-y-1
-                                bg-gradient-to-b from-[#0f0f0f] to-[#181818]
-                                border border-white/5
-                                shadow-[0_10px_30px_rgba(0,0,0,0.6)]
-                                hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]
-                                dark:bg-gradient-to-b dark:from-white dark:to-gray-100
-                                dark:border-gray-200
-                                dark:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
-                                dark:hover:shadow-[0_14px_30px_rgba(0,0,0,0.12)]
+                                group w-full max-w-[150px] cursor-pointer
+                                rounded-2xl border border-[#E7C9A5]/30
+                                bg-gradient-to-b from-[#171613] to-[#0D0D0C]
+                                p-3 shadow-[0_10px_30px_rgba(0,0,0,0.25)]
+                                transition-all duration-300
+                                hover:-translate-y-1
+                                hover:border-[#E7C9A5]/80
+                                hover:shadow-[0_15px_35px_rgba(231,201,165,0.12)]
+                                sm:max-w-[170px] md:max-w-[190px]
+                                dark:border-[#B88A4B]/30
+                                dark:bg-gradient-to-b dark:from-white dark:to-[#F8F2E6]
+                                dark:shadow-[0_8px_20px_rgba(117,99,78,0.08)]
+                                dark:hover:border-[#B88A4B]/80
+                                dark:hover:shadow-[0_14px_30px_rgba(184,138,75,0.16)]
                             "
                         >
+                            {/* Book Cover */}
                             <div className="relative flex justify-center">
                                 <Image
                                     src={popularBook.coverUrl}
                                     alt={popularBook.title}
                                     width={180}
                                     height={260}
-                                    className="w-[110px] h-[155px] sm:w-[130px] sm:h-[185px] md:w-[150px] md:h-[210px] object-cover rounded-xl shadow-xl !-ml-8 md:!-ml-10"
+                                    className="h-[155px] w-[110px] rounded-xl object-cover !-ml-8 sm:h-[185px] sm:w-[130px] md:h-[210px] md:w-[150px] md:!-ml-10"
                                 />
-                                <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/80 via-black/30 to-transparent dark:from-gray-300/40 dark:via-gray-100/10" />
                             </div>
 
-                            <div className="mt-3 h-[92px] flex flex-col justify-between text-start">
+                            {/* Book Information */}
+                            <div className="mt-3 flex h-[92px] flex-col justify-between text-start">
                                 <div>
-                                    {/* Title */}
-                                    <p className="text-[12px] sm:text-sm font-semibold leading-5 line-clamp-2 min-h-[40px] transition-colors text-white group-hover:text-[#d4af37] dark:text-gray-900 dark:group-hover:text-amber-600">
+                                    <p className="line-clamp-2 min-h-[40px] text-[12px] font-semibold leading-5 text-white transition-colors duration-300 group-hover:text-[#E7C9A5] sm:text-sm dark:text-[#17130F] dark:group-hover:text-[#A87938]">
                                         {popularBook.title}
                                     </p>
 
-                                    {/* Author */}
-                                    <p className="mt-1 text-[11px] italic truncate text-gray-400 dark:text-gray-500">
+                                    <p className="mt-1 truncate text-[11px] italic text-stone-400 dark:text-[#75634E]">
                                         by {popularBook.author}
                                     </p>
                                 </div>
 
                                 {/* Genre */}
-                                <span className="inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 dark:bg-amber-100 dark:text-amber-700 dark:border-amber-200">
+                                <span className="inline-block w-fit max-w-full truncate rounded-full border border-[#E7C9A5]/70 bg-[#E7C9A5]/10 px-2.5 py-0.5 text-[10px] font-semibold text-[#E7C9A5] dark:border-[#B88A4B]/70 dark:bg-[#B88A4B]/10 dark:text-[#A87938]">
                                     {popularBook.genre}
                                 </span>
                             </div>
