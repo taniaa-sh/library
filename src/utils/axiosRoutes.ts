@@ -8,4 +8,5 @@ export const Axios_Route = {
     deleteBook: 'api/allBook/deleteBook',
     updateBook: 'api/allBook/updateBook',
     addReview: '/api/review/addReview',
+    getAllReviews: '/api/review/getAll',
 };

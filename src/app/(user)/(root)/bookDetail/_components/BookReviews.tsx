@@ -1,11 +1,14 @@
+
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import CustomButton from "@/components/CustomButton";
 import showToast from "@/utils/toast";
 import { Axios_Route } from "@/utils/axiosRoutes";
 import { AxiosMethodEnum } from "@/utils/type";
+import { useRouter } from "next/navigation";
+import SiteUrls from "@/utils/routs";
 
 const ratingLabels = ["", "Terrible", "Bad", "Average", "Good", "Very Good"];
 
@@ -15,36 +18,24 @@ const MAX_HEIGHT = MAX_LINES * LINE_HEIGHT;
 const MAX_COMMENT_LENGTH = 300;
 
 interface Review {
-  id: string | number;
-  name: string;
+  _id: string;
+  bookId: string;
+  userId:
+  | {
+    _id: string;
+    fullName: string;
+  }
+  | string;
   rating: number;
   comment: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface BookReviewsProps {
   bookId: string;
+  data: Review[];
 }
-
-const dummyReviews: Review[] = [
-  {
-    id: 1,
-    name: "Tania",
-    rating: 5,
-    comment: "This book was amazing! Highly recommended.",
-  },
-  {
-    id: 2,
-    name: "Reza",
-    rating: 4,
-    comment: "Pretty good, but some parts felt a bit slow.",
-  },
-  {
-    id: 3,
-    name: "Sara",
-    rating: 3,
-    comment: "It was average, not bad but not great either.",
-  },
-];
 
 const Star = ({
   filled,
@@ -62,8 +53,8 @@ const Star = ({
     strokeLinecap="round"
     strokeLinejoin="round"
     className={`${size} shrink-0 transition-colors duration-200 ${filled
-        ? "text-[#E7C9A5] dark:text-[#A87938]"
-        : "text-stone-500 dark:text-[#9A856B]"
+      ? "text-[#E7C9A5] dark:text-[#A87938]"
+      : "text-stone-500 dark:text-[#9A856B]"
       }`}
     aria-hidden="true"
   >
@@ -71,23 +62,30 @@ const Star = ({
   </svg>
 );
 
-const BookReviews = ({ bookId }: BookReviewsProps) => {
+const BookReviews = ({ bookId, data }: BookReviewsProps) => {
+  const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const [hovered, setHovered] = useState(0);
   const [selected, setSelected] = useState(0);
-  const [reviews, setReviews] = useState<Review[]>(dummyReviews);
+  const [reviews, setReviews] = useState<Review[]>(data ?? []);
   const [comment, setComment] = useState("");
-  const [expandedComments, setExpandedComments] = useState<
-    (string | number)[]
-  >([]);
+  const [expandedComments, setExpandedComments] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    setReviews(data ?? []);
+  }, [data]);
+
+  const bookReviews = reviews.filter(
+    (review) => String(review.bookId) === String(bookId)
+  );
+
   const averageRating =
-    reviews.length > 0
-      ? reviews.reduce((acc, review) => acc + review.rating, 0) /
-      reviews.length
+    bookReviews.length > 0
+      ? bookReviews.reduce((total, review) => total + review.rating, 0) /
+      bookReviews.length
       : 0;
 
   const handleCommentChange = (
@@ -161,14 +159,17 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
 
       const res = await response.json();
 
+      const result = res?.response ?? res;
+
       if (
         !response.ok ||
-        res?.response?.message ||
-        res?.success === false
+        res?.success === false ||
+        result?.success === false ||
+        result?.error
       ) {
         showToast(
-          res?.response?.message ||
-          res?.response?.detail ||
+          result?.message ||
+          result?.detail ||
           res?.message ||
           "Failed to submit review",
           "error"
@@ -177,19 +178,42 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
       }
 
       showToast("Review submitted successfully", "success");
+      router.refresh();
 
-      if (Array.isArray(res?.data)) {
-        setReviews(res.data);
-      } else if (res?.data && typeof res.data === "object") {
-        const createdReview = res.data as Partial<Review>;
+      const createdReview = result?.data?.review ?? result?.data;
 
-        if (
-          createdReview.comment &&
-          typeof createdReview.rating === "number"
-        ) {
-          // Add the returned review here if the API response
-          // includes the reviewer's name and identifier.
-        }
+      if (Array.isArray(createdReview)) {
+        setReviews(createdReview);
+      } else if (createdReview?._id) {
+        setReviews((previous) => {
+          const existingIndex = previous.findIndex(
+            (review) =>
+              review._id === createdReview._id ||
+              (
+                String(review.bookId) === String(createdReview.bookId) &&
+                String(
+                  typeof review.userId === "object"
+                    ? review.userId?._id
+                    : review.userId
+                ) ===
+                String(
+                  typeof createdReview.userId === "object"
+                    ? createdReview.userId?._id
+                    : createdReview.userId
+                )
+              )
+          );
+
+          if (existingIndex !== -1) {
+            return previous.map((review, index) =>
+              index === existingIndex
+                ? (createdReview as Review)
+                : review
+            );
+          }
+
+          return [createdReview as Review, ...previous];
+        });
       }
 
       resetForm();
@@ -207,7 +231,7 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
     }
   };
 
-  const toggleExpanded = (id: string | number) => {
+  const toggleExpanded = (id: string) => {
     setExpandedComments((previous) =>
       previous.includes(id)
         ? previous.filter((item) => item !== id)
@@ -223,8 +247,7 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
 
   const secondaryTextClass = "text-stone-400 dark:text-[#75634E]";
 
-  const accentTextClass =
-    "text-[#E7C9A5] dark:text-[#A87938]";
+  const accentTextClass = "text-[#E7C9A5] dark:text-[#A87938]";
 
   const dividerClass =
     "border-[#E7C9A5]/15 dark:border-[#B88A4B]/25";
@@ -249,7 +272,9 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
 
         <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-2">
-            <p className={`text-xs font-medium uppercase tracking-[0.18em] ${secondaryTextClass}`}>
+            <p
+              className={`text-xs font-medium uppercase tracking-[0.18em] ${secondaryTextClass}`}
+            >
               Community rating
             </p>
 
@@ -263,8 +288,8 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
             </div>
 
             <p className={`text-sm ${secondaryTextClass}`}>
-              Based on {reviews.length}{" "}
-              {reviews.length === 1 ? "review" : "reviews"}
+              Based on {bookReviews.length}{" "}
+              {bookReviews.length === 1 ? "review" : "reviews"}
             </p>
           </div>
 
@@ -298,7 +323,9 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
         className={`${panelClass} flex flex-col gap-5 p-4 sm:p-7`}
       >
         <div className="flex flex-col gap-1.5">
-          <p className={`text-xs font-medium uppercase tracking-[0.18em] ${accentTextClass}`}>
+          <p
+            className={`text-xs font-medium uppercase tracking-[0.18em] ${accentTextClass}`}
+          >
             Your opinion matters
           </p>
           <h3 className={headingClass}>Write a review</h3>
@@ -317,14 +344,10 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
             <AnimatePresence mode="wait" initial={false}>
               <motion.p
                 key={hovered || selected}
-                initial={
-                  shouldReduceMotion ? false : { opacity: 0, y: 4 }
-                }
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={
-                  shouldReduceMotion
-                    ? undefined
-                    : { opacity: 0, y: -4 }
+                  shouldReduceMotion ? undefined : { opacity: 0, y: -4 }
                 }
                 transition={{
                   duration: shouldReduceMotion ? 0 : 0.15,
@@ -364,21 +387,14 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
                   onFocus={() => setHovered(i)}
                   onClick={() => setSelected(i)}
                   whileHover={
-                    shouldReduceMotion
-                      ? undefined
-                      : { scale: 1.12, y: -2 }
+                    shouldReduceMotion ? undefined : { scale: 1.12, y: -2 }
                   }
                   whileTap={
-                    shouldReduceMotion
-                      ? undefined
-                      : { scale: 0.9 }
+                    shouldReduceMotion ? undefined : { scale: 0.9 }
                   }
                   className="rounded-md p-0.5 outline-none focus-visible:ring-2 focus-visible:ring-[#E7C9A5] dark:focus-visible:ring-[#A87938]"
                 >
-                  <Star
-                    filled={active}
-                    size="h-7 w-7 sm:h-8 sm:w-8"
-                  />
+                  <Star filled={active} size="h-7 w-7 sm:h-8 sm:w-8" />
                 </motion.button>
               );
             })}
@@ -403,17 +419,17 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
             placeholder="Share your thoughts about this book..."
             disabled={isSubmitting}
             className="
-                            min-h-12 w-full resize-none overflow-hidden rounded-xl
-                            border border-[#E7C9A5]/20 bg-[#0D0D0C] px-4 py-3
-                            text-sm leading-6 text-[#F8F2E6]
-                            placeholder:text-stone-500
-                            outline-none transition-all duration-200
-                            focus:border-[#E7C9A5]/70 focus:ring-2 focus:ring-[#E7C9A5]/10
-                            disabled:cursor-not-allowed disabled:opacity-60
-                            dark:border-[#B88A4B]/30 dark:bg-white/60
-                            dark:text-[#17130F] dark:placeholder:text-[#8C7962]
-                            dark:focus:border-[#A87938]/70 dark:focus:ring-[#A87938]/10
-                        "
+              min-h-12 w-full resize-none overflow-hidden rounded-xl
+              border border-[#E7C9A5]/20 bg-[#0D0D0C] px-4 py-3
+              text-sm leading-6 text-[#F8F2E6]
+              placeholder:text-stone-500
+              outline-none transition-all duration-200
+              focus:border-[#E7C9A5]/70 focus:ring-2 focus:ring-[#E7C9A5]/10
+              disabled:cursor-not-allowed disabled:opacity-60
+              dark:border-[#B88A4B]/30 dark:bg-white/60
+              dark:text-[#17130F] dark:placeholder:text-[#8C7962]
+              dark:focus:border-[#A87938]/70 dark:focus:ring-[#A87938]/10
+            "
           />
 
           <div className="flex items-center justify-between gap-3">
@@ -424,15 +440,17 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
             <p
               aria-live="polite"
               className={`text-xs tabular-nums ${comment.length >= MAX_COMMENT_LENGTH
-                  ? "text-amber-400 dark:text-[#8B642D]"
-                  : secondaryTextClass
+                ? "text-amber-400 dark:text-[#8B642D]"
+                : secondaryTextClass
                 }`}
             >
               {comment.length}/{MAX_COMMENT_LENGTH}
             </p>
           </div>
 
-          <div className={`mt-2 flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center sm:justify-between ${dividerClass}`}>
+          <div
+            className={`mt-2 flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center sm:justify-between ${dividerClass}`}
+          >
             <p className={`text-xs leading-5 ${secondaryTextClass}`}>
               Please keep your review helpful and respectful.
             </p>
@@ -452,31 +470,35 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
       <section className="flex flex-col gap-5">
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-col gap-1.5">
-            <p className={`text-xs font-medium uppercase tracking-[0.18em] ${accentTextClass}`}>
+            <p
+              className={`text-xs font-medium uppercase tracking-[0.18em] ${accentTextClass}`}
+            >
               Reader feedback
             </p>
             <h3 className={headingClass}>Reviews</h3>
           </div>
 
           <span className="rounded-full border border-[#E7C9A5]/25 bg-[#E7C9A5]/10 px-3 py-1.5 text-xs font-medium text-[#E7C9A5] dark:border-[#B88A4B]/30 dark:bg-[#A87938]/10 dark:text-[#8B642D]">
-            {reviews.length} total
+            {bookReviews.length} total
           </span>
         </div>
 
-        {reviews.length > 0 ? (
+        {bookReviews.length > 0 ? (
           <div className="flex flex-col gap-3">
-            {reviews.map((review, index) => {
-              const isExpanded = expandedComments.includes(review.id);
+            {bookReviews.map((review, index) => {
+              const reviewId = review._id;
+              const reviewerName =
+                typeof review.userId === "object" && review.userId !== null
+                  ? review.userId.fullName
+                  : "Reader";
+
+              const isExpanded = expandedComments.includes(reviewId);
               const isLong = review.comment.length > 150;
 
               return (
                 <motion.article
-                  key={review.id}
-                  initial={
-                    shouldReduceMotion
-                      ? false
-                      : { opacity: 0, y: 10 }
-                  }
+                  key={reviewId}
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
                   transition={{
@@ -486,24 +508,39 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
                       : Math.min(index * 0.05, 0.2),
                   }}
                   className="
-                                        group rounded-2xl border border-[#E7C9A5]/15
-                                        bg-[#171614] p-4 transition-colors duration-300
-                                        hover:border-[#E7C9A5]/40
-                                        dark:border-[#B88A4B]/25 dark:bg-[#F8F2E6]
-                                        dark:hover:border-[#A87938]/50
-                                        sm:p-5
-                                    "
+                    group rounded-2xl border border-[#E7C9A5]/15
+                    bg-[#171614] p-4 transition-colors duration-300
+                    hover:border-[#E7C9A5]/40
+                    dark:border-[#B88A4B]/25 dark:bg-[#F8F2E6]
+                    dark:hover:border-[#A87938]/50
+                    sm:p-5
+                  "
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#E7C9A5]/25 bg-[#E7C9A5]/10 text-sm font-semibold text-[#E7C9A5] dark:border-[#B88A4B]/30 dark:bg-[#A87938]/10 dark:text-[#8B642D]">
-                      {(review.name || "R").charAt(0).toUpperCase()}
+                      {(reviewerName || "R").charAt(0).toUpperCase()}
                     </div>
 
                     <div className="flex min-w-0 flex-1 flex-col gap-2">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="truncate text-sm font-semibold text-[#F8F2E6] dark:text-[#17130F] sm:text-base">
-                          {review.name}
-                        </p>
+                        <div className="flex min-w-0 flex-col gap-1">
+                          <p className="truncate text-sm font-semibold text-[#F8F2E6] dark:text-[#17130F] sm:text-base">
+                            {reviewerName}
+                          </p>
+
+                          {review.createdAt && (
+                            <p className={`text-xs ${secondaryTextClass}`}>
+                              {new Date(review.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                }
+                              )}
+                            </p>
+                          )}
+                        </div>
 
                         <div
                           className="flex items-center gap-0.5"
@@ -529,7 +566,7 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
                         {isLong && (
                           <button
                             type="button"
-                            onClick={() => toggleExpanded(review.id)}
+                            onClick={() => toggleExpanded(reviewId)}
                             className="mt-2 text-xs font-semibold text-[#E7C9A5] transition-colors hover:text-white focus-visible:outline-none focus-visible:underline dark:text-[#8B642D] dark:hover:text-[#6F4D21]"
                           >
                             {isExpanded ? "Show less" : "Read more"}
@@ -543,7 +580,9 @@ const BookReviews = ({ bookId }: BookReviewsProps) => {
             })}
           </div>
         ) : (
-          <div className={`${panelClass} flex flex-col items-center gap-3 px-5 py-10 text-center`}>
+          <div
+            className={`${panelClass} flex flex-col items-center gap-3 px-5 py-10 text-center`}
+          >
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E7C9A5]/15 bg-[#E7C9A5]/10 dark:border-[#B88A4B]/25 dark:bg-[#A87938]/10">
               <Star filled size="h-7 w-7" />
             </div>

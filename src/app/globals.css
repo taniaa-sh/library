@@ -561,19 +561,25 @@ button {
 }
 
 @keyframes float-book {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) rotate(-2deg);
   }
+
   50% {
     transform: translateY(-12px) rotate(2deg);
   }
 }
 
 @keyframes ambient-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.25;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.55;
     transform: scale(1.12);
@@ -584,6 +590,7 @@ button {
   0% {
     background-position: -200% center;
   }
+
   100% {
     background-position: 200% center;
   }
@@ -603,6 +610,7 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -614,11 +622,57 @@ button {
 }
 
 .similar-books-swiper .swiper-wrapper {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .similar-books-swiper .swiper-slide {
-    flex-shrink: 0;
-    height: auto;
+  flex-shrink: 0;
+  height: auto;
+}
+
+.bookwise-range {
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.bookwise-range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e7c9a5;
+  border: 2px solid #171614;
+  box-shadow: 0 0 0 3px rgba(231, 201, 165, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.bookwise-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e7c9a5;
+  border: 2px solid #171614;
+  box-shadow: 0 0 0 3px rgba(231, 201, 165, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.bookwise-range:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+.bookwise-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(231, 201, 165, 0.25);
+}
+
+.dark .bookwise-range::-webkit-slider-thumb {
+  background: #a87938;
+  border-color: #fbf7ef;
+}
+
+.dark .bookwise-range::-moz-range-thumb {
+  background: #a87938;
+  border-color: #fbf7ef;
 }
