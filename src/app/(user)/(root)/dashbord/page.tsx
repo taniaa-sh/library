@@ -65,7 +65,7 @@ const Home = () => {
             />
 
             {/* Featured book */}
-            <section className="relative px-4 pb-4 pt-20 sm:px-8 sm:pt-24 md:px-10 lg:pt-28">
+            <section className="relative px-4 pb-4 pt-20 sm:px-8 sm:pt-24 md:px-10 lg:pt-28 mt-4">
                 <div className="mx-auto w-full max-w-7xl">
                     <BookFeature
                         title="The Lord"

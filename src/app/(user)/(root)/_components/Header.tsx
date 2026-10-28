@@ -330,6 +330,7 @@ const Header = () => {
                   alt=""
                   width={21}
                   height={21}
+                  className="dark:invert"
                 />
               </button>
             </div>
