@@ -143,7 +143,7 @@ const ResetPasswordPage = () => {
                     >
                         <div className="flex items-center">
                             <Image
-                                src={imagesAddresses.images.logo}
+                                src={imagesAddresses.images.logoNew}
                                 alt="BookWise"
                                 width={120}
                                 height={120}
@@ -152,7 +152,7 @@ const ResetPasswordPage = () => {
                             />
 
                             <Image
-                                src={imagesAddresses.icons.FrameWhite}
+                                src={imagesAddresses.icons.FrameWhite2}
                                 alt="BookWise"
                                 width={120}
                                 height={120}

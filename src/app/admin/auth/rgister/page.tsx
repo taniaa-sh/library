@@ -87,14 +87,14 @@ const AdminRgister = () => {
           {/* HEADER */}
           <div className="flex flex-col justify-start items-start gap-1">
             <Image
-              src={imagesAddresses.images.logo}
+              src={imagesAddresses.images.logoNew}
               alt="logo"
               width={120}
               height={120}
               className="lg:mx-0 hidden dark:block !h-[20px] !w-[120px]"
             />
             <Image
-              src={imagesAddresses.icons.FrameWhite}
+              src={imagesAddresses.icons.FrameWhite2}
               alt="logo"
               width={120}
               height={120}

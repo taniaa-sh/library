@@ -165,7 +165,7 @@ const SignIn = () => {
           {/* Logo */}
           <div className="mb-8 flex flex-col items-center lg:items-start">
             <Image
-              src={imagesAddresses.images.logo}
+              src={imagesAddresses.images.logoNew}
               alt="BookWise"
               width={280}
               height={80}
@@ -174,7 +174,7 @@ const SignIn = () => {
             />
 
             <Image
-              src={imagesAddresses.icons.FrameWhite}
+              src={imagesAddresses.icons.FrameWhite2}
               alt="BookWise"
               width={280}
               height={80}

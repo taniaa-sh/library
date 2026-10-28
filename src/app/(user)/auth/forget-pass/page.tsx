@@ -118,7 +118,7 @@ const ForgotPasswordPage = () => {
                         className="mb-8 flex justify-center sm:justify-start"
                     >
                         <Image
-                            src={imagesAddresses.images.logo}
+                            src={imagesAddresses.images.logoNew}
                             alt="BookWise"
                             width={120}
                             height={120}
@@ -127,7 +127,7 @@ const ForgotPasswordPage = () => {
                         />
 
                         <Image
-                            src={imagesAddresses.icons.FrameWhite}
+                            src={imagesAddresses.icons.FrameWhite2}
                             alt="BookWise"
                             width={120}
                             height={120}

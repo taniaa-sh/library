@@ -85,14 +85,14 @@ const AdminResetPass = () => {
                         <div className="flex justify-between items-center">
                             <div>
                                 <Image
-                                    src={imagesAddresses.images.logo}
+                                    src={imagesAddresses.images.logoNew}
                                     alt="logo"
                                     width={120}
                                     height={120}
                                     className="!h-[20px] !w-[120px] lg:mx-0 hidden dark:block"
                                 />
                                 <Image
-                                    src={imagesAddresses.icons.FrameWhite}
+                                    src={imagesAddresses.icons.FrameWhite2}
                                     alt="logo"
                                     width={120}
                                     height={120}

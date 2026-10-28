@@ -159,7 +159,7 @@ const Header = () => {
                 <div className="absolute -inset-3 rounded-full bg-[#E7C9A5]/10 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
 
                 <Image
-                  src={imagesAddresses.images.logo}
+                  src={imagesAddresses.images.logoNew}
                   alt="BookWise"
                   width={220}
                   height={60}
@@ -168,7 +168,7 @@ const Header = () => {
                 />
 
                 <Image
-                  src={imagesAddresses.icons.FrameWhite}
+                  src={imagesAddresses.icons.FrameWhite2}
                   alt="BookWise"
                   width={220}
                   height={60}

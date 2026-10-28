@@ -37,6 +37,7 @@ const imagesAddresses = {
     darkLightMode: "/icons/dark-lightMode.svg",
     darkLightMode2: "/icons/dark-lightModeWhite.svg",
     FrameWhite: "/icons/FrameWhite.svg",
+    FrameWhite2: "/icons/FrameWhite.png",
     plain: "/icons/plain.svg",
     plainWhite: "/icons/plainWhite.svg",
     camera: "/icons/camera.svg",
@@ -115,6 +116,7 @@ const imagesAddresses = {
   },
   images: {
     logo: "/images/Frame.png",
+    logoNew: "/images/Frame-new.png",
     loginPic: "/images/loginPic.png",
     loginBg: "/images/loginBg.png",
     book1: "/images/book1.png",

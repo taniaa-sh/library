@@ -61,7 +61,7 @@ const Footer = () => {
                         className="mb-3 inline-flex max-w-full items-center"
                     >
                         <Image
-                            src={imagesAddresses.images.logo}
+                            src={imagesAddresses.images.logoNew}
                             alt="BookWise"
                             width={310}
                             height={80}
@@ -69,7 +69,7 @@ const Footer = () => {
                         />
 
                         <Image
-                            src={imagesAddresses.icons.FrameWhite}
+                            src={imagesAddresses.icons.FrameWhite2}
                             alt="BookWise"
                             width={310}
                             height={80}
