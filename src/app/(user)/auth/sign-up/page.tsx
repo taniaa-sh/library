@@ -158,16 +158,17 @@ const SignUp = () => {
 
   const inputClass = (hasError: boolean) =>
     `w-full rounded-xl border bg-white/[0.04] px-4 py-3
-        text-sm text-white outline-none transition-all duration-300
-        placeholder:text-stone-500
-        focus:border-[#E7C9A5] focus:bg-white/[0.07]
-        focus:ring-4 focus:ring-[#E7C9A5]/10
-        dark:bg-[#F8F2E6] dark:text-[#17130F]
-        dark:placeholder:text-[#9C8B76]
-        dark:focus:bg-white
-        ${hasError
-      ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
-      : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
+    text-sm text-white outline-none transition-all duration-300
+    placeholder:text-stone-500
+    focus:border-[#E7C9A5] focus:bg-white/[0.07]
+    focus:ring-4 focus:ring-[#E7C9A5]/10
+    dark:bg-[#F8F2E6] dark:text-[#17130F]
+    dark:placeholder:text-[#9C8B76]
+    dark:focus:bg-white
+    ${
+      hasError
+        ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
+        : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
     }`;
 
   const labelClass =
@@ -177,8 +178,7 @@ const SignUp = () => {
     "text-xs leading-5 text-red-400 dark:text-red-600";
 
   return (
-    <main className="relative grid min-h-screen overflow-hidden bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:grid-cols-2">
-
+    <main className="relative grid h-[100dvh] w-full grid-cols-1 overflow-hidden overscroll-none bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:grid-cols-2">
       {/* Background glow */}
       <div
         aria-hidden="true"
@@ -191,8 +191,7 @@ const SignUp = () => {
       />
 
       {/* Registration section */}
-      <section className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:px-8 sm:py-12 lg:px-10 xl:px-16">
-
+      <section className="relative z-10 flex h-[100dvh] min-h-0 flex-col items-center overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-10 xl:px-16">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#E7C9A5]/80 to-transparent lg:hidden"
@@ -202,25 +201,23 @@ const SignUp = () => {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: "easeOut" }}
-          className="w-full max-w-lg"
+          className="flex min-h-0 w-full max-w-lg flex-1 flex-col"
         >
-
           {/* Form card */}
-          <div className="relative overflow-hidden rounded-3xl border border-[#E7C9A5]/20 bg-[#171614]/95 p-5 shadow-[0_25px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:p-8 dark:border-[#B88A4B]/25 dark:bg-white/85 dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
-
+          <div className="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-3xl border border-[#E7C9A5]/20 bg-[#171614]/95 shadow-[0_25px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl dark:border-[#B88A4B]/25 dark:bg-white/85 dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
             {/* Gold top border */}
             <div
               aria-hidden="true"
-              className="absolute left-0 right-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#E7C9A5] to-transparent dark:via-[#B88A4B]"
+              className="absolute left-0 right-0 top-0 z-20 h-[3px] shrink-0 bg-gradient-to-r from-transparent via-[#E7C9A5] to-transparent dark:via-[#B88A4B]"
             />
 
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
+              className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 shrink-0 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
             />
 
-            {/* Heading */}
-            <div className="relative mb-7">
+            {/* Fixed heading */}
+            <div className="relative z-10 shrink-0 px-5 pb-4 pt-6 sm:px-8 sm:pb-5 sm:pt-8">
               <div className="mb-3 flex items-center gap-2">
                 <span className="h-px w-7 bg-[#E7C9A5] dark:bg-[#B88A4B]" />
 
@@ -234,343 +231,340 @@ const SignUp = () => {
               </h1>
 
               <p className="mt-3 text-sm leading-6 text-stone-400 dark:text-[#75634E]">
-                Join BookWise and discover a world of academic
-                resources, knowledge, and digital books.
+                Join BookWise and discover a world of academic resources,
+                knowledge, and digital books.
               </p>
             </div>
 
-            {/* Form */}
-            <form
-              onSubmit={handleSubmit(handleSignUp)}
-              className="relative flex flex-col gap-4 sm:gap-5"
-              noValidate
+            {/* Scrollable form and login section */}
+            <div
+              className="relative z-10 min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-5 pb-5 sm:px-8 sm:pb-8"
+              style={{ scrollbarGutter: "stable" }}
             >
-              {/* Full name */}
-              <div className="flex flex-col gap-2">
-                <label htmlFor="fullName" className={labelClass}>
-                  Full name
-                </label>
-
-                <motion.input
-                  {...register("fullName")}
-                  id="fullName"
-                  type="text"
-                  autoComplete="name"
-                  maxLength={50}
-                  placeholder="Enter your full name"
-                  aria-invalid={!!errors.fullName}
-                  className={inputClass(!!errors.fullName)}
-                  animate={
-                    errors.fullName
-                      ? { x: [0, -5, 5, -5, 5, 0] }
-                      : { x: 0 }
-                  }
-                  key={`fullName-${shakeTrigger}`}
-                  transition={{ duration: 0.35 }}
-                />
-
-                {errors.fullName && (
-                  <p role="alert" className={errorClass}>
-                    {errors.fullName.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-2">
-                <label htmlFor="email" className={labelClass}>
-                  Email address
-                </label>
-
-                <motion.input
-                  {...register("email")}
-                  id="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="you@example.com"
-                  aria-invalid={!!errors.email}
-                  className={inputClass(!!errors.email)}
-                  animate={
-                    errors.email
-                      ? { x: [0, -5, 5, -5, 5, 0] }
-                      : { x: 0 }
-                  }
-                  key={`email-${shakeTrigger}`}
-                  transition={{ duration: 0.35 }}
-                />
-
-                {errors.email && (
-                  <p role="alert" className={errorClass}>
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              {/* University ID */}
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="universityId"
-                  className={labelClass}
-                >
-                  University ID
-                </label>
-
-                <div className="relative">
-                  <motion.input
-                    {...register("universityId")}
-                    id="universityId"
-                    type={showUniversityId ? "text" : "password"}
-                    autoComplete="off"
-                    maxLength={11}
-                    placeholder="Enter your university ID"
-                    aria-invalid={!!errors.universityId}
-                    className={`${inputClass(
-                      !!errors.universityId
-                    )} pr-12`}
-                    animate={
-                      errors.universityId
-                        ? { x: [0, -5, 5, -5, 5, 0] }
-                        : { x: 0 }
-                    }
-                    key={`universityId-${shakeTrigger}`}
-                    transition={{ duration: 0.35 }}
-                  />
-
-                  {universityIdValue && (
-                    <button
-                      type="button"
-                      aria-label={
-                        showUniversityId
-                          ? "Hide university ID"
-                          : "Show university ID"
-                      }
-                      onClick={() =>
-                        setShowUniversityId((prev) => !prev)
-                      }
-                      className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
-                    >
-                      <Image
-                        src={
-                          showUniversityId
-                            ? imagesAddresses.icons.blindBlack
-                            : imagesAddresses.icons.eyeBlack
-                        }
-                        alt=""
-                        width={19}
-                        height={19}
-                        className="hidden dark:block"
-                      />
-
-                      <Image
-                        src={
-                          showUniversityId
-                            ? imagesAddresses.icons.blind
-                            : imagesAddresses.icons.eyeWhite
-                        }
-                        alt=""
-                        width={19}
-                        height={19}
-                        className="dark:hidden"
-                      />
-                    </button>
-                  )}
-                </div>
-
-                {errors.universityId && (
-                  <p role="alert" className={errorClass}>
-                    {errors.universityId.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Password */}
-              <div className="flex flex-col gap-2">
-                <label htmlFor="password" className={labelClass}>
-                  Password
-                </label>
-
-                <div className="relative">
-                  <motion.input
-                    {...register("password")}
-                    id="password"
-                    type={showPass ? "text" : "password"}
-                    autoComplete="new-password"
-                    maxLength={50}
-                    placeholder="At least 8 characters"
-                    aria-invalid={!!errors.password}
-                    className={`${inputClass(
-                      !!errors.password
-                    )} pr-12`}
-                    animate={
-                      errors.password
-                        ? { x: [0, -5, 5, -5, 5, 0] }
-                        : { x: 0 }
-                    }
-                    key={`password-${shakeTrigger}`}
-                    transition={{ duration: 0.35 }}
-                  />
-
-                  {passwordValue?.length > 0 && (
-                    <button
-                      type="button"
-                      aria-label={
-                        showPass
-                          ? "Hide password"
-                          : "Show password"
-                      }
-                      onClick={() =>
-                        setShowPass((prev) => !prev)
-                      }
-                      className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
-                    >
-                      <Image
-                        src={
-                          showPass
-                            ? imagesAddresses.icons.blindBlack
-                            : imagesAddresses.icons.eyeBlack
-                        }
-                        alt=""
-                        width={19}
-                        height={19}
-                        className="hidden dark:block"
-                      />
-
-                      <Image
-                        src={
-                          showPass
-                            ? imagesAddresses.icons.blind
-                            : imagesAddresses.icons.eyeWhite
-                        }
-                        alt=""
-                        width={19}
-                        height={19}
-                        className="dark:hidden"
-                      />
-                    </button>
-                  )}
-                </div>
-
-                {errors.password && (
-                  <p role="alert" className={errorClass}>
-                    {errors.password.message}
-                  </p>
-                )}
-
-                <p className="text-[11px] leading-5 text-stone-500 dark:text-[#8B7860]">
-                  Use at least 8 characters, including uppercase,
-                  lowercase, a number, and a special character.
-                </p>
-              </div>
-
-              {/* University ID upload */}
-              <div className="flex flex-col gap-2">
-                <div className="mb-1">
-                  <label className={labelClass}>
-                    University ID card
+              <form
+                onSubmit={handleSubmit(handleSignUp)}
+                className="flex flex-col gap-4 sm:gap-5"
+                noValidate
+              >
+                {/* Full name */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="fullName" className={labelClass}>
+                    Full name
                   </label>
 
-                  <p className="mt-1 text-xs leading-5 text-stone-500 dark:text-[#8B7860]">
-                    Upload an image of your university ID
-                    for account verification.
+                  <motion.input
+                    {...register("fullName")}
+                    id="fullName"
+                    type="text"
+                    autoComplete="name"
+                    maxLength={50}
+                    placeholder="Enter your full name"
+                    aria-invalid={!!errors.fullName}
+                    className={inputClass(!!errors.fullName)}
+                    animate={
+                      errors.fullName
+                        ? { x: [0, -5, 5, -5, 5, 0] }
+                        : { x: 0 }
+                    }
+                    key={`fullName-${shakeTrigger}`}
+                    transition={{ duration: 0.35 }}
+                  />
+
+                  {errors.fullName && (
+                    <p role="alert" className={errorClass}>
+                      {errors.fullName.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="email" className={labelClass}>
+                    Email address
+                  </label>
+
+                  <motion.input
+                    {...register("email")}
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                    aria-invalid={!!errors.email}
+                    className={inputClass(!!errors.email)}
+                    animate={
+                      errors.email
+                        ? { x: [0, -5, 5, -5, 5, 0] }
+                        : { x: 0 }
+                    }
+                    key={`email-${shakeTrigger}`}
+                    transition={{ duration: 0.35 }}
+                  />
+
+                  {errors.email && (
+                    <p role="alert" className={errorClass}>
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* University ID */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="universityId" className={labelClass}>
+                    University ID
+                  </label>
+
+                  <div className="relative">
+                    <motion.input
+                      {...register("universityId")}
+                      id="universityId"
+                      type={showUniversityId ? "text" : "password"}
+                      autoComplete="off"
+                      maxLength={11}
+                      placeholder="Enter your university ID"
+                      aria-invalid={!!errors.universityId}
+                      className={`${inputClass(
+                        !!errors.universityId
+                      )} pr-12`}
+                      animate={
+                        errors.universityId
+                          ? { x: [0, -5, 5, -5, 5, 0] }
+                          : { x: 0 }
+                      }
+                      key={`universityId-${shakeTrigger}`}
+                      transition={{ duration: 0.35 }}
+                    />
+
+                    {universityIdValue && (
+                      <button
+                        type="button"
+                        aria-label={
+                          showUniversityId
+                            ? "Hide university ID"
+                            : "Show university ID"
+                        }
+                        onClick={() =>
+                          setShowUniversityId((prev) => !prev)
+                        }
+                        className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
+                      >
+                        <Image
+                          src={
+                            showUniversityId
+                              ? imagesAddresses.icons.blindBlack
+                              : imagesAddresses.icons.eyeBlack
+                          }
+                          alt=""
+                          width={19}
+                          height={19}
+                          className="hidden dark:block"
+                        />
+
+                        <Image
+                          src={
+                            showUniversityId
+                              ? imagesAddresses.icons.blind
+                              : imagesAddresses.icons.eyeWhite
+                          }
+                          alt=""
+                          width={19}
+                          height={19}
+                          className="dark:hidden"
+                        />
+                      </button>
+                    )}
+                  </div>
+
+                  {errors.universityId && (
+                    <p role="alert" className={errorClass}>
+                      {errors.universityId.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Password */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="password" className={labelClass}>
+                    Password
+                  </label>
+
+                  <div className="relative">
+                    <motion.input
+                      {...register("password")}
+                      id="password"
+                      type={showPass ? "text" : "password"}
+                      autoComplete="new-password"
+                      maxLength={50}
+                      placeholder="At least 8 characters"
+                      aria-invalid={!!errors.password}
+                      className={`${inputClass(
+                        !!errors.password
+                      )} pr-12`}
+                      animate={
+                        errors.password
+                          ? { x: [0, -5, 5, -5, 5, 0] }
+                          : { x: 0 }
+                      }
+                      key={`password-${shakeTrigger}`}
+                      transition={{ duration: 0.35 }}
+                    />
+
+                    {passwordValue?.length > 0 && (
+                      <button
+                        type="button"
+                        aria-label={
+                          showPass ? "Hide password" : "Show password"
+                        }
+                        onClick={() => setShowPass((prev) => !prev)}
+                        className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
+                      >
+                        <Image
+                          src={
+                            showPass
+                              ? imagesAddresses.icons.blindBlack
+                              : imagesAddresses.icons.eyeBlack
+                          }
+                          alt=""
+                          width={19}
+                          height={19}
+                          className="hidden dark:block"
+                        />
+
+                        <Image
+                          src={
+                            showPass
+                              ? imagesAddresses.icons.blind
+                              : imagesAddresses.icons.eyeWhite
+                          }
+                          alt=""
+                          width={19}
+                          height={19}
+                          className="dark:hidden"
+                        />
+                      </button>
+                    )}
+                  </div>
+
+                  {errors.password && (
+                    <p role="alert" className={errorClass}>
+                      {errors.password.message}
+                    </p>
+                  )}
+
+                  <p className="text-[11px] leading-5 text-stone-500 dark:text-[#8B7860]">
+                    Use at least 8 characters, including uppercase, lowercase,
+                    a number, and a special character.
                   </p>
                 </div>
 
-                <div className="overflow-hidden rounded-2xl border border-[#E7C9A5]/20 bg-white/[0.02] p-2 transition-colors duration-300 hover:border-[#E7C9A5]/50 dark:border-[#B88A4B]/25 dark:bg-[#B88A4B]/[0.03] dark:hover:border-[#B88A4B]/60">
-                  <DragAndDropUpload
-                    type="image"
-                    onChange={(uploadedFile) => {
-                      const selectedFile = uploadedFile as File;
+                {/* University ID upload */}
+                <div className="flex flex-col gap-2">
+                  <div className="mb-1">
+                    <label className={labelClass}>
+                      University ID card
+                    </label>
 
-                      setFile(selectedFile);
+                    <p className="mt-1 text-xs leading-5 text-stone-500 dark:text-[#8B7860]">
+                      Upload an image of your university ID for account
+                      verification.
+                    </p>
+                  </div>
 
-                      setValue("univercityIdImage", "ok", {
-                        shouldValidate: true,
-                        shouldDirty: true,
-                      });
-                    }}
-                    error={errors.univercityIdImage?.message}
-                    shakeTrigger={shakeTrigger}
-                  />
-                </div>
+                  <div className="overflow-hidden rounded-2xl border border-[#E7C9A5]/20 bg-white/[0.02] p-2 transition-colors duration-300 hover:border-[#E7C9A5]/50 dark:border-[#B88A4B]/25 dark:bg-[#B88A4B]/[0.03] dark:hover:border-[#B88A4B]/60">
+                    <DragAndDropUpload
+                      type="image"
+                      onChange={(uploadedFile) => {
+                        const selectedFile = uploadedFile as File;
 
-                {file && (
-                  <div className="flex min-w-0 items-center gap-2 rounded-xl border border-[#E7C9A5]/20 bg-[#E7C9A5]/[0.05] px-3 py-2.5 dark:border-[#B88A4B]/25 dark:bg-[#B88A4B]/[0.05]">
-                    <svg
-                      width="19"
-                      height="19"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                      className="shrink-0 text-[#E7C9A5] dark:text-[#A87938]"
-                    >
-                      <path
-                        d="M5 12.5L9.5 17L19 7.5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                        setFile(selectedFile);
 
-                    <span className="min-w-0 flex-1 truncate text-xs text-stone-300 dark:text-[#594B3B]">
-                      {file.name}
-                    </span>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFile(null);
-                        setValue("univercityIdImage", "", {
+                        setValue("univercityIdImage", "ok", {
                           shouldValidate: true,
                           shouldDirty: true,
                         });
                       }}
-                      className="shrink-0 rounded-lg px-2 py-1 text-xs text-[#E7C9A5] transition-colors hover:bg-[#E7C9A5]/10 dark:text-[#A87938]"
-                    >
-                      Remove
-                    </button>
+                      error={errors.univercityIdImage?.message}
+                      shakeTrigger={shakeTrigger}
+                    />
                   </div>
-                )}
 
-                {errors.univercityIdImage && !file && (
-                  <p role="alert" className={errorClass}>
-                    {errors.univercityIdImage.message}
-                  </p>
-                )}
+                  {file && (
+                    <div className="flex min-w-0 items-center gap-2 rounded-xl border border-[#E7C9A5]/20 bg-[#E7C9A5]/[0.05] px-3 py-2.5 dark:border-[#B88A4B]/25 dark:bg-[#B88A4B]/[0.05]">
+                      <svg
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                        className="shrink-0 text-[#E7C9A5] dark:text-[#A87938]"
+                      >
+                        <path
+                          d="M5 12.5L9.5 17L19 7.5"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+
+                      <span className="min-w-0 flex-1 truncate text-xs text-stone-300 dark:text-[#594B3B]">
+                        {file.name}
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFile(null);
+                          setValue("univercityIdImage", "", {
+                            shouldValidate: true,
+                            shouldDirty: true,
+                          });
+                        }}
+                        className="shrink-0 rounded-lg px-2 py-1 text-xs text-[#E7C9A5] transition-colors hover:bg-[#E7C9A5]/10 dark:text-[#A87938]"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  )}
+
+                  {errors.univercityIdImage && !file && (
+                    <p role="alert" className={errorClass}>
+                      {errors.univercityIdImage.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit */}
+                <div className="mt-2">
+                  <CustomButton
+                    text="Sign Up"
+                    color="yellow"
+                    containerClassName="mt-1 flex w-full cursor-pointer text-nowrap"
+                    loading={isLoading}
+                    type="submit"
+                  />
+                </div>
+              </form>
+
+              {/* Login link */}
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 border-t border-[#E7C9A5]/15 pt-5 text-center text-xs text-stone-400 sm:text-sm dark:border-[#B88A4B]/20 dark:text-[#75634E]">
+                <span>Already have an account?</span>
+
+                <button
+                  type="button"
+                  onClick={() => router.push(SiteUrls.signIn)}
+                  className="font-semibold text-[#E7C9A5] transition-colors duration-300 hover:text-white hover:underline dark:text-[#A87938] dark:hover:text-[#6C4B21]"
+                >
+                  Sign in
+                </button>
               </div>
-
-              {/* Submit */}
-              <div className="mt-2">
-                <CustomButton
-                  text="Sign Up"
-                  color="yellow"
-                  containerClassName="mt-1 flex w-full cursor-pointer text-nowrap"
-                  loading={isLoading}
-                  type="submit"
-                />
-              </div>
-            </form>
-
-            {/* Login link */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 border-t border-[#E7C9A5]/15 pt-5 text-center text-xs text-stone-400 sm:text-sm dark:border-[#B88A4B]/20 dark:text-[#75634E]">
-              <span>Already have an account?</span>
-
-              <button
-                type="button"
-                onClick={() => router.push(SiteUrls.signIn)}
-                className="font-semibold text-[#E7C9A5] transition-colors duration-300 hover:text-white hover:underline dark:text-[#A87938] dark:hover:text-[#6C4B21]"
-              >
-                Sign in
-              </button>
             </div>
           </div>
         </motion.div>
       </section>
 
       {/* Desktop image section */}
-      <aside className="relative hidden min-h-screen overflow-hidden p-5 lg:block xl:p-7">
-        <div className="relative h-full min-h-[calc(100vh-2.5rem)] overflow-hidden rounded-[28px] border border-[#E7C9A5]/25 dark:border-[#B88A4B]/30">
-
+      <aside className="relative hidden h-[100dvh] min-h-0 overflow-hidden p-5 lg:block xl:p-7">
+        <div className="relative h-full min-h-0 overflow-hidden rounded-[28px] border border-[#E7C9A5]/25 dark:border-[#B88A4B]/30">
           <Image
             src={imagesAddresses.images.loginPic}
             alt="A welcoming reading atmosphere"
@@ -615,8 +609,8 @@ const SignUp = () => {
             </h2>
 
             <p className="mt-5 max-w-md text-sm leading-7 text-white/75 xl:text-base">
-              Join a world of stories, explore new ideas, and
-              discover the books that inspire your next big idea.
+              Join a world of stories, explore new ideas, and discover the
+              books that inspire your next big idea.
             </p>
 
             <div className="mt-8 flex items-center gap-3">
