@@ -443,19 +443,20 @@ const Header = () => {
                               {item.label}
                             </span>
                           </span>
-
-                          <span
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            className="h-4 w-4 shrink-0 text-[#E7C9A5] transition-transform duration-200 group-hover:translate-x-0.5 dark:text-[#A87938]"
                             aria-hidden="true"
-                            className={`
-                              shrink-0 text-base transition-transform duration-200
-                              ${active
-                                ? "translate-x-0 text-[#E7C9A5] dark:text-[#91682E]"
-                                : "-translate-x-1 text-stone-500 group-hover:translate-x-0"
-                              }
-                            `}
                           >
-                            ↗
-                          </span>
+                            <path
+                              d="M7 17 17 7M7 7h10v10"
+                              stroke="currentColor"
+                              strokeWidth="1.7"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
                         </Link>
                       );
                     })}

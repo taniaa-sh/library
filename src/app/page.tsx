@@ -354,7 +354,7 @@ export default function HomePage() {
             <Link
               href={SiteUrls.signIn}
               onClick={() => setMobileMenu(false)}
-              className="mt-2 rounded-xl bg-primary px-4 py-3 text-center text-sm font-bold text-black"
+              className="mt-2 rounded-xl bg-primary px-4 py-3 text-center text-sm font-bold !text-[#17110B]"
             >
               Login / Sign Up
             </Link>
