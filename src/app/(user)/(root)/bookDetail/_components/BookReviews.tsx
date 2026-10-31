@@ -8,7 +8,6 @@ import showToast from "@/utils/toast";
 import { Axios_Route } from "@/utils/axiosRoutes";
 import { AxiosMethodEnum } from "@/utils/type";
 import { useRouter } from "next/navigation";
-import SiteUrls from "@/utils/routs";
 
 const ratingLabels = ["", "Terrible", "Bad", "Average", "Good", "Very Good"];
 
@@ -33,7 +32,7 @@ interface Review {
 }
 
 interface BookReviewsProps {
-  bookId: string;
+  bookId: number;
   data: Review[];
 }
 

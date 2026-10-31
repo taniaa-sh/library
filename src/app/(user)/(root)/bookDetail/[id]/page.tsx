@@ -41,12 +41,12 @@ interface Props {
     }>;
 }
 
-const fetchReviews = async (): Promise<Review[]> => {
-    return fetchData<undefined, Review[]>({
+const fetchReviews = async (bookId: number): Promise<Review[]> => {
+    return fetchData<undefined, { success: boolean; data: Review[] }>({
         baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
-        apiRoute: Axios_Route.getAllReviews,
+        apiRoute: `${Axios_Route.getAllReviews}/${bookId}`,
         method: AxiosMethodEnum.get,
-    });
+    }).then((response) => response.data);
 };
 
 const fetchBookDetails = async (id: string): Promise<Book> => {
@@ -58,20 +58,25 @@ const fetchBookDetails = async (id: string): Promise<Book> => {
 };
 
 export default async function BookDetailPage({ params }: Props) {
-    const { id: bookId } = await params;
+    const { id } = await params;
 
-    const [reviewsData, bookData] = await Promise.all([
-        fetchReviews(),
-        fetchBookDetails(bookId),
-    ]);
+    const bookId = Number(id);
+
+    if (!Number.isInteger(bookId) || bookId <= 0) {
+        notFound();
+    }
+
+    const bookData = await fetchBookDetails(id);
 
     if (!bookData) {
         notFound();
     }
 
+    const reviewsData = await fetchReviews(bookData.id);
+
     return (
         <BookDetailClient
-            bookId={bookId}
+            bookId={bookData.id}
             data={reviewsData}
             book={bookData}
         />

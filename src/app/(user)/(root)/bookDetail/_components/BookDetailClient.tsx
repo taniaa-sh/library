@@ -30,11 +30,11 @@ interface Review {
     _id: string;
     bookId: string;
     userId:
-    | {
-        _id: string;
-        fullName: string;
-    }
-    | string;
+        | {
+              _id: string;
+              fullName: string;
+          }
+        | string;
     rating: number;
     comment: string;
     createdAt: string;
@@ -42,7 +42,7 @@ interface Review {
 }
 
 interface BookDetailClientProps {
-    bookId: string;
+    bookId: number;
     data: Review[];
     book: Book;
 }
