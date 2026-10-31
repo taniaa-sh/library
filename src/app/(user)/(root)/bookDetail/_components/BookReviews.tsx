@@ -343,13 +343,19 @@ const BookReviews = ({ bookId, data }: BookReviewsProps) => {
             <AnimatePresence mode="wait" initial={false}>
               <motion.p
                 key={hovered || selected}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={
+                  shouldReduceMotion
+                    ? false
+                    : { opacity: 0, y: 5, scale: 0.9 }
+                }
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={
-                  shouldReduceMotion ? undefined : { opacity: 0, y: -4 }
+                  shouldReduceMotion
+                    ? undefined
+                    : { opacity: 0, y: -5, scale: 0.9 }
                 }
                 transition={{
-                  duration: shouldReduceMotion ? 0 : 0.15,
+                  duration: shouldReduceMotion ? 0 : 0.2,
                 }}
                 className={`text-sm font-semibold ${accentTextClass}`}
               >
@@ -359,7 +365,7 @@ const BookReviews = ({ bookId, data }: BookReviewsProps) => {
           </div>
 
           <div
-            className="flex items-center gap-1 self-start sm:self-auto"
+            className="flex items-center gap-1.5 self-start sm:self-auto"
             onMouseLeave={() => setHovered(0)}
             onBlur={(event) => {
               if (
@@ -374,7 +380,11 @@ const BookReviews = ({ bookId, data }: BookReviewsProps) => {
             aria-label="Choose a rating from one to five stars"
           >
             {[1, 2, 3, 4, 5].map((i) => {
-              const active = (hovered || selected) >= i;
+              const activeRating = hovered || selected;
+              const isActive = activeRating >= i;
+              const isHovered = hovered === i;
+              const isSelected = selected === i;
+              const isBeforeActive = activeRating > i;
 
               return (
                 <motion.button
@@ -385,15 +395,63 @@ const BookReviews = ({ bookId, data }: BookReviewsProps) => {
                   onMouseEnter={() => setHovered(i)}
                   onFocus={() => setHovered(i)}
                   onClick={() => setSelected(i)}
-                  whileHover={
-                    shouldReduceMotion ? undefined : { scale: 1.12, y: -2 }
-                  }
+                  initial={false}
+                  animate={{
+                    scale: isHovered
+                      ? 1.4
+                      : isBeforeActive
+                        ? 1.13
+                        : isSelected && !hovered
+                          ? 1.18
+                          : 1,
+                    y: isHovered
+                      ? -5
+                      : isBeforeActive
+                        ? -2
+                        : 0,
+                    rotate: isHovered ? -8 : 0,
+                  }}
                   whileTap={
-                    shouldReduceMotion ? undefined : { scale: 0.9 }
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: 0.85, rotate: 8 }
                   }
-                  className="rounded-md p-0.5 outline-none focus-visible:ring-2 focus-visible:ring-[#E7C9A5] dark:focus-visible:ring-[#A87938]"
+                  transition={{
+                    type: "spring",
+                    stiffness: 350,
+                    damping: 13,
+                    mass: 0.6,
+                  }}
+                  className={`
+                        relative flex items-center justify-center
+                        rounded-lg p-1 outline-none
+                        focus-visible:ring-2
+                        focus-visible:ring-[#E7C9A5]
+                        dark:focus-visible:ring-[#A87938]
+                        ${isHovered ? "z-10" : ""}
+                    `}
                 >
-                  <Star filled={active} size="h-7 w-7 sm:h-8 sm:w-8" />
+                  <motion.span className="relative z-10 flex">
+                    <Star
+                      filled={isActive}
+                      size="h-7 w-7 sm:h-8 sm:w-8"
+                    />
+                  </motion.span>
+
+                  {/* Selected indicator */}
+                  <AnimatePresence>
+                    {isSelected && !hovered && (
+                      <motion.span
+                        key="sparkle"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0 }}
+                        className="pointer-events-none absolute -right-1 -top-1 z-20 text-[10px] text-[#E7C9A5] dark:text-[#A87938]"
+                      >
+                        ✦
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                 </motion.button>
               );
             })}
