@@ -18,7 +18,7 @@ const MAX_COMMENT_LENGTH = 300;
 
 interface Review {
   _id: string;
-  bookId: string;
+  bookId: number;
   userId:
   | {
     _id: string;

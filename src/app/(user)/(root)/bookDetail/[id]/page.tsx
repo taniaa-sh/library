@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 interface Review {
     _id: string;
-    bookId: string;
+    bookId: number;
     userId:
     | {
         _id: string;

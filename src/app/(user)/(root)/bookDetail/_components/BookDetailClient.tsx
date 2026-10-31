@@ -28,7 +28,7 @@ interface Book {
 
 interface Review {
     _id: string;
-    bookId: string;
+    bookId: number;
     userId:
         | {
               _id: string;
@@ -65,6 +65,18 @@ const BookDetailClient = ({
     const [duration, setDuration] = useState(0);
     const [volumeRange, setVolumeRange] = useState(50);
     const [soundAdjustment, setSoundAdjustment] = useState(false);
+
+    const bookReviews = reviewsData.filter(
+    (review) => review.bookId === bookId
+);
+
+const averageRating =
+    bookReviews.length > 0
+        ? bookReviews.reduce(
+              (total, review) => total + review.rating,
+              0
+          ) / bookReviews.length
+        : 0;
 
     const togglePlay = async () => {
         const video = videoRef.current;
@@ -195,7 +207,7 @@ const BookDetailClient = ({
                             title={book.title || ""}
                             Genre={book.genre || ""}
                             author={book.author || ""}
-                            rating={5} //TODO
+                            rating={Number(averageRating.toFixed(1))}
                             description={book.description || ""}
                             bookImg={book.bookImage || ""}
                             totalBooks={book.totalNumberOfBooks || 0}
