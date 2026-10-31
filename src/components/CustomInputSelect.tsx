@@ -71,7 +71,7 @@ const CustomInputSelect: React.FC<PropsType> = ({
 
     const buttonClass = isAdmin
         ? `
-            bg-white dark:bg-[#201E1A]
+            bg-light-600 dark:bg-dark-400
             text-[#17130F] dark:text-[#F8F2E6]
             border-[#E5DED2] dark:border-white/10
             hover:border-[#1565C0]/50 dark:hover:border-[#1565C0]/60
@@ -111,8 +111,8 @@ const CustomInputSelect: React.FC<PropsType> = ({
                 <label
                     htmlFor={name}
                     className={`mb-2 text-xs sm:text-sm font-medium ${isAdmin
-                            ? "text-[#403A32] dark:text-[#F8F2E6]"
-                            : "text-[#B8AA96] dark:text-[#75634E]"
+                        ? "text-[#403A32] dark:text-[#F8F2E6]"
+                        : "text-[#B8AA96] dark:text-[#75634E]"
                         }`}
                 >
                     {label}
@@ -159,10 +159,10 @@ const CustomInputSelect: React.FC<PropsType> = ({
             >
                 <span
                     className={`min-w-0 truncate ${value
-                            ? ""
-                            : isAdmin
-                                ? "text-gray-400 dark:text-gray-500"
-                                : "text-[#887D6D] dark:text-[#9A8A74]"
+                        ? ""
+                        : isAdmin
+                            ? "text-gray-400 dark:text-gray-500"
+                            : "text-[#887D6D] dark:text-[#9A8A74]"
                         }`}
                 >
                     {value || placeholder}
@@ -174,8 +174,8 @@ const CustomInputSelect: React.FC<PropsType> = ({
                         duration: shouldReduceMotion ? 0 : 0.25,
                     }}
                     className={`shrink-0 text-xs ${isAdmin
-                            ? "text-gray-400 dark:text-gray-500"
-                            : "text-[#B8AA96] dark:text-[#8B642D]"
+                        ? "text-gray-400 dark:text-gray-500"
+                        : "text-[#B8AA96] dark:text-[#8B642D]"
                         }`}
                 >
                     ▼
@@ -210,16 +210,22 @@ const CustomInputSelect: React.FC<PropsType> = ({
                             ease: "easeOut",
                         }}
                         className={`
-                            absolute left-0 right-0 top-full z-50 mt-2
-                            max-h-60 overflow-y-auto overscroll-contain
-                            rounded-xl border p-1.5
-                            shadow-[0_16px_40px_rgba(0,0,0,0.25)]
-                            ${dropdownBg}
-                            ${customScrollBar
-                                ? "custom-scrollbar1"
-                                : ""
+                        absolute left-0 right-0 top-full z-50 mt-2
+                        max-h-60 overflow-y-auto overscroll-contain
+                        rounded-xl border p-1.5
+                        shadow-[0_16px_40px_rgba(0,0,0,0.25)]
+                        transition-colors duration-300
+                    
+                        ${isAdmin ? `
+                      bg-light-600 dark:bg-dark-400
+                      border-[#E5DED2] dark:border-white/10
+                        custom-scrollbar1 `: `
+                        bg-[#201E1A] dark:bg-[#FBF7EF]
+                        order-white/10 dark:border-[#A87938]/20
+                        ustom-scrollbar1 `
                             }
-                        `}
+
+                     ${customScrollBar ? "custom-scrollbar1" : ""}`}
                     >
                         {Values.length > 0 ? (
                             Values.map((item) => (
@@ -253,8 +259,8 @@ const CustomInputSelect: React.FC<PropsType> = ({
                         ) : (
                             <li
                                 className={`px-3 py-4 text-center text-sm ${isAdmin
-                                        ? "text-gray-500 dark:text-gray-400"
-                                        : "text-[#B8AA96] dark:text-[#75634E]"
+                                    ? "text-gray-500 dark:text-gray-400"
+                                    : "text-[#B8AA96] dark:text-[#75634E]"
                                     }`}
                             >
                                 No options available

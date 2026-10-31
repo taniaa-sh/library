@@ -28,7 +28,7 @@ const AdminSidebar = () => {
             flex-col h-[calc(100vh-124px)] 
             justify-between items-center 
             !min-h-screen overflow-y-auto p-4
-            transition-all
+            transition-all text-black
         ">
                 <div className="w-full">
                     {/* LOGO */}
