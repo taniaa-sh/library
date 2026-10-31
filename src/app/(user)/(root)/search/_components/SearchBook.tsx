@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
@@ -7,40 +8,53 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import CustomButton from "@/components/CustomButton";
 import BookList from "./BookList";
-import { BookFeatureProps } from "@/utils/type";
 import SiteUrls from "@/utils/routs";
 import showToast from "@/utils/toast";
 
-const SearchBook = () => {
+type Book = {
+    _id: string;
+    id: number;
+    title: string;
+    author: string;
+    genre: string;
+    bookVideo: string;
+    bookPrimaryColor: string;
+    bookImage: string;
+    totalNumberOfBooks: number;
+    description: string;
+    bookPdf: string;
+    createdAt: string;
+    updatedAt: string;
+    __v?: number;
+};
+
+interface Props {
+    data: Book[];
+    totalPages?: number;
+}
+
+const SearchBook = ({ data: books, totalPages = 1 }: Props) => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const shouldReduceMotion = useReducedMotion();
 
     const searchQuery = searchParams.get("search") || "";
 
-    const [data, setData] = useState<BookFeatureProps[]>([]);
     const [search, setSearch] = useState(searchQuery);
     const [showNoResult, setShowNoResult] = useState(false);
     const [bookList, setBookList] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
 
-    useEffect(() => {
-        fetch("/data/data.json")
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Failed to load books");
-                }
-                return res.json();
-            })
-            .then((json) => setData(json))
-            .catch((err) => console.error("Error loading books:", err));
-    }, []);
-
-    const filterBooks = data.filter(
+    const filterBooks = books.filter(
         (book) =>
             book.title.toLowerCase().includes(search.toLowerCase()) ||
             book.author.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const exactMatchBooks = books.filter(
+        (book) =>
+            book.title.toLowerCase() === search.trim().toLowerCase()
     );
 
     useEffect(() => {
@@ -69,8 +83,9 @@ const SearchBook = () => {
 
         setLoading(true);
 
-        const exactMatch = data.some(
-            (item) => item.title.toLowerCase() === query.toLowerCase()
+        const exactMatch = books.some(
+            (item) =>
+                item.title.toLowerCase() === query.toLowerCase()
         );
 
         if (!exactMatch) {
@@ -85,7 +100,9 @@ const SearchBook = () => {
         setShowNoResult(false);
         setBookList(false);
         setShowResults(true);
+
         router.push(`?search=${encodeURIComponent(query)}`);
+
         setLoading(false);
     };
 
@@ -102,15 +119,21 @@ const SearchBook = () => {
         setShowResults(false);
         setBookList(false);
 
-        const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(
+            window.location.search
+        );
+
         params.delete("search");
 
         const newQuery = params.toString();
+
         router.push(newQuery ? `?${newQuery}` : "?");
     };
 
     const reveal = {
-        initial: shouldReduceMotion ? false : { opacity: 0, y: 20 },
+        initial: shouldReduceMotion
+            ? false
+            : { opacity: 0, y: 20 },
         animate: { opacity: 1, y: 0 },
         transition: {
             duration: shouldReduceMotion ? 0 : 0.55,
@@ -130,7 +153,11 @@ const SearchBook = () => {
                     className="flex flex-col items-center pt-12 md:pt-16"
                 >
                     <motion.span
-                        initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+                        initial={
+                            shouldReduceMotion
+                                ? false
+                                : { opacity: 0, y: 10 }
+                        }
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                         className="mb-5 px-4 py-2 rounded-full border border-[#E7C9A5]/20 dark:border-[#A87938]/25 bg-[#E7C9A5]/[0.07] dark:bg-[#A87938]/[0.08] text-[#E7C9A5] dark:text-[#8B642D] text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase"
@@ -139,18 +166,32 @@ const SearchBook = () => {
                     </motion.span>
 
                     <motion.p
-                        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                        initial={
+                            shouldReduceMotion
+                                ? false
+                                : { opacity: 0, y: 12 }
+                        }
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
+                        transition={{
+                            duration: 0.5,
+                            delay: 0.1,
+                        }}
                         className="text-base md:text-xl font-medium leading-7 text-[#B8AA96] dark:text-[#75634E] text-center"
                     >
                         Discover Your Next Great Read
                     </motion.p>
 
                     <motion.h1
-                        initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                        initial={
+                            shouldReduceMotion
+                                ? false
+                                : { opacity: 0, y: 16 }
+                        }
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        transition={{
+                            duration: 0.6,
+                            delay: 0.2,
+                        }}
                         className="mt-3 text-[32px] sm:text-4xl md:text-6xl font-semibold leading-tight tracking-tight text-[#F8F2E6] dark:text-[#17130F] text-center"
                     >
                         Explore and Search for
@@ -163,13 +204,20 @@ const SearchBook = () => {
                     </motion.h1>
 
                     <motion.p
-                        initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+                        initial={
+                            shouldReduceMotion
+                                ? false
+                                : { opacity: 0, y: 10 }
+                        }
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.35 }}
+                        transition={{
+                            duration: 0.5,
+                            delay: 0.35,
+                        }}
                         className="mt-5 max-w-xl text-center text-sm md:text-base leading-7 text-[#B8AA96] dark:text-[#75634E]"
                     >
-                        Search by title or author and find the book that inspires
-                        your next adventure.
+                        Search by title or author and find the book
+                        that inspires your next adventure.
                     </motion.p>
                 </motion.div>
 
@@ -213,6 +261,7 @@ const SearchBook = () => {
                             value={search}
                             onChange={(e) => {
                                 const value = e.target.value;
+
                                 setSearch(value);
                                 setBookList(true);
                                 setShowNoResult(false);
@@ -241,7 +290,9 @@ const SearchBook = () => {
                                 aria-label="Clear search"
                                 className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full text-[#B8AA96] dark:text-[#75634E] hover:bg-white/10 dark:hover:bg-black/5 transition-colors"
                             >
-                                <span className="text-xl leading-none">×</span>
+                                <span className="text-xl leading-none">
+                                    ×
+                                </span>
                             </button>
                         )}
 
@@ -264,10 +315,22 @@ const SearchBook = () => {
                                     initial={
                                         shouldReduceMotion
                                             ? false
-                                            : { opacity: 0, y: -8, scale: 0.99 }
+                                            : {
+                                                opacity: 0,
+                                                y: -8,
+                                                scale: 0.99,
+                                            }
                                     }
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: -6, scale: 0.99 }}
+                                    animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                        scale: 1,
+                                    }}
+                                    exit={{
+                                        opacity: 0,
+                                        y: -6,
+                                        scale: 0.99,
+                                    }}
                                     transition={{ duration: 0.2 }}
                                     className="absolute top-full left-0 right-0 mt-3 max-h-[300px] overflow-y-auto rounded-2xl border border-[#E7C9A5]/15 dark:border-[#A87938]/20 bg-[#171614] dark:bg-[#FBF7EF] shadow-[0_18px_45px_rgba(0,0,0,0.3)] dark:shadow-[0_18px_40px_rgba(80,55,20,0.1)] p-2"
                                 >
@@ -275,56 +338,69 @@ const SearchBook = () => {
                                         Suggested books
                                     </p>
 
-                                    {filterBooks.slice(0, 8).map((book, index) => (
-                                        <motion.button
-                                            key={book.id}
-                                            type="button"
-                                            initial={
-                                                shouldReduceMotion
-                                                    ? false
-                                                    : { opacity: 0, x: -8 }
-                                            }
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{
-                                                duration: 0.2,
-                                                delay: shouldReduceMotion ? 0 : index * 0.03,
-                                            }}
-                                            onClick={() =>
-                                                handleSelectSuggestion(book.title)
-                                            }
-                                            className="w-full flex items-center gap-3 p-3 text-left rounded-xl hover:bg-[#E7C9A5]/10 dark:hover:bg-[#A87938]/10 transition-colors group"
-                                        >
-                                            <div className="w-9 h-9 shrink-0 rounded-lg flex items-center justify-center bg-[#E7C9A5]/10 dark:bg-[#A87938]/10">
-                                                <Image
-                                                    src={imagesAddresses.icons.serach}
-                                                    alt=""
-                                                    width={16}
-                                                    height={16}
-                                                    className="dark:hidden"
-                                                />
-                                                <Image
-                                                    src={imagesAddresses.icons.searchLight}
-                                                    alt=""
-                                                    width={16}
-                                                    height={16}
-                                                    className="hidden dark:block"
-                                                />
-                                            </div>
+                                    {filterBooks
+                                        .slice(0, 8)
+                                        .map((book, index) => (
+                                            <motion.button
+                                                key={book._id || book.id}
+                                                type="button"
+                                                initial={
+                                                    shouldReduceMotion
+                                                        ? false
+                                                        : {
+                                                            opacity: 0,
+                                                            x: -8,
+                                                        }
+                                                }
+                                                animate={{
+                                                    opacity: 1,
+                                                    x: 0,
+                                                }}
+                                                transition={{
+                                                    duration: 0.2,
+                                                    delay: shouldReduceMotion
+                                                        ? 0
+                                                        : index * 0.03,
+                                                }}
+                                                onClick={() =>
+                                                    handleSelectSuggestion(
+                                                        book.title
+                                                    )
+                                                }
+                                                className="w-full flex items-center gap-3 p-3 text-left rounded-xl hover:bg-[#E7C9A5]/10 dark:hover:bg-[#A87938]/10 transition-colors group"
+                                            >
+                                                <div className="w-9 h-9 shrink-0 rounded-lg flex items-center justify-center bg-[#E7C9A5]/10 dark:bg-[#A87938]/10">
+                                                    <Image
+                                                        src={imagesAddresses.icons.serach}
+                                                        alt=""
+                                                        width={16}
+                                                        height={16}
+                                                        className="dark:hidden"
+                                                    />
+                                                    <Image
+                                                        src={imagesAddresses.icons.searchLight}
+                                                        alt=""
+                                                        width={16}
+                                                        height={16}
+                                                        className="hidden dark:block"
+                                                    />
+                                                </div>
 
-                                            <div className="min-w-0 flex-1">
-                                                <p className="truncate text-sm font-medium text-[#F8F2E6] dark:text-[#17130F] group-hover:text-[#E7C9A5] dark:group-hover:text-[#8B642D] transition-colors">
-                                                    {book.title}
-                                                </p>
-                                                <p className="mt-1 truncate text-xs text-[#B8AA96] dark:text-[#75634E]">
-                                                    by {book.author}
-                                                </p>
-                                            </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <p className="truncate text-sm font-medium text-[#F8F2E6] dark:text-[#17130F] group-hover:text-[#E7C9A5] dark:group-hover:text-[#8B642D] transition-colors">
+                                                        {book.title}
+                                                    </p>
 
-                                            <span className="text-[#E7C9A5] dark:text-[#A87938] opacity-0 group-hover:opacity-100 transition-opacity">
-                                                →
-                                            </span>
-                                        </motion.button>
-                                    ))}
+                                                    <p className="mt-1 truncate text-xs text-[#B8AA96] dark:text-[#75634E]">
+                                                        by {book.author}
+                                                    </p>
+                                                </div>
+
+                                                <span className="text-[#E7C9A5] dark:text-[#A87938] opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    →
+                                                </span>
+                                            </motion.button>
+                                        ))}
                                 </motion.div>
                             )}
                     </AnimatePresence>
@@ -338,9 +414,17 @@ const SearchBook = () => {
                             initial={
                                 shouldReduceMotion
                                     ? false
-                                    : { opacity: 0, y: 18, scale: 0.98 }
+                                    : {
+                                        opacity: 0,
+                                        y: 18,
+                                        scale: 0.98,
+                                    }
                             }
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            animate={{
+                                opacity: 1,
+                                y: 0,
+                                scale: 1,
+                            }}
                             exit={{ opacity: 0, y: 8 }}
                             transition={{ duration: 0.3 }}
                             className="mt-8 mb-8 w-full max-w-[420px] flex flex-col gap-5 items-center justify-center text-center p-7 md:p-9 rounded-3xl border border-[#E7C9A5]/15 dark:border-[#A87938]/20 bg-[#171614] dark:bg-[#FBF7EF] shadow-[0_15px_45px_rgba(0,0,0,0.15)]"
@@ -355,6 +439,7 @@ const SearchBook = () => {
                                     height={160}
                                     className="relative object-contain dark:hidden"
                                 />
+
                                 <Image
                                     src={imagesAddresses.images.emptyResultLight}
                                     alt="No books found"
@@ -368,9 +453,11 @@ const SearchBook = () => {
                                 <h2 className="text-2xl md:text-3xl font-semibold text-[#F8F2E6] dark:text-[#17130F]">
                                     No Results Found
                                 </h2>
+
                                 <p className="text-sm leading-7 text-[#B8AA96] dark:text-[#75634E]">
-                                    We couldn’t find a book with that exact title.
-                                    Try another title or select one of the suggestions.
+                                    We couldn’t find a book with that
+                                    exact title. Try another title or
+                                    select one of the suggestions.
                                 </p>
                             </div>
 
@@ -402,44 +489,38 @@ const SearchBook = () => {
                                     <p className="text-[10px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-[#E7C9A5] dark:text-[#8B642D] mb-2">
                                         YOUR DISCOVERY
                                     </p>
+
                                     <h2 className="text-xl md:text-3xl font-semibold text-[#F8F2E6] dark:text-[#17130F]">
                                         Search Results
                                     </h2>
                                 </div>
 
                                 <span className="shrink-0 rounded-full px-3 py-1.5 border border-[#E7C9A5]/20 dark:border-[#A87938]/20 bg-[#E7C9A5]/10 dark:bg-[#A87938]/10 text-xs font-medium text-[#E7C9A5] dark:text-[#8B642D]">
-                                    {filterBooks.filter(
-                                        (book) =>
-                                            book.title.toLowerCase() ===
-                                            search.trim().toLowerCase()
-                                    ).length}{" "}
-                                    {filterBooks.filter(
-                                        (book) =>
-                                            book.title.toLowerCase() ===
-                                            search.trim().toLowerCase()
-                                    ).length === 1
+                                    {exactMatchBooks.length}{" "}
+                                    {exactMatchBooks.length === 1
                                         ? "exact match"
                                         : "exact matches"}
                                 </span>
                             </div>
 
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
-                                {filterBooks
-                                    .filter(
-                                        (book) =>
-                                            book.title.toLowerCase() ===
-                                            search.trim().toLowerCase()
-                                    )
-                                    .map((book, index) => (
+                                {exactMatchBooks.map(
+                                    (book, index) => (
                                         <motion.button
-                                            key={book.id}
+                                            key={book._id || book.id}
                                             type="button"
                                             initial={
                                                 shouldReduceMotion
                                                     ? false
-                                                    : { opacity: 0, y: 20 }
+                                                    : {
+                                                        opacity: 0,
+                                                        y: 20,
+                                                    }
                                             }
-                                            animate={{ opacity: 1, y: 0 }}
+                                            animate={{
+                                                opacity: 1,
+                                                y: 0,
+                                            }}
                                             transition={{
                                                 duration: 0.4,
                                                 delay: shouldReduceMotion
@@ -466,7 +547,7 @@ const SearchBook = () => {
                                             <div className="relative overflow-hidden rounded-xl bg-[#E7C9A5]/10 dark:bg-[#A87938]/10">
                                                 <div className="aspect-[3/4] flex items-center justify-center p-3">
                                                     <Image
-                                                        src={book.coverUrl}
+                                                        src={book.bookImage}
                                                         alt={book.title}
                                                         width={180}
                                                         height={260}
@@ -494,20 +575,24 @@ const SearchBook = () => {
                                                     <span className="text-[10px] sm:text-xs text-[#B8AA96] dark:text-[#75634E]">
                                                         View details
                                                     </span>
+
                                                     <span className="text-[#E7C9A5] dark:text-[#A87938] transition-transform duration-300 group-hover:translate-x-1">
                                                         →
                                                     </span>
                                                 </div>
                                             </div>
                                         </motion.button>
-                                    ))}
+                                    )
+                                )}
                             </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
 
                 {/* Default book list */}
-                {!showResults && !showNoResult && <BookList />}
+                {!showResults && !showNoResult && (
+                    <BookList data={books} />
+                )}
             </div>
         </div>
     );

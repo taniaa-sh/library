@@ -11,7 +11,7 @@ import PdfPreviewModal from "@/components/PdfPreviewModal"
 import * as pdfjsLib from "pdfjs-dist";
 import showToast from "@/utils/toast"
 
-const FlipBookPreview = () => {
+const FlipBookPreview = ({pdfUrl }: {pdfUrl: string}) => {
   const [showOpenBook, setShowOpenBook] = useState(false)
   const [showPdfModal, setShowPdfModal] = useState(false)
   const flipBookRef = useRef<any>(null)
@@ -122,7 +122,7 @@ const FlipBookPreview = () => {
     setShowOpenBook(true);
 
     if (pages.length === 0) {
-      await loadPdfAsImages("/samplePdf.pdf");
+      await loadPdfAsImages(pdfUrl);
     }
   };
 

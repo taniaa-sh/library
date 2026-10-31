@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -7,7 +8,6 @@ import ReactPaginate from "react-paginate";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import CustomInputSelect from "@/components/CustomInputSelect";
 import SiteUrls from "@/utils/routs";
-import { BookFeatureProps } from "@/utils/type";
 import imagesAddresses from "@/utils/imageAddresses";
 
 const GENRES = ["All", "Fiction", "Non-fiction", "Science", "Biography"];
@@ -28,15 +28,34 @@ const idToGenre: Record<string, string> = {
 
 const ITEMS_PER_PAGE = 12;
 
-const BookList = () => {
+type Book = {
+    _id: string;
+    id: number;
+    title: string;
+    author: string;
+    genre: string;
+    bookVideo: string;
+    bookPrimaryColor: string;
+    bookImage: string;
+    totalNumberOfBooks: number;
+    description: string;
+    bookPdf: string;
+    createdAt: string;
+    updatedAt: string;
+    __v?: number;
+};
+
+interface BookListProps {
+    data: Book[];
+}
+
+const BookList = ({ data: books }: BookListProps) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const shouldReduceMotion = useReducedMotion();
 
-    const [data, setData] = useState<BookFeatureProps[]>([]);
     const [selectedGenre, setSelectedGenre] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const genreFromUrl = searchParams.get("genre") || "";
@@ -44,32 +63,11 @@ const BookList = () => {
 
         setSelectedGenre(idToGenre[genreFromUrl] || "");
         setCurrentPage(
-            Number.isInteger(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl : 1
+            Number.isInteger(pageFromUrl) && pageFromUrl > 0
+                ? pageFromUrl
+                : 1
         );
     }, [searchParams]);
-
-    useEffect(() => {
-        let isMounted = true;
-
-        fetch("/data/data.json")
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Failed to load books");
-                }
-                return res.json();
-            })
-            .then((json: BookFeatureProps[]) => {
-                if (isMounted) setData(json);
-            })
-            .catch((err) => console.error("Error loading books:", err))
-            .finally(() => {
-                if (isMounted) setIsLoading(false);
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
 
     const updateUrl = (genre: string, page: number) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -87,9 +85,11 @@ const BookList = () => {
         }
 
         const query = params.toString();
-        router.push(query ? `?${query}` : window.location.pathname, {
-            scroll: false,
-        });
+
+        router.push(
+            query ? `?${query}` : window.location.pathname,
+            { scroll: false }
+        );
     };
 
     const handleSelectGenre = (value: string) => {
@@ -108,10 +108,12 @@ const BookList = () => {
     };
 
     const filteredData = selectedGenre
-        ? data.filter((book) => book.genre === selectedGenre)
-        : data;
+        ? books.filter((book) => book.genre === selectedGenre)
+        : books;
 
-    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(
+        filteredData.length / ITEMS_PER_PAGE
+    );
 
     const safeCurrentPage = Math.min(
         Math.max(currentPage, 1),
@@ -124,7 +126,9 @@ const BookList = () => {
     );
 
     const reveal = {
-        initial: shouldReduceMotion ? false : { opacity: 0, y: 18 },
+        initial: shouldReduceMotion
+            ? false
+            : { opacity: 0, y: 18 },
         animate: { opacity: 1, y: 0 },
         transition: {
             duration: shouldReduceMotion ? 0 : 0.4,
@@ -173,47 +177,28 @@ const BookList = () => {
             </motion.div>
 
             {/* Result count */}
-            {!isLoading && (
-                <div className="flex items-center justify-between gap-3 border-b border-white/10 dark:border-[#17130F]/10 pb-4">
-                    <p className="text-xs sm:text-sm text-[#B8AA96] dark:text-[#75634E]">
-                        {selectedGenre ? (
-                            <>
-                                Browsing{" "}
-                                <span className="font-medium text-[#E7C9A5] dark:text-[#8B642D]">
-                                    {selectedGenre}
-                                </span>{" "}
-                                books
-                            </>
-                        ) : (
-                            "Browse our complete collection"
-                        )}
-                    </p>
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 dark:border-[#17130F]/10 pb-4">
+                <p className="text-xs sm:text-sm text-[#B8AA96] dark:text-[#75634E]">
+                    {selectedGenre ? (
+                        <>
+                            Browsing{" "}
+                            <span className="font-medium text-[#E7C9A5] dark:text-[#8B642D]">
+                                {selectedGenre}
+                            </span>{" "}
+                            books
+                        </>
+                    ) : (
+                        "Browse our complete collection"
+                    )}
+                </p>
 
-                    <span className="shrink-0 rounded-full px-3 py-1.5 text-xs font-medium border border-[#E7C9A5]/20 dark:border-[#A87938]/20 bg-[#E7C9A5]/10 dark:bg-[#A87938]/10 text-[#E7C9A5] dark:text-[#8B642D]">
-                        {filteredData.length} books
-                    </span>
-                </div>
-            )}
-
-            {/* Loading state */}
-            {isLoading && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    {Array.from({ length: 6 }).map((_, index) => (
-                        <div
-                            key={index}
-                            className="animate-pulse rounded-2xl border border-white/[0.06] dark:border-[#A87938]/10 bg-[#171614] dark:bg-[#FBF7EF] p-3 sm:p-4"
-                        >
-                            <div className="aspect-[3/4] rounded-xl bg-white/[0.06] dark:bg-[#A87938]/10" />
-                            <div className="mt-4 h-4 rounded bg-white/[0.06] dark:bg-[#A87938]/10" />
-                            <div className="mt-3 h-3 w-2/3 rounded bg-white/[0.06] dark:bg-[#A87938]/10" />
-                            <div className="mt-5 h-5 w-20 rounded-full bg-white/[0.06] dark:bg-[#A87938]/10" />
-                        </div>
-                    ))}
-                </div>
-            )}
+                <span className="shrink-0 rounded-full px-3 py-1.5 text-xs font-medium border border-[#E7C9A5]/20 dark:border-[#A87938]/20 bg-[#E7C9A5]/10 dark:bg-[#A87938]/10 text-[#E7C9A5] dark:text-[#8B642D]">
+                    {filteredData.length} books
+                </span>
+            </div>
 
             {/* Book cards */}
-            {!isLoading && paginatedData.length > 0 && (
+            {paginatedData.length > 0 && (
                 <motion.div
                     layout={!shouldReduceMotion}
                     className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5"
@@ -221,7 +206,7 @@ const BookList = () => {
                     <AnimatePresence mode="popLayout" initial={false}>
                         {paginatedData.map((book, index) => (
                             <motion.button
-                                key={book.id}
+                                key={book._id || book.id}
                                 type="button"
                                 layout={!shouldReduceMotion}
                                 initial={
@@ -262,11 +247,11 @@ const BookList = () => {
                                 {/* Decorative glow */}
                                 <div className="absolute -top-12 -right-12 w-24 h-24 rounded-full bg-[#E7C9A5]/[0.06] dark:bg-[#A87938]/[0.06] blur-2xl pointer-events-none" />
 
-                                {/* Cover */}
+                                {/* Book cover */}
                                 <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#E7C9A5]/15 via-[#E7C9A5]/5 to-transparent dark:from-[#A87938]/15 dark:via-[#A87938]/5">
-                                    <div className="aspect-[3/4] flex items-center justify-center p-3">
+                                    <div className="aspect-[3/4] flex items-center justify-center p-3 !-ml-6">
                                         <Image
-                                            src={book.coverUrl}
+                                            src={book.bookImage}
                                             alt={book.title}
                                             width={180}
                                             height={260}
@@ -308,7 +293,7 @@ const BookList = () => {
             )}
 
             {/* Empty state */}
-            {!isLoading && paginatedData.length === 0 && (
+            {paginatedData.length === 0 && (
                 <motion.div
                     {...reveal}
                     className="flex flex-col items-center text-center gap-4 py-12 px-5 rounded-3xl border border-[#E7C9A5]/15 dark:border-[#A87938]/15 bg-[#171614] dark:bg-[#FBF7EF]"
@@ -321,6 +306,7 @@ const BookList = () => {
                             height={28}
                             className="dark:hidden opacity-70"
                         />
+
                         <Image
                             src={imagesAddresses.icons.searchLight}
                             alt=""
@@ -352,7 +338,7 @@ const BookList = () => {
             )}
 
             {/* Pagination */}
-            {!isLoading && totalPages > 1 && (
+            {totalPages > 1 && (
                 <motion.div
                     {...reveal}
                     className="flex flex-col items-center gap-3 mt-3"

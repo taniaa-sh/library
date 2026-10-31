@@ -2,14 +2,29 @@
 
 import BookFeature from "@/app/(user)/(root)/_components/BookFeature";
 import imagesAddresses from "@/utils/imageAddresses";
-import { BookFeatureProps } from "@/utils/type";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import FlipBookPreview from "../_components/FlipBookPreview";
 import BookReviews from "../_components/BookReviews";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+
+interface Book {
+    _id: string;
+    id: number;
+    title: string;
+    author: string;
+    genre: string;
+    bookVideo: string;
+    bookPrimaryColor: string;
+    bookImage: string;
+    totalNumberOfBooks: number;
+    description: string;
+    bookPdf: string;
+    createdAt: string;
+    updatedAt: string;
+}
 
 interface Review {
     _id: string;
@@ -29,6 +44,7 @@ interface Review {
 interface BookDetailClientProps {
     bookId: string;
     data: Review[];
+    book: Book;
 }
 
 const SIMILAR_BOOKS = [3, 2, 4, 5, 6, 7];
@@ -36,11 +52,8 @@ const SIMILAR_BOOKS = [3, 2, 4, 5, 6, 7];
 const BookDetailClient = ({
     bookId,
     data: reviewsData,
+    book,
 }: BookDetailClientProps) => {
-    const id = bookId;
-
-    const [data, setData] = useState<BookFeatureProps | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const shouldReduceMotion = useReducedMotion();
@@ -52,47 +65,6 @@ const BookDetailClient = ({
     const [duration, setDuration] = useState(0);
     const [volumeRange, setVolumeRange] = useState(50);
     const [soundAdjustment, setSoundAdjustment] = useState(false);
-
-    useEffect(() => {
-        let isMounted = true;
-
-        setIsLoading(true);
-        setData(null);
-
-        fetch("/data/data.json")
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Failed to load books");
-                }
-
-                return res.json();
-            })
-            .then((json: BookFeatureProps[]) => {
-                if (!isMounted) return;
-
-                const selected = json.find(
-                    (item) => String(item.id) === String(id)
-                );
-
-                setData(selected || null);
-            })
-            .catch((err) => {
-                console.error("Error loading book:", err);
-
-                if (isMounted) {
-                    setData(null);
-                }
-            })
-            .finally(() => {
-                if (isMounted) {
-                    setIsLoading(false);
-                }
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, [id]);
 
     const togglePlay = async () => {
         const video = videoRef.current;
@@ -218,25 +190,16 @@ const BookDetailClient = ({
             <div className="mx-auto mt-32 flex w-full max-w-[1600px] flex-col gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:gap-14">
                 {/* Book feature */}
                 <motion.section {...reveal}>
-                    {isLoading ? (
-                        <div className="grid animate-pulse grid-cols-1 gap-6 rounded-3xl border border-white/[0.08] bg-[#171614] p-5 dark:border-[#A87938]/15 dark:bg-[#FBF7EF] sm:p-8 lg:grid-cols-[240px_1fr]">
-                            <div className="mx-auto aspect-[3/4] w-full max-w-[220px] rounded-2xl bg-white/[0.06] dark:bg-[#A87938]/10" />
-                            <div className="flex flex-col gap-4 py-2">
-                                <div className="h-7 w-2/3 rounded-lg bg-white/[0.06] dark:bg-[#A87938]/10" />
-                                <div className="h-4 w-1/3 rounded-lg bg-white/[0.06] dark:bg-[#A87938]/10" />
-                                <div className="h-20 w-full rounded-xl bg-white/[0.06] dark:bg-[#A87938]/10" />
-                            </div>
-                        </div>
-                    ) : data ? (
+                    {book ? (
                         <BookFeature
-                            title={data.title || ""}
-                            Genre={data.genre || ""}
-                            author={data.author || ""}
-                            rating={data.rating || 0}
-                            description={data.description || ""}
-                            bookImg={data.coverUrl || ""}
-                            totalBooks={data.totalCopies || 0}
-                            availableBooks={data.availableCopies || 0}
+                            title={book.title || ""}
+                            Genre={book.genre || ""}
+                            author={book.author || ""}
+                            rating={5} //TODO
+                            description={book.description || ""}
+                            bookImg={book.bookImage || ""}
+                            totalBooks={book.totalNumberOfBooks || 0}
+                            availableBooks={10} //TODO
                         />
                     ) : (
                         <div className="flex flex-col items-center gap-4 rounded-3xl border border-white/10 bg-[#171614] px-5 py-12 text-center dark:border-[#A87938]/15 dark:bg-[#FBF7EF]">
@@ -269,7 +232,7 @@ const BookDetailClient = ({
                     )}
                 </motion.section>
 
-                {data && (
+                {book && (
                     <>
                         {/* Main content */}
                         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(380px,1fr)] lg:gap-8 xl:gap-10">
@@ -294,11 +257,11 @@ const BookDetailClient = ({
                                             <video
                                                 ref={videoRef}
                                                 poster={
-                                                    !data.videoUrl
+                                                    !book.bookVideo
                                                         ? imagesAddresses.images.notFoundBg
                                                         : undefined
                                                 }
-                                                src={data.videoUrl || undefined}
+                                                src={book.bookVideo || undefined}
                                                 preload="metadata"
                                                 playsInline
                                                 onPlay={() => setIsPlaying(true)}
@@ -383,7 +346,7 @@ const BookDetailClient = ({
                                                 )}
                                             </AnimatePresence>
 
-                                            {!data.videoUrl && (
+                                            {!book.bookVideo && (
                                                 <div className="pointer-events-none absolute bottom-3 left-3 rounded-lg border border-white/10 bg-black/60 px-3 py-1.5 text-xs text-white/80 backdrop-blur-md">
                                                     Video unavailable
                                                 </div>
@@ -406,7 +369,7 @@ const BookDetailClient = ({
                                                     step="0.1"
                                                     value={progress}
                                                     onChange={handleSeek}
-                                                    disabled={!data.videoUrl || duration <= 0}
+                                                    disabled={!book.bookVideo || duration <= 0}
                                                     className="bookwise-range h-1.5 min-w-0 flex-1 cursor-pointer rounded-full disabled:cursor-not-allowed disabled:opacity-40"
                                                     style={{
                                                         background: `linear-gradient(to right, #E7C9A5 0%, #E7C9A5 ${progress}%, #75634E ${progress}%, #75634E 100%)`,
@@ -424,7 +387,7 @@ const BookDetailClient = ({
                                                     <button
                                                         type="button"
                                                         aria-label="Rewind 5 seconds"
-                                                        disabled={!data.videoUrl}
+                                                        disabled={!book.bookVideo}
                                                         onClick={() => skipVideo(-5)}
                                                         className="rounded-lg p-1.5 opacity-80 transition hover:bg-white/5 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 dark:hover:bg-[#A87938]/10"
                                                     >
@@ -447,7 +410,7 @@ const BookDetailClient = ({
                                                     <button
                                                         type="button"
                                                         aria-label={isPlaying ? "Pause video" : "Play video"}
-                                                        disabled={!data.videoUrl}
+                                                        disabled={!book.bookVideo}
                                                         onClick={togglePlay}
                                                         className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E7C9A5] text-[#17130F] shadow-[0_4px_15px_rgba(231,201,165,0.12)] transition hover:bg-[#D9B58A] disabled:cursor-not-allowed disabled:opacity-40 dark:bg-[#A87938] dark:hover:bg-[#966C30]"
                                                     >
@@ -467,7 +430,7 @@ const BookDetailClient = ({
                                                     <button
                                                         type="button"
                                                         aria-label="Forward 5 seconds"
-                                                        disabled={!data.videoUrl}
+                                                        disabled={!book.bookVideo}
                                                         onClick={() => skipVideo(5)}
                                                         className="rounded-lg p-1.5 opacity-80 transition hover:bg-white/5 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 dark:hover:bg-[#A87938]/10"
                                                     >
@@ -528,7 +491,7 @@ const BookDetailClient = ({
                                                                 ? "Unmute video"
                                                                 : "Mute video"
                                                         }
-                                                        disabled={!data.videoUrl}
+                                                        disabled={!book.bookVideo}
                                                         onClick={toggleMute}
                                                         className="flex h-9 w-9 items-center justify-center rounded-lg transition hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-[#A87938]/10"
                                                     >
@@ -559,7 +522,7 @@ const BookDetailClient = ({
                                                     <button
                                                         type="button"
                                                         aria-label="Adjust volume"
-                                                        disabled={!data.videoUrl}
+                                                        disabled={!book.bookVideo}
                                                         onClick={() =>
                                                             setSoundAdjustment((previous) => !previous)
                                                         }
@@ -596,9 +559,9 @@ const BookDetailClient = ({
                                             className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[#E7C9A5] via-[#E7C9A5]/30 to-transparent dark:from-[#A87938] dark:via-[#A87938]/30"
                                         />
 
-                                        {data.summary ? (
+                                        {book.description ? (
                                             <p className="whitespace-pre-line text-sm leading-7 text-[#D8CDBD] dark:text-[#40372B] sm:text-base sm:leading-8">
-                                                {data.summary}
+                                                {book.description}
                                             </p>
                                         ) : (
                                             <p className={`text-sm leading-7 ${secondaryTextClass}`}>
@@ -771,7 +734,7 @@ const BookDetailClient = ({
                                         </div>
 
                                         <div className="min-w-0">
-                                            <FlipBookPreview />
+                                            <FlipBookPreview pdfUrl={book.bookPdf} />
                                         </div>
                                     </div>
                                 </motion.section>
@@ -800,7 +763,7 @@ const BookDetailClient = ({
 
                             <div className="rounded-2xl border border-white/[0.08] bg-[#171614] p-4 dark:border-[#A87938]/15 dark:bg-[#FBF7EF] sm:rounded-3xl sm:p-6 lg:p-8">
                                 <BookReviews
-                                    bookId="6ad71041c970a93284732e79" // TODO
+                                    bookId={bookId}
                                     data={reviewsData}
                                 />
                             </div>
