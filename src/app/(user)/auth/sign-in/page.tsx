@@ -106,6 +106,19 @@ const SignIn = () => {
         throw new Error("Failed to set access token");
       }
 
+      const profileResponse = await fetch("/api/auth/profile", {
+        method: "GET",
+        cache: "no-store",
+      });
+
+      const profileResult = await profileResponse.json();
+
+      if (!profileResponse.ok) {
+        throw new Error(
+          profileResult.message || "Failed to get user profile"
+        );
+      }
+
       showToast("Login successfully", "success");
       router.push(SiteUrls.dashbord);
     } catch (err) {
@@ -129,10 +142,9 @@ const SignIn = () => {
     dark:bg-[#F8F2E6] dark:text-[#17130F]
     dark:placeholder:text-[#9C8B76]
     dark:focus:bg-white
-    ${
-      hasError
-        ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
-        : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
+    ${hasError
+      ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
+      : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
     }`;
 
   return (

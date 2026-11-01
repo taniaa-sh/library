@@ -1,17 +1,41 @@
+
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+
+import { fetchData } from "@/utils/utils";
+import { Axios_Route } from "@/utils/axiosRoutes";
+import { AxiosMethodEnum } from "@/utils/type";
+import showToast from "@/utils/toast";
+import { uploadToCloudinary } from "@/utils/cloudinary";
 
 type FormValues = {
     name: string;
     university: string;
     studentId: string;
     email: string;
+};
+
+type User = {
+    _id: string;
+    id: number;
+    email: string;
+    fullName: string;
+    universityId: string;
+    university?: string | null;
+    profileImage?: string | null;
+    role: "ADMIN" | "USER";
+    createdAt: string;
+    updatedAt: string;
+};
+
+type PropsType = {
+    data: User;
 };
 
 const fields = [
@@ -21,12 +45,22 @@ const fields = [
     { name: "email", label: "Email", type: "email" },
 ] as const;
 
-const UserProfile = () => {
+const UserProfile = ({ data }: PropsType) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const [profile, setProfile] = useState<User>(data);
+
     const [avatar, setAvatar] = useState<string>(
-        imagesAddresses.images.profile
+        data.profileImage || imagesAddresses.images.profile
     );
+
+    const [profileImageFile, setProfileImageFile] =
+        useState<File | null>(null);
+
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const previewUrlRef = useRef<string | null>(null);
+
     const shouldReduceMotion = useReducedMotion();
 
     const {
@@ -36,28 +70,174 @@ const UserProfile = () => {
         formState: { errors },
     } = useForm<FormValues>({
         defaultValues: {
-            name: "Adrian Hajdin",
-            university: "JS Mastery",
-            studentId: "23456789",
-            email: "contact@jsmastery.pro",
+            name: data.fullName ?? "",
+            university: data.university ?? "",
+            studentId: data.universityId ?? "",
+            email: data.email ?? "",
         },
     });
 
-    const onSave = (data: FormValues) => {
-        // Connect your profile update API here.
-        reset(data);
+    // Sync profile data
+    useEffect(() => {
+        setProfile(data);
+
+        reset({
+            name: data.fullName ?? "",
+            university: data.university ?? "",
+            studentId: data.universityId ?? "",
+            email: data.email ?? "",
+        });
+
+        setAvatar(
+            data.profileImage || imagesAddresses.images.profile
+        );
+    }, [data, reset]);
+
+    // Cleanup preview URL
+    useEffect(() => {
+        return () => {
+            if (previewUrlRef.current) {
+                URL.revokeObjectURL(previewUrlRef.current);
+            }
+        };
+    }, []);
+
+    // Update profile
+    const onSave: SubmitHandler<FormValues> = async (formData) => {
+        if (loading) return;
+
+        setLoading(true);
+
+        try {
+            const profileImage = profileImageFile
+                ? await uploadToCloudinary(profileImageFile, "image")
+                : profile.profileImage || null;
+
+            const result = await fetchData<
+                Record<string, unknown>,
+                unknown
+            >({
+                baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
+                apiRoute: Axios_Route.updateProfile,
+                method: AxiosMethodEnum.put,
+                queryParams: {
+                    fullName: formData.name.trim(),
+                    email: formData.email.trim(),
+                    universityId: formData.studentId.trim(),
+                    university: formData.university.trim() || null,
+                    profileImage,
+                },
+                isFormData: false,
+            });
+
+            if (!result) {
+                throw new Error("Failed to update profile");
+            }
+
+            // Update local profile data
+            const updatedProfile: User = {
+                ...profile,
+                fullName: formData.name.trim(),
+                email: formData.email.trim(),
+                universityId: formData.studentId.trim(),
+                university: formData.university.trim() || null,
+                profileImage,
+            };
+
+            setProfile(updatedProfile);
+
+            setAvatar(
+                profileImage || imagesAddresses.images.profile
+            );
+
+            reset({
+                name: updatedProfile.fullName,
+                university: updatedProfile.university ?? "",
+                studentId: updatedProfile.universityId,
+                email: updatedProfile.email,
+            });
+
+            setProfileImageFile(null);
+
+            if (previewUrlRef.current) {
+                URL.revokeObjectURL(previewUrlRef.current);
+                previewUrlRef.current = null;
+            }
+
+            if (inputRef.current) {
+                inputRef.current.value = "";
+            }
+
+            setIsEditing(false);
+
+            showToast(
+                "Profile updated successfully",
+                "success",
+                true,
+                undefined,
+                true
+            );
+
+        } catch (error) {
+            console.error("Update profile error:", error);
+
+            showToast(
+                error instanceof Error
+                    ? error.message
+                    : "Something went wrong",
+                "error",
+                true,
+                undefined,
+                true
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Cancel editing
+    const onCancel = () => {
+        reset({
+            name: profile.fullName ?? "",
+            university: profile.university ?? "",
+            studentId: profile.universityId ?? "",
+            email: profile.email ?? "",
+        });
+
+        if (previewUrlRef.current) {
+            URL.revokeObjectURL(previewUrlRef.current);
+            previewUrlRef.current = null;
+        }
+
+        setAvatar(
+            profile.profileImage || imagesAddresses.images.profile
+        );
+
+        setProfileImageFile(null);
+
+        if (inputRef.current) {
+            inputRef.current.value = "";
+        }
+
         setIsEditing(false);
     };
 
-    const onCancel = () => {
-        reset();
-        setAvatar(imagesAddresses.images.profile);
-        setIsEditing(false);
-        if (inputRef.current) inputRef.current.value = "";
+    // Start editing
+    const startEditing = () => {
+        reset({
+            name: profile.fullName ?? "",
+            university: profile.university ?? "",
+            studentId: profile.universityId ?? "",
+            email: profile.email ?? "",
+        });
+
+        setIsEditing(true);
     };
 
     const changeProfileImage = () => {
-        if (isEditing) inputRef.current?.click();
+        if (isEditing && !loading) {
+            inputRef.current?.click();
+        }
     };
 
     const fadeUp = {
@@ -84,12 +264,14 @@ const UserProfile = () => {
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#E7C9A5]/10 blur-3xl dark:bg-[#A87938]/10"
             />
+
             <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-[#A87938]/10 blur-3xl"
             />
 
             <div className="relative z-10 space-y-8 md:space-y-10">
+
                 {/* Header */}
                 <motion.div
                     {...fadeUp}
@@ -134,7 +316,7 @@ const UserProfile = () => {
                                         iconPosition="center"
                                         color="yellow"
                                         containerClassName="!w-fit cursor-pointer"
-                                        onClick={() => setIsEditing(true)}
+                                        onClick={startEditing}
                                     />
                                 </div>
 
@@ -145,7 +327,7 @@ const UserProfile = () => {
                                         iconPosition="center"
                                         color="yellow"
                                         containerClassName="!w-fit cursor-pointer"
-                                        onClick={() => setIsEditing(true)}
+                                        onClick={startEditing}
                                     />
                                 </div>
                             </motion.div>
@@ -165,28 +347,28 @@ const UserProfile = () => {
                                 <CustomButton
                                     text="Cancel"
                                     color="gray"
-                                    containerClassName="!w-fit cursor-pointer"
+                                    containerClassName={`!w-fit ${loading ? "pointer-events-none opacity-50" : "cursor-pointer"}`}
                                     onClick={onCancel}
                                 />
 
                                 <div className="hidden dark:block">
                                     <CustomButton
-                                        text="Save"
+                                        text={loading ? "Saving..." : "Save"}
                                         color="yellow"
                                         iconAddress={imagesAddresses.icons.saveWhite}
                                         iconPosition="center"
-                                        containerClassName="!w-fit cursor-pointer"
+                                        containerClassName={`!w-fit ${loading ? "pointer-events-none opacity-50" : "cursor-pointer"}`}
                                         onClick={handleSubmit(onSave)}
                                     />
                                 </div>
 
                                 <div className="dark:hidden">
                                     <CustomButton
-                                        text="Save"
+                                        text={loading ? "Saving..." : "Save"}
                                         color="yellow"
                                         iconAddress={imagesAddresses.icons.save}
                                         iconPosition="center"
-                                        containerClassName="!w-fit cursor-pointer"
+                                        containerClassName={`!w-fit ${loading ? "pointer-events-none opacity-50" : "cursor-pointer"}`}
                                         onClick={handleSubmit(onSave)}
                                     />
                                 </div>
@@ -197,6 +379,7 @@ const UserProfile = () => {
 
                 {/* Profile content */}
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-[190px_minmax(0,1fr)] md:gap-10">
+
                     {/* Avatar card */}
                     <motion.div
                         {...fadeUp}
@@ -227,9 +410,10 @@ const UserProfile = () => {
                                 width={150}
                                 height={150}
                                 onClick={changeProfileImage}
-                                className={`relative h-[120px] w-[120px] rounded-full border-4 border-[#0D0D0C] object-cover shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:border-[#F8F2E6] ${
-                                    isEditing ? "cursor-pointer" : ""
-                                }`}
+                                className={`relative h-[120px] w-[120px] rounded-full border-4 border-[#0D0D0C] object-cover shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:border-[#F8F2E6] ${isEditing
+                                        ? "cursor-pointer"
+                                        : ""
+                                    }`}
                             />
 
                             {isEditing && (
@@ -267,7 +451,19 @@ const UserProfile = () => {
                                     const file = event.target.files?.[0];
 
                                     if (file) {
-                                        setAvatar(URL.createObjectURL(file));
+                                        if (previewUrlRef.current) {
+                                            URL.revokeObjectURL(
+                                                previewUrlRef.current
+                                            );
+                                        }
+
+                                        const previewUrl =
+                                            URL.createObjectURL(file);
+
+                                        previewUrlRef.current = previewUrl;
+
+                                        setProfileImageFile(file);
+                                        setAvatar(previewUrl);
                                     }
                                 }}
                             />
@@ -275,10 +471,13 @@ const UserProfile = () => {
 
                         <div className="text-center">
                             <p className="text-base font-semibold text-[#F8F2E6] dark:text-[#17130F]">
-                                Adrian Hajdin
+                                {profile.fullName || "User"}
                             </p>
+
                             <p className="mt-1 text-xs text-[#B8AA98] dark:text-[#75634E]">
-                                Library Member
+                                {profile.role === "ADMIN"
+                                    ? "Administrator"
+                                    : "Library Member"}
                             </p>
                         </div>
 
@@ -306,6 +505,15 @@ const UserProfile = () => {
                         {fields.map((field, index) => {
                             const fieldName = field.name;
                             const error = errors[fieldName];
+
+                            const fieldValue =
+                                field.name === "name"
+                                    ? profile.fullName
+                                    : field.name === "university"
+                                        ? profile.university
+                                        : field.name === "studentId"
+                                            ? profile.universityId
+                                            : profile.email;
 
                             return (
                                 <motion.div
@@ -357,26 +565,28 @@ const UserProfile = () => {
                                                         field.name === "email"
                                                             ? "email"
                                                             : field.name === "name"
-                                                              ? "name"
-                                                              : "off"
+                                                                ? "name"
+                                                                : "off"
                                                     }
                                                     {...register(fieldName, {
-                                                        required: `${field.label} is required`,
+                                                        required:
+                                                            field.name === "university"
+                                                                ? false
+                                                                : `${field.label} is required`,
+
                                                         ...(field.name === "email"
                                                             ? {
-                                                                  pattern: {
-                                                                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                                                      message:
-                                                                          "Please enter a valid email address",
-                                                                  },
-                                                              }
+                                                                pattern: {
+                                                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                                                    message: "Please enter a valid email address",
+                                                                },
+                                                            }
                                                             : {}),
                                                     })}
-                                                    className={`${inputClass} ${
-                                                        error
+                                                    className={`${inputClass} ${error
                                                             ? "!border-red-500 focus:!ring-red-500/10"
                                                             : ""
-                                                    }`}
+                                                        }`}
                                                 />
 
                                                 {error && (
@@ -408,13 +618,7 @@ const UserProfile = () => {
                                                 className="flex min-h-[48px] items-center rounded-xl border border-white/10 bg-[#171614]/70 px-4 py-3 dark:border-[#A87938]/15 dark:bg-[#F2E9DA]/70"
                                             >
                                                 <p className="break-all text-sm font-medium text-[#F8F2E6] dark:text-[#17130F] md:text-base">
-                                                    {field.name === "name"
-                                                        ? "Adrian Hajdin"
-                                                        : field.name === "university"
-                                                          ? "JS Mastery"
-                                                          : field.name === "studentId"
-                                                            ? "23456789"
-                                                            : "contact@jsmastery.pro"}
+                                                    {fieldValue || "Not provided"}
                                                 </p>
                                             </motion.div>
                                         )}
@@ -450,6 +654,7 @@ const UserProfile = () => {
                         <p className="text-sm font-medium text-[#F8F2E6] dark:text-[#17130F]">
                             Keep your information up to date
                         </p>
+
                         <p className="mt-1 text-xs leading-6 text-[#B8AA98] dark:text-[#75634E]">
                             Your profile helps us provide a more personalized
                             library experience.

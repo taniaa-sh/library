@@ -9,4 +9,5 @@ export const Axios_Route = {
     updateBook: 'api/allBook/updateBook',
     addReview: '/api/review/addReview',
     getAllReviews: '/api/review/getAll',
+    updateProfile: "api/auth/update-profile",
 };
