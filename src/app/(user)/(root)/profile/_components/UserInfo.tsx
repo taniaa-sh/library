@@ -346,8 +346,13 @@ const UserProfile = ({ data }: PropsType) => {
                             >
                                 <CustomButton
                                     text="Cancel"
+                                    iconAddress={imagesAddresses.icons.close}
+                                    iconPosition="center"
                                     color="gray"
-                                    containerClassName={`!w-fit ${loading ? "pointer-events-none opacity-50" : "cursor-pointer"}`}
+                                    containerClassName={`!w-fit !rounded-xl !border !border-[#E7C9A5]/30 !bg-[#E7C9A5]/5 !text-[#E7C9A5] hover:!border-[#E7C9A5]/60 hover:!bg-[#E7C9A5]/10 dark:!border-[#A87938]/30 dark:!bg-[#A87938]/5 dark:hover:!bg-[#A87938]/10 ${loading
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
+                                        }`}
                                     onClick={onCancel}
                                 />
 
@@ -411,8 +416,8 @@ const UserProfile = ({ data }: PropsType) => {
                                 height={150}
                                 onClick={changeProfileImage}
                                 className={`relative h-[120px] w-[120px] rounded-full border-4 border-[#0D0D0C] object-cover shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:border-[#F8F2E6] ${isEditing
-                                        ? "cursor-pointer"
-                                        : ""
+                                    ? "cursor-pointer"
+                                    : ""
                                     }`}
                             />
 
@@ -584,8 +589,8 @@ const UserProfile = ({ data }: PropsType) => {
                                                             : {}),
                                                     })}
                                                     className={`${inputClass} ${error
-                                                            ? "!border-red-500 focus:!ring-red-500/10"
-                                                            : ""
+                                                        ? "!border-red-500 focus:!ring-red-500/10"
+                                                        : ""
                                                         }`}
                                                 />
 
