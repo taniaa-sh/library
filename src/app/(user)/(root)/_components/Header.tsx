@@ -110,7 +110,7 @@ const Header = () => {
           duration: reduceMotion ? 0 : 0.7,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="fixed inset-x-0 top-0 z-[1003] px-3 pt-3 sm:px-5 lg:px-8"
+        className="fixed inset-x-0 top-0 z-[1000] px-3 pt-3 sm:px-5 lg:px-8"
       >
         <div
           className="
