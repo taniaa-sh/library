@@ -653,7 +653,7 @@ export default function HomePage() {
 
         <div className="mt-10 text-center">
           <Link
-            href={SiteUrls.signIn}
+            href={SiteUrls.search}
             className="inline-flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/[0.05] px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/10"
           >
             Explore Your Library <Icon name="arrow" size={17} />
