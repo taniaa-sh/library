@@ -58,7 +58,7 @@ export default function BranchMap({
     onSelectBranch,
 }: Props) {
 
-    const center: LatLngExpression = [32.4279, 53.688];
+    const center: LatLngExpression = [51.1657, 10.4515];
 
     return (
         <div className="w-full h-[400px] rounded-lg overflow-hidden">
