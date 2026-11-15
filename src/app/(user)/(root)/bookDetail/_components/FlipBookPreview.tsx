@@ -132,7 +132,7 @@ const FlipBookPreview = ({pdfUrl }: {pdfUrl: string}) => {
         showPdfModal &&
         <PdfPreviewModal
           setShowPdfModal={setShowPdfModal}
-          pdfUrl="/pdf.pdf"
+          pdfUrl={pdfUrl}
         />
       }
 

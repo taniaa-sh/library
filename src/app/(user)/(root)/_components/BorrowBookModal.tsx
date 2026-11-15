@@ -446,16 +446,6 @@ const BorrowBookModal = ({
 
                                 {/* Actions */}
                                 <div className="mt-1 flex flex-col-reverse gap-2 border-t border-white/10 pt-3 dark:border-[#B88A4B]/20 sm:flex-row sm:justify-end">
-                                    <div className="w-full sm:w-auto">
-                                        <CustomButton
-                                            text="Cancel"
-                                            color="secondary"
-                                            type="button"
-                                            containerClassName="w-full cursor-pointer sm:!w-fit sm:!px-6"
-                                            onClick={handleClose}
-                                        />
-                                    </div>
-
                                     <div
                                         className={`w-full sm:w-auto ${!isAvailable || isSubmitting
                                                 ? "pointer-events-none opacity-60"

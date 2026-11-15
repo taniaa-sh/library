@@ -111,7 +111,7 @@ const PdfPreviewModal = ({
                             </Worker>
                         </div>
 
-                        <CustomButton
+                        {/* <CustomButton
                             text="Close"
                             color="white"
                             containerClassName={`w-full cursor-pointer text-nowrap ${!isAdmin ? "hidden" : ""}`}
@@ -123,7 +123,7 @@ const PdfPreviewModal = ({
                             color="secondary"
                             containerClassName={`w-full cursor-pointer text-nowrap ${isAdmin ? "hidden" : ""}`}
                             onClick={handleClose}
-                        />
+                        /> */}
                     </div>
                 </div>
 
@@ -161,7 +161,7 @@ const PdfPreviewModal = ({
                         </Worker>
                     </div>
 
-                    <CustomButton
+                    {/* <CustomButton
                         text="Close"
                         color="white"
                         containerClassName={`w-full cursor-pointer text-nowrap ${!isAdmin ? "hidden" : ""}`}
@@ -173,7 +173,7 @@ const PdfPreviewModal = ({
                         color="secondary"
                         containerClassName={`w-full cursor-pointer text-nowrap ${isAdmin ? "hidden" : ""}`}
                         onClick={handleClose}
-                    />
+                    /> */}
                 </div>
             </div>
         </>
