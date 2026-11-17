@@ -318,7 +318,7 @@ const SignUp = () => {
 
             {/* Scrollable form and login section */}
             <div
-              className="relative z-10 min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-5 pb-5 sm:px-8 sm:pb-8"
+              className="relative z-10 min-h-0 flex-1 overflow-x-hidden overflow-y-auto scroll-gray overscroll-contain px-5 pb-5 sm:px-8 sm:pb-8"
               style={{ scrollbarGutter: "stable" }}
             >
               <form

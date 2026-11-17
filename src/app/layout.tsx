@@ -39,19 +39,19 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-                            (function() {
-                                try {
-                                    const saved2 = localStorage.getItem('themeAdmin');
-                                    const saved = localStorage.getItem('theme');
-                                    if (saved2 === 'dark') {
-                                        document.documentElement.classList.add('dark');
-                                    }
-                                        if (saved === 'dark') {
-                                        document.documentElement.classList.add('dark');
-                                    }
-                                } catch (_) {}
-                            })();
-                        `,
+                (function() {
+                    try {
+                        const saved2 = localStorage.getItem('themeAdmin');
+                        const saved = localStorage.getItem('theme');
+                        if (saved2 === 'dark') {
+                            document.documentElement.classList.add('dark');
+                        }
+                        if (saved === 'dark') {
+                            document.documentElement.classList.add('dark');
+                        }
+                    } catch (_) {}
+                })();
+            `,
           }}
         />
       </head>
