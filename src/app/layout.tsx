@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import BackgroundWrapper from "@/components/BackgroundWrapperProps ";
+import ThemeInitializer from "@/components/ThemeInitializer";
 
 const ibmPlexSans = localFont({
   src: [
@@ -56,9 +57,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
-          <BackgroundWrapper>
-            {children}
-          </BackgroundWrapper>
+        <ThemeInitializer />
+        <BackgroundWrapper>
+          {children}
+        </BackgroundWrapper>
       </body>
     </html>
   );

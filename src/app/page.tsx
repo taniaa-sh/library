@@ -187,7 +187,7 @@ function BookCover({
       viewport={{ once: true, amount: 0.15 }}
       transition={{ delay: index * 0.08 }}
       whileHover={{ y: -7 }}
-      className="group min-w-0 rounded-2xl border border-white/[0.09] bg-[#11100F] p-4 transition-colors duration-300 hover:border-primary/50 hover:bg-[#191612]"
+      className="group min-w-0 rounded-2xl border border-[#E7C9A5]/10 bg-[#171614] p-4 transition-colors duration-300 hover:border-[#E7C9A5]/50 hover:bg-[#211E19] dark:border-[#B88A4B]/20 dark:bg-white/75 dark:hover:border-[#B88A4B]/50 dark:hover:bg-white"
     >
       <div className="flex items-center gap-4">
         <div className="relative w-[100px] shrink-0 [perspective:800px]">
@@ -210,21 +210,23 @@ function BookCover({
             </span>
             <div className="absolute inset-y-0 left-0 w-1 bg-black/20" />
           </motion.div>
-          <div className="absolute -bottom-2 left-2 right-2 -z-10 h-4 rounded-full bg-primary/15 blur-lg" />
+          <div className="absolute -bottom-2 left-2 right-2 -z-10 h-4 rounded-full bg-[#E7C9A5]/15 blur-lg dark:bg-[#B88A4B]/15" />
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col items-start">
-          <span className="rounded-full border border-primary/20 bg-primary/[0.07] px-2.5 py-1 text-[10px] text-primary">
+          <span className="rounded-full border border-[#E7C9A5]/20 bg-[#E7C9A5]/[0.07] px-2.5 py-1 text-[10px] text-[#E7C9A5] dark:border-[#B88A4B]/30 dark:bg-[#B88A4B]/[0.08] dark:text-[#A87938]">
             {book.category}
           </span>
-          <h3 className="mt-3 line-clamp-2 text-sm font-bold leading-6 text-white">
+          <h3 className="mt-3 line-clamp-2 text-sm font-bold leading-6 text-white dark:text-[#17130F]">
             {book.title}
           </h3>
-          <p className="mt-1 text-xs text-stone-400">{book.author}</p>
+          <p className="mt-1 text-xs text-stone-400 dark:text-[#75634E]">
+            {book.author}
+          </p>
           <Link
             href={SiteUrls.signIn}
             aria-label={`Explore ${book.title}`}
-            className="mt-4 flex h-9 w-9 items-center justify-center rounded-full border border-primary/40 text-primary transition-all hover:bg-primary hover:text-black"
+            className="mt-4 flex h-9 w-9 items-center justify-center rounded-full border border-[#E7C9A5]/40 text-[#E7C9A5] transition-all hover:bg-[#E7C9A5] hover:text-black dark:border-[#B88A4B]/40 dark:text-[#A87938] dark:hover:bg-[#A87938] dark:hover:text-white"
           >
             <Icon name="arrow" size={17} />
           </Link>
@@ -256,12 +258,16 @@ export default function HomePage() {
 
   const floatingTransition = reduceMotion
     ? { duration: 0 }
-    : { duration: 5, repeat: Infinity, ease: "easeInOut" as const };
+    : {
+      duration: 5,
+      repeat: Infinity,
+      ease: "easeInOut" as const,
+    };
 
   return (
     <main
       id="home"
-      className="relative min-h-screen overflow-hidden bg-[#080808] text-white selection:bg-primary selection:text-black"
+      className="relative min-h-screen overflow-hidden bg-[#0D0D0C] text-white selection:bg-[#E7C9A5] selection:text-black dark:bg-[#F8F2E6] dark:text-[#17130F] dark:selection:bg-[#A87938] dark:selection:text-white"
     >
       {/* Ambient background */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -269,54 +275,80 @@ export default function HomePage() {
           animate={
             reduceMotion
               ? {}
-              : { x: [0, 35, 0], y: [0, 25, 0], opacity: [0.15, 0.35, 0.15] }
+              : {
+                x: [0, 35, 0],
+                y: [0, 25, 0],
+                opacity: [0.15, 0.35, 0.15],
+              }
           }
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-48 -top-40 h-[520px] w-[520px] rounded-full bg-primary/[0.10] blur-[140px]"
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -left-48 -top-40 h-[520px] w-[520px] rounded-full bg-[#E7C9A5]/[0.10] blur-[140px] dark:bg-[#B88A4B]/[0.16]"
         />
         <motion.div
           animate={
             reduceMotion
               ? {}
-              : { x: [0, -30, 0], y: [0, -25, 0], opacity: [0.08, 0.22, 0.08] }
+              : {
+                x: [0, -30, 0],
+                y: [0, -25, 0],
+                opacity: [0.08, 0.22, 0.08],
+              }
           }
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-48 top-[35%] h-[500px] w-[500px] rounded-full bg-amber-800/[0.10] blur-[140px]"
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -right-48 top-[35%] h-[500px] w-[500px] rounded-full bg-amber-800/[0.10] blur-[140px] dark:bg-[#E7C9A5]/25"
         />
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#080808]/85 backdrop-blur-2xl">
+      <header className="sticky top-0 z-50 border-b border-[#E7C9A5]/10 bg-[#0D0D0C]/85 backdrop-blur-2xl dark:border-[#B88A4B]/15 dark:bg-[#F8F2E6]/90">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
           <Link href="/" className="flex shrink-0 items-center gap-3">
             <motion.div
               whileHover={{ rotate: -8, scale: 1.08 }}
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-black shadow-lg shadow-primary/10"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E7C9A5] text-black shadow-lg shadow-[#E7C9A5]/10 dark:bg-[#A87938] dark:text-white"
             >
               <Icon name="book" size={25} />
             </motion.div>
             <div>
-              <div className="text-xl font-black tracking-tight">
-                Book<span className="text-primary">Wise</span>
+              <div className="text-xl font-black tracking-tight text-white dark:text-[#17130F]">
+                Book<span className="text-[#E7C9A5] dark:text-[#A87938]">Wise</span>
               </div>
-              <p className="text-[9px] tracking-[0.22em] text-stone-500">
+              <p className="text-[9px] tracking-[0.22em] text-stone-500 dark:text-[#9C8B76]">
                 MORE THAN JUST BOOKS
               </p>
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-7 text-sm text-stone-300 lg:flex">
-            <Link href="#home" className="transition hover:text-primary">Home</Link>
-            <Link href="#books" className="transition hover:text-primary">Books</Link>
-            <Link href="#categories" className="transition hover:text-primary">Categories</Link>
-            <Link href="#features" className="transition hover:text-primary">About</Link>
-            <Link href="#footer" className="transition hover:text-primary">Contact</Link>
+          <nav className="hidden items-center gap-7 text-sm text-stone-300 dark:text-[#75634E] lg:flex">
+            <Link href="#home" className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]">
+              Home
+            </Link>
+            <Link href="#books" className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]">
+              Books
+            </Link>
+            <Link href="#categories" className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]">
+              Categories
+            </Link>
+            <Link href="#features" className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]">
+              About
+            </Link>
+            <Link href="#footer" className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]">
+              Contact
+            </Link>
           </nav>
 
           <div className="hidden items-center gap-3 sm:flex">
             <Link
               href={SiteUrls.signIn}
-              className="whitespace-nowrap rounded-xl bg-primary px-4 py-2.5 text-xs font-bold !text-[#17110B] transition hover:bg-[#F2D9B9] hover:shadow-lg hover:shadow-primary/15"
+              className="whitespace-nowrap rounded-xl bg-[#E7C9A5] px-4 py-2.5 text-xs font-bold !text-[#17110F] transition hover:bg-[#F2D9B9] hover:shadow-lg hover:shadow-[#E7C9A5]/15 dark:bg-[#A87938] dark:!text-white dark:hover:bg-[#946A30]"
             >
               Login / Sign Up
             </Link>
@@ -327,14 +359,14 @@ export default function HomePage() {
             onClick={() => setMobileMenu(!mobileMenu)}
             aria-label="Toggle navigation"
             aria-expanded={mobileMenu}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-xl text-primary sm:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#E7C9A5]/20 text-xl text-[#E7C9A5] transition hover:bg-[#E7C9A5]/10 dark:border-[#B88A4B]/30 dark:text-[#A87938] dark:hover:bg-[#B88A4B]/10 sm:hidden"
           >
             {mobileMenu ? "×" : "☰"}
           </button>
         </div>
 
         {mobileMenu && (
-          <nav className="flex flex-col gap-1 border-t border-white/10 bg-[#0D0C0A] p-4 sm:hidden">
+          <nav className="flex flex-col gap-1 border-t border-[#E7C9A5]/10 bg-[#171614] p-4 dark:border-[#B88A4B]/20 dark:bg-[#F1E8D9] sm:hidden">
             {[
               ["Home", "#home"],
               ["Books", "#books"],
@@ -346,7 +378,7 @@ export default function HomePage() {
                 key={href}
                 href={href}
                 onClick={() => setMobileMenu(false)}
-                className="rounded-lg px-4 py-3 text-sm text-stone-300 hover:bg-primary/10 hover:text-primary"
+                className="rounded-lg px-4 py-3 text-sm text-stone-300 transition hover:bg-[#E7C9A5]/10 hover:text-[#E7C9A5] dark:text-[#75634E] dark:hover:bg-[#B88A4B]/10 dark:hover:text-[#A87938]"
               >
                 {label}
               </Link>
@@ -354,7 +386,7 @@ export default function HomePage() {
             <Link
               href={SiteUrls.signIn}
               onClick={() => setMobileMenu(false)}
-              className="mt-2 rounded-xl bg-primary px-4 py-3 text-center text-sm font-bold !text-[#17110B]"
+              className="mt-2 rounded-xl bg-[#E7C9A5] px-4 py-3 text-center text-sm font-bold !text-[#17110F] dark:bg-[#A87938] dark:!text-white"
             >
               Login / Sign Up
             </Link>
@@ -369,18 +401,20 @@ export default function HomePage() {
           animate="visible"
           variants={{
             visible: {
-              transition: { staggerChildren: reduceMotion ? 0 : 0.13 },
+              transition: {
+                staggerChildren: reduceMotion ? 0 : 0.13,
+              },
             },
           }}
           className="relative z-10"
         >
           <motion.h1
             variants={fadeUp}
-            className="mt-7 max-w-xl text-4xl font-black leading-[1.2] tracking-tight sm:text-5xl lg:text-6xl"
+            className="mt-7 max-w-xl text-4xl font-black leading-[1.2] tracking-tight text-white dark:text-[#17130F] sm:text-5xl lg:text-6xl"
           >
             Discover New
             <br />
-            <span className="gold-shimmer bg-gradient-to-r from-[#C8A77F] via-[#FFF0D8] to-[#E7C9A5] bg-clip-text text-transparent">
+            <span className="gold-shimmer bg-gradient-to-r from-[#C8A77F] via-[#FFF0D8] to-[#E7C9A5] bg-clip-text text-transparent dark:from-[#A87938] dark:via-[#C69B61] dark:to-[#8C602C]">
               Worlds
             </span>{" "}
             in Every Book
@@ -388,7 +422,7 @@ export default function HomePage() {
 
           <motion.p
             variants={fadeUp}
-            className="mt-6 max-w-lg text-sm leading-7 text-stone-400 sm:text-base"
+            className="mt-6 max-w-lg text-sm leading-7 text-stone-400 dark:text-[#75634E] sm:text-base"
           >
             Explore thousands of books, from timeless classics to modern
             bestsellers. Your next favorite book is just a click away.
@@ -397,7 +431,7 @@ export default function HomePage() {
           <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
             <Link
               href="#books"
-              className="group inline-flex items-center gap-3 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold !text-[#17110B] shadow-xl shadow-primary/10 transition duration-300 hover:-translate-y-1 hover:bg-[#F2D9B9] hover:shadow-primary/20"
+              className="group inline-flex items-center gap-3 rounded-xl bg-[#E7C9A5] px-6 py-3.5 text-sm font-bold !text-[#17110F] shadow-xl shadow-[#E7C9A5]/10 transition duration-300 hover:-translate-y-1 hover:bg-[#F2D9B9] hover:shadow-[#E7C9A5]/20 dark:bg-[#A87938] dark:!text-white dark:hover:bg-[#946A30]"
             >
               Explore Books
               <span className="transition-transform group-hover:translate-x-1">
@@ -406,7 +440,7 @@ export default function HomePage() {
             </Link>
             <Link
               href={SiteUrls.signIn}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-stone-200 transition hover:border-primary/50 hover:bg-primary/[0.06]"
+              className="inline-flex items-center gap-2 rounded-xl border border-[#E7C9A5]/20 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-stone-200 transition hover:border-[#E7C9A5]/50 hover:bg-[#E7C9A5]/[0.06] dark:border-[#B88A4B]/30 dark:bg-white/50 dark:text-[#59432C] dark:hover:border-[#B88A4B]/60 dark:hover:bg-[#B88A4B]/10"
             >
               ♙ Login
             </Link>
@@ -414,7 +448,7 @@ export default function HomePage() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-10 flex flex-wrap gap-x-6 gap-y-4 border-t border-white/[0.08] pt-6 text-xs text-stone-400"
+            className="mt-10 flex flex-wrap gap-x-6 gap-y-4 border-t border-[#E7C9A5]/10 pt-6 text-xs text-stone-400 dark:border-[#B88A4B]/20 dark:text-[#75634E]"
           >
             <div className="flex items-center gap-2">
               <Icon name="book" size={20} />
@@ -425,7 +459,7 @@ export default function HomePage() {
               <span>Read Anytime</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-lg text-primary">✧</span>
+              <span className="text-lg text-[#E7C9A5] dark:text-[#A87938]">✧</span>
               <span>Discover More</span>
             </div>
           </motion.div>
@@ -435,15 +469,23 @@ export default function HomePage() {
         <div className="relative mx-auto flex min-h-[350px] w-full max-w-[520px] items-center justify-center sm:min-h-[440px]">
           <motion.div
             animate={reduceMotion ? {} : { rotate: 360 }}
-            transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-            className="absolute h-[250px] w-[250px] rounded-full border border-dashed border-primary/20 sm:h-[370px] sm:w-[370px]"
+            transition={{
+              duration: 45,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute h-[250px] w-[250px] rounded-full border border-dashed border-[#E7C9A5]/20 dark:border-[#B88A4B]/30 sm:h-[370px] sm:w-[370px]"
           />
           <motion.div
             animate={reduceMotion ? {} : { rotate: -360 }}
-            transition={{ duration: 55, repeat: Infinity, ease: "linear" }}
-            className="absolute h-[200px] w-[200px] rounded-full border border-primary/15 sm:h-[290px] sm:w-[290px]"
+            transition={{
+              duration: 55,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute h-[200px] w-[200px] rounded-full border border-[#E7C9A5]/15 dark:border-[#B88A4B]/25 sm:h-[290px] sm:w-[290px]"
           />
-          <div className="ambient-glow absolute h-52 w-52 rounded-full bg-primary/20 blur-[80px] sm:h-72 sm:w-72" />
+          <div className="absolute h-52 w-52 rounded-full bg-[#E7C9A5]/20 blur-[80px] dark:bg-[#B88A4B]/20 sm:h-72 sm:w-72" />
 
           {[
             { left: "12%", top: "20%", symbol: "✦" },
@@ -456,22 +498,35 @@ export default function HomePage() {
               animate={
                 reduceMotion
                   ? {}
-                  : { y: [0, -12, 0], opacity: [0.4, 1, 0.4] }
+                  : {
+                    y: [0, -12, 0],
+                    opacity: [0.4, 1, 0.4],
+                  }
               }
               transition={{
                 duration: 3,
                 delay: index * 0.4,
                 repeat: Infinity,
               }}
-              style={{ left: star.left, top: star.top }}
-              className="absolute text-2xl text-primary"
+              style={{
+                left: star.left,
+                top: star.top,
+              }}
+              className="absolute text-2xl text-[#E7C9A5] dark:text-[#A87938]"
             >
               {star.symbol}
             </motion.span>
           ))}
 
           <motion.div
-            animate={reduceMotion ? {} : { y: [0, -12, 0], rotate: [-4, -1, -4] }}
+            animate={
+              reduceMotion
+                ? {}
+                : {
+                  y: [0, -12, 0],
+                  rotate: [-4, -1, -4],
+                }
+            }
             transition={floatingTransition}
             className="absolute left-[7%] top-[19%] hidden h-28 w-20 flex-col justify-between rounded-r-md bg-gradient-to-br from-[#E7C9A5] to-[#725235] p-2 shadow-2xl shadow-black/50 sm:flex"
           >
@@ -481,36 +536,62 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div
-            animate={reduceMotion ? {} : { y: [0, -10, 0], rotate: [3, 0, 3] }}
-            transition={{ ...floatingTransition, delay: 0.8 }}
+            animate={
+              reduceMotion
+                ? {}
+                : {
+                  y: [0, -10, 0],
+                  rotate: [3, 0, 3],
+                }
+            }
+            transition={{
+              ...floatingTransition,
+              delay: 0.8,
+            }}
             className="absolute right-[6%] top-[26%] hidden h-24 w-16 flex-col justify-between rounded-r-md bg-gradient-to-br from-[#7D7569] to-[#25221D] p-2 shadow-xl sm:flex"
           >
-            <span className="text-[7px] text-primary">MIND</span>
-            <span className="text-center text-xl text-primary">☾</span>
-            <span className="text-center text-[7px] text-primary">CHAPTER 7</span>
+            <span className="text-[7px] text-[#E7C9A5]">MIND</span>
+            <span className="text-center text-xl text-[#E7C9A5]">☾</span>
+            <span className="text-center text-[7px] text-[#E7C9A5]">CHAPTER 7</span>
           </motion.div>
 
           <motion.div
-            animate={reduceMotion ? {} : { y: [0, -8, 0], rotate: [-1, 1, -1] }}
+            animate={
+              reduceMotion
+                ? {}
+                : {
+                  y: [0, -8, 0],
+                  rotate: [-1, 1, -1],
+                }
+            }
             transition={floatingTransition}
             className="relative z-10 w-[78%] max-w-[360px]"
           >
-            <div className="relative rounded-[30px] border border-primary/20 bg-gradient-to-br from-[#201A13] via-[#12100D] to-[#090909] p-5 shadow-[0_0_80px_#E7C9A510] sm:p-8">
-              <div className="absolute inset-0 rounded-[30px] bg-gradient-to-tr from-primary/[0.10] via-transparent to-white/[0.02]" />
+            <div className="relative rounded-[30px] border border-[#E7C9A5]/20 bg-gradient-to-br from-[#201A13] via-[#12100D] to-[#090909] p-5 shadow-[0_0_80px_#E7C9A510] dark:border-[#B88A4B]/30 dark:from-white dark:via-[#F8F2E6] dark:to-[#EFE3D0] dark:shadow-[0_0_80px_#B88A4B15]">
+              <div className="absolute inset-0 rounded-[30px] bg-gradient-to-tr from-[#E7C9A5]/[0.10] via-transparent to-white/[0.02] dark:from-[#B88A4B]/10 dark:to-white/30" />
 
               <div className="relative flex h-56 flex-col items-center justify-center sm:h-64">
                 <motion.div
-                  animate={reduceMotion ? {} : { scale: [1, 1.06, 1] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute h-32 w-32 rounded-full bg-primary/15 blur-3xl sm:h-44 sm:w-44"
+                  animate={
+                    reduceMotion
+                      ? {}
+                      : {
+                        scale: [1, 1.06, 1],
+                      }
+                  }
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                  }}
+                  className="absolute h-32 w-32 rounded-full bg-[#E7C9A5]/15 blur-3xl dark:bg-[#B88A4B]/20 sm:h-44 sm:w-44"
                 />
 
-                <span className="mb-5 text-xs tracking-[0.4em] text-primary">
-                  BOOKWise
+                <span className="mb-5 text-xs tracking-[0.4em] text-[#E7C9A5] dark:text-[#A87938]">
+                  BOOKWISE
                 </span>
 
                 <div className="relative flex items-end justify-center gap-1.5">
-                  <div className="h-24 w-12 -rotate-12 rounded-r-md bg-gradient-to-br from-[#BDA58A] to-[#3C2B20] shadow-lg shadow-black/40 sm:h-32 sm:w-16" />
+                  <div className="h-24 w-12 -rotate-12 rounded-r-md bg-gradient-to-br from-[#BDA58A] to-[#3C2B20] shadow-lg shadow-black/40" />
 
                   <div className="relative z-10 flex h-32 w-16 flex-col items-center justify-between rounded-r-md bg-gradient-to-br from-[#F3D9B4] via-[#A8875F] to-[#443020] p-2 shadow-xl shadow-black/40 sm:h-40 sm:w-20">
                     <span className="text-[7px] tracking-widest text-[#21180F]">
@@ -522,20 +603,23 @@ export default function HomePage() {
                     </span>
                   </div>
 
-                  <div className="h-28 w-12 rotate-12 rounded-r-md bg-gradient-to-br from-[#8B7962] to-[#29211A] shadow-lg shadow-black/40 sm:h-36 sm:w-16" />
+                  <div className="h-28 w-12 rotate-12 rounded-r-md bg-gradient-to-br from-[#8B7962] to-[#29211A] shadow-lg shadow-black/40" />
                 </div>
 
-                <div className="mt-5 h-1.5 w-48 rounded-full bg-gradient-to-r from-transparent via-primary/60 to-transparent blur-sm" />
+                <div className="mt-5 h-1.5 w-48 rounded-full bg-gradient-to-r from-transparent via-[#E7C9A5]/60 to-transparent blur-sm dark:via-[#B88A4B]/60" />
               </div>
 
-              <div className="relative mt-2 flex items-center justify-between border-t border-white/10 pt-4">
+              <div className="relative mt-2 flex items-center justify-between border-t border-white/10 pt-4 dark:border-[#B88A4B]/20">
                 <div>
-                  <p className="text-xs font-bold">A Universe of Stories</p>
-                  <p className="mt-1 text-[10px] text-stone-500">
+                  <p className="text-xs font-bold text-white dark:text-[#17130F]">
+                    A Universe of Stories
+                  </p>
+
+                  <p className="mt-1 text-[10px] text-stone-500 dark:text-[#75634E]">
                     Your next chapter starts here.
                   </p>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-primary/[0.08] text-primary">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E7C9A5]/30 bg-[#E7C9A5]/[0.08] text-[#E7C9A5] dark:border-[#B88A4B]/30 dark:bg-[#B88A4B]/10 dark:text-[#A87938]">
                   <Icon name="book" size={19} />
                 </div>
               </div>
@@ -544,16 +628,22 @@ export default function HomePage() {
 
           <motion.div
             animate={reduceMotion ? {} : { y: [0, 7, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="absolute bottom-[6%] right-0 z-20 rounded-xl border border-primary/15 bg-[#15120E]/95 px-4 py-3 shadow-xl backdrop-blur-xl sm:right-2"
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
+            className="absolute bottom-[6%] right-0 z-20 rounded-xl border border-[#E7C9A5]/15 bg-[#15120E]/95 px-4 py-3 shadow-xl backdrop-blur-xl dark:border-[#B88A4B]/25 dark:bg-white/90 sm:right-2"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-lg text-primary">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#E7C9A5]/10 text-lg text-[#E7C9A5] dark:bg-[#B88A4B]/10 dark:text-[#A87938]">
                 ✦
               </span>
               <div>
-                <p className="text-xs font-bold">Find Your Next Favorite</p>
-                <p className="mt-1 text-[10px] text-stone-500">
+                <p className="text-xs font-bold text-white dark:text-[#17130F]">
+                  Find Your Next Favorite
+                </p>
+
+                <p className="mt-1 text-[10px] text-stone-500 dark:text-[#75634E]">
                   One click. New worlds.
                 </p>
               </div>
@@ -565,15 +655,17 @@ export default function HomePage() {
       {/* Categories */}
       <section
         id="categories"
-        className="relative scroll-mt-24 border-y border-white/[0.06] bg-white/[0.015]"
+        className="relative scroll-mt-24 border-y border-[#E7C9A5]/10 bg-white/[0.015] dark:border-[#B88A4B]/15 dark:bg-[#E7C9A5]/10"
       >
         <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-5">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E7C9A5] dark:text-[#A87938]">
                 EXPLORE YOUR INTERESTS
               </p>
-              <h2 className="mt-2 text-xl font-bold">Find Your Genre</h2>
+              <h2 className="mt-2 text-xl font-bold text-white dark:text-[#17130F]">
+                Find Your Genre
+              </h2>
             </div>
 
             <div className="flex flex-wrap gap-2">
@@ -583,11 +675,10 @@ export default function HomePage() {
                   type="button"
                   onClick={() => setCategory(item)}
                   aria-pressed={category === item}
-                  className={`rounded-full border px-3 py-2 text-xs transition duration-300 ${
-                    category === item
-                      ? "border-primary bg-primary text-black"
-                      : "border-white/10 bg-white/[0.02] text-stone-400 hover:border-primary/50 hover:text-primary"
-                  }`}
+                  className={`rounded-full border px-3 py-2 text-xs transition duration-300 ${category === item
+                    ? "border-[#E7C9A5] bg-[#E7C9A5] text-[#17110F] dark:border-[#A87938] dark:bg-[#A87938] dark:text-white"
+                    : "border-white/10 bg-white/[0.02] text-stone-400 hover:border-[#E7C9A5]/50 hover:text-[#E7C9A5] dark:border-[#B88A4B]/20 dark:bg-white/50 dark:text-[#75634E] dark:hover:border-[#B88A4B] dark:hover:text-[#A87938]"
+                    }`}
                 >
                   {item}
                 </button>
@@ -610,18 +701,18 @@ export default function HomePage() {
           className="mb-9 flex flex-wrap items-end justify-between gap-4"
         >
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E7C9A5] dark:text-[#A87938]">
               POPULAR BOOKS
             </p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight">
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-white dark:text-[#17130F]">
               Most Loved Books
             </h2>
-            <p className="mt-3 text-sm text-stone-400">
+            <p className="mt-3 text-sm text-stone-400 dark:text-[#75634E]">
               Discover the books everyone is reading right now.
             </p>
           </div>
 
-          <span className="text-xs text-stone-500">
+          <span className="text-xs text-stone-500 dark:text-[#9C8B76]">
             {filteredBooks.length} books found
           </span>
         </motion.div>
@@ -633,9 +724,11 @@ export default function HomePage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-white/10 bg-white/[0.02] py-16 text-center">
-            <p className="text-lg font-semibold">No Books Found</p>
-            <p className="mt-2 text-sm text-stone-400">
+          <div className="rounded-2xl border border-[#E7C9A5]/15 bg-white/[0.02] py-16 text-center dark:border-[#B88A4B]/20 dark:bg-white/60">
+            <p className="text-lg font-semibold text-white dark:text-[#17130F]">
+              No Books Found
+            </p>
+            <p className="mt-2 text-sm text-stone-400 dark:text-[#75634E]">
               Try another title or choose a different category.
             </p>
             <button
@@ -644,7 +737,7 @@ export default function HomePage() {
                 setSearch("");
                 setCategory("All");
               }}
-              className="mt-5 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-black hover:bg-[#F2D9B9]"
+              className="mt-5 rounded-xl bg-[#E7C9A5] px-5 py-3 text-sm font-bold text-[#17110F] transition hover:bg-[#F2D9B9] dark:bg-[#A87938] dark:text-white dark:hover:bg-[#946A30]"
             >
               Clear Filters
             </button>
@@ -654,9 +747,10 @@ export default function HomePage() {
         <div className="mt-10 text-center">
           <Link
             href={SiteUrls.search}
-            className="inline-flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/[0.05] px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/10"
+            className="inline-flex items-center gap-3 rounded-xl border border-[#E7C9A5]/30 bg-[#E7C9A5]/[0.05] px-6 py-3 text-sm font-semibold text-[#E7C9A5] transition hover:bg-[#E7C9A5]/10 dark:border-[#B88A4B]/30 dark:bg-[#B88A4B]/[0.06] dark:text-[#A87938] dark:hover:bg-[#B88A4B]/15"
           >
-            Explore Your Library <Icon name="arrow" size={17} />
+            Explore Your Library
+            <Icon name="arrow" size={17} />
           </Link>
         </div>
       </section>
@@ -666,7 +760,7 @@ export default function HomePage() {
         id="features"
         className="relative scroll-mt-24 px-5 py-16 lg:px-8"
       >
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-[#1B1711] via-[#100F0D] to-[#0A0A09] p-7 sm:p-10 lg:p-12">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-[#E7C9A5]/20 bg-gradient-to-br from-[#1B1711] via-[#100F0D] to-[#0A0A09] p-7 sm:p-10 lg:p-12 dark:border-[#B88A4B]/25 dark:from-[#FFFDF8] dark:via-[#F8F2E6] dark:to-[#EFE3D0]">
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <motion.div
               initial="hidden"
@@ -674,19 +768,19 @@ export default function HomePage() {
               viewport={{ once: true }}
               variants={fadeUp}
             >
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#E7C9A5] dark:text-[#A87938]">
                 WHY BOOKWISE?
               </span>
 
-              <h2 className="mt-4 text-3xl font-black leading-relaxed sm:text-4xl">
+              <h2 className="mt-4 text-3xl font-black leading-relaxed text-white sm:text-4xl dark:text-[#17130F]">
                 More Than Books.
                 <br />
-                <span className="text-primary">
+                <span className="text-[#E7C9A5] dark:text-[#A87938]">
                   A Whole New Universe.
                 </span>
               </h2>
 
-              <p className="mt-4 max-w-lg text-sm leading-7 text-stone-400">
+              <p className="mt-4 max-w-lg text-sm leading-7 text-stone-400 dark:text-[#75634E]">
                 Your next great idea, unforgettable story, or life-changing
                 lesson is waiting to be discovered. Make every reading moment
                 count.
@@ -694,9 +788,10 @@ export default function HomePage() {
 
               <Link
                 href={SiteUrls.signIn}
-                className="mt-7 inline-flex items-center gap-3 rounded-xl bg-primary px-5 py-3 text-sm font-bold !text-black transition hover:-translate-y-0.5 hover:bg-[#F2D9B9]"
+                className="mt-7 inline-flex items-center gap-3 rounded-xl bg-[#E7C9A5] px-5 py-3 text-sm font-bold !text-[#17110F] transition hover:-translate-y-0.5 hover:bg-[#F2D9B9] dark:bg-[#A87938] dark:!text-white dark:hover:bg-[#946A30]"
               >
-                Start Your Journey <Icon name="arrow" size={17} />
+                Start Your Journey
+                <Icon name="arrow" size={17} />
               </Link>
             </motion.div>
 
@@ -712,17 +807,22 @@ export default function HomePage() {
                   initial={{ opacity: 0, scale: 0.92 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.4 }}
+                  transition={{
+                    delay: index * 0.1,
+                    duration: 0.4,
+                  }}
                   whileHover={{ y: -4 }}
-                  className="rounded-2xl border border-white/[0.08] bg-white/[0.035] p-5 transition hover:border-primary/30"
+                  className="rounded-2xl border border-white/[0.08] bg-white/[0.035] p-5 transition hover:border-[#E7C9A5]/30 dark:border-[#B88A4B]/20 dark:bg-white/65 dark:hover:border-[#B88A4B]/50 dark:hover:bg-white"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E7C9A5]/10 text-[#E7C9A5] dark:bg-[#B88A4B]/10 dark:text-[#A87938]">
                     <Icon name={stat.icon} size={21} />
                   </span>
-                  <p className="mt-5 text-2xl font-black text-white">
+                  <p className="mt-5 text-2xl font-black text-white dark:text-[#17130F]">
                     {stat.value}
                   </p>
-                  <p className="mt-2 text-xs text-stone-400">{stat.label}</p>
+                  <p className="mt-2 text-xs text-stone-400 dark:text-[#75634E]">
+                    {stat.label}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -739,27 +839,37 @@ export default function HomePage() {
           variants={fadeUp}
         >
           <motion.div
-            animate={reduceMotion ? {} : { rotate: [0, 8, -8, 0] }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/30 bg-primary/[0.07] text-primary shadow-[0_0_40px_#E7C9A510]"
+            animate={
+              reduceMotion
+                ? {}
+                : {
+                  rotate: [0, 8, -8, 0],
+                }
+            }
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+            }}
+            className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-[#E7C9A5]/30 bg-[#E7C9A5]/[0.07] text-[#E7C9A5] shadow-[0_0_40px_#E7C9A510] dark:border-[#B88A4B]/30 dark:bg-[#B88A4B]/[0.08] dark:text-[#A87938]"
           >
             <Icon name="book" size={30} />
           </motion.div>
 
-          <h2 className="mt-7 text-3xl font-black sm:text-4xl">
+          <h2 className="mt-7 text-3xl font-black text-white sm:text-4xl dark:text-[#17130F]">
             Ready to Turn the Page?
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-stone-400">
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-stone-400 dark:text-[#75634E]">
             Join our reading community and find the stories that stay with you
             long after the last page.
           </p>
 
           <Link
             href={SiteUrls.signIn}
-            className="mt-7 inline-flex items-center gap-3 rounded-xl bg-primary px-7 py-4 text-sm font-bold !text-black shadow-lg shadow-primary/10 transition hover:-translate-y-1 hover:bg-[#F2D9B9]"
+            className="mt-7 inline-flex items-center gap-3 rounded-xl bg-[#E7C9A5] px-7 py-4 text-sm font-bold !text-[#17110F] shadow-lg shadow-[#E7C9A5]/10 transition hover:-translate-y-1 hover:bg-[#F2D9B9] dark:bg-[#A87938] dark:!text-white dark:hover:bg-[#946A30]"
           >
-            Join BookWise <Icon name="arrow" size={18} />
+            Join BookWise
+            <Icon name="arrow" size={18} />
           </Link>
         </motion.div>
       </section>
@@ -767,21 +877,23 @@ export default function HomePage() {
       {/* Footer */}
       <footer
         id="footer"
-        className="relative border-t border-white/[0.08] bg-[#060606]"
+        className="relative border-t border-[#E7C9A5]/10 bg-[#060606] dark:border-[#B88A4B]/20 dark:bg-[#F1E8D9]"
       >
         <div className="mx-auto max-w-7xl px-5 pb-6 pt-12 lg:px-8">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Brand */}
             <div>
               <Link href="/" className="inline-flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-black">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E7C9A5] text-black dark:bg-[#A87938] dark:text-white">
                   <Icon name="book" size={23} />
                 </span>
-                <span className="text-xl font-black">
-                  Book<span className="text-primary">Wise</span>
+
+                <span className="text-xl font-black text-white dark:text-[#17130F]">
+                  Book<span className="text-[#E7C9A5] dark:text-[#A87938]">Wise</span>
                 </span>
               </Link>
 
-              <p className="mt-5 max-w-xs text-sm leading-7 text-stone-500">
+              <p className="mt-5 max-w-xs text-sm leading-7 text-stone-500 dark:text-[#75634E]">
                 A little escape. A thousand adventures. Discover your next
                 favorite story with BookWise.
               </p>
@@ -792,14 +904,14 @@ export default function HomePage() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Instagram"
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-stone-400 transition hover:border-primary/40 hover:bg-primary/[0.07] hover:text-primary"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-stone-400 transition hover:border-[#E7C9A5]/40 hover:bg-[#E7C9A5]/[0.07] hover:text-[#E7C9A5] dark:border-[#B88A4B]/20 dark:text-[#75634E] dark:hover:border-[#B88A4B]/50 dark:hover:bg-[#B88A4B]/10 dark:hover:text-[#A87938]"
                 >
                   <Icon name="instagram" />
                 </a>
                 <a
                   href="mailto:hello@BookWise.example"
                   aria-label="Email us"
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-stone-400 transition hover:border-primary/40 hover:bg-primary/[0.07] hover:text-primary"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-stone-400 transition hover:border-[#E7C9A5]/40 hover:bg-[#E7C9A5]/[0.07] hover:text-[#E7C9A5] dark:border-[#B88A4B]/20 dark:text-[#75634E] dark:hover:border-[#B88A4B]/50 dark:hover:bg-[#B88A4B]/10 dark:hover:text-[#A87938]"
                 >
                   <Icon name="mail" />
                 </a>
@@ -807,32 +919,69 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h3 className="text-sm font-bold text-white">Quick Links</h3>
-              <ul className="mt-5 space-y-3 text-sm text-stone-500">
-                <li><Link className="transition hover:text-primary" href="#home">Home</Link></li>
-                <li><Link className="transition hover:text-primary" href="#books">Books</Link></li>
-                <li><Link className="transition hover:text-primary" href="#categories">Categories</Link></li>
-                <li><Link className="transition hover:text-primary" href="#features">About Us</Link></li>
+              <h3 className="text-sm font-bold text-white dark:text-[#17130F]">
+                Quick Links
+              </h3>
+
+              <ul className="mt-5 space-y-3 text-sm text-stone-500 dark:text-[#75634E]">
+                <li>
+                  <Link className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]" href="#home">
+                    Home
+                  </Link>
+                </li>
+
+                <li>
+                  <Link className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]" href="#books">
+                    Books
+                  </Link>
+                </li>
+
+                <li>
+                  <Link className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]" href="#categories">
+                    Categories
+                  </Link>
+                </li>
+
+                <li>
+                  <Link className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]" href="#features">
+                    About Us
+                  </Link>
+                </li>
               </ul>
             </div>
 
+            {/* Help & Support */}
             <div>
-              <h3 className="text-sm font-bold text-white">Help & Support</h3>
-              <ul className="mt-5 space-y-3 text-sm text-stone-500">
-                <li><Link className="transition hover:text-primary" href={SiteUrls.signIn}>My Account</Link></li>
-                <li><a className="transition hover:text-primary" href="mailto:hello@BookWise.example">Contact Us</a></li>
+              <h3 className="text-sm font-bold text-white dark:text-[#17130F]">
+                Help & Support
+              </h3>
+
+              <ul className="mt-5 space-y-3 text-sm text-stone-500 dark:text-[#75634E]">
+                <li>
+                  <Link className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]" href={SiteUrls.signIn}>
+                    My Account
+                  </Link>
+                </li>
+
+                <li>
+                  <a className="transition hover:text-[#E7C9A5] dark:hover:text-[#A87938]" href="mailto:hello@BookWise.example">
+                    Contact Us
+                  </a>
+                </li>
               </ul>
             </div>
 
             {/* Admin Access */}
             <div>
-              <h3 className="text-sm font-bold text-white">Restricted Area</h3>
+              <h3 className="text-sm font-bold text-white dark:text-[#17130F]">
+                Restricted Area
+              </h3>
 
               <motion.div
                 whileHover={{ y: -4 }}
-                className="group relative mt-5 overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-[#211B13] to-[#100E0B] p-5 transition hover:border-primary/70 hover:shadow-[0_0_35px_#E7C9A515]"
+                className="group relative mt-5 overflow-hidden rounded-2xl border border-[#E7C9A5]/30 bg-gradient-to-br from-[#211B13] to-[#100E0B] p-5 transition hover:border-[#E7C9A5]/70 hover:shadow-[0_0_35px_#E7C9A515] dark:border-[#B88A4B]/25 dark:from-white dark:to-[#F1E5D2] dark:hover:border-[#B88A4B]/60"
               >
-                <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-primary/10 blur-2xl transition group-hover:bg-primary/20" />
+                <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#E7C9A5]/10 blur-2xl transition group-hover:bg-[#E7C9A5]/20 dark:bg-[#B88A4B]/10 dark:group-hover:bg-[#B88A4B]/20" />
 
                 <div className="relative flex items-start gap-3">
                   <motion.div
@@ -840,22 +989,28 @@ export default function HomePage() {
                       reduceMotion
                         ? {}
                         : {
-                            boxShadow: [
-                              "0 0 0px #E7C9A500",
-                              "0 0 22px #E7C9A533",
-                              "0 0 0px #E7C9A500",
-                            ],
-                          }
+                          boxShadow: [
+                            "0 0 0px #E7C9A500",
+                            "0 0 22px #E7C9A533",
+                            "0 0 0px #E7C9A500",
+                          ],
+                        }
                     }
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-primary/30 bg-primary/[0.08] text-primary"
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                    }}
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#E7C9A5]/30 bg-[#E7C9A5]/[0.08] text-[#E7C9A5] dark:border-[#B88A4B]/30 dark:bg-[#B88A4B]/[0.08] dark:text-[#A87938]"
                   >
                     <Icon name="shield" size={25} />
                   </motion.div>
 
                   <div>
-                    <h4 className="text-sm font-bold">Admin Access</h4>
-                    <p className="mt-2 text-xs leading-5 text-stone-400">
+                    <h4 className="text-sm font-bold text-white dark:text-[#17130F]">
+                      Admin Access
+                    </h4>
+
+                    <p className="mt-2 text-xs leading-5 text-stone-400 dark:text-[#75634E]">
                       Secure access for authorized administrators only.
                     </p>
                   </div>
@@ -863,26 +1018,31 @@ export default function HomePage() {
 
                 <Link
                   href={SiteUrls.adminLogin}
-                  className="relative mt-5 flex items-center justify-between rounded-xl border border-primary/30 bg-primary/[0.06] px-4 py-3 text-xs font-bold text-primary transition hover:bg-primary hover:text-black"
+                  className="relative mt-5 flex items-center justify-between rounded-xl border border-[#E7C9A5]/30 bg-[#E7C9A5]/[0.06] px-4 py-3 text-xs font-bold text-[#E7C9A5] transition hover:bg-[#E7C9A5] hover:text-black dark:border-[#B88A4B]/30 dark:bg-[#B88A4B]/[0.06] dark:text-[#A87938] dark:hover:bg-[#A87938] dark:hover:text-white"
                 >
                   <span>Administrator Login</span>
+
                   <span className="transition-transform group-hover:translate-x-1">
                     <Icon name="arrow" size={17} />
                   </span>
                 </Link>
               </motion.div>
 
-              <p className="mt-3 text-[10px] leading-5 text-stone-600">
+              <p className="mt-3 text-[10px] leading-5 text-stone-600 dark:text-[#9C8B76]">
                 Authorized personnel only. Authentication required.
               </p>
             </div>
           </div>
 
-          <div className="mt-12 flex flex-col gap-3 border-t border-white/[0.08] pt-6 text-xs text-stone-600 sm:flex-row sm:items-center sm:justify-between">
-            <p>© {new Date().getFullYear()} BookWise. All rights reserved.</p>
+          {/* Copyright */}
+          <div className="mt-12 flex flex-col gap-3 border-t border-[#E7C9A5]/10 pt-6 text-xs text-stone-600 dark:border-[#B88A4B]/20 dark:text-[#9C8B76] sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {new Date().getFullYear()} BookWise. All rights reserved.
+            </p>
+
             <p className="flex items-center gap-2">
               Built for book lovers
-              <span className="text-primary">♥</span>
+              <span className="text-[#E7C9A5] dark:text-[#A87938]">♥</span>
             </p>
           </div>
         </div>
