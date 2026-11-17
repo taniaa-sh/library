@@ -349,9 +349,9 @@ const UserProfile = ({ data }: PropsType) => {
                                     iconAddress={imagesAddresses.icons.close}
                                     iconPosition="center"
                                     color="gray"
-                                    containerClassName={`!w-fit !rounded-xl !border !border-[#E7C9A5]/30 !bg-[#E7C9A5]/5 !text-[#E7C9A5] hover:!border-[#E7C9A5]/60 hover:!bg-[#E7C9A5]/10 dark:!border-[#A87938]/30 dark:!bg-[#A87938]/5 dark:hover:!bg-[#A87938]/10 ${loading
-                                        ? "pointer-events-none opacity-50"
-                                        : "cursor-pointer"
+                                    containerClassName={`!w-fit !rounded-xl !border !border-[#E7C9A5]/30 !bg-[#E7C9A5]/5 !text-[#E7C9A5] dark:!text-[#A87938] hover:!border-[#E7C9A5]/60 hover:!bg-[#E7C9A5]/10 dark:!border-[#A87938]/30 dark:!bg-[#A87938]/5 dark:hover:!bg-[#A87938]/10 ${loading
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
                                         }`}
                                     onClick={onCancel}
                                 />
