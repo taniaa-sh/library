@@ -350,8 +350,8 @@ const UserProfile = ({ data }: PropsType) => {
                                     iconPosition="center"
                                     color="gray"
                                     containerClassName={`!w-fit !rounded-xl !border !border-[#E7C9A5]/30 !bg-[#E7C9A5]/5 !text-[#E7C9A5] hover:!border-[#E7C9A5]/60 hover:!bg-[#E7C9A5]/10 dark:!border-[#A87938]/30 dark:!bg-[#A87938]/5 dark:hover:!bg-[#A87938]/10 ${loading
-                                            ? "pointer-events-none opacity-50"
-                                            : "cursor-pointer"
+                                        ? "pointer-events-none opacity-50"
+                                        : "cursor-pointer"
                                         }`}
                                     onClick={onCancel}
                                 />
@@ -442,6 +442,14 @@ const UserProfile = ({ data }: PropsType) => {
                                         alt="Change profile image"
                                         width={22}
                                         height={22}
+                                        className="dark:hidden block"
+                                    />
+                                    <Image
+                                        src={imagesAddresses.icons.cameraWhite}
+                                        alt="Change profile image"
+                                        width={22}
+                                        height={22}
+                                        className="hidden dark:block"
                                     />
                                 </motion.label>
                             )}
