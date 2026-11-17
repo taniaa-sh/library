@@ -29,6 +29,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
         }, shouldReduceMotion ? 0 : 220);
     };
 
+
     const handleLogout = async () => {
         if (isLoading || isClosing) return;
 
@@ -37,6 +38,7 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
         try {
             const response = await fetch("/api/auth/logout", {
                 method: "POST",
+                cache: "no-store",
             });
 
             if (!response.ok) {
@@ -44,14 +46,17 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
             }
 
             setShowLogoutModal(false);
+
             router.replace(SiteUrls.signIn);
             router.refresh();
+
         } catch (error) {
             console.error("Logout error:", error);
         } finally {
             setIsLoading(false);
         }
     };
+
 
     useEffect(() => {
         const previousOverflow = document.body.style.overflow;
@@ -234,9 +239,8 @@ const LogoutModal = ({ setShowLogoutModal }: LogoutModalProps) => {
                 </div>
 
                 <div
-                    className={`w-full sm:flex-1 ${
-                        isLoading ? "pointer-events-none opacity-60" : ""
-                    }`}
+                    className={`w-full sm:flex-1 ${isLoading ? "pointer-events-none opacity-60" : ""
+                        }`}
                 >
                     <CustomButton
                         text={isLoading ? "Logging out..." : "Yes, log me out"}

@@ -7,34 +7,36 @@ export async function POST() {
 
     try {
         if (accessToken) {
-            const response = await fetch(
+            await fetch(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`,
                 {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
+                    cache: "no-store",
                 }
             );
-
-            if (!response.ok) {
-                return NextResponse.json(
-                    { message: "Logout failed" },
-                    { status: response.status }
-                );
-            }
         }
 
-        return NextResponse.json({
+        const response = NextResponse.json({
             success: true,
             message: "Logged out successfully",
         });
-    } catch {
-        return NextResponse.json(
-            { message: "Internal Server Error" },
-            { status: 500 }
-        );
-    } finally {
-        cookieStore.delete("accessToken");
+
+        response.cookies.delete("accessToken");
+
+        return response;
+    } catch (error) {
+        console.error("Backend logout error:", error);
+
+        const response = NextResponse.json({
+            success: true,
+            message: "Logged out locally",
+        });
+
+        response.cookies.delete("accessToken");
+
+        return response;
     }
 }
