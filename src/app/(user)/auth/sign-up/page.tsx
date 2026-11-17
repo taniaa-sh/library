@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import showToast from "@/utils/toast";
 import { fetchData } from "@/utils/utils";
 import { AxiosMethodEnum } from "@/utils/type";
@@ -65,6 +65,69 @@ type RegisterResponse = {
   };
 };
 
+const slides = [
+  {
+    id: 1,
+    position: "center center",
+    scale: 1,
+    subtitle: "A world between the pages",
+    title: "Find your next",
+    highlight: "favorite story.",
+    description:
+      "A good book opens a thousand doors. Discover knowledge, find inspiration, and let every page take you somewhere new.",
+  },
+  {
+    id: 2,
+    position: "center top",
+    scale: 1.13,
+    subtitle: "Explore endless possibilities",
+    title: "Every page",
+    highlight: "holds a new world.",
+    description:
+      "Discover new perspectives, explore different worlds, and make every reading moment meaningful.",
+  },
+  {
+    id: 3,
+    position: "center bottom",
+    scale: 1.2,
+    subtitle: "Your next chapter starts here",
+    title: "Read more.",
+    highlight: "Dream bigger.",
+    description:
+      "Build your own collection, find your inspiration, and make reading a part of your everyday life.",
+  },
+];
+
+const ArrowLeft = () => (
+  <svg
+    width="25"
+    height="25"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="m15 18-6-6 6-6" />
+  </svg>
+);
+
+const ArrowRight = () => (
+  <svg
+    width="25"
+    height="25"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="m9 18 6-6-6-6" />
+  </svg>
+);
+
 const SignUp = () => {
   const router = useRouter();
 
@@ -73,6 +136,7 @@ const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
   const [shakeTrigger, setShakeTrigger] = useState(0);
   const [file, setFile] = useState<File | null>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const {
     register,
@@ -92,6 +156,22 @@ const SignUp = () => {
       setShakeTrigger((prev) => prev + 1);
     }
   }, [errors]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const previousSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -562,22 +642,40 @@ const SignUp = () => {
         </motion.div>
       </section>
 
-      {/* Desktop image section */}
       <aside className="relative hidden h-[100dvh] min-h-0 overflow-hidden p-5 lg:block xl:p-7">
-        <div className="relative h-full min-h-0 overflow-hidden rounded-[28px] border border-[#E7C9A5]/25 dark:border-[#B88A4B]/30">
-          <Image
-            src={imagesAddresses.images.loginPic}
-            alt="A welcoming reading atmosphere"
-            fill
-            priority
-            sizes="(min-width: 1280px) 50vw, 50vw"
-            className="object-cover transition-transform duration-[12000ms] hover:scale-105"
-          />
+        <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[28px] border border-[#E7C9A5]/25 dark:border-[#B88A4B]/30">
 
-          {/* Image overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0C] via-[#0D0D0C]/25 to-[#0D0D0C]/10 dark:from-[#17130F]/90 dark:via-[#17130F]/20 dark:to-[#17130F]/10" />
+          <motion.div
+            initial={false}
+            animate={{
+              scale: slides[activeSlide].scale,
+            }}
+            transition={{
+              scale: {
+                duration: 5,
+                ease: "linear",
+              },
+            }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={imagesAddresses.images.loginPic}
+              alt="BookWise reading atmosphere"
+              fill
+              priority
+              sizes="(min-width: 1280px) 50vw, 50vw"
+              className="object-cover"
+              style={{
+                objectPosition: slides[activeSlide].position,
+              }}
+            />
+          </motion.div>
 
-          <div className="absolute inset-0 bg-gradient-to-br from-[#E7C9A5]/10 via-transparent to-[#A87938]/20 dark:from-[#F8F2E6]/10 dark:to-[#B88A4B]/15" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D0D0C] via-[#0D0D0C]/25 to-[#0D0D0C]/10 dark:from-[#17130F]/90 dark:via-[#17130F]/20 dark:to-[#17130F]/10" />
+
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#E7C9A5]/10 via-transparent to-[#A87938]/20 dark:from-[#F8F2E6]/10 dark:to-[#B88A4B]/15" />
+
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/10" />
 
           {/* Decorative rings */}
           <div
@@ -590,40 +688,83 @@ const SignUp = () => {
             className="absolute right-[72px] top-[72px] h-12 w-12 rounded-full border border-[#E7C9A5]/50 xl:right-[92px] xl:top-[92px] xl:h-16 xl:w-16"
           />
 
-          {/* Image caption */}
-          <div className="absolute inset-x-0 bottom-0 p-8 sm:p-10 xl:p-14">
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-px w-10 bg-[#E7C9A5]" />
+          <button
+            type="button"
+            onClick={previousSlide}
+            aria-label="Previous slide"
+            className="absolute left-5 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#E7C9A5]/35 bg-[#17130F]/65 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#E7C9A5] hover:bg-[#A87938]/80 xl:left-7"
+          >
+            <ArrowLeft />
+          </button>
 
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#E7C9A5] sm:text-xs">
-                Your next chapter starts here
-              </span>
-            </div>
+          <button
+            type="button"
+            onClick={nextSlide}
+            aria-label="Next slide"
+            className="absolute right-5 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#E7C9A5]/35 bg-[#17130F]/65 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#E7C9A5] hover:bg-[#A87938]/80 xl:right-7"
+          >
+            <ArrowRight />
+          </button>
 
-            <h2 className="max-w-xl font-serif text-3xl font-medium leading-tight text-white xl:text-5xl xl:leading-[1.2]">
-              A new chapter.
-              <br />
-              <span className="italic text-[#E7C9A5]">
-                A world of possibilities.
-              </span>
-            </h2>
+          <div className="absolute inset-x-0 bottom-0 z-10 p-7 sm:p-8 xl:p-11">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide}
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="h-px w-10 bg-[#E7C9A5]" />
 
-            <p className="mt-5 max-w-md text-sm leading-7 text-white/75 xl:text-base">
-              Join a world of stories, explore new ideas, and discover the
-              books that inspire your next big idea.
-            </p>
+                  <span className="text-[10px] uppercase tracking-[0.35em] text-[#E7C9A5] sm:text-xs">
+                    {slides[activeSlide].subtitle}
+                  </span>
+                </div>
+
+                <h2 className="max-w-xl font-serif text-3xl font-medium leading-tight text-white xl:text-5xl xl:leading-[1.2]">
+                  {slides[activeSlide].title}
+
+                  <br />
+
+                  <span className="italic text-[#E7C9A5]">
+                    {slides[activeSlide].highlight}
+                  </span>
+                </h2>
+
+                <p className="mt-5 max-w-md text-sm leading-7 text-white/75 xl:text-base">
+                  {slides[activeSlide].description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
             <div className="mt-8 flex items-center gap-3">
-              <span className="h-1.5 w-8 rounded-full bg-[#E7C9A5]" />
-              <span className="h-1.5 w-2 rounded-full bg-white/50" />
-              <span className="h-1.5 w-2 rounded-full bg-white/50" />
+              {slides.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  type="button"
+                  onClick={() => setActiveSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                  aria-current={activeSlide === index ? "true" : undefined}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${activeSlide === index
+                    ? "w-8 bg-[#E7C9A5]"
+                    : "w-2 bg-white/50 hover:bg-white/80"
+                    }`}
+                />
+              ))}
             </div>
           </div>
 
           {/* Inner border */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-3 rounded-[20px] border border-white/10"
+            className="pointer-events-none absolute inset-3 z-20 rounded-[20px] border border-white/10"
+          />
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-24 left-1/2 z-10 h-40 w-2/3 -translate-x-1/2 rounded-full bg-[#A87938]/20 blur-[80px]"
           />
         </div>
       </aside>
