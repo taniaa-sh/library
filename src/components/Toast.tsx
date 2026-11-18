@@ -63,10 +63,22 @@ const Toast = (props: ToastType) => {
 
             <Image
                 onClick={handleClose}
-                className='cursor-pointer'
+                className='cursor-pointer hidden dark:block'
                 src={
                     props.color === 'success'
                         ? imagesAddresses.icons.closeGreen
+                        : imagesAddresses.icons.close
+                }
+                alt='close'
+                width={24}
+                height={24}
+            />
+               <Image
+                onClick={handleClose}
+                className='cursor-pointer dark:hidden block'
+                src={
+                    props.color === 'success'
+                        ? imagesAddresses.icons.closeGreenlight
                         : imagesAddresses.icons.close
                 }
                 alt='close'
