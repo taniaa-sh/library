@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import SiteUrls from "@/utils/routs";
+import Image from "next/image";
+import imagesAddresses from "@/utils/imageAddresses";
 
 const books = [
   {
@@ -309,21 +311,32 @@ export default function HomePage() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-[#E7C9A5]/10 bg-[#0D0D0C]/85 backdrop-blur-2xl dark:border-[#B88A4B]/15 dark:bg-[#F8F2E6]/90">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
-          <Link href="/" className="flex shrink-0 items-center gap-3">
-            <motion.div
-              whileHover={{ rotate: -8, scale: 1.08 }}
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E7C9A5] text-black shadow-lg shadow-[#E7C9A5]/10 dark:bg-[#A87938] dark:text-white"
-            >
-              <Icon name="book" size={25} />
-            </motion.div>
-            <div>
-              <div className="text-xl font-black tracking-tight text-white dark:text-[#17130F]">
-                Book<span className="text-[#E7C9A5] dark:text-[#A87938]">Wise</span>
-              </div>
-              <p className="text-[9px] tracking-[0.22em] text-stone-500 dark:text-[#9C8B76]">
-                MORE THAN JUST BOOKS
-              </p>
+        <div className="h-[76px] mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
+          <Link
+            href={SiteUrls.dashbord}
+            aria-label="BookWise home"
+            className="group relative z-10 flex min-w-0 shrink-0 items-center"
+          >
+            <div className="relative">
+              <div className="absolute -inset-3 rounded-full bg-[#E7C9A5]/10 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
+
+              <Image
+                src={imagesAddresses.images.logoNew}
+                alt="BookWise"
+                width={220}
+                height={60}
+                priority
+                className="relative block h-auto w-[112px] object-contain sm:w-[145px] lg:w-[190px] dark:hidden"
+              />
+
+              <Image
+                src={imagesAddresses.icons.FrameWhite2}
+                alt="BookWise"
+                width={220}
+                height={60}
+                priority
+                className="relative hidden h-auto w-[112px] object-contain sm:w-[145px] lg:w-[190px] dark:block"
+              />
             </div>
           </Link>
 
@@ -883,14 +896,32 @@ export default function HomePage() {
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div>
-              <Link href="/" className="inline-flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E7C9A5] text-black dark:bg-[#A87938] dark:text-white">
-                  <Icon name="book" size={23} />
-                </span>
+              <Link
+                href={SiteUrls.dashbord}
+                aria-label="BookWise home"
+                className="group h-[65px] relative z-10 flex min-w-0 shrink-0 items-center"
+              >
+                <div className="relative">
+                  <div className="absolute -inset-3 rounded-full bg-[#E7C9A5]/10 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
 
-                <span className="text-xl font-black text-white dark:text-[#17130F]">
-                  Book<span className="text-[#E7C9A5] dark:text-[#A87938]">Wise</span>
-                </span>
+                  <Image
+                    src={imagesAddresses.images.logoNew}
+                    alt="BookWise"
+                    width={220}
+                    height={60}
+                    priority
+                    className="relative block h-auto w-[112px] object-contain sm:w-[145px] lg:w-[190px] dark:hidden"
+                  />
+
+                  <Image
+                    src={imagesAddresses.icons.FrameWhite2}
+                    alt="BookWise"
+                    width={220}
+                    height={60}
+                    priority
+                    className="relative hidden h-auto w-[112px] object-contain sm:w-[145px] lg:w-[190px] dark:block"
+                  />
+                </div>
               </Link>
 
               <p className="mt-5 max-w-xs text-sm leading-7 text-stone-500 dark:text-[#75634E]">
