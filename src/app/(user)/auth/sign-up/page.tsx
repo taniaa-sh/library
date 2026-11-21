@@ -695,105 +695,97 @@ const SignUp = () => {
       {/* Visual section — desktop */}
 
       <aside className="relative hidden h-[100dvh] min-h-0 min-w-0 overflow-hidden p-6 lg:block xl:p-8">
-        <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[24px] border-[6px] border-[#E7C9A5] shadow-[0_15px_50px_rgba(168,121,56,0.22)] dark:border-[#B88A4B] dark:shadow-[0_15px_50px_rgba(120,85,35,0.15)]">
-          {/* Two-image slider */}
+        <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[28px] border border-[#E7C9A5]/20 bg-[#252019] shadow-[0_25px_80px_rgba(0,0,0,0.3)] transition-all duration-500 dark:border-[#B88A4B]/25 dark:bg-[#252019] dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
 
+          {/* Main background image */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeSlide}
-              initial={{ opacity: 0, scale: 1.02 }}
-              animate={{ opacity: 1, scale: slides[activeSlide].scale }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.7, ease: "easeInOut" }}
-              className="absolute inset-0 grid grid-cols-[1.15fr_0.85fr]"
+              key={`main-${activeSlide}`}
+              initial={{ opacity: 0, scale: 1.12 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.04 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
             >
-              <div className="relative min-w-0 overflow-hidden">
-                <Image
-                  src={sliderImages[activeSlide]}
-                  alt={`BookWise reading image ${activeSlide + 1}`}
-                  fill
-                  priority
-                  sizes="(min-width: 1280px) 55vw, 50vw"
-                  className="object-cover object-center"
-                />
-              </div>
-
-              <div className="relative min-w-0 overflow-hidden border-l border-[#E7C9A5]/20">
-                <Image
-                  src={sliderImages[(activeSlide + 1) % sliderImages.length]}
-                  alt={`BookWise reading image ${((activeSlide + 1) % sliderImages.length) + 1
-                    }`}
-                  fill
-                  priority
-                  sizes="(min-width: 1280px) 45vw, 50vw"
-                  className="object-cover object-center"
-                />
-              </div>
+              <Image
+                src={sliderImages[activeSlide]}
+                alt={`BookWise reading image ${activeSlide + 1}`}
+                fill
+                priority
+                sizes="(min-width: 1280px) 60vw, 55vw"
+                className="object-cover"
+              />
             </motion.div>
           </AnimatePresence>
 
           {/* Image overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#17130F]/90 via-[#17130F]/25 to-transparent" />
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D0D0C] via-[#0D0D0C]/25 to-[#0D0D0C]/10 dark:from-[#17130F]/90 dark:via-[#17130F]/20 dark:to-[#17130F]/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#17130F]/30 via-transparent to-transparent" />
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#E7C9A5]/10 via-transparent to-[#A87938]/20 dark:from-[#F8F2E6]/10 dark:to-[#B88A4B]/15" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#E7C9A5]/15 via-transparent to-[#A87938]/15" />
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/10" />
+          {/* Top information */}
+          <div className="absolute left-8 right-8 top-8 z-20 flex items-center justify-between xl:left-12 xl:right-12 xl:top-12">
+            <div className="flex items-center gap-3 rounded-full border border-white/20 bg-black/20 px-4 py-2.5 backdrop-blur-xl">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-[#E7C9A5]" />
 
-          {/* Decorative rings */}
+              <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/90">
+                The BookWise Experience
+              </span>
+            </div>
 
-          <div
-            aria-hidden="true"
-            className="absolute right-10 top-10 h-28 w-28 rounded-full border border-[#E7C9A5]/35 xl:right-14 xl:top-14 xl:h-36 xl:w-36"
-          />
+            <div className="font-serif text-2xl italic text-white/70">
+              BookWise<span className="text-[#E7C9A5]">.</span>
+            </div>
+          </div>
 
-          <div
-            aria-hidden="true"
-            className="absolute right-[72px] top-[72px] h-12 w-12 rounded-full border border-[#E7C9A5]/50 xl:right-[92px] xl:top-[92px] xl:h-16 xl:w-16"
-          />
+          {/* Decorative circles */}
+          <div className="pointer-events-none absolute -right-24 top-28 h-80 w-80 rounded-full border border-white/20" />
 
-          {/* Previous slide */}
+          <div className="pointer-events-none absolute -right-12 top-40 h-56 w-56 rounded-full border border-white/15" />
 
-          <button
-            type="button"
-            onClick={previousSlide}
-            aria-label="Previous slide"
-            className="absolute left-5 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#E7C9A5]/35 bg-[#17130F]/65 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#E7C9A5] hover:bg-[#A87938]/80 xl:left-7"
-          >
-            <ArrowLeft />
-          </button>
+          <div className="pointer-events-none absolute right-10 top-52 h-32 w-32 rounded-full border border-[#E7C9A5]/30" />
 
-          {/* Next slide */}
+          {/* Floating secondary image */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`secondary-${activeSlide}`}
+              initial={{ opacity: 0, x: 45, y: 25, rotate: 8 }}
+              animate={{ opacity: 1, x: 0, y: 0, rotate: 4 }}
+              exit={{ opacity: 0, x: 35, y: -15, rotate: 8 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="absolute right-10 top-[24%] z-10 hidden h-52 w-36 overflow-hidden rounded-2xl border-[5px] border-white/90 shadow-[0_20px_50px_rgba(0,0,0,0.4)] xl:block"
+            >
+              <Image
+                src={sliderImages[(activeSlide + 1) % sliderImages.length]}
+                alt="BookWise preview"
+                fill
+                sizes="144px"
+                className="object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
 
-          <button
-            type="button"
-            onClick={nextSlide}
-            aria-label="Next slide"
-            className="absolute right-5 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#E7C9A5]/35 bg-[#17130F]/65 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#E7C9A5] hover:bg-[#A87938]/80 xl:right-7"
-          >
-            <ArrowRight />
-          </button>
-
-          {/* Slide content */}
-
-          <div className="absolute inset-x-0 bottom-0 z-10 p-7 sm:p-8 xl:p-11">
+          {/* Main content */}
+          <div className="absolute inset-x-0 bottom-0 z-20 p-8 xl:p-12">
             <AnimatePresence mode="wait">
               <motion.div
-                key={activeSlide}
-                initial={{ opacity: 0, y: 22 }}
+                key={`content-${activeSlide}`}
+                initial={{ opacity: 0, y: 35 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <div className="mb-5 flex items-center gap-3">
+                <div className="mb-6 flex items-center gap-3">
                   <span className="h-px w-10 bg-[#E7C9A5]" />
 
-                  <span className="text-[10px] uppercase tracking-[0.35em] text-[#E7C9A5] sm:text-xs">
+                  <span className="text-[10px] font-medium uppercase tracking-[0.35em] text-[#E7C9A5] sm:text-xs">
                     {slides[activeSlide].subtitle}
                   </span>
                 </div>
 
-                <h2 className="max-w-xl font-serif text-3xl font-medium leading-tight text-white xl:text-5xl xl:leading-[1.2]">
+                <h2 className="max-w-xl font-serif text-4xl font-medium leading-[1.2] text-white xl:text-6xl">
                   {slides[activeSlide].title}
 
                   <br />
@@ -803,46 +795,103 @@ const SignUp = () => {
                   </span>
                 </h2>
 
-                <p className="mt-5 max-w-md text-sm leading-7 text-white/75 xl:text-base">
+                <p className="mt-6 max-w-md text-sm leading-7 text-white/75 xl:text-base">
                   {slides[activeSlide].description}
                 </p>
               </motion.div>
             </AnimatePresence>
 
-            {/* Slider indicators */}
+            {/* Bottom controls */}
+            <div className="mt-9 flex items-center justify-between gap-5 border-t border-white/20 pt-6">
 
-            <div className="mt-8 flex items-center gap-3">
-              {slides.map((slide, index) => (
+              {/* Progress indicators */}
+              <div className="flex flex-1 items-center gap-3">
+                {slides.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    onClick={() => setActiveSlide(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                    aria-current={activeSlide === index ? "true" : undefined}
+                    className="group/progress relative h-1.5 max-w-20 flex-1 overflow-hidden rounded-full bg-white/30 transition-all duration-300 hover:bg-white/50"
+                  >
+                    {activeSlide === index && (
+                      <motion.span
+                        layoutId="active-slider-progress"
+                        className="absolute inset-0 rounded-full bg-[#E7C9A5]"
+                        transition={{ duration: 0.4 }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {/* Slide number */}
+              <div className="flex shrink-0 items-center gap-2 font-serif text-sm text-white/70">
+                <span className="text-xl text-[#E7C9A5]">
+                  0{activeSlide + 1}
+                </span>
+
+                <span>/</span>
+
+                <span>0{slides.length}</span>
+              </div>
+
+              {/* Navigation */}
+              <div className="flex shrink-0 items-center gap-2">
                 <button
-                  key={slide.id}
                   type="button"
-                  onClick={() => setActiveSlide(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                  aria-current={activeSlide === index ? "true" : undefined}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${activeSlide === index
-                      ? "w-8 bg-[#E7C9A5]"
-                      : "w-2 bg-white/50 hover:bg-white/80"
-                    }`}
-                />
-              ))}
+                  onClick={previousSlide}
+                  aria-label="Previous slide"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-lg transition-all duration-300 hover:border-[#E7C9A5] hover:bg-[#A87938] hover:text-white"
+                >
+                  <ArrowLeft />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  aria-label="Next slide"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E7C9A5]/60 bg-[#E7C9A5] text-[#17130F] shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white"
+                >
+                  <ArrowRight />
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Inner border */}
-
+          {/* Four-sided gold border decoration */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-3 z-20 rounded-[20px] border border-white/10"
+            className="pointer-events-none absolute inset-0 z-30 rounded-[28px]"
+          >
+            {/* Top */}
+            <div className="absolute inset-x-0 top-0 h-[3px] rounded-t-[28px] bg-gradient-to-r from-transparent via-[#E7C9A5] to-transparent dark:via-[#B88A4B]" />
+
+            {/* Left */}
+            <div className="absolute inset-y-0 left-0 w-[2px] rounded-l-[28px] bg-gradient-to-b from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+
+            {/* Right */}
+            <div className="absolute inset-y-0 right-0 w-[2px] rounded-r-[28px] bg-gradient-to-b from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+
+            {/* Bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-[2px] rounded-b-[28px] bg-gradient-to-r from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+          </div>
+
+          {/* Decorative glow */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-16 -top-16 z-10 h-40 w-40 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
           />
 
           {/* Bottom glow */}
-
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-24 left-1/2 z-10 h-40 w-2/3 -translate-x-1/2 rounded-full bg-[#A87938]/20 blur-[80px]"
+            className="pointer-events-none absolute -bottom-28 left-1/2 z-10 h-48 w-2/3 -translate-x-1/2 rounded-full bg-[#B88A4B]/20 blur-[90px]"
           />
         </div>
       </aside>
+
     </main>
   );
 };
