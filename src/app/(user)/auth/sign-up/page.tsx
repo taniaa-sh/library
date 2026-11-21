@@ -36,7 +36,9 @@ const schema = yup
       ),
 
     fullName: yup.string().required("Full name is required"),
+
     universityId: yup.string().required("University ID is required"),
+
     univercityIdImage: yup
       .string()
       .required("University ID card is required"),
@@ -68,7 +70,6 @@ type RegisterResponse = {
 const slides = [
   {
     id: 1,
-    position: "center center",
     scale: 1,
     subtitle: "A world between the pages",
     title: "Find your next",
@@ -78,8 +79,7 @@ const slides = [
   },
   {
     id: 2,
-    position: "center top",
-    scale: 1.13,
+    scale: 1.04,
     subtitle: "Explore endless possibilities",
     title: "Every page",
     highlight: "holds a new world.",
@@ -88,14 +88,19 @@ const slides = [
   },
   {
     id: 3,
-    position: "center bottom",
-    scale: 1.2,
+    scale: 1.08,
     subtitle: "Your next chapter starts here",
     title: "Read more.",
     highlight: "Dream bigger.",
     description:
       "Build your own collection, find your inspiration, and make reading a part of your everyday life.",
   },
+];
+
+const sliderImages = [
+  imagesAddresses.images.loginPic,
+  imagesAddresses.images.loginPic2,
+  imagesAddresses.images.loginPic3,
 ];
 
 const ArrowLeft = () => (
@@ -237,29 +242,28 @@ const SignUp = () => {
   };
 
   const inputClass = (hasError: boolean) =>
-    `w-full rounded-xl border bg-white/[0.04] px-4 py-3
-    text-sm text-white outline-none transition-all duration-300
+    `w-full rounded-xl border bg-white/[0.04] px-4 py-3.5 text-sm
+    text-white outline-none transition-all duration-300
     placeholder:text-stone-500
     focus:border-[#E7C9A5] focus:bg-white/[0.07]
     focus:ring-4 focus:ring-[#E7C9A5]/10
     dark:bg-[#F8F2E6] dark:text-[#17130F]
     dark:placeholder:text-[#9C8B76]
     dark:focus:bg-white
-    ${
-      hasError
-        ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
-        : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
+    ${hasError
+      ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
+      : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
     }`;
 
   const labelClass =
     "text-sm font-medium text-stone-200 dark:text-[#403326]";
 
-  const errorClass =
-    "text-xs leading-5 text-red-400 dark:text-red-600";
+  const errorClass = "text-xs leading-5 text-red-400 dark:text-red-600";
 
   return (
-    <main className="relative grid h-[100dvh] w-full grid-cols-1 overflow-hidden overscroll-none bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:grid-cols-2">
-      {/* Background glow */}
+    <main className="relative grid h-[100dvh] w-full grid-cols-1 overflow-hidden overscroll-none bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:grid-cols-[minmax(420px,40%)_minmax(0,1fr)]">
+      {/* Decorative background */}
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-32 -top-32 z-0 h-96 w-96 rounded-full bg-[#A87938]/15 blur-[120px] dark:bg-[#E7C9A5]/35"
@@ -270,8 +274,37 @@ const SignUp = () => {
         className="pointer-events-none absolute -bottom-40 left-1/3 z-0 h-96 w-96 rounded-full bg-[#E7C9A5]/10 blur-[120px] dark:bg-[#B88A4B]/15"
       />
 
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-52 -top-64 z-0 h-[540px] w-[540px] rounded-full border border-[#E7C9A5]/15 bg-[radial-gradient(circle_at_65%_65%,rgba(168,121,56,0.20),rgba(168,121,56,0.06)_48%,transparent_72%)] shadow-[inset_-25px_-20px_80px_rgba(168,121,56,0.10)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_65%_65%,rgba(184,138,75,0.18),rgba(184,138,75,0.05)_48%,transparent_72%)]"
+      >
+        <div className="absolute -right-8 bottom-8 h-[78%] w-[78%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/15" />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-64 -top-72 z-0 h-[620px] w-[620px] rounded-full border border-[#E7C9A5]/10 bg-[radial-gradient(circle_at_35%_65%,rgba(168,121,56,0.13),transparent_65%)] dark:border-[#B88A4B]/15 dark:bg-[radial-gradient(circle_at_35%_65%,rgba(184,138,75,0.12),transparent_65%)]"
+      >
+        <div className="absolute bottom-10 left-10 h-[78%] w-[78%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/10" />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[390px] -left-56 z-0 h-[650px] w-[650px] rounded-full border border-[#E7C9A5]/20 bg-[radial-gradient(circle_at_65%_25%,rgba(168,121,56,0.18),rgba(168,121,56,0.05)_52%,transparent_72%)] shadow-[inset_20px_20px_90px_rgba(168,121,56,0.10)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_65%_25%,rgba(184,138,75,0.16),rgba(184,138,75,0.04)_52%,transparent_72%)]"
+      >
+        <div className="absolute -right-6 top-10 h-[82%] w-[82%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/15" />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[430px] -right-64 z-0 h-[700px] w-[700px] rounded-full border border-[#E7C9A5]/15 bg-[radial-gradient(circle_at_35%_25%,rgba(168,121,56,0.16),transparent_68%)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_35%_25%,rgba(184,138,75,0.14),transparent_68%)]"
+      >
+        <div className="absolute -left-8 top-8 h-[82%] w-[82%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/10" />
+      </div>
+
       {/* Registration section */}
-      <section className="relative z-10 flex h-[100dvh] min-h-0 flex-col items-center overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-10 xl:px-16">
+
+      <section className="relative z-10 flex h-[100dvh] min-h-0 w-full flex-col items-center overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-8 xl:px-12">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#E7C9A5]/80 to-transparent lg:hidden"
@@ -281,27 +314,40 @@ const SignUp = () => {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: "easeOut" }}
-          className="flex min-h-0 w-full max-w-lg flex-1 flex-col"
+          className="flex min-h-0 w-full max-w-md flex-1 flex-col"
         >
-          {/* Form card */}
-          <div className="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-3xl border border-[#E7C9A5]/20 bg-[#171614]/95 shadow-[0_25px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl dark:border-[#B88A4B]/25 dark:bg-white/85 dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
-            {/* Gold top border */}
-            <div
-              aria-hidden="true"
-              className="absolute left-0 right-0 top-0 z-20 h-[3px] shrink-0 bg-gradient-to-r from-transparent via-[#E7C9A5] to-transparent dark:via-[#B88A4B]"
-            />
+          {/* Form card - the entire card scrolls */}
+
+          <div className="relative flex min-h-0 w-full flex-1 flex-col overflow-x-hidden overflow-y-auto overscroll-contain custom-scrollbar1 rounded-3xl border border-[#E7C9A5]/20 bg-[#171614]/95 shadow-[0_25px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl dark:border-[#B88A4B]/25 dark:bg-white/85 dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
+            {/* Four-sided gold border */}
 
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 shrink-0 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
+              className="pointer-events-none absolute inset-0 z-20 rounded-3xl"
+            >
+              <div className="absolute inset-x-0 top-0 h-[3px] rounded-t-3xl bg-gradient-to-r from-transparent via-[#E7C9A5] to-transparent dark:via-[#B88A4B]" />
+
+              <div className="absolute inset-y-0 left-0 w-[2px] rounded-l-3xl bg-gradient-to-b from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+
+              <div className="absolute inset-y-0 right-0 w-[2px] rounded-r-3xl bg-gradient-to-b from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+
+              <div className="absolute inset-x-0 bottom-0 h-[2px] rounded-b-3xl bg-gradient-to-r from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+            </div>
+
+            {/* Decorative glow */}
+
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
             />
 
-            {/* Fixed heading */}
+            {/* Heading - scrolls with the form */}
+
             <div className="relative z-10 shrink-0 px-5 pb-4 pt-6 sm:px-8 sm:pb-5 sm:pt-8">
               <div className="mb-3 flex items-center gap-2">
                 <span className="h-px w-7 bg-[#E7C9A5] dark:bg-[#B88A4B]" />
 
-                <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-[#E7C9A5] dark:text-[#A87938]">
+                <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#E7C9A5] dark:text-[#A87938]">
                   Become a member
                 </span>
               </div>
@@ -316,17 +362,16 @@ const SignUp = () => {
               </p>
             </div>
 
-            {/* Scrollable form and login section */}
-            <div
-              className="relative z-10 min-h-0 flex-1 overflow-x-hidden overflow-y-auto scroll-gray overscroll-contain px-5 pb-5 sm:px-8 sm:pb-8"
-              style={{ scrollbarGutter: "stable" }}
-            >
+            {/* Form content - no internal scroll */}
+
+            <div className="relative z-10 px-5 pb-5 sm:px-8 sm:pb-8">
               <form
                 onSubmit={handleSubmit(handleSignUp)}
                 className="flex flex-col gap-4 sm:gap-5"
                 noValidate
               >
                 {/* Full name */}
+
                 <div className="flex flex-col gap-2">
                   <label htmlFor="fullName" className={labelClass}>
                     Full name
@@ -358,6 +403,7 @@ const SignUp = () => {
                 </div>
 
                 {/* Email */}
+
                 <div className="flex flex-col gap-2">
                   <label htmlFor="email" className={labelClass}>
                     Email address
@@ -388,6 +434,7 @@ const SignUp = () => {
                 </div>
 
                 {/* University ID */}
+
                 <div className="flex flex-col gap-2">
                   <label htmlFor="universityId" className={labelClass}>
                     University ID
@@ -462,6 +509,7 @@ const SignUp = () => {
                 </div>
 
                 {/* Password */}
+
                 <div className="flex flex-col gap-2">
                   <label htmlFor="password" className={labelClass}>
                     Password
@@ -537,11 +585,10 @@ const SignUp = () => {
                 </div>
 
                 {/* University ID upload */}
+
                 <div className="flex flex-col gap-2">
                   <div className="mb-1">
-                    <label className={labelClass}>
-                      University ID card
-                    </label>
+                    <label className={labelClass}>University ID card</label>
 
                     <p className="mt-1 text-xs leading-5 text-stone-500 dark:text-[#8B7860]">
                       Upload an image of your university ID for account
@@ -594,6 +641,7 @@ const SignUp = () => {
                         type="button"
                         onClick={() => {
                           setFile(null);
+
                           setValue("univercityIdImage", "", {
                             shouldValidate: true,
                             shouldDirty: true,
@@ -614,6 +662,7 @@ const SignUp = () => {
                 </div>
 
                 {/* Submit */}
+
                 <div className="mt-2">
                   <CustomButton
                     text="Sign Up"
@@ -626,6 +675,7 @@ const SignUp = () => {
               </form>
 
               {/* Login link */}
+
               <div className="mt-6 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 border-t border-[#E7C9A5]/15 pt-5 text-center text-xs text-stone-400 sm:text-sm dark:border-[#B88A4B]/20 dark:text-[#75634E]">
                 <span>Already have an account?</span>
 
@@ -642,34 +692,47 @@ const SignUp = () => {
         </motion.div>
       </section>
 
-      <aside className="relative hidden h-[100dvh] min-h-0 overflow-hidden p-5 lg:block xl:p-7">
-        <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[28px] border border-[#E7C9A5]/25 dark:border-[#B88A4B]/30">
+      {/* Visual section — desktop */}
 
-          <motion.div
-            initial={false}
-            animate={{
-              scale: slides[activeSlide].scale,
-            }}
-            transition={{
-              scale: {
-                duration: 5,
-                ease: "linear",
-              },
-            }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={imagesAddresses.images.loginPic}
-              alt="BookWise reading atmosphere"
-              fill
-              priority
-              sizes="(min-width: 1280px) 50vw, 50vw"
-              className="object-cover"
-              style={{
-                objectPosition: slides[activeSlide].position,
-              }}
-            />
-          </motion.div>
+      <aside className="relative hidden h-[100dvh] min-h-0 min-w-0 overflow-hidden p-6 lg:block xl:p-8">
+        <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[24px] border-[6px] border-[#E7C9A5] shadow-[0_15px_50px_rgba(168,121,56,0.22)] dark:border-[#B88A4B] dark:shadow-[0_15px_50px_rgba(120,85,35,0.15)]">
+          {/* Two-image slider */}
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSlide}
+              initial={{ opacity: 0, scale: 1.02 }}
+              animate={{ opacity: 1, scale: slides[activeSlide].scale }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="absolute inset-0 grid grid-cols-[1.15fr_0.85fr]"
+            >
+              <div className="relative min-w-0 overflow-hidden">
+                <Image
+                  src={sliderImages[activeSlide]}
+                  alt={`BookWise reading image ${activeSlide + 1}`}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 55vw, 50vw"
+                  className="object-cover object-center"
+                />
+              </div>
+
+              <div className="relative min-w-0 overflow-hidden border-l border-[#E7C9A5]/20">
+                <Image
+                  src={sliderImages[(activeSlide + 1) % sliderImages.length]}
+                  alt={`BookWise reading image ${((activeSlide + 1) % sliderImages.length) + 1
+                    }`}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 45vw, 50vw"
+                  className="object-cover object-center"
+                />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Image overlays */}
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D0D0C] via-[#0D0D0C]/25 to-[#0D0D0C]/10 dark:from-[#17130F]/90 dark:via-[#17130F]/20 dark:to-[#17130F]/10" />
 
@@ -678,6 +741,7 @@ const SignUp = () => {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/10" />
 
           {/* Decorative rings */}
+
           <div
             aria-hidden="true"
             className="absolute right-10 top-10 h-28 w-28 rounded-full border border-[#E7C9A5]/35 xl:right-14 xl:top-14 xl:h-36 xl:w-36"
@@ -688,6 +752,8 @@ const SignUp = () => {
             className="absolute right-[72px] top-[72px] h-12 w-12 rounded-full border border-[#E7C9A5]/50 xl:right-[92px] xl:top-[92px] xl:h-16 xl:w-16"
           />
 
+          {/* Previous slide */}
+
           <button
             type="button"
             onClick={previousSlide}
@@ -697,6 +763,8 @@ const SignUp = () => {
             <ArrowLeft />
           </button>
 
+          {/* Next slide */}
+
           <button
             type="button"
             onClick={nextSlide}
@@ -705,6 +773,8 @@ const SignUp = () => {
           >
             <ArrowRight />
           </button>
+
+          {/* Slide content */}
 
           <div className="absolute inset-x-0 bottom-0 z-10 p-7 sm:p-8 xl:p-11">
             <AnimatePresence mode="wait">
@@ -739,6 +809,8 @@ const SignUp = () => {
               </motion.div>
             </AnimatePresence>
 
+            {/* Slider indicators */}
+
             <div className="mt-8 flex items-center gap-3">
               {slides.map((slide, index) => (
                 <button
@@ -748,8 +820,8 @@ const SignUp = () => {
                   aria-label={`Go to slide ${index + 1}`}
                   aria-current={activeSlide === index ? "true" : undefined}
                   className={`h-1.5 rounded-full transition-all duration-500 ${activeSlide === index
-                    ? "w-8 bg-[#E7C9A5]"
-                    : "w-2 bg-white/50 hover:bg-white/80"
+                      ? "w-8 bg-[#E7C9A5]"
+                      : "w-2 bg-white/50 hover:bg-white/80"
                     }`}
                 />
               ))}
@@ -757,10 +829,13 @@ const SignUp = () => {
           </div>
 
           {/* Inner border */}
+
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-3 z-20 rounded-[20px] border border-white/10"
           />
+
+          {/* Bottom glow */}
 
           <div
             aria-hidden="true"

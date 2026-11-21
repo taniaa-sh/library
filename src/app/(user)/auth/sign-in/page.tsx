@@ -51,7 +51,6 @@ type LoginResponse = {
 const slides = [
   {
     id: 1,
-    position: "center center",
     scale: 1,
     subtitle: "A world between the pages",
     title: "Find your next",
@@ -61,8 +60,7 @@ const slides = [
   },
   {
     id: 2,
-    position: "center top",
-    scale: 1.13,
+    scale: 1.04,
     subtitle: "Explore endless possibilities",
     title: "Every page",
     highlight: "holds a new world.",
@@ -71,14 +69,19 @@ const slides = [
   },
   {
     id: 3,
-    position: "center bottom",
-    scale: 1.2,
+    scale: 1.08,
     subtitle: "Your next chapter starts here",
     title: "Read more.",
     highlight: "Dream bigger.",
     description:
       "Build your own collection, find your inspiration, and make reading a part of your everyday life.",
   },
+];
+
+const sliderImages = [
+  imagesAddresses.images.loginPic,
+  imagesAddresses.images.loginPic2,
+  imagesAddresses.images.loginPic3,
 ];
 
 const ArrowLeft = () => (
@@ -228,7 +231,7 @@ const SignIn = () => {
     }`;
 
   return (
-    <main className="relative grid h-[100dvh] w-full grid-cols-1 overflow-hidden overscroll-none bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:grid-cols-2">
+    <main className="relative grid h-[100dvh] w-full grid-cols-1 overflow-hidden overscroll-none bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:grid-cols-[minmax(420px,40%)_minmax(0,1fr)]">
       {/* Decorative background */}
       <div
         aria-hidden="true"
@@ -240,8 +243,38 @@ const SignIn = () => {
         className="pointer-events-none absolute -bottom-40 left-1/3 z-0 h-96 w-96 rounded-full bg-[#E7C9A5]/10 blur-[120px] dark:bg-[#B88A4B]/15"
       />
 
+      {/* Decorative golden orbs and curved rings */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-52 -top-64 z-0 h-[540px] w-[540px] rounded-full border border-[#E7C9A5]/15 bg-[radial-gradient(circle_at_65%_65%,rgba(168,121,56,0.20),rgba(168,121,56,0.06)_48%,transparent_72%)] shadow-[inset_-25px_-20px_80px_rgba(168,121,56,0.10)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_65%_65%,rgba(184,138,75,0.18),rgba(184,138,75,0.05)_48%,transparent_72%)]"
+      >
+        <div className="absolute -right-8 bottom-8 h-[78%] w-[78%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/15" />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-64 -top-72 z-0 h-[620px] w-[620px] rounded-full border border-[#E7C9A5]/10 bg-[radial-gradient(circle_at_35%_65%,rgba(168,121,56,0.13),transparent_65%)] dark:border-[#B88A4B]/15 dark:bg-[radial-gradient(circle_at_35%_65%,rgba(184,138,75,0.12),transparent_65%)]"
+      >
+        <div className="absolute bottom-10 left-10 h-[78%] w-[78%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/10" />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[390px] -left-56 z-0 h-[650px] w-[650px] rounded-full border border-[#E7C9A5]/20 bg-[radial-gradient(circle_at_65%_25%,rgba(168,121,56,0.18),rgba(168,121,56,0.05)_52%,transparent_72%)] shadow-[inset_20px_20px_90px_rgba(168,121,56,0.10)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_65%_25%,rgba(184,138,75,0.16),rgba(184,138,75,0.04)_52%,transparent_72%)]"
+      >
+        <div className="absolute -right-6 top-10 h-[82%] w-[82%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/15" />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-[430px] -right-64 z-0 h-[700px] w-[700px] rounded-full border border-[#E7C9A5]/15 bg-[radial-gradient(circle_at_35%_25%,rgba(168,121,56,0.16),transparent_68%)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_35%_25%,rgba(184,138,75,0.14),transparent_68%)]"
+      >
+        <div className="absolute -left-8 top-8 h-[82%] w-[82%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/10" />
+      </div>
+
       {/* Login section */}
-      <section className="relative z-10 flex h-[100dvh] min-h-0 flex-col items-center overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-12 xl:px-20">
+
+      <section className="relative z-10 flex h-[100dvh] min-h-0 w-full flex-col items-center overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-8 xl:px-12">
         {/* Gold top line */}
         <div
           aria-hidden="true"
@@ -254,8 +287,8 @@ const SignIn = () => {
           transition={{ duration: 0.65, ease: "easeOut" }}
           className="flex min-h-0 w-full max-w-md flex-1 flex-col"
         >
-          {/* Fixed logo */}
-          <div className="flex shrink-0 flex-col items-center pb-4 pt-2 sm:pb-5 lg:items-start">
+          {/* Logo */}
+          <div className="flex shrink-0 flex-col items-center pb-4 pt-2 sm:pb-5">
             <Image
               src={imagesAddresses.images.logoNew}
               alt="BookWise"
@@ -281,18 +314,32 @@ const SignIn = () => {
 
           {/* Form card */}
           <div className="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-3xl border border-[#E7C9A5]/20 bg-[#171614]/95 shadow-[0_25px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl dark:border-[#B88A4B]/25 dark:bg-white/85 dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
-            {/* Card top decoration */}
+
+            {/* Four-sided gold border decoration */}
             <div
               aria-hidden="true"
-              className="absolute left-0 right-0 top-0 z-20 h-[3px] shrink-0 bg-gradient-to-r from-transparent via-[#E7C9A5] to-transparent dark:via-[#B88A4B]"
-            />
+              className="pointer-events-none absolute inset-0 z-20 rounded-3xl"
+            >
+              {/* Top */}
+              <div className="absolute inset-x-0 top-0 h-[3px] rounded-t-3xl bg-gradient-to-r from-transparent via-[#E7C9A5] to-transparent dark:via-[#B88A4B]" />
 
+              {/* Left */}
+              <div className="absolute inset-y-0 left-0 w-[2px] rounded-l-3xl bg-gradient-to-b from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+
+              {/* Right */}
+              <div className="absolute inset-y-0 right-0 w-[2px] rounded-r-3xl bg-gradient-to-b from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+
+              {/* Bottom */}
+              <div className="absolute inset-x-0 bottom-0 h-[2px] rounded-b-3xl bg-gradient-to-r from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
+            </div>
+
+            {/* Decorative glow */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
             />
 
-            {/* Fixed heading */}
+            {/* Heading */}
             <div className="relative z-10 shrink-0 px-5 pb-4 pt-6 sm:px-8 sm:pb-5 sm:pt-8">
               <div className="mb-3 flex items-center gap-2">
                 <span className="h-px w-7 bg-[#E7C9A5] dark:bg-[#B88A4B]" />
@@ -312,7 +359,7 @@ const SignIn = () => {
               </p>
             </div>
 
-            {/* Scrollable form and register link */}
+            {/* Scrollable form */}
             <div
               className="relative z-10 min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-5 pb-5 sm:px-8 sm:pb-8"
               style={{ scrollbarGutter: "stable" }}
@@ -338,9 +385,7 @@ const SignIn = () => {
                     autoComplete="email"
                     placeholder="you@example.com"
                     aria-invalid={!!errors.email}
-                    aria-describedby={
-                      errors.email ? "email-error" : undefined
-                    }
+                    aria-describedby={errors.email ? "email-error" : undefined}
                     className={inputClass(!!errors.email)}
                     animate={
                       errors.email
@@ -380,9 +425,7 @@ const SignIn = () => {
                       placeholder="Enter your password"
                       maxLength={20}
                       aria-invalid={!!errors.password}
-                      aria-describedby={
-                        errors.password ? "password-error" : undefined
-                      }
+                      aria-describedby={errors.password ? "password-error" : undefined}
                       className={`${inputClass(!!errors.password)} pr-12`}
                       animate={
                         errors.password
@@ -396,9 +439,7 @@ const SignIn = () => {
                     {passwordValue?.length > 0 && (
                       <button
                         type="button"
-                        aria-label={
-                          showPass ? "Hide password" : "Show password"
-                        }
+                        aria-label={showPass ? "Hide password" : "Show password"}
                         onClick={() => setShowPass((prev) => !prev)}
                         className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
                       >
@@ -477,40 +518,43 @@ const SignIn = () => {
         </motion.div>
       </section>
 
+
       {/* Visual section — desktop */}
-      <aside className="relative hidden h-[100dvh] min-h-0 overflow-hidden p-5 lg:block xl:p-7">
-
-        <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[28px] border border-[#E7C9A5]/25 dark:border-[#B88A4B]/30">
-
+      <aside className="relative hidden h-[100dvh] min-h-0 min-w-0 overflow-hidden p-6 lg:block xl:p-8">
+        <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[24px] border-[6px] border-[#E7C9A5] shadow-[0_15px_50px_rgba(168,121,56,0.22)] dark:border-[#B88A4B] dark:shadow-[0_15px_50px_rgba(120,85,35,0.15)]">
           <AnimatePresence mode="wait">
-
             <motion.div
-              initial={false}
-              animate={{
-                scale: slides[activeSlide].scale,
-              }}
-              transition={{
-                scale: {
-                  duration: 5,
-                  ease: "linear",
-                },
-              }}
-              className="absolute inset-0"
+              key={activeSlide}
+              initial={{ opacity: 0, scale: 1.02 }}
+              animate={{ opacity: 1, scale: slides[activeSlide].scale }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="absolute inset-0 grid grid-cols-[1.15fr_0.85fr]"
             >
-              <Image
-                src={imagesAddresses.images.loginPic}
-                alt="BookWise reading atmosphere"
-                fill
-                priority
-                sizes="(min-width: 1280px) 50vw, 50vw"
-                className="object-cover"
-                style={{
-                  objectPosition: slides[activeSlide].position,
-                }}
-              />
+              {/* Left photo */}
+              <div className="relative min-w-0 overflow-hidden">
+                <Image
+                  src={sliderImages[activeSlide]}
+                  alt={`BookWise reading image ${activeSlide + 1}`}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 55vw, 50vw"
+                  className="object-cover object-center"
+                />
+              </div>
+
+              {/* Right photo */}
+              <div className="relative min-w-0 overflow-hidden border-l border-[#E7C9A5]/20">
+                <Image
+                  src={sliderImages[(activeSlide + 1) % sliderImages.length]}
+                  alt={`BookWise reading image ${(activeSlide + 1) % sliderImages.length + 1}`}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 45vw, 50vw"
+                  className="object-cover object-center"
+                />
+              </div>
             </motion.div>
-
-
           </AnimatePresence>
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D0D0C] via-[#0D0D0C]/25 to-[#0D0D0C]/10 dark:from-[#17130F]/90 dark:via-[#17130F]/20 dark:to-[#17130F]/10" />

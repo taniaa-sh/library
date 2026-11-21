@@ -120,6 +120,8 @@ const imagesAddresses = {
     logo: "/images/Frame.png",
     logoNew: "/images/Frame-new.png",
     loginPic: "/images/loginPic.png",
+    loginPic2: "/images/loginPic2.png",
+    loginPic3: "/images/loginPic3.png",
     loginBg: "/images/loginBg.png",
     book1: "/images/book1.png",
     book2: "/images/book2.png",
