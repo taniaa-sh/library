@@ -2,8 +2,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import https from "https";
-import { hasSpecificValue } from "@/utils/utils";
-import { Axios_Route } from "@/utils/axiosRoutes";
 
 export const dynamic = "force-dynamic";
 
@@ -11,16 +9,6 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { apiRoute, data } = body;
-
-        if (!apiRoute || !hasSpecificValue(Axios_Route, apiRoute)) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "The desired route does not exist.",
-                },
-                { status: 404 }
-            );
-        }
 
         const token = req.cookies.get("accessToken")?.value;
 

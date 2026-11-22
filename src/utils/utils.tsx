@@ -63,7 +63,6 @@ export const fetchData = async <TRequest = unknown, TResponse = unknown>({
       ...(isFormData ? {} : { "Content-Type": "application/json" }),
     },
     cache: "no-cache",
-    credentials: "include"
   };
 
   if (method !== AxiosMethodEnum.get) {
@@ -95,8 +94,4 @@ export const fetchData = async <TRequest = unknown, TResponse = unknown>({
 
 export const delay = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export const hasSpecificValue = (obj: Record<string, any>, targetValue: any): boolean => {
-  return Object.values(obj).includes(targetValue);
 }
