@@ -12,6 +12,9 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 import showToast from "@/utils/toast";
+import { fetchData } from "@/utils/utils";
+import { Axios_Route } from "@/utils/axiosRoutes";
+import { AxiosMethodEnum } from "@/utils/type";
 
 const schema = yup
     .object({
@@ -127,25 +130,36 @@ const ForgotPasswordPage = () => {
         setLoading(true);
 
         try {
-            const res = await fetch("/api/auth/forgot-password", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            const result = await fetchData<unknown, { message: string }>({
+                baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+                apiRoute: Axios_Route.forgetPassword,
+                method: AxiosMethodEnum.post,
+                queryParams: {
+                    account: data.email.trim(),
                 },
-                body: JSON.stringify({ email: data.email }),
+                isFormData: false,
             });
 
-            if (res.ok) {
+
+            if (result) {
                 showToast(
                     "A reset link has been sent to your email",
                     "success"
                 );
-            } else {
-                showToast("Failed to send reset link", "error");
                 router.push(SiteUrls.resetPass);
+            } else {
+                showToast("Something went wrong", "error");
             }
-        } catch {
-            showToast("Something went wrong", "error");
+
+        } catch (err) {
+            console.log(err);
+
+            showToast(
+                err instanceof Error
+                    ? err.message
+                    : "Failed to send reset link",
+                "error"
+            );
         } finally {
             setLoading(false);
         }

@@ -10,4 +10,5 @@ export const Axios_Route = {
     addReview: '/api/review/addReview',
     getAllReviews: '/api/review/getAll',
     updateProfile: "api/auth/update-profile",
+    forgetPassword: "api/auth/forgetPassword",
 };

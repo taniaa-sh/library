@@ -63,6 +63,7 @@ export const fetchData = async <TRequest = unknown, TResponse = unknown>({
       ...(isFormData ? {} : { "Content-Type": "application/json" }),
     },
     cache: "no-cache",
+    credentials: "include"
   };
 
   if (method !== AxiosMethodEnum.get) {
