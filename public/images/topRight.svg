@@ -1,0 +1,32 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 430" fill="none">
+  <defs>
+    <radialGradient id="tr-glow">
+      <stop stop-color="#B88A4B" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#B88A4B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="480" cy="35" rx="270" ry="200"
+    fill="url(#tr-glow)"/>
+
+  <path
+    d="M360 -100 C245 70 200 200 275 285 C345 365 455 350 590 245"
+    stroke="#B88A4B" stroke-opacity=".28" stroke-width="1.5"
+  />
+
+  <path
+    d="M420 -100 C310 60 265 175 330 250 C390 320 485 310 590 220"
+    stroke="#E7C9A5" stroke-opacity=".3" stroke-width="1.5"
+  />
+
+  <path
+    d="M485 -100 C380 45 340 145 390 210 C445 280 520 270 600 195"
+    stroke="#B88A4B" stroke-opacity=".2"
+  />
+
+  <path
+    d="M540 -80 C455 40 425 125 460 175"
+    stroke="#E7C9A5" stroke-opacity=".12"
+  />
+</svg>

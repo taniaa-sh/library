@@ -1,0 +1,44 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 460" fill="none">
+  <defs>
+    <radialGradient id="br-glow">
+      <stop stop-color="#E0AF6C" stop-opacity=".48"/>
+      <stop offset=".55" stop-color="#B88A4B" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#A87938" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="br-line" x1="1" y1="0" x2="0" y2="1">
+      <stop stop-color="#E7C9A5" stop-opacity=".1"/>
+      <stop offset=".5" stop-color="#E7C9A5" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#B88A4B" stop-opacity=".05"/>
+    </linearGradient>
+
+    <filter id="br-blur">
+      <feGaussianBlur stdDeviation="45"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="580" cy="420" rx="330" ry="200"
+    fill="url(#br-glow)" filter="url(#br-blur)"/>
+
+  <path
+    d="M650 230 C510 245 400 305 315 390 C260 445 145 450 0 365"
+    stroke="url(#br-line)" stroke-width="2"
+  />
+
+  <path
+    d="M700 280 C550 290 420 350 340 420 C260 490 140 475 0 400"
+    stroke="#E7C9A5" stroke-opacity=".42" stroke-width="1.5"
+  />
+
+  <path
+    d="M720 330 C570 340 445 390 360 455 C275 515 160 510 30 440"
+    stroke="#B88A4B" stroke-opacity=".3" stroke-width="1.2"
+  />
+
+  <path
+    d="M750 180 C570 205 430 270 310 380"
+    stroke="#D6A45F" stroke-opacity=".12" stroke-width="35"
+    filter="url(#br-blur)"
+  />
+</svg>

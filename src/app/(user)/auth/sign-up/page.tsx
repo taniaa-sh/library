@@ -271,35 +271,40 @@ const SignUp = () => {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 left-1/3 z-0 h-96 w-96 rounded-full bg-[#E7C9A5]/10 blur-[120px] dark:bg-[#B88A4B]/15"
-      />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-52 -top-64 z-0 h-[540px] w-[540px] rounded-full border border-[#E7C9A5]/15 bg-[radial-gradient(circle_at_65%_65%,rgba(168,121,56,0.20),rgba(168,121,56,0.06)_48%,transparent_72%)] shadow-[inset_-25px_-20px_80px_rgba(168,121,56,0.10)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_65%_65%,rgba(184,138,75,0.18),rgba(184,138,75,0.05)_48%,transparent_72%)]"
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        <div className="absolute -right-8 bottom-8 h-[78%] w-[78%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/15" />
-      </div>
+        <Image
+          src={imagesAddresses.images.topLeft}
+          alt=""
+          width={650}
+          height={480}
+          priority
+          className="absolute -left-12 -top-10 h-[480px] w-[650px] object-contain"
+        />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-64 -top-72 z-0 h-[620px] w-[620px] rounded-full border border-[#E7C9A5]/10 bg-[radial-gradient(circle_at_35%_65%,rgba(168,121,56,0.13),transparent_65%)] dark:border-[#B88A4B]/15 dark:bg-[radial-gradient(circle_at_35%_65%,rgba(184,138,75,0.12),transparent_65%)]"
-      >
-        <div className="absolute bottom-10 left-10 h-[78%] w-[78%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/10" />
-      </div>
+        <Image
+          src={imagesAddresses.images.topRight}
+          alt=""
+          width={550}
+          height={430}
+          className="absolute -right-12 -top-12 h-[430px] w-[550px] object-contain"
+        />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[390px] -left-56 z-0 h-[650px] w-[650px] rounded-full border border-[#E7C9A5]/20 bg-[radial-gradient(circle_at_65%_25%,rgba(168,121,56,0.18),rgba(168,121,56,0.05)_52%,transparent_72%)] shadow-[inset_20px_20px_90px_rgba(168,121,56,0.10)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_65%_25%,rgba(184,138,75,0.16),rgba(184,138,75,0.04)_52%,transparent_72%)]"
-      >
-        <div className="absolute -right-6 top-10 h-[82%] w-[82%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/15" />
-      </div>
+        <Image
+          src={imagesAddresses.images.bottomLeft}
+          alt=""
+          width={650}
+          height={460}
+          className="absolute -bottom-16 -left-12 h-[460px] w-[650px] object-contain"
+        />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[430px] -right-64 z-0 h-[700px] w-[700px] rounded-full border border-[#E7C9A5]/15 bg-[radial-gradient(circle_at_35%_25%,rgba(168,121,56,0.16),transparent_68%)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_35%_25%,rgba(184,138,75,0.14),transparent_68%)]"
-      >
-        <div className="absolute -left-8 top-8 h-[82%] w-[82%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/10" />
+        <Image
+          src={imagesAddresses.images.bottomRight}
+          alt=""
+          width={650}
+          height={460}
+          className="absolute -bottom-16 -right-12 h-[460px] w-[650px] object-contain"
+        />
       </div>
 
       {/* Registration section */}

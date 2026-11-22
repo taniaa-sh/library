@@ -145,7 +145,10 @@ const imagesAddresses = {
     ourServices: "/images/ourServices.png",
     ourCommunity: "/images/ourCommunity.png",
     ourResources: "/images/ourResources.png",
-
+    topLeft: "/images/topLeft.svg",
+    topRight: "/images/topRight.svg",
+    bottomLeft: "/images/bottomLeft.svg",
+    bottomRight: "/images/bottomRight.svg",
     adminLogo: "/images/adminLogo.png",
     avatar1: "/images/avatar1.png",
     avatar2: "/images/avatar2.png",

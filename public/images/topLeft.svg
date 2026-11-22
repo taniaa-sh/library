@@ -1,0 +1,48 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 480" fill="none">
+  <defs>
+    <linearGradient id="tl-surface" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#B88A4B" stop-opacity=".32"/>
+      <stop offset=".5" stop-color="#87603A" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#17130F" stop-opacity="0"/>
+    </linearGradient>
+
+    <radialGradient id="tl-glow">
+      <stop stop-color="#D6A45F" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#A87938" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="tl-blur">
+      <feGaussianBlur stdDeviation="35"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="110" cy="55" rx="330" ry="250"
+    fill="url(#tl-glow)" filter="url(#tl-blur)"/>
+
+  <path
+    d="M0 0 H520 C430 80 350 160 255 215 C155 275 65 300 0 305 Z"
+    fill="url(#tl-surface)"
+  />
+
+  <path
+    d="M-100 -80 C100 -35 330 35 445 155 C520 235 445 335 315 390"
+    stroke="#E7C9A5" stroke-opacity=".48" stroke-width="2"
+  />
+
+  <path
+    d="M-90 -125 C120 -75 360 0 480 125 C560 210 500 320 370 390"
+    stroke="#B88A4B" stroke-opacity=".3" stroke-width="1.5"
+  />
+
+  <path
+    d="M-50 -175 C170 -115 390 -35 520 90 C610 180 555 285 440 350"
+    stroke="#E7C9A5" stroke-opacity=".18"
+  />
+
+  <path
+    d="M-10 -35 C130 0 275 65 370 160"
+    stroke="#E7C9A5" stroke-opacity=".12" stroke-width="22"
+    filter="url(#tl-blur)"
+  />
+</svg>

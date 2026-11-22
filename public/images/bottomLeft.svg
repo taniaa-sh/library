@@ -1,0 +1,44 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 460" fill="none">
+  <defs>
+    <radialGradient id="bl-glow">
+      <stop stop-color="#E0AF6C" stop-opacity=".5"/>
+      <stop offset=".55" stop-color="#B88A4B" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#A87938" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="bl-line" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#E7C9A5" stop-opacity=".05"/>
+      <stop offset=".5" stop-color="#E7C9A5" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#B88A4B" stop-opacity=".1"/>
+    </linearGradient>
+
+    <filter id="bl-blur">
+      <feGaussianBlur stdDeviation="45"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="80" cy="420" rx="330" ry="200"
+    fill="url(#bl-glow)" filter="url(#bl-blur)"/>
+
+  <path
+    d="M0 230 C140 245 250 305 335 390 C390 445 505 450 650 365"
+    stroke="url(#bl-line)" stroke-width="2"
+  />
+
+  <path
+    d="M-50 280 C100 290 230 350 310 420 C390 490 510 475 650 400"
+    stroke="#E7C9A5" stroke-opacity=".42" stroke-width="1.5"
+  />
+
+  <path
+    d="M-70 330 C80 340 205 390 290 455 C375 515 490 510 620 440"
+    stroke="#B88A4B" stroke-opacity=".3" stroke-width="1.2"
+  />
+
+  <path
+    d="M-100 180 C80 205 220 270 340 380"
+    stroke="#D6A45F" stroke-opacity=".12" stroke-width="35"
+    filter="url(#bl-blur)"
+  />
+</svg>
