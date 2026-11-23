@@ -110,13 +110,13 @@ const ArrowRight = () => (
 );
 
 const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [shakeTrigger, setShakeTrigger] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
-
-  const router = useRouter();
 
   const {
     register,
@@ -130,6 +130,12 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
 
   const passwordValue = watch("password");
   const confirmPassValue = watch("confirmPass");
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      setShakeTrigger((prev) => prev + 1);
+    }
+  }, [errors]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -146,12 +152,6 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
   const previousSlide = () => {
     setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
-
-  useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      setShakeTrigger((prev) => prev + 1);
-    }
-  }, [errors]);
 
   const onSubmit = async (data: ResetPasswordFormData) => {
     if (!resetPasswordToken) {
@@ -188,41 +188,41 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
   };
 
   const inputClass = (hasError: boolean) =>
-    `w-full rounded-xl border bg-white/[0.04] px-4 py-3.5 pr-12 text-sm
-    text-white outline-none transition-all duration-300
+    `w-full min-w-0 rounded-xl border bg-white/[0.04] px-4 py-3.5 pr-12 text-sm
+    text-white outline-none transition-[border-color,background-color,box-shadow] duration-200
     placeholder:text-stone-500
     focus:border-[#E7C9A5] focus:bg-white/[0.07]
     focus:ring-4 focus:ring-[#E7C9A5]/10
     dark:bg-[#F8F2E6] dark:text-[#17130F]
     dark:placeholder:text-[#9C8B76]
     dark:focus:bg-white
-    ${
-      hasError
-        ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
-        : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
+    ${hasError
+      ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
+      : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
     }`;
 
-  const errorClass =
-    "text-xs leading-5 text-red-400 dark:text-red-600";
+  const labelClass =
+    "text-sm font-medium text-stone-200 dark:text-[#403326]";
+
+  const errorClass = "text-xs leading-5 text-red-400 dark:text-red-600";
 
   return (
-    <main className="relative grid h-[100dvh] w-full grid-cols-1 overflow-hidden overscroll-none bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:grid-cols-[minmax(420px,40%)_minmax(0,1fr)]">
+    <main className="relative grid min-h-[100svh] w-full grid-cols-1 overflow-x-clip bg-[#0D0D0C] text-white dark:bg-[#F8F2E6] dark:text-[#17130F] lg:h-[100dvh] lg:min-h-0 lg:grid-cols-[minmax(400px,40%)_minmax(0,1fr)] lg:overflow-hidden">
+      {/* Background decorations */}
 
-      {/* Decorative background */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-32 -top-32 z-0 h-96 w-96 rounded-full bg-[#A87938]/15 blur-[120px] dark:bg-[#E7C9A5]/35"
+        className="pointer-events-none fixed -left-32 -top-32 z-0 hidden h-96 w-96 rounded-full bg-[#A87938]/15 blur-[120px] dark:bg-[#E7C9A5]/35 lg:block"
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 left-1/3 z-0 h-96 w-96 rounded-full bg-[#E7C9A5]/10 blur-[120px] dark:bg-[#B88A4B]/15"
+        className="pointer-events-none fixed -bottom-40 left-1/3 z-0 hidden h-96 w-96 rounded-full bg-[#E7C9A5]/10 blur-[120px] dark:bg-[#B88A4B]/15 lg:block"
       />
 
-      {/* Decorative golden orbs and curved rings */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden lg:block"
       >
         <Image
           src={imagesAddresses.images.topLeft}
@@ -258,29 +258,22 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
         />
       </div>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[430px] -right-64 z-0 h-[700px] w-[700px] rounded-full border border-[#E7C9A5]/15 bg-[radial-gradient(circle_at_35%_25%,rgba(168,121,56,0.16),transparent_68%)] dark:border-[#B88A4B]/20 dark:bg-[radial-gradient(circle_at_35%_25%,rgba(184,138,75,0.14),transparent_68%)]"
-      >
-        <div className="absolute -left-8 top-8 h-[82%] w-[82%] rounded-full border border-[#E7C9A5]/10 dark:border-[#B88A4B]/10" />
-      </div>
+      {/* Registration section */}
 
-      {/* Reset password section */}
-      <section className="relative z-10 flex h-[100dvh] min-h-0 w-full flex-col items-center overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-8 xl:px-12">
-
+      <section className="relative z-10 flex min-h-[100svh] w-full flex-col items-center justify-center px-4 py-6 sm:px-8 sm:py-8 lg:h-[100dvh] lg:min-h-0 lg:justify-center lg:overflow-hidden lg:px-8 lg:py-5 xl:px-12">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#E7C9A5]/80 to-transparent lg:hidden"
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: "easeOut" }}
-          className="flex min-h-0 w-full max-w-md flex-1 flex-col"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex w-full max-w-md flex-col lg:min-h-0 lg:flex-1"
         >
-
           {/* Logo */}
+
           <div className="flex shrink-0 flex-col items-center pb-4 pt-2 sm:pb-5">
             <Image
               src={imagesAddresses.images.logoNew}
@@ -306,9 +299,10 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           </div>
 
           {/* Form card */}
-          <div className="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-3xl border border-[#E7C9A5]/20 bg-[#171614]/95 shadow-[0_25px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl dark:border-[#B88A4B]/25 dark:bg-white/85 dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
 
-            {/* Four-sided gold border */}
+          <div className="relative flex w-full flex-col overflow-visible rounded-3xl border border-[#E7C9A5]/20 bg-[#171614]/95 shadow-[0_25px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl dark:border-[#B88A4B]/25 dark:bg-white/85 dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)] lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overflow-x-hidden lg:overscroll-contain">
+            {/* Gold border */}
+
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 z-20 rounded-3xl"
@@ -322,13 +316,15 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
               <div className="absolute inset-x-0 bottom-0 h-[2px] rounded-b-3xl bg-gradient-to-r from-transparent via-[#E7C9A5]/70 to-transparent dark:via-[#B88A4B]/70" />
             </div>
 
-            {/* Decorative glow */}
+            {/* Glow */}
+
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
             />
 
             {/* Heading */}
+
             <div className="relative z-10 shrink-0 px-5 pb-4 pt-6 sm:px-8 sm:pb-5 sm:pt-8">
               <div className="mb-3 flex items-center gap-2">
                 <span className="h-px w-7 bg-[#E7C9A5] dark:bg-[#B88A4B]" />
@@ -348,197 +344,205 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
               </p>
             </div>
 
-            {/* Scrollable form */}
-            <div
-              className="relative z-10 min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-5 pb-5 sm:px-8 sm:pb-8"
-              style={{ scrollbarGutter: "stable" }}
-            >
+            {/* Form content */}
+
+            <div className="relative z-10 flex flex-col px-5 pb-5 sm:px-8 sm:pb-8">
               <form
-                className="flex flex-col gap-5"
                 onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col"
                 noValidate
               >
+                <div className="flex flex-col gap-4 pb-4 sm:gap-5">
+                  {/* New Password */}
 
-                {/* New Password */}
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="password"
-                    className="text-sm font-medium text-stone-200 dark:text-[#403326]"
-                  >
-                    New Password
-                  </label>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="password" className={labelClass}>
+                      New Password
+                    </label>
 
-                  <div className="relative">
-                    <motion.input
-                      {...register("password")}
-                      id="password"
-                      type={showPass ? "text" : "password"}
-                      autoComplete="new-password"
-                      maxLength={30}
-                      placeholder="Enter new password"
-                      aria-invalid={!!errors.password}
-                      aria-describedby={errors.password ? "password-error" : undefined}
-                      className={inputClass(!!errors.password)}
-                      animate={
-                        errors.password
-                          ? { x: [0, -5, 5, -5, 5, 0] }
-                          : { x: 0 }
-                      }
-                      key={`password-${shakeTrigger}`}
-                      transition={{ duration: 0.35 }}
-                    />
+                    <div className="relative">
+                      <motion.input
+                        {...register("password")}
+                        id="password"
+                        type={showPass ? "text" : "password"}
+                        autoComplete="new-password"
+                        maxLength={30}
+                        placeholder="Enter new password"
+                        aria-invalid={!!errors.password}
+                        aria-describedby={
+                          errors.password ? "password-error" : undefined
+                        }
+                        className={inputClass(!!errors.password)}
+                        animate={
+                          errors.password
+                            ? { x: [0, -5, 5, -5, 5, 0] }
+                            : { x: 0 }
+                        }
+                        key={`password-${shakeTrigger}`}
+                        transition={{ duration: 0.35 }}
+                      />
 
-                    {passwordValue?.length > 0 && (
-                      <button
-                        type="button"
-                        aria-label={showPass ? "Hide password" : "Show password"}
-                        onClick={() => setShowPass((prev) => !prev)}
-                        className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
+                      {passwordValue?.length > 0 && (
+                        <button
+                          type="button"
+                          aria-label={
+                            showPass ? "Hide password" : "Show password"
+                          }
+                          onClick={() => setShowPass((prev) => !prev)}
+                          className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
+                        >
+                          <Image
+                            src={
+                              showPass
+                                ? imagesAddresses.icons.blindBlack
+                                : imagesAddresses.icons.eyeBlack
+                            }
+                            alt=""
+                            width={19}
+                            height={19}
+                            className="hidden dark:block"
+                          />
+
+                          <Image
+                            src={
+                              showPass
+                                ? imagesAddresses.icons.blind
+                                : imagesAddresses.icons.eyeWhite
+                            }
+                            alt=""
+                            width={19}
+                            height={19}
+                            className="dark:hidden"
+                          />
+                        </button>
+                      )}
+                    </div>
+
+                    {errors.password && (
+                      <p
+                        id="password-error"
+                        role="alert"
+                        className={errorClass}
                       >
-                        <Image
-                          src={
-                            showPass
-                              ? imagesAddresses.icons.blindBlack
-                              : imagesAddresses.icons.eyeBlack
-                          }
-                          alt=""
-                          width={19}
-                          height={19}
-                          className="hidden dark:block"
-                        />
-
-                        <Image
-                          src={
-                            showPass
-                              ? imagesAddresses.icons.blind
-                              : imagesAddresses.icons.eyeWhite
-                          }
-                          alt=""
-                          width={19}
-                          height={19}
-                          className="dark:hidden"
-                        />
-                      </button>
+                        {errors.password.message}
+                      </p>
                     )}
                   </div>
 
-                  {errors.password && (
-                    <p
-                      id="password-error"
-                      role="alert"
-                      className={errorClass}
-                    >
-                      {errors.password.message}
-                    </p>
-                  )}
-                </div>
+                  {/* Confirm Password */}
 
-                {/* Confirm Password */}
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="confirmPass"
-                    className="text-sm font-medium text-stone-200 dark:text-[#403326]"
-                  >
-                    Confirm Password
-                  </label>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="confirmPass" className={labelClass}>
+                      Confirm Password
+                    </label>
 
-                  <div className="relative">
-                    <motion.input
-                      {...register("confirmPass")}
-                      id="confirmPass"
-                      type={showConfirmPass ? "text" : "password"}
-                      autoComplete="new-password"
-                      maxLength={30}
-                      placeholder="Repeat new password"
-                      aria-invalid={!!errors.confirmPass}
-                      aria-describedby={errors.confirmPass ? "confirm-password-error" : undefined}
-                      className={inputClass(!!errors.confirmPass)}
-                      animate={
-                        errors.confirmPass
-                          ? { x: [0, -5, 5, -5, 5, 0] }
-                          : { x: 0 }
-                      }
-                      key={`confirm-${shakeTrigger}`}
-                      transition={{ duration: 0.35 }}
-                    />
-
-                    {confirmPassValue?.length > 0 && (
-                      <button
-                        type="button"
-                        aria-label={
-                          showConfirmPass ? "Hide password" : "Show password"
+                    <div className="relative">
+                      <motion.input
+                        {...register("confirmPass")}
+                        id="confirmPass"
+                        type={showConfirmPass ? "text" : "password"}
+                        autoComplete="new-password"
+                        maxLength={30}
+                        placeholder="Repeat new password"
+                        aria-invalid={!!errors.confirmPass}
+                        aria-describedby={
+                          errors.confirmPass
+                            ? "confirm-password-error"
+                            : undefined
                         }
-                        onClick={() =>
-                          setShowConfirmPass((prev) => !prev)
+                        className={inputClass(!!errors.confirmPass)}
+                        animate={
+                          errors.confirmPass
+                            ? { x: [0, -5, 5, -5, 5, 0] }
+                            : { x: 0 }
                         }
-                        className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
+                        key={`confirm-${shakeTrigger}`}
+                        transition={{ duration: 0.35 }}
+                      />
+
+                      {confirmPassValue?.length > 0 && (
+                        <button
+                          type="button"
+                          aria-label={
+                            showConfirmPass
+                              ? "Hide password"
+                              : "Show password"
+                          }
+                          onClick={() =>
+                            setShowConfirmPass((prev) => !prev)
+                          }
+                          className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg transition-colors hover:bg-[#E7C9A5]/10"
+                        >
+                          <Image
+                            src={
+                              showConfirmPass
+                                ? imagesAddresses.icons.blindBlack
+                                : imagesAddresses.icons.eyeBlack
+                            }
+                            alt=""
+                            width={19}
+                            height={19}
+                            className="hidden dark:block"
+                          />
+
+                          <Image
+                            src={
+                              showConfirmPass
+                                ? imagesAddresses.icons.blind
+                                : imagesAddresses.icons.eyeWhite
+                            }
+                            alt=""
+                            width={19}
+                            height={19}
+                            className="dark:hidden"
+                          />
+                        </button>
+                      )}
+                    </div>
+
+                    {errors.confirmPass && (
+                      <p
+                        id="confirm-password-error"
+                        role="alert"
+                        className={errorClass}
                       >
-                        <Image
-                          src={
-                            showConfirmPass
-                              ? imagesAddresses.icons.blindBlack
-                              : imagesAddresses.icons.eyeBlack
-                          }
-                          alt=""
-                          width={19}
-                          height={19}
-                          className="hidden dark:block"
-                        />
-
-                        <Image
-                          src={
-                            showConfirmPass
-                              ? imagesAddresses.icons.blind
-                              : imagesAddresses.icons.eyeWhite
-                          }
-                          alt=""
-                          width={19}
-                          height={19}
-                          className="dark:hidden"
-                        />
-                      </button>
+                        {errors.confirmPass.message}
+                      </p>
                     )}
                   </div>
 
-                  {errors.confirmPass && (
-                    <p
-                      id="confirm-password-error"
-                      role="alert"
-                      className={errorClass}
-                    >
-                      {errors.confirmPass.message}
+                  {/* Password requirements */}
+
+                  <div className="rounded-xl border border-[#E7C9A5]/15 bg-[#E7C9A5]/[0.04] p-4 dark:border-[#B88A4B]/25 dark:bg-[#B88A4B]/[0.06]">
+                    <p className="mb-2 text-xs font-semibold text-[#E7C9A5] dark:text-[#A87938]">
+                      Password requirements
                     </p>
-                  )}
+
+                    <ul className="space-y-1 text-xs leading-5 text-stone-400 dark:text-[#75634E]">
+                      <li>• At least 8 characters</li>
+                      <li>• One uppercase and one lowercase letter</li>
+                      <li>• At least one number</li>
+                      <li>• At least one special character (@$!%*?&)</li>
+                    </ul>
+                  </div>
                 </div>
 
-                {/* Password requirements */}
-                <div className="rounded-xl border border-[#E7C9A5]/15 bg-[#E7C9A5]/[0.04] p-4 dark:border-[#B88A4B]/25 dark:bg-[#B88A4B]/[0.06]">
-                  <p className="mb-2 text-xs font-semibold text-[#E7C9A5] dark:text-[#A87938]">
-                    Password requirements
-                  </p>
+                {/* Submit button */}
 
-                  <ul className="space-y-1 text-xs leading-5 text-stone-400 dark:text-[#75634E]">
-                    <li>• At least 8 characters</li>
-                    <li>• One uppercase and one lowercase letter</li>
-                    <li>• At least one number</li>
-                    <li>• At least one special character (@$!%*?&)</li>
-                  </ul>
-                </div>
-
-                {/* Submit */}
-                <div className="mt-2">
+                <div className="mt-3 border-t border-[#E7C9A5]/15 pt-4 dark:border-[#B88A4B]/20">
                   <CustomButton
-                    type="submit"
                     text="Reset Password"
                     color="yellow"
-                    containerClassName="mt-1 flex w-full cursor-pointer text-nowrap"
+                    containerClassName="flex w-full cursor-pointer text-nowrap"
                     loading={loading}
+                    type="submit"
                   />
                 </div>
               </form>
 
-              {/* Back to login */}
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 border-t border-[#E7C9A5]/15 pt-5 text-center text-xs text-stone-400 sm:text-sm dark:border-[#B88A4B]/20 dark:text-[#75634E]">
+              {/* Login link */}
+
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2 text-center text-xs text-stone-400 sm:text-sm dark:text-[#75634E]">
                 <span>Remember your password?</span>
 
                 <button
@@ -554,11 +558,12 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
         </motion.div>
       </section>
 
-      {/* Visual section — desktop */}
+      {/* Desktop visual section */}
+
       <aside className="relative hidden h-[100dvh] min-h-0 min-w-0 overflow-hidden p-6 lg:block xl:p-8">
         <div className="group/slider relative h-full min-h-0 overflow-hidden rounded-[28px] border border-[#E7C9A5]/20 bg-[#252019] shadow-[0_25px_80px_rgba(0,0,0,0.3)] transition-all duration-500 dark:border-[#B88A4B]/25 dark:bg-[#252019] dark:shadow-[0_25px_80px_rgba(120,85,35,0.10)]">
-
           {/* Main background image */}
+
           <AnimatePresence mode="wait">
             <motion.div
               key={`main-${activeSlide}`}
@@ -583,6 +588,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           </AnimatePresence>
 
           {/* Image overlays */}
+
           <div className="absolute inset-0 bg-gradient-to-t from-[#17130F]/90 via-[#17130F]/25 to-transparent" />
 
           <div className="absolute inset-0 bg-gradient-to-r from-[#17130F]/30 via-transparent to-transparent" />
@@ -590,6 +596,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           <div className="absolute inset-0 bg-gradient-to-br from-[#E7C9A5]/15 via-transparent to-[#A87938]/15" />
 
           {/* Top information */}
+
           <div className="absolute left-8 right-8 top-8 z-20 flex items-center justify-between xl:left-12 xl:right-12 xl:top-12">
             <div className="flex items-center gap-3 rounded-full border border-white/20 bg-black/20 px-4 py-2.5 backdrop-blur-xl">
               <span className="h-2 w-2 animate-pulse rounded-full bg-[#E7C9A5]" />
@@ -605,6 +612,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           </div>
 
           {/* Decorative circles */}
+
           <div className="pointer-events-none absolute -right-24 top-28 h-80 w-80 rounded-full border border-white/20" />
 
           <div className="pointer-events-none absolute -right-12 top-40 h-56 w-56 rounded-full border border-white/15" />
@@ -612,6 +620,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           <div className="pointer-events-none absolute right-10 top-52 h-32 w-32 rounded-full border border-[#E7C9A5]/30" />
 
           {/* Floating secondary image */}
+
           <AnimatePresence mode="wait">
             <motion.div
               key={`secondary-${activeSlide}`}
@@ -632,6 +641,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           </AnimatePresence>
 
           {/* Main content */}
+
           <div className="absolute inset-x-0 bottom-0 z-20 p-8 xl:p-12">
             <AnimatePresence mode="wait">
               <motion.div
@@ -666,9 +676,10 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
             </AnimatePresence>
 
             {/* Bottom controls */}
-            <div className="mt-9 flex items-center justify-between gap-5 border-t border-white/20 pt-6">
 
+            <div className="mt-9 flex items-center justify-between gap-5 border-t border-white/20 pt-6">
               {/* Progress indicators */}
+
               <div className="flex flex-1 items-center gap-3">
                 {slides.map((slide, index) => (
                   <button
@@ -693,6 +704,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
               </div>
 
               {/* Slide number */}
+
               <div className="flex shrink-0 items-center gap-2 font-serif text-sm text-white/70">
                 <span className="text-xl text-[#E7C9A5]">
                   0{activeSlide + 1}
@@ -704,6 +716,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
               </div>
 
               {/* Navigation */}
+
               <div className="flex shrink-0 items-center gap-2">
                 <button
                   type="button"
@@ -727,6 +740,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           </div>
 
           {/* Four-sided gold border */}
+
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-30 rounded-[28px]"
@@ -741,6 +755,7 @@ const ResetPasswordContent = ({ resetPasswordToken }: Props) => {
           </div>
 
           {/* Decorative glow */}
+
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-16 -top-16 z-10 h-40 w-40 rounded-full bg-[#E7C9A5]/[0.06] blur-3xl dark:bg-[#B88A4B]/10"
