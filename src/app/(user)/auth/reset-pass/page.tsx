@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import imagesAddresses from "@/utils/imageAddresses";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SiteUrls from "@/utils/routs";
 import CustomButton from "@/components/CustomButton";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +12,9 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 import showToast from "@/utils/toast";
+import { fetchData } from "@/utils/utils";
+import { Axios_Route } from "@/utils/axiosRoutes";
+import { AxiosMethodEnum } from "@/utils/type";
 
 const schema = yup
   .object({
@@ -109,6 +112,9 @@ const ResetPasswordPage = () => {
   const [shakeTrigger, setShakeTrigger] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
 
+  const searchParams = useSearchParams();
+  const resetPasswordToken = searchParams.get("token");
+
   const router = useRouter();
 
   const {
@@ -147,30 +153,34 @@ const ResetPasswordPage = () => {
   }, [errors]);
 
   const onSubmit = async (data: ResetPasswordFormData) => {
+    if (!resetPasswordToken) {
+      showToast("Invalid or missing reset password token.", "error");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const result = await fetchData<unknown, { message: string }>({
+        baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        apiRoute: Axios_Route.resetPassword,
+        method: AxiosMethodEnum.post,
+        queryParams: {
+          newPassword: data.password,
+          resetPasswordToken,
         },
-        body: JSON.stringify({
-          password: data.password,
-        }),
+        isFormData: false,
       });
 
-      if (res.ok) {
+      if (result) {
         showToast("Password updated successfully", "success");
         router.push(SiteUrls.signIn);
-      } else {
-        showToast(
-          "Failed to reset password. Please try again.",
-          "error"
-        );
       }
-    } catch {
-      showToast("Something went wrong. Please try again.", "error");
+    } catch (err) {
+      showToast(
+        err instanceof Error ? err.message : "Failed to reset password",
+        "error"
+      );
     } finally {
       setLoading(false);
     }
@@ -185,10 +195,9 @@ const ResetPasswordPage = () => {
     dark:bg-[#F8F2E6] dark:text-[#17130F]
     dark:placeholder:text-[#9C8B76]
     dark:focus:bg-white
-    ${
-      hasError
-        ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
-        : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
+    ${hasError
+      ? "border-red-500 focus:border-red-500 focus:ring-red-500/10"
+      : "border-[#E7C9A5]/20 dark:border-[#B88A4B]/30"
     }`;
 
   const errorClass =
