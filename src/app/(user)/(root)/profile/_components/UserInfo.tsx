@@ -113,28 +113,42 @@ const UserProfile = ({ data }: PropsType) => {
                 ? await uploadToCloudinary(profileImageFile, "image")
                 : profile.profileImage || null;
 
-            const result = await fetchData<
-                Record<string, unknown>,
-                unknown
-            >({
-                baseUrl: process.env.NEXT_PUBLIC_BASE_URL!,
+            const obj = {
                 apiRoute: Axios_Route.updateProfile,
-                method: AxiosMethodEnum.put,
-                queryParams: {
+                data: {
                     fullName: formData.name.trim(),
                     email: formData.email.trim(),
                     universityId: formData.studentId.trim(),
                     university: formData.university.trim() || null,
                     profileImage,
                 },
-                isFormData: false,
+            };
+
+            const response = await fetch("/api/post", {
+                method: AxiosMethodEnum.post,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(obj),
             });
 
-            if (!result) {
-                throw new Error("Failed to update profile");
+            const res = await response.json();
+            const result = res?.response ?? res;
+
+            if (
+                !response.ok ||
+                res?.success === false ||
+                result?.success === false ||
+                result?.error
+            ) {
+                throw new Error(
+                    result?.message ||
+                    result?.detail ||
+                    res?.message ||
+                    "Failed to update profile"
+                );
             }
 
-            // Update local profile data
             const updatedProfile: User = {
                 ...profile,
                 fullName: formData.name.trim(),
@@ -350,8 +364,8 @@ const UserProfile = ({ data }: PropsType) => {
                                     iconPosition="center"
                                     color="gray"
                                     containerClassName={`!w-fit !rounded-xl !border !border-[#E7C9A5]/30 !bg-[#E7C9A5]/5 !text-[#E7C9A5] dark:!text-[#A87938] hover:!border-[#E7C9A5]/60 hover:!bg-[#E7C9A5]/10 dark:!border-[#A87938]/30 dark:!bg-[#A87938]/5 dark:hover:!bg-[#A87938]/10 ${loading
-                                            ? "pointer-events-none opacity-50"
-                                            : "cursor-pointer"
+                                        ? "pointer-events-none opacity-50"
+                                        : "cursor-pointer"
                                         }`}
                                     onClick={onCancel}
                                 />
