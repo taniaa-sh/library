@@ -143,7 +143,7 @@ const ForgotPasswordPage = () => {
                     "success"
                 );
 
-                router.push(SiteUrls.resetPass);
+                router.push(SiteUrls.signIn);
             } else {
                 showToast("Something went wrong", "error");
             }
