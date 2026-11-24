@@ -13,4 +13,5 @@ export const Axios_Route = {
     updateProfile: "api/auth/update-profile",
     forgetPassword: "api/auth/forgetPassword",
     resetPassword: "api/auth/updatePassword",
+    changePassword: "api/auth/changePassword",
 };

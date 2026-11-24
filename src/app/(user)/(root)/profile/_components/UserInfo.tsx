@@ -8,7 +8,6 @@ import CustomButton from "@/components/CustomButton";
 import imagesAddresses from "@/utils/imageAddresses";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
-import { fetchData } from "@/utils/utils";
 import { Axios_Route } from "@/utils/axiosRoutes";
 import { AxiosMethodEnum } from "@/utils/type";
 import showToast from "@/utils/toast";
@@ -19,6 +18,12 @@ type FormValues = {
     university: string;
     studentId: string;
     email: string;
+};
+
+type PasswordFormValues = {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
 };
 
 type User = {
@@ -48,6 +53,7 @@ const fields = [
 const UserProfile = ({ data }: PropsType) => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [passwordLoading, setPasswordLoading] = useState(false);
 
     const [profile, setProfile] = useState<User>(data);
 
@@ -57,6 +63,12 @@ const UserProfile = ({ data }: PropsType) => {
 
     const [profileImageFile, setProfileImageFile] =
         useState<File | null>(null);
+
+    const [showPasswords, setShowPasswords] = useState({
+        current: false,
+        new: false,
+        confirm: false,
+    });
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const previewUrlRef = useRef<string | null>(null);
@@ -74,6 +86,20 @@ const UserProfile = ({ data }: PropsType) => {
             university: data.university ?? "",
             studentId: data.universityId ?? "",
             email: data.email ?? "",
+        },
+    });
+
+    const {
+        register: registerPassword,
+        handleSubmit: handlePasswordSubmit,
+        reset: resetPassword,
+        watch,
+        formState: { errors: passwordErrors },
+    } = useForm<PasswordFormValues>({
+        defaultValues: {
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
         },
     });
 
@@ -209,6 +235,72 @@ const UserProfile = ({ data }: PropsType) => {
         }
     };
 
+    const onChangePassword: SubmitHandler<PasswordFormValues> = async (formData) => {
+        if (passwordLoading) return;
+
+        setPasswordLoading(true);
+
+        try {
+            const obj = {
+                apiRoute: Axios_Route.changePassword,
+                data: {
+                    currentPassword: formData.currentPassword,
+                    newPassword: formData.newPassword,
+                    confirmPassword: formData.confirmPassword,
+                },
+            };
+
+            const response = await fetch("/api/post", {
+                method: AxiosMethodEnum.post,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(obj),
+            });
+
+            const res = await response.json();
+            const result = res?.response ?? res;
+
+            if (
+                !response.ok ||
+                res?.success === false ||
+                result?.success === false ||
+                result?.error
+            ) {
+                throw new Error(
+                    result?.message ||
+                    result?.detail ||
+                    res?.message ||
+                    "Failed to change password"
+                );
+            }
+
+            resetPassword();
+
+            setShowPasswords({
+                current: false,
+                new: false,
+                confirm: false,
+            });
+            showToast("Password changed successfully", "success");
+
+        } catch (error) {
+            console.error("Change password error:", error);
+
+            showToast(
+                error instanceof Error
+                    ? error.message
+                    : "Something went wrong",
+                "error",
+                true,
+                undefined,
+                true
+            );
+        } finally {
+            setPasswordLoading(false);
+        }
+    };
+
     // Cancel editing
     const onCancel = () => {
         reset({
@@ -254,6 +346,15 @@ const UserProfile = ({ data }: PropsType) => {
         }
     };
 
+    const togglePasswordVisibility = (
+        key: keyof typeof showPasswords
+    ) => {
+        setShowPasswords((prev) => ({
+            ...prev,
+            [key]: !prev[key],
+        }));
+    };
+
     const fadeUp = {
         initial: shouldReduceMotion ? false : { opacity: 0, y: 20 },
         animate: { opacity: 1, y: 0 },
@@ -262,6 +363,27 @@ const UserProfile = ({ data }: PropsType) => {
 
     const inputClass =
         "w-full rounded-xl border border-white/10 bg-[#0D0D0C]/70 px-4 py-3 text-sm text-[#F8F2E6] outline-none transition duration-200 placeholder:text-[#807464] hover:border-[#E7C9A5]/40 focus:border-[#E7C9A5] focus:ring-4 focus:ring-[#E7C9A5]/10 dark:border-[#A87938]/20 dark:bg-white/70 dark:text-[#17130F] dark:placeholder:text-[#9A8873] dark:hover:border-[#A87938]/50 dark:focus:border-[#A87938] dark:focus:ring-[#A87938]/10";
+
+    const passwordFields = [
+        {
+            name: "currentPassword",
+            label: "Current Password",
+            key: "current",
+            autoComplete: "current-password",
+        },
+        {
+            name: "newPassword",
+            label: "New Password",
+            key: "new",
+            autoComplete: "new-password",
+        },
+        {
+            name: "confirmPassword",
+            label: "Confirm New Password",
+            key: "confirm",
+            autoComplete: "new-password",
+        },
+    ] as const;
 
     return (
         <motion.div
@@ -376,7 +498,10 @@ const UserProfile = ({ data }: PropsType) => {
                                         color="yellow"
                                         iconAddress={imagesAddresses.icons.saveWhite}
                                         iconPosition="center"
-                                        containerClassName={`!w-fit ${loading ? "pointer-events-none opacity-50" : "cursor-pointer"}`}
+                                        containerClassName={`!w-fit ${loading
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
+                                            }`}
                                         onClick={handleSubmit(onSave)}
                                     />
                                 </div>
@@ -387,7 +512,10 @@ const UserProfile = ({ data }: PropsType) => {
                                         color="yellow"
                                         iconAddress={imagesAddresses.icons.save}
                                         iconPosition="center"
-                                        containerClassName={`!w-fit ${loading ? "pointer-events-none opacity-50" : "cursor-pointer"}`}
+                                        containerClassName={`!w-fit ${loading
+                                            ? "pointer-events-none opacity-50"
+                                            : "cursor-pointer"
+                                            }`}
                                         onClick={handleSubmit(onSave)}
                                     />
                                 </div>
@@ -429,9 +557,7 @@ const UserProfile = ({ data }: PropsType) => {
                                 width={150}
                                 height={150}
                                 onClick={changeProfileImage}
-                                className={`relative h-[120px] w-[120px] rounded-full border-4 border-[#0D0D0C] object-cover shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:border-[#F8F2E6] ${isEditing
-                                    ? "cursor-pointer"
-                                    : ""
+                                className={`relative h-[120px] w-[120px] rounded-full border-4 border-[#0D0D0C] object-cover shadow-[0_8px_30px_rgba(0,0,0,0.25)] dark:border-[#F8F2E6] ${isEditing ? "cursor-pointer" : ""
                                     }`}
                             />
 
@@ -655,6 +781,190 @@ const UserProfile = ({ data }: PropsType) => {
                         })}
                     </motion.form>
                 </div>
+
+                {/* Change Password */}
+                <motion.div
+                    {...fadeUp}
+                    className="rounded-2xl border border-white/10 bg-[#171614]/70 p-5 dark:border-[#A87938]/15 dark:bg-[#F2E9DA]/70 md:p-7"
+                >
+                    <div className="mb-6 border-b border-white/10 pb-5 dark:border-[#A87938]/20">
+                        <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E7C9A5]/10 text-[#E7C9A5] dark:bg-[#A87938]/10 dark:text-[#A87938]">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    className="h-5 w-5"
+                                    stroke="currentColor"
+                                    strokeWidth="1.7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <rect
+                                        x="4"
+                                        y="10"
+                                        width="16"
+                                        height="11"
+                                        rx="2"
+                                    />
+                                    <path d="M8 10V7a4 4 0 1 1 8 0v3" />
+                                    <path d="M12 14v3" />
+                                </svg>
+                            </div>
+
+                            <div>
+                                <h3 className="text-lg font-semibold text-[#F8F2E6] dark:text-[#17130F]">
+                                    Security &{" "}
+                                    <span className="text-[#E7C9A5] dark:text-[#A87938]">
+                                        Password
+                                    </span>
+                                </h3>
+
+                                <p className="mt-1 text-xs text-[#B8AA98] dark:text-[#75634E]">
+                                    Update your password to keep your account secure.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form
+                        onSubmit={handlePasswordSubmit(onChangePassword)}
+                        className="grid grid-cols-1 gap-5 sm:grid-cols-2"
+                    >
+                        {passwordFields.map((field, index) => {
+                            const error = passwordErrors[field.name];
+
+                            return (
+                                <motion.div
+                                    key={field.name}
+                                    initial={
+                                        shouldReduceMotion
+                                            ? false
+                                            : { opacity: 0, y: 10 }
+                                    }
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                        duration: shouldReduceMotion ? 0 : 0.35,
+                                        delay: shouldReduceMotion
+                                            ? 0
+                                            : index * 0.07,
+                                    }}
+                                    className={`flex min-w-0 flex-col gap-2 ${index === 2 ? "sm:col-span-2" : ""
+                                        }`}
+                                >
+                                    <label
+                                        htmlFor={field.name}
+                                        className="text-sm font-medium text-[#B8AA98] dark:text-[#75634E]"
+                                    >
+                                        {field.label}
+                                    </label>
+
+                                    <div className="relative">
+                                        <input
+                                            id={field.name}
+                                            type={
+                                                showPasswords[field.key]
+                                                    ? "text"
+                                                    : "password"
+                                            }
+                                            autoComplete={field.autoComplete}
+                                            placeholder={`Enter ${field.label.toLowerCase()}`}
+                                            {...registerPassword(field.name, {
+                                                required: `${field.label} is required`,
+                                                ...(field.name !== "currentPassword"
+                                                    ? {
+                                                        minLength: {
+                                                            value: 8,
+                                                            message: "Password must be at least 8 characters",
+                                                        },
+                                                    }
+                                                    : {}),
+                                                ...(field.name === "confirmPassword"
+                                                    ? {
+                                                        validate: (value) =>
+                                                            value === watch("newPassword") ||
+                                                            "Passwords do not match",
+                                                    }
+                                                    : {}),
+                                            })}
+                                            className={`${inputClass} !pr-12 ${error ? "!border-red-500 focus:!ring-red-500/10" : ""
+                                                }`}
+                                        />
+
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                togglePasswordVisibility(field.key)
+                                            }
+                                            aria-label={
+                                                showPasswords[field.key]
+                                                    ? "Hide password"
+                                                    : "Show password"
+                                            }
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-[#B8AA98] transition hover:text-[#E7C9A5] focus:outline-none dark:hover:text-[#A87938]"
+                                        >
+                                            {showPasswords[field.key] ? (
+                                                <svg
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    className="h-5 w-5"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.7"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                >
+                                                    <path d="M3 3l18 18" />
+                                                    <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                                                    <path d="M9.9 5.2A11 11 0 0 1 21 12a11 11 0 0 1-3.2 4.5" />
+                                                    <path d="M6.2 6.2A11 11 0 0 0 3 12a11 11 0 0 0 6.4 6.3 10.8 10.8 0 0 0 5.2.5" />
+                                                </svg>
+                                            ) : (
+                                                <svg
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    className="h-5 w-5"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.7"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                >
+                                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                            )}
+                                        </button>
+                                    </div>
+
+                                    {error && (
+                                        <p
+                                            role="alert"
+                                            className="text-xs text-red-400 dark:text-red-600"
+                                        >
+                                            {error.message}
+                                        </p>
+                                    )}
+                                </motion.div>
+                            );
+                        })}
+
+                        <div className="flex justify-end sm:col-span-2">
+                            <CustomButton
+                                text={
+                                    passwordLoading
+                                        ? "Updating..."
+                                        : "Update Password"
+                                }
+                                color="yellow"
+                                iconAddress={imagesAddresses.icons.save}
+                                iconPosition="center"
+                                containerClassName={`!w-fit ${passwordLoading
+                                    ? "pointer-events-none opacity-50"
+                                    : "cursor-pointer"
+                                    }`}
+                                onClick={handlePasswordSubmit(onChangePassword)}
+                            />
+                        </div>
+                    </form>
+                </motion.div>
 
                 {/* Footer note */}
                 <motion.div
