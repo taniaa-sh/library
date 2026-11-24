@@ -51,6 +51,7 @@ const fields = [
 ] as const;
 
 const UserProfile = ({ data }: PropsType) => {
+    const [isPasswordOpen, setIsPasswordOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [passwordLoading, setPasswordLoading] = useState(false);
@@ -213,10 +214,10 @@ const UserProfile = ({ data }: PropsType) => {
             showToast(
                 "Profile updated successfully",
                 "success",
-                true,
-                undefined,
-                true
             );
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
 
         } catch (error) {
             console.error("Update profile error:", error);
@@ -226,9 +227,6 @@ const UserProfile = ({ data }: PropsType) => {
                     ? error.message
                     : "Something went wrong",
                 "error",
-                true,
-                undefined,
-                true
             );
         } finally {
             setLoading(false);
@@ -283,6 +281,9 @@ const UserProfile = ({ data }: PropsType) => {
                 confirm: false,
             });
             showToast("Password changed successfully", "success");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
 
         } catch (error) {
             console.error("Change password error:", error);
@@ -292,9 +293,6 @@ const UserProfile = ({ data }: PropsType) => {
                     ? error.message
                     : "Something went wrong",
                 "error",
-                true,
-                undefined,
-                true
             );
         } finally {
             setPasswordLoading(false);
@@ -785,11 +783,17 @@ const UserProfile = ({ data }: PropsType) => {
                 {/* Change Password */}
                 <motion.div
                     {...fadeUp}
-                    className="rounded-2xl border border-white/10 bg-[#171614]/70 p-5 dark:border-[#A87938]/15 dark:bg-[#F2E9DA]/70 md:p-7"
+                    className="overflow-hidden rounded-2xl border border-white/10 bg-[#171614]/70 dark:border-[#A87938]/15 dark:bg-[#F2E9DA]/70"
                 >
-                    <div className="mb-6 border-b border-white/10 pb-5 dark:border-[#A87938]/20">
-                        <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E7C9A5]/10 text-[#E7C9A5] dark:bg-[#A87938]/10 dark:text-[#A87938]">
+                    {/* Accordion Header */}
+                    <button
+                        type="button"
+                        onClick={() => setIsPasswordOpen((prev) => !prev)}
+                        aria-expanded={isPasswordOpen}
+                        className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors hover:bg-white/[0.03] dark:hover:bg-[#A87938]/[0.04] md:p-7"
+                    >
+                        <div className="flex min-w-0 items-center gap-3">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E7C9A5]/10 text-[#E7C9A5] dark:bg-[#A87938]/10 dark:text-[#A87938]">
                                 <svg
                                     viewBox="0 0 24 24"
                                     fill="none"
@@ -799,19 +803,13 @@ const UserProfile = ({ data }: PropsType) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 >
-                                    <rect
-                                        x="4"
-                                        y="10"
-                                        width="16"
-                                        height="11"
-                                        rx="2"
-                                    />
+                                    <rect x="4" y="10" width="16" height="11" rx="2" />
                                     <path d="M8 10V7a4 4 0 1 1 8 0v3" />
                                     <path d="M12 14v3" />
                                 </svg>
                             </div>
 
-                            <div>
+                            <div className="min-w-0">
                                 <h3 className="text-lg font-semibold text-[#F8F2E6] dark:text-[#17130F]">
                                     Security &{" "}
                                     <span className="text-[#E7C9A5] dark:text-[#A87938]">
@@ -824,146 +822,207 @@ const UserProfile = ({ data }: PropsType) => {
                                 </p>
                             </div>
                         </div>
-                    </div>
 
-                    <form
-                        onSubmit={handlePasswordSubmit(onChangePassword)}
-                        className="grid grid-cols-1 gap-5 sm:grid-cols-2"
-                    >
-                        {passwordFields.map((field, index) => {
-                            const error = passwordErrors[field.name];
+                        {/* Arrow */}
+                        <motion.div
+                            animate={{ rotate: isPasswordOpen ? 180 : 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/5 text-[#E7C9A5] dark:bg-[#A87938]/10 dark:text-[#A87938]"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                className="h-5 w-5"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        </motion.div>
+                    </button>
 
-                            return (
-                                <motion.div
-                                    key={field.name}
-                                    initial={
-                                        shouldReduceMotion
-                                            ? false
-                                            : { opacity: 0, y: 10 }
-                                    }
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
-                                        duration: shouldReduceMotion ? 0 : 0.35,
-                                        delay: shouldReduceMotion
-                                            ? 0
-                                            : index * 0.07,
-                                    }}
-                                    className={`flex min-w-0 flex-col gap-2 ${index === 2 ? "sm:col-span-2" : ""
-                                        }`}
+                    {/* Accordion Content */}
+                    <AnimatePresence initial={false}>
+                        {isPasswordOpen && (
+                            <motion.div
+                                key="password-form"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="overflow-hidden"
+                            >
+                                <div className="mx-5 border-t border-white/10 dark:border-[#A87938]/20 md:mx-7" />
+
+                                <form
+                                    onSubmit={handlePasswordSubmit(onChangePassword)}
+                                    className="grid grid-cols-1 gap-5 p-5 sm:grid-cols-2 md:p-7"
                                 >
-                                    <label
-                                        htmlFor={field.name}
-                                        className="text-sm font-medium text-[#B8AA98] dark:text-[#75634E]"
-                                    >
-                                        {field.label}
-                                    </label>
+                                    {passwordFields.map((field, index) => {
+                                        const error = passwordErrors[field.name];
 
-                                    <div className="relative">
-                                        <input
-                                            id={field.name}
-                                            type={
-                                                showPasswords[field.key]
-                                                    ? "text"
-                                                    : "password"
+                                        return (
+                                            <motion.div
+                                                key={field.name}
+                                                initial={
+                                                    shouldReduceMotion
+                                                        ? false
+                                                        : { opacity: 0, y: 10 }
+                                                }
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{
+                                                    duration: shouldReduceMotion ? 0 : 0.3,
+                                                    delay: shouldReduceMotion
+                                                        ? 0
+                                                        : index * 0.06,
+                                                }}
+                                                className={`flex min-w-0 flex-col gap-2 ${index === 2 ? "sm:col-span-2" : ""
+                                                    }`}
+                                            >
+                                                <label
+                                                    htmlFor={field.name}
+                                                    className="text-sm font-medium text-[#B8AA98] dark:text-[#75634E]"
+                                                >
+                                                    {field.label}
+                                                </label>
+
+                                                <div className="relative">
+                                                    <input
+                                                        id={field.name}
+                                                        type={
+                                                            showPasswords[field.key]
+                                                                ? "text"
+                                                                : "password"
+                                                        }
+                                                        autoComplete={field.autoComplete}
+                                                        placeholder={`Enter ${field.label.toLowerCase()}`}
+                                                        {...registerPassword(field.name, {
+                                                            required: `${field.label} is required`,
+                                                            ...(field.name !== "currentPassword"
+                                                                ? {
+                                                                    minLength: {
+                                                                        value: 8,
+                                                                        message:
+                                                                            "Password must be at least 8 characters",
+                                                                    },
+                                                                }
+                                                                : {}),
+                                                            ...(field.name === "confirmPassword"
+                                                                ? {
+                                                                    validate: (value) =>
+                                                                        value ===
+                                                                        watch("newPassword") ||
+                                                                        "Passwords do not match",
+                                                                }
+                                                                : {}),
+                                                        })}
+                                                        className={`${inputClass} !pr-12 ${error
+                                                            ? "!border-red-500 focus:!ring-red-500/10"
+                                                            : ""
+                                                            }`}
+                                                    />
+
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            togglePasswordVisibility(field.key)
+                                                        }
+                                                        aria-label={
+                                                            showPasswords[field.key]
+                                                                ? "Hide password"
+                                                                : "Show password"
+                                                        }
+                                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-[#B8AA98] transition hover:text-[#E7C9A5] focus:outline-none dark:hover:text-[#A87938]"
+                                                    >
+                                                        {showPasswords[field.key] ? (
+                                                            <svg
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                className="h-5 w-5"
+                                                                stroke="currentColor"
+                                                                strokeWidth="1.7"
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                            >
+                                                                <path d="M3 3l18 18" />
+                                                                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                                                                <path d="M9.9 5.2A11 11 0 0 1 21 12a11 11 0 0 1-3.2 4.5" />
+                                                                <path d="M6.2 6.2A11 11 0 0 0 3 12a11 11 0 0 0 6.4 6.3 10.8 10.8 0 0 0 5.2.5" />
+                                                            </svg>
+                                                        ) : (
+                                                            <svg
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                className="h-5 w-5"
+                                                                stroke="currentColor"
+                                                                strokeWidth="1.7"
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                            >
+                                                                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                                                                <circle
+                                                                    cx="12"
+                                                                    cy="12"
+                                                                    r="3"
+                                                                />
+                                                            </svg>
+                                                        )}
+                                                    </button>
+                                                </div>
+
+                                                {error && (
+                                                    <p
+                                                        role="alert"
+                                                        className="text-xs text-red-400 dark:text-red-600"
+                                                    >
+                                                        {error.message}
+                                                    </p>
+                                                )}
+                                            </motion.div>
+                                        );
+                                    })}
+
+                                    <div className="hidden dark:block">
+                                        <CustomButton
+                                            text={
+                                                passwordLoading
+                                                    ? "Updating..."
+                                                    : "Update Password"
                                             }
-                                            autoComplete={field.autoComplete}
-                                            placeholder={`Enter ${field.label.toLowerCase()}`}
-                                            {...registerPassword(field.name, {
-                                                required: `${field.label} is required`,
-                                                ...(field.name !== "currentPassword"
-                                                    ? {
-                                                        minLength: {
-                                                            value: 8,
-                                                            message: "Password must be at least 8 characters",
-                                                        },
-                                                    }
-                                                    : {}),
-                                                ...(field.name === "confirmPassword"
-                                                    ? {
-                                                        validate: (value) =>
-                                                            value === watch("newPassword") ||
-                                                            "Passwords do not match",
-                                                    }
-                                                    : {}),
-                                            })}
-                                            className={`${inputClass} !pr-12 ${error ? "!border-red-500 focus:!ring-red-500/10" : ""
+                                            color="yellow"
+                                            iconAddress={imagesAddresses.icons.saveWhite}
+                                            iconPosition="center"
+                                            containerClassName={`!w-fit ${passwordLoading
+                                                ? "pointer-events-none opacity-50"
+                                                : "cursor-pointer"
                                                 }`}
+                                            onClick={handlePasswordSubmit(onChangePassword)}
                                         />
-
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                togglePasswordVisibility(field.key)
-                                            }
-                                            aria-label={
-                                                showPasswords[field.key]
-                                                    ? "Hide password"
-                                                    : "Show password"
-                                            }
-                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-[#B8AA98] transition hover:text-[#E7C9A5] focus:outline-none dark:hover:text-[#A87938]"
-                                        >
-                                            {showPasswords[field.key] ? (
-                                                <svg
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    className="h-5 w-5"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.7"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="M3 3l18 18" />
-                                                    <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
-                                                    <path d="M9.9 5.2A11 11 0 0 1 21 12a11 11 0 0 1-3.2 4.5" />
-                                                    <path d="M6.2 6.2A11 11 0 0 0 3 12a11 11 0 0 0 6.4 6.3 10.8 10.8 0 0 0 5.2.5" />
-                                                </svg>
-                                            ) : (
-                                                <svg
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    className="h-5 w-5"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.7"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
-                                                    <circle cx="12" cy="12" r="3" />
-                                                </svg>
-                                            )}
-                                        </button>
                                     </div>
 
-                                    {error && (
-                                        <p
-                                            role="alert"
-                                            className="text-xs text-red-400 dark:text-red-600"
-                                        >
-                                            {error.message}
-                                        </p>
-                                    )}
-                                </motion.div>
-                            );
-                        })}
-
-                        <div className="flex justify-end sm:col-span-2">
-                            <CustomButton
-                                text={
-                                    passwordLoading
-                                        ? "Updating..."
-                                        : "Update Password"
-                                }
-                                color="yellow"
-                                iconAddress={imagesAddresses.icons.save}
-                                iconPosition="center"
-                                containerClassName={`!w-fit ${passwordLoading
-                                    ? "pointer-events-none opacity-50"
-                                    : "cursor-pointer"
-                                    }`}
-                                onClick={handlePasswordSubmit(onChangePassword)}
-                            />
-                        </div>
-                    </form>
+                                    <div className="dark:hidden">
+                                        <CustomButton
+                                            text={
+                                                passwordLoading
+                                                    ? "Updating..."
+                                                    : "Update Password"
+                                            }
+                                            color="yellow"
+                                            iconAddress={imagesAddresses.icons.save}
+                                            iconPosition="center"
+                                            containerClassName={`!w-fit ${passwordLoading
+                                                ? "pointer-events-none opacity-50"
+                                                : "cursor-pointer"
+                                                }`}
+                                            onClick={handlePasswordSubmit(onChangePassword)}
+                                        />
+                                    </div>
+                                </form>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.div>
 
                 {/* Footer note */}
