@@ -9,6 +9,8 @@ import FlipBookPreview from "../_components/FlipBookPreview";
 import BookReviews from "../_components/BookReviews";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { RotateCcw } from "lucide-react";
+import { RotateCw } from "lucide-react";
 
 interface Book {
     _id: string;
@@ -30,11 +32,11 @@ interface Review {
     _id: string;
     bookId: number;
     userId:
-        | {
-              _id: string;
-              fullName: string;
-          }
-        | string;
+    | {
+        _id: string;
+        fullName: string;
+    }
+    | string;
     rating: number;
     comment: string;
     createdAt: string;
@@ -67,16 +69,16 @@ const BookDetailClient = ({
     const [soundAdjustment, setSoundAdjustment] = useState(false);
 
     const bookReviews = reviewsData.filter(
-    (review) => review.bookId === bookId
-);
+        (review) => review.bookId === bookId
+    );
 
-const averageRating =
-    bookReviews.length > 0
-        ? bookReviews.reduce(
-              (total, review) => total + review.rating,
-              0
-          ) / bookReviews.length
-        : 0;
+    const averageRating =
+        bookReviews.length > 0
+            ? bookReviews.reduce(
+                (total, review) => total + review.rating,
+                0
+            ) / bookReviews.length
+            : 0;
 
     const togglePlay = async () => {
         const video = videoRef.current;
@@ -403,20 +405,16 @@ const averageRating =
                                                         onClick={() => skipVideo(-5)}
                                                         className="rounded-lg p-1.5 opacity-80 transition hover:bg-white/5 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 dark:hover:bg-[#A87938]/10"
                                                     >
-                                                        <Image
-                                                            src={imagesAddresses.icons.backward}
-                                                            alt=""
-                                                            width={21}
-                                                            height={21}
-                                                            className="dark:block hidden"
-                                                        />
-                                                        <Image
-                                                            src={imagesAddresses.icons.backward}
-                                                            alt=""
-                                                            width={21}
-                                                            height={21}
-                                                            className="dark:hidden invert"
-                                                        />
+                                                        <div className="relative inline-flex items-center justify-center">
+                                                            <RotateCcw
+                                                                size={25}
+                                                                strokeWidth={1.5}
+                                                                className="dark:text-[#101828] text-white"
+                                                            />
+                                                            <span className="absolute text-[12px] font-semibold leading-none dark:text-[#101828] text-white">
+                                                                5
+                                                            </span>
+                                                        </div>
                                                     </button>
 
                                                     <button
@@ -446,20 +444,16 @@ const averageRating =
                                                         onClick={() => skipVideo(5)}
                                                         className="rounded-lg p-1.5 opacity-80 transition hover:bg-white/5 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-30 dark:hover:bg-[#A87938]/10"
                                                     >
-                                                        <Image
-                                                            src={imagesAddresses.icons.forward}
-                                                            alt=""
-                                                            width={21}
-                                                            height={21}
-                                                            className="dark:block hidden"
-                                                        />
-                                                        <Image
-                                                            src={imagesAddresses.icons.forward}
-                                                            alt=""
-                                                            width={21}
-                                                            height={21}
-                                                            className="dark:hidden invert"
-                                                        />
+                                                        <div className="relative inline-flex items-center justify-center">
+                                                            <RotateCw
+                                                                size={25}
+                                                                strokeWidth={1.5}
+                                                                className="dark:text-[#101828] text-white"
+                                                            />
+                                                            <span className="absolute text-[12px] font-semibold leading-none dark:text-[#101828] text-white">
+                                                                5
+                                                            </span>
+                                                        </div>
                                                     </button>
                                                 </div>
 
